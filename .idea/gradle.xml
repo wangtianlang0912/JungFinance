@@ -11,7 +11,15 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/library" />
+            <option value="$PROJECT_DIR$/library/common" />
+            <option value="$PROJECT_DIR$/library/irecyclerview" />
+            <option value="$PROJECT_DIR$/library/jcvideoplayer" />
+            <option value="$PROJECT_DIR$/library/oneKeyShareSDK" />
+            <option value="$PROJECT_DIR$/library/photoPicker" />
+            <option value="$PROJECT_DIR$/library/selectordialog" />
             <option value="$PROJECT_DIR$/sdk" />
+            <option value="$PROJECT_DIR$/yizhi" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

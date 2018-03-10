@@ -1,39 +1,21 @@
 apply plugin: 'com.android.application'
-apply plugin: 'bugly'
-
-bugly {
-    appId = "c73ecc54da"
-    appKey = "27580d71-8095-4e00-8212-85b9ddf985a4"
-}
-def buildTime() {
-    def date = new Date()
-    def formattedDate = date.format('yyyyMMdd')
-    return formattedDate
+def releaseTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC"))
 }
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
-    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdkVersion 23
+    buildToolsVersion "25.0.3"
+
     defaultConfig {
-        applicationId "com.zyw.horrarndoo.yizhi"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 18
-        versionName "1.0.18"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        vectorDrawables.useSupportLibrary = true
-        ndk { abiFilters "armeabi", "x86_64", "x86" }
+        applicationId "jaydenxiao.com.androidfire"
+        minSdkVersion 15
+        targetSdkVersion 25
+        versionCode 4
+        versionName "1.0.3"
     }
     buildTypes {
-        debug {
-            minifyEnabled false
-            //Zipalign优化
-            zipAlignEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-
         release {
-            // 不显示Log
             buildConfigField "boolean", "LOG_DEBUG", "false"
             //混淆
             minifyEnabled true
@@ -42,37 +24,45 @@ android {
             // 移除无用的resource文件
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-            applicationVariants.all { variant ->
+            //apk命名
+            android.applicationVariants.all { variant ->
                 variant.outputs.each { output ->
-                    if (output.outputFile != null && output.outputFile.name.endsWith('.apk')
-                            && 'release'.equals(variant.buildType.name)) {
-                        def apkFile = new File(
-                                output.outputFile.getParent(),
-                                "YiZhi_${variant.flavorName}_v${variant.versionName}_${buildTime()}.apk")
-                        output.outputFile = apkFile
+                    def outputFile = output.outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        //这里修改apk文件名
+                        def fileName = "AndroidFire-${defaultConfig.versionCode}-${defaultConfig.versionName}-${releaseTime()}.apk"
+                        output.outputFile = new File(outputFile.parent, fileName)
                     }
                 }
             }
         }
+        debug{
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            minifyEnabled false
+            zipAlignEnabled false
+            shrinkResources false
+        }
     }
-    lintOptions{
+    //设置虚拟机堆内存空间大小，避免在编译期间OOM
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
+    }
+    //打包不检查
+    lintOptions {
         checkReleaseBuilds false
         abortOnError false
     }
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:25.3.1'
-    //Butterknife
-    //    compile "com.jakewharton:butterknife:$rootProject.butterknifeVersion"
-    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterknifeVersion"
-    testCompile 'junit:junit:4.12'
-    //    compile project(':sdk')
-    releaseCompile project(path: ':sdk', configuration: 'release')
-    debugCompile project(path: ':sdk', configuration: 'debug')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile project(':library:photoPicker')//图片选择
+    compile project(':library:irecyclerview')//万能适配器和recyclerview
+    compile project(':library:oneKeyShareSDK')//分享
+    compile project(':library:jcvideoplayer')//视频播放
+    compile project(':library:selectordialog')//常用提示框
+
+
 }
