@@ -1,15 +1,9 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '25.0.3'
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
-    defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 40
-        versionName "4.6.4"
-    }
     buildTypes {
         release {
             minifyEnabled false

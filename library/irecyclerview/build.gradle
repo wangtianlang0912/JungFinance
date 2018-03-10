@@ -1,15 +1,9 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "25.0.3"
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
 
-    defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 3
-        versionName "0.0.3"
-    }
     buildTypes {
         release {
             buildConfigField "boolean", "LOG_DEBUG", "false"

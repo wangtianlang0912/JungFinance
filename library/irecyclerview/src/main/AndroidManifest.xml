@@ -1,2 +1,5 @@
-<manifest package="com.aspsine.irecyclerview"/>
+<manifest package="com.aspsine.irecyclerview">
+    <application></application>
+
+</manifest>
 
