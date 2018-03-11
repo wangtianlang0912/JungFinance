@@ -16,7 +16,8 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jung.finance.R;
 import com.jung.finance.app.AppConstant;
 import com.jung.finance.bean.TabEntity;
-import com.jung.finance.ui.main.fragment.CareMainFragment;
+import com.jung.finance.ui.main.fragment.CommentMainFragment;
+import com.jung.finance.ui.main.fragment.MineFragment;
 import com.jung.finance.ui.main.fragment.NewsMainFragment;
 import com.jung.finance.ui.main.fragment.PhotosMainFragment;
 import com.jung.finance.ui.main.fragment.VideoMainFragment;
@@ -53,7 +54,8 @@ public class MainActivity extends BaseActivity {
     private NewsMainFragment newsMainFragment;
     private PhotosMainFragment photosMainFragment;
     private VideoMainFragment videoMainFragment;
-    private CareMainFragment careMainFragment;
+    private CommentMainFragment commentMainFragment;
+    private MineFragment mineFragment;
     private static int tabLayoutHeight;
 
     /**
@@ -142,18 +144,21 @@ public class MainActivity extends BaseActivity {
             newsMainFragment = (NewsMainFragment) getSupportFragmentManager().findFragmentByTag("newsMainFragment");
             photosMainFragment = (PhotosMainFragment) getSupportFragmentManager().findFragmentByTag("photosMainFragment");
             videoMainFragment = (VideoMainFragment) getSupportFragmentManager().findFragmentByTag("videoMainFragment");
-            careMainFragment = (CareMainFragment) getSupportFragmentManager().findFragmentByTag("careMainFragment");
+            commentMainFragment = (CommentMainFragment) getSupportFragmentManager().findFragmentByTag("commentMainFragment");
+            mineFragment = (MineFragment) getSupportFragmentManager().findFragmentByTag("mineFragment");
             currentTabPosition = savedInstanceState.getInt(AppConstant.HOME_CURRENT_TAB_POSITION);
         } else {
             newsMainFragment = new NewsMainFragment();
             photosMainFragment = new PhotosMainFragment();
             videoMainFragment = new VideoMainFragment();
-            careMainFragment = new CareMainFragment();
+            commentMainFragment = new CommentMainFragment();
+            mineFragment = new MineFragment();
 
             transaction.add(R.id.fl_body, newsMainFragment, "newsMainFragment");
             transaction.add(R.id.fl_body, photosMainFragment, "photosMainFragment");
             transaction.add(R.id.fl_body, videoMainFragment, "videoMainFragment");
-            transaction.add(R.id.fl_body, careMainFragment, "careMainFragment");
+            transaction.add(R.id.fl_body,commentMainFragment,"commentMainFragment");
+            transaction.add(R.id.fl_body, mineFragment, "mineFragment");
         }
         transaction.commit();
         SwitchTo(currentTabPosition);
@@ -171,15 +176,17 @@ public class MainActivity extends BaseActivity {
             case 0:
                 transaction.hide(photosMainFragment);
                 transaction.hide(videoMainFragment);
-                transaction.hide(careMainFragment);
+                transaction.hide(commentMainFragment);
+                transaction.hide(mineFragment);
                 transaction.show(newsMainFragment);
                 transaction.commitAllowingStateLoss();
                 break;
-            //美女
+            // 快讯
             case 1:
                 transaction.hide(newsMainFragment);
                 transaction.hide(videoMainFragment);
-                transaction.hide(careMainFragment);
+                transaction.hide(commentMainFragment);
+                transaction.hide(mineFragment);
                 transaction.show(photosMainFragment);
                 transaction.commitAllowingStateLoss();
                 break;
@@ -187,16 +194,27 @@ public class MainActivity extends BaseActivity {
             case 2:
                 transaction.hide(newsMainFragment);
                 transaction.hide(photosMainFragment);
-                transaction.hide(careMainFragment);
+                transaction.hide(commentMainFragment);
+                transaction.hide(mineFragment);
                 transaction.show(videoMainFragment);
                 transaction.commitAllowingStateLoss();
                 break;
-            //关注
+            // 快评
             case 3:
                 transaction.hide(newsMainFragment);
                 transaction.hide(photosMainFragment);
                 transaction.hide(videoMainFragment);
-                transaction.show(careMainFragment);
+                transaction.hide(mineFragment);
+                transaction.show(commentMainFragment);
+                transaction.commitAllowingStateLoss();
+                break;
+            // 我的
+            case 4:
+                transaction.hide(newsMainFragment);
+                transaction.hide(photosMainFragment);
+                transaction.hide(videoMainFragment);
+                transaction.hide(commentMainFragment);
+                transaction.show(mineFragment);
                 transaction.commitAllowingStateLoss();
                 break;
             default:

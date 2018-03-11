@@ -6,4 +6,5 @@
     <color name="primary_text_white">#deffffff</color>
     <!--87%white-->
     <color name="progress_bar_unfinished">#D4D4D4</color>
+    <color name="divider_line">#cccccc</color>
 </resources>
