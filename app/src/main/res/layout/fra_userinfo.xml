@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:background="@color/_f2a924">
+
+        <ImageView
+            android:id="@+id/logo_view"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/blant_logo" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp">
+
+        <TextView
+            android:id="@+id/nick_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:text="@string/nick_name"
+            android:textColor="@color/_333333"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/nick_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/nick_text"
+            android:background="@null"
+            android:ellipsize="end"
+            android:lines="1"
+            android:padding="8dp"
+            android:textColor="@color/_333333"
+            android:textSize="13sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_alignLeft="@id/nick_edit"
+            android:layout_below="@id/nick_edit"
+            android:background="@color/divider_line" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp">
+
+        <TextView
+            android:id="@+id/desp_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/description"
+            android:textColor="@color/_333333"
+            android:textSize="13sp" />
+
+        <EditText
+            android:id="@+id/desp_edit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/desp_text"
+            android:background="@drawable/bg_description_edit"
+            android:gravity="start"
+            android:hint="@string/description_hint"
+            android:minLines="3"
+            android:padding="8dp"
+            android:textColor="@color/_333333"
+            android:textColorHint="@color/divider_line"
+            android:textSize="13sp" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/submit_btn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="20dp"
+        android:background="@drawable/selector_btn"
+        android:text="@string/submit"
+        android:textColor="@color/_333333"
+        android:textSize="13sp" />
+
+</LinearLayout>

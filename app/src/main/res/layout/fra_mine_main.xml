@@ -393,8 +393,6 @@
                 android:background="@color/divider_line" />
 
 
-
-
         </LinearLayout>
 
     </LinearLayout>
