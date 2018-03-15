@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <EditText
+        android:id="@+id/old_pwd_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@null"
+        android:hint="@string/old_pwd_hint"
+        android:inputType="textPassword"
+        android:lines="1"
+        android:padding="15dp"
+        android:textColor="@color/_333333"
+        android:textColorHint="@color/_bbbbbb"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divider_line" />
+
+
+    <EditText
+        android:id="@+id/new_pwd_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@null"
+        android:hint="@string/new_pwd_hint"
+        android:inputType="textPassword"
+        android:lines="1"
+        android:padding="15dp"
+        android:textColor="@color/_333333"
+        android:textColorHint="@color/_bbbbbb"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divider_line" />
+
+
+    <EditText
+        android:id="@+id/confirm_pwd_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="@null"
+        android:hint="@string/confirm_pwd_hint"
+        android:inputType="textPassword"
+        android:lines="1"
+        android:padding="15dp"
+        android:textColor="@color/_333333"
+        android:textColorHint="@color/_bbbbbb"
+        android:textSize="14sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/divider_line" />
+
+
+    <Button
+        android:id="@+id/save_btn"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/selector_btn"
+        android:text="@string/save"
+        android:textColor="@color/_333333"
+        android:textSize="13sp" />
+</LinearLayout>

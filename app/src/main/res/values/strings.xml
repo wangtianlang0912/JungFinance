@@ -81,4 +81,22 @@
     <string name="logout">注销登录</string>
     <string name="bind_phone">绑定手机号</string>
     <string name="update_pwd">修改密码</string>
+    <string name="verifycode">获取验证码</string>
+    <string name="old_pwd_hint">输入旧密码</string>
+    <string name="mobile_hint">输入手机号</string>
+    <string name="verifycode_hint">输入手机验证码</string>
+    <string name="new_pwd_hint">输入新密码</string>
+    <string name="confirm_pwd_hint">验证密码</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
+    <string name="forget_pwd">忘记密码</string>
+    <string name="setting">设置</string>
+    <string name="register_pwd_hint">输入密码（6-24位字母或数字组合）</string>
+    <string name="login_refer">已有账号？</string>
+    <string name="go_login">去登录</string>
+    <string name="register_refer">注册新用户</string>
+    <string name="forget_pwd_refer">忘记密码？</string>
+    <string name="wechat_login">微信登录</string>
+    <string name="mobile_login">手机登录</string>
+    <string name="account_login">账号登录</string>
 </resources>

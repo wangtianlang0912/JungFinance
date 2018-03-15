@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jung.finance.R;
+import com.jung.finance.app.AppIntent;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonutils.ImageLoaderUtils;
 
@@ -94,8 +95,11 @@ public class MineFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting:
+                AppIntent.intentToSetting(getActivity());
                 break;
             case R.id.img_logo_layout:
+
+                AppIntent.intentToUserInfo(getActivity());
                 break;
             case R.id.subscribe_layout:
                 break;
