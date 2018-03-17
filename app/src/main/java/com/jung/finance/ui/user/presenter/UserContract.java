@@ -22,7 +22,7 @@ public interface UserContract {
         void returnRegisterResponse(UserInfo response);
     }
 
-    abstract static class RegisterPresenter extends BasePresenter<IRegisterView, IRegisterModel> {
+    abstract  class RegisterPresenter extends BasePresenter<IRegisterView, IRegisterModel> {
         public abstract void getVerifyCode(String phone);
 
         public abstract void register(String phone, String code, String pwd);
@@ -44,7 +44,7 @@ public interface UserContract {
         void returnLoginResponse(UserInfo response);
     }
 
-    abstract static class LoginPresenter extends BasePresenter<ILoginView, ILoginModel> {
+    abstract  class LoginPresenter extends BasePresenter<ILoginView, ILoginModel> {
         public abstract void getVerifyCode(String phone);
 
         public abstract void accountLogin(String phone, String pwd);
@@ -66,7 +66,7 @@ public interface UserContract {
         void returnSubmitResponse(UserInfo response);
     }
 
-    abstract static class ForgetPwdPresenter extends BasePresenter<IForgetPwdView, IForgetPwdModel> {
+    abstract  class ForgetPwdPresenter extends BasePresenter<IForgetPwdView, IForgetPwdModel> {
         public abstract void getVerifyCode(String phone);
 
         public abstract void submit(String phone, String code, String pwd);
@@ -86,7 +86,7 @@ public interface UserContract {
         void returnSubmitResponse(UserInfo response);
     }
 
-    abstract static class BindMobilePresenter extends BasePresenter<IBindMobileView, IBindMobileModel> {
+    abstract  class BindMobilePresenter extends BasePresenter<IBindMobileView, IBindMobileModel> {
         public abstract void getVerifyCode(String phone);
 
         public abstract void submit(String phone, String code, String pwd);
@@ -104,7 +104,7 @@ public interface UserContract {
         void returnSubmitResponse(UserInfo response);
     }
 
-    abstract static class UpdatePwdPresenter extends BasePresenter<IUpdatePwdView, IUpdatePwdModel> {
+    abstract  class UpdatePwdPresenter extends BasePresenter<IUpdatePwdView, IUpdatePwdModel> {
         public abstract void submit(String oldPwd, String newPwd);
     }
 }
