@@ -136,6 +136,10 @@ public class Api {
                 baseResponse.data = newInstance(typeOfT);
                 return baseResponse;
             }
+            if ("{}".equals(json.toString())) {
+                baseResponse.data = newInstance(typeOfT);
+                return baseResponse;
+            }
             if (json.isJsonObject()) {
                 JsonObject jsonObj = json.getAsJsonObject();
 

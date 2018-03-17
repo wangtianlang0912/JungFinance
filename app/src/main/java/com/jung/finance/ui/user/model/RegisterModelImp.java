@@ -3,6 +3,7 @@ package com.jung.finance.ui.user.model;
 
 import com.jung.finance.api.Api;
 import com.jung.finance.api.HostType;
+import com.jung.finance.ui.user.bean.UserInfo;
 import com.jung.finance.ui.user.presenter.UserContract;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
@@ -25,26 +26,26 @@ import rx.functions.Func1;
  */
 public class RegisterModelImp implements UserContract.IRegisterModel {
     @Override
-    public Observable<String> getVerifyCode(String phone) {
+    public Observable<BaseRespose<String>> getVerifyCode(String phone) {
 
         return Api.getDefault(HostType.Jung_FINANCE)
                 .getVerifyCode(phone)
-                .map(new Func1<BaseRespose<String>, String>() {
+                .map(new Func1<BaseRespose<String>, BaseRespose<String>>() {
                     @Override
-                    public String call(BaseRespose<String> respose) {
-                        return respose.data;
+                    public BaseRespose<String> call(BaseRespose<String> respose) {
+                        return respose;
                     }
-                }).compose(RxSchedulers.<String>io_main());
+                }).compose(RxSchedulers.<BaseRespose<String>>io_main());
     }
 
     @Override
-    public Observable<String> register(String phone, String code, String pwd) {
+    public Observable<UserInfo> register(String phone, String code, String pwd) {
         return Api.getDefault(HostType.Jung_FINANCE)
-                .register(phone, code, pwd).map(new Func1<BaseRespose<String>, String>() {
+                .register(phone, code, pwd).map(new Func1<BaseRespose<UserInfo>, UserInfo>() {
                     @Override
-                    public String call(BaseRespose<String> respose) {
+                    public UserInfo call(BaseRespose<UserInfo> respose) {
                         return respose.data;
                     }
-                }).compose(RxSchedulers.<String>io_main());
+                }).compose(RxSchedulers.<UserInfo>io_main());
     }
 }

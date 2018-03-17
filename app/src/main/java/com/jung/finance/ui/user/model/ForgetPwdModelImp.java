@@ -20,15 +20,15 @@ import rx.functions.Func1;
  * @author niufei
  *
  *
- * @date 2018/3/17. 下午7:27
+ * @date 2018/3/17. 下午11:25
  *
  *
  */
-public class LoginModelImp implements UserContract.ILoginModel {
+public class ForgetPwdModelImp implements UserContract.IForgetPwdModel {
     @Override
     public Observable<BaseRespose<String>> getVerifyCode(String phone) {
         return Api.getDefault(HostType.Jung_FINANCE)
-                .sendSMSCode(phone)
+                .sendSMSCodeForForgetPwd(phone)
                 .map(new Func1<BaseRespose<String>, BaseRespose<String>>() {
                     @Override
                     public BaseRespose<String> call(BaseRespose<String> respose) {
@@ -38,27 +38,13 @@ public class LoginModelImp implements UserContract.ILoginModel {
     }
 
     @Override
-    public Observable<UserInfo> accountLogin(String phone, String pwd) {
+    public Observable<UserInfo> submit(String phone, String code, String pwd) {
         return Api.getDefault(HostType.Jung_FINANCE)
-                .login(phone,pwd)
-                .map(new Func1<BaseRespose<UserInfo>, UserInfo>() {
+                .reset(phone, code, pwd).map(new Func1<BaseRespose<UserInfo>, UserInfo>() {
                     @Override
                     public UserInfo call(BaseRespose<UserInfo> respose) {
                         return respose.data;
                     }
                 }).compose(RxSchedulers.<UserInfo>io_main());
-    }
-
-    @Override
-    public Observable<UserInfo> mobileLogin(String phone, String code) {
-        return Api.getDefault(HostType.Jung_FINANCE)
-                .loginByMobile(phone,code)
-                .map(new Func1<BaseRespose<UserInfo>, UserInfo>() {
-                    @Override
-                    public UserInfo call(BaseRespose<UserInfo> respose) {
-                        return respose.data;
-                    }
-                }).compose(RxSchedulers.<UserInfo>io_main());
-
     }
 }

@@ -8,17 +8,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jung.finance.R;
 import com.jung.finance.app.AppIntent;
+import com.jung.finance.ui.user.bean.UserInfo;
 import com.jung.finance.ui.user.model.RegisterModelImp;
 import com.jung.finance.ui.user.presenter.RegisterPresenterImp;
 import com.jung.finance.ui.user.presenter.UserContract;
 import com.jung.finance.ui.user.utils.MulitEditUtils;
+import com.jung.finance.utils.MyUtils;
+import com.jung.finance.utils.PatternUtil;
 import com.leon.common.base.BaseFragment;
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonutils.ToastUitl;
+import com.leon.common.ui.counterButton.CounterButton;
+import com.leon.common.ui.counterButton.VerificationInfo;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,9 +45,7 @@ import butterknife.OnClick;
  */
 public class RegisterFragment extends BaseFragment<RegisterPresenterImp, RegisterModelImp> implements UserContract.IRegisterView {
     @Bind(R.id.sendsms_tv)
-    TextView sendsmsTv;
-    @Bind(R.id.sendsms_layout)
-    LinearLayout sendsmsLayout;
+    CounterButton sendsmsTv;
     @Bind(R.id.mobile_edit)
     EditText mobileEdit;
     @Bind(R.id.verifycode_clear_iv)
@@ -72,7 +75,14 @@ public class RegisterFragment extends BaseFragment<RegisterPresenterImp, Registe
     protected void initView() {
         MulitEditUtils.associate(verifycodeEdit, verifycodeClearIv);
         MulitEditUtils.associate(pwdEdit, pwdClearIv);
-
+        sendsmsTv.setTimeCount(60000, 1000);
+        sendsmsTv.setOnTimerCountClickListener(new CounterButton.OnTimerCountClickListener() {
+            @Override
+            public VerificationInfo onClick(View v) {
+                sendVerifyCode();
+                return null;
+            }
+        });
     }
 
     @Override
@@ -89,14 +99,12 @@ public class RegisterFragment extends BaseFragment<RegisterPresenterImp, Registe
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.sendsms_layout, R.id.verifycode_clear_iv, R.id.pwd_clear_iv, R.id.register_btn, R.id.go_login})
+    @OnClick({R.id.verifycode_clear_iv, R.id.pwd_clear_iv, R.id.register_btn, R.id.go_login})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.sendsms_layout:
-
-                sendVerifyCode();
-                break;
             case R.id.register_btn:
+
+                register();
                 break;
             case R.id.go_login:
                 AppIntent.intentToLogin(getActivity());
@@ -105,30 +113,67 @@ public class RegisterFragment extends BaseFragment<RegisterPresenterImp, Registe
         }
     }
 
+    private void register() {
+        String phone = mobileEdit.getText().toString();
+        if (TextUtils.isEmpty(phone)) {
+            ToastUitl.showShort("请输入手机号");
+            return;
+        }
+        if (!PatternUtil.checkTelPhone2(phone)) {
+            ToastUitl.showShort("请输入正确的手机号");
+            return;
+        }
+        String code = verifycodeEdit.getText().toString();
+        if (TextUtils.isEmpty(code)) {
+            ToastUitl.showShort("请输入验证码");
+            return;
+        }
+
+        String pwd = pwdEdit.getText().toString();
+        if (TextUtils.isEmpty(pwd)) {
+            ToastUitl.showShort("请输入密码");
+            return;
+        }
+        if (!PatternUtil.checkPassword(pwd)) {
+            ToastUitl.showShort("密码应为6-24位字母或数字组合");
+            return;
+        }
+        mPresenter.register(phone, code, pwd);
+    }
+
     @Override
     public void showLoading(String title) {
-
+        showProgressBar();
     }
 
     @Override
     public void stopLoading() {
-
+        dismissProgressBar();
     }
 
     @Override
     public void showErrorTip(String msg) {
-
+        ToastUitl.showShort(msg);
     }
 
     @Override
-    public void returnVerifyCode(String code) {
+    public void returnVerifyCode(BaseRespose<String> result) {
+        if (result.success()) {
+            sendsmsTv.startTimer();
+        } else {
+            ToastUitl.showShort("验证码发送失败");
 
-
+        }
     }
 
     @Override
-    public void returnRegisterResponse(String response) {
-
+    public void returnRegisterResponse(UserInfo response) {
+        if (sendsmsTv != null) {
+            sendsmsTv.stopTimerCount();
+        }
+        if (response != null && response.getToken() != null) {
+            MyUtils.saveUserInfo(getActivity(), response);
+        }
     }
 
     private void sendVerifyCode() {
@@ -139,5 +184,13 @@ public class RegisterFragment extends BaseFragment<RegisterPresenterImp, Registe
             return;
         }
         mPresenter.getVerifyCode(phone);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (sendsmsTv != null) {
+            sendsmsTv.stopTimerCount();
+        }
     }
 }

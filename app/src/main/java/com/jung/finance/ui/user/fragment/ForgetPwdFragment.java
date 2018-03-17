@@ -1,18 +1,26 @@
 package com.jung.finance.ui.user.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.jung.finance.R;
+import com.jung.finance.ui.user.bean.UserInfo;
+import com.jung.finance.ui.user.model.ForgetPwdModelImp;
+import com.jung.finance.ui.user.presenter.ForgetPwdPresenterImp;
+import com.jung.finance.ui.user.presenter.UserContract;
 import com.jung.finance.ui.user.utils.MulitEditUtils;
+import com.jung.finance.utils.PatternUtil;
 import com.leon.common.base.BaseFragment;
+import com.leon.common.basebean.BaseRespose;
+import com.leon.common.commonutils.ToastUitl;
+import com.leon.common.ui.counterButton.CounterButton;
+import com.leon.common.ui.counterButton.VerificationInfo;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -32,15 +40,13 @@ import butterknife.OnClick;
  *
  *
  */
-public class ForgetPwdFragment extends BaseFragment {
+public class ForgetPwdFragment extends BaseFragment<ForgetPwdPresenterImp, ForgetPwdModelImp> implements UserContract.IForgetPwdView {
     @Bind(R.id.mobile_clear_iv)
     ImageView mobileClearIv;
     @Bind(R.id.mobile_edit)
     EditText mobileEdit;
     @Bind(R.id.sendsms_tv)
-    TextView sendsmsTv;
-    @Bind(R.id.sendsms_layout)
-    LinearLayout sendsmsLayout;
+    CounterButton sendsmsTv;
     @Bind(R.id.verifycode_edit)
     EditText verifycodeEdit;
     @Bind(R.id.pwd_clear_iv)
@@ -61,7 +67,7 @@ public class ForgetPwdFragment extends BaseFragment {
 
     @Override
     public void initPresenter() {
-
+        mPresenter.setVM(this, mModel);
     }
 
     @Override
@@ -69,7 +75,14 @@ public class ForgetPwdFragment extends BaseFragment {
         MulitEditUtils.associate(mobileEdit, mobileClearIv);
         MulitEditUtils.associate(pwdEdit, pwdClearIv);
         MulitEditUtils.associate(confirmPwdEdit, confirmPwdClearIv);
-
+        sendsmsTv.setTimeCount(60000, 1000);
+        sendsmsTv.setOnTimerCountClickListener(new CounterButton.OnTimerCountClickListener() {
+            @Override
+            public VerificationInfo onClick(View v) {
+                sendVerifyCode();
+                return null;
+            }
+        });
     }
 
     @Override
@@ -86,13 +99,96 @@ public class ForgetPwdFragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.mobile_clear_iv, R.id.sendsms_layout, R.id.pwd_clear_iv, R.id.confirm_pwd_clear_iv, R.id.submit_btn})
+    @OnClick({R.id.submit_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.sendsms_layout:
-                break;
             case R.id.submit_btn:
+                submit();
                 break;
         }
+    }
+
+    private void submit() {
+
+        String phone = mobileEdit.getText().toString();
+        if (TextUtils.isEmpty(phone)) {
+            ToastUitl.showShort("请输入手机号");
+            return;
+        }
+        if (!PatternUtil.checkTelPhone2(phone)) {
+            ToastUitl.showShort("请输入正确的手机号");
+            return;
+        }
+        String code = verifycodeEdit.getText().toString();
+        if (TextUtils.isEmpty(code)) {
+            ToastUitl.showShort("请输入验证码");
+            return;
+        }
+
+        String pwd = pwdEdit.getText().toString();
+        if (TextUtils.isEmpty(pwd)) {
+            ToastUitl.showShort("请输入密码");
+            return;
+        }
+        if (!PatternUtil.checkPassword(pwd)) {
+            ToastUitl.showShort("密码应为6-24位字母或数字组合");
+            return;
+        }
+        String confirmPwd = confirmPwdEdit.getText().toString();
+        if (!pwd.equals(confirmPwd)) {
+            ToastUitl.showShort("请确认新密码");
+            return;
+        }
+        mPresenter.submit(phone, code, pwd);
+    }
+
+    @Override
+    public void returnVerifyCode(BaseRespose<String> result) {
+        if (result.success()) {
+            sendsmsTv.startTimer();
+        } else {
+            ToastUitl.showShort("验证码发送失败");
+
+        }
+    }
+
+    @Override
+    public void returnSubmitResponse(UserInfo response) {
+        if (sendsmsTv != null) {
+            sendsmsTv.stopTimerCount();
+        }
+    }
+
+    private void sendVerifyCode() {
+
+        String phone = mobileEdit.getText().toString();
+        if (TextUtils.isEmpty(phone)) {
+            ToastUitl.showShort("请输入手机号");
+            return;
+        }
+        mPresenter.getVerifyCode(phone);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (sendsmsTv != null) {
+            sendsmsTv.stopTimerCount();
+        }
+    }
+
+    @Override
+    public void showLoading(String title) {
+        showProgressBar();
+    }
+
+    @Override
+    public void stopLoading() {
+        dismissProgressBar();
+    }
+
+    @Override
+    public void showErrorTip(String msg) {
+        showShortToast(msg);
     }
 }

@@ -60,8 +60,8 @@ public interface ApiService {
     @GET("app/user/register/phone/phonecode")
     Observable<BaseRespose<String>> getVerifyCode(@Query("phone") String phone);
 
-
-    Observable<BaseRespose<String>> register(String phone, String code, String pwd);
+    @POST("app/user/register/phone/register")
+    Observable<BaseRespose<UserInfo>> register(@Query("phone") String phone, @Query("phonecode") String code, @Query("password") String password);
 
     //发送短信验证码[手机快速登录]
     @GET("app/user/login/phone/phonecode")
@@ -74,4 +74,11 @@ public interface ApiService {
     @POST("/app/user/login/login")
     Observable<BaseRespose<UserInfo>> login(@Query("account") String account, @Query("password") String password);
 
+
+    //发送短信验证码[忘记密码]
+    @GET("app/user/forgot/phone/phonecode")
+    Observable<BaseRespose<String>> sendSMSCodeForForgetPwd(@Query("phone") String phone);
+
+    @POST("app/user/forgot/phone/reset")
+    Observable<BaseRespose<UserInfo>> reset(@Query("phone") String phone, @Query("phonecode") String code, @Query("password") String password);
 }

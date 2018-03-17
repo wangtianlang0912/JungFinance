@@ -56,7 +56,6 @@
 
         <activity
             android:name="com.jung.finance.ui.common.CommonActivity"
-            android:launchMode="singleTop"
             android:theme="@style/Theme_In_From_Right"
             android:screenOrientation="portrait" />
 

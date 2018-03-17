@@ -1,11 +1,10 @@
 package com.jung.finance.ui.user.presenter;
 
+
 import com.jung.finance.R;
 import com.jung.finance.ui.user.bean.UserInfo;
-import com.jung.finance.ui.user.presenter.UserContract.LoginPresenter;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
-
 
 /***
  *
@@ -16,11 +15,11 @@ import com.leon.common.baserx.RxSubscriber;
  * @author niufei
  *
  *
- * @date 2018/3/17. 下午7:26
+ * @date 2018/3/17. 下午11:26
  *
  *
  */
-public class LoginPresenterImp extends LoginPresenter {
+public class ForgetPwdPresenterImp extends UserContract.ForgetPwdPresenter {
     @Override
     public void getVerifyCode(String phone) {
         mRxManage.add(mModel.getVerifyCode(phone).subscribe(new RxSubscriber<BaseRespose<String>>(mContext, false) {
@@ -44,8 +43,8 @@ public class LoginPresenterImp extends LoginPresenter {
     }
 
     @Override
-    public void accountLogin(String phone, String pwd) {
-        mRxManage.add(mModel.accountLogin(phone, pwd).subscribe(new RxSubscriber<UserInfo>(mContext, false) {
+    public void submit(String phone, String code, String pwd) {
+        mRxManage.add(mModel.submit(phone, code, pwd).subscribe(new RxSubscriber<UserInfo>(mContext, false) {
             @Override
             public void onStart() {
                 super.onStart();
@@ -54,7 +53,7 @@ public class LoginPresenterImp extends LoginPresenter {
 
             @Override
             protected void _onNext(UserInfo data) {
-                mView.returnLoginResponse(data);
+                mView.returnSubmitResponse(data);
                 mView.stopLoading();
             }
 
@@ -65,25 +64,4 @@ public class LoginPresenterImp extends LoginPresenter {
         }));
     }
 
-    @Override
-    public void mobileLogin(String phone, String code) {
-        mRxManage.add(mModel.mobileLogin(phone, code).subscribe(new RxSubscriber<UserInfo>(mContext, false) {
-            @Override
-            public void onStart() {
-                super.onStart();
-                mView.showLoading(mContext.getString(R.string.loading));
-            }
-
-            @Override
-            protected void _onNext(UserInfo data) {
-                mView.returnLoginResponse(data);
-                mView.stopLoading();
-            }
-
-            @Override
-            protected void _onError(String message) {
-                mView.showErrorTip(message);
-            }
-        }));
-    }
 }

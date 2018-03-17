@@ -99,7 +99,7 @@ public class PatternUtil {
         boolean flag=false;
         String regex =null;
         int len=password.length();
-        if(len<6||len>18){
+        if(len<6||len>24){
             flag=false;
         }else{
             regex = "([a-z]|[A-Z]|[0-9]|[_*])+";//判定数字或者字母或者下划线

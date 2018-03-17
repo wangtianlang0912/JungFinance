@@ -21,7 +21,10 @@ import com.jung.finance.ui.user.utils.MulitEditUtils;
 import com.jung.finance.utils.MyUtils;
 import com.jung.finance.utils.PatternUtil;
 import com.leon.common.base.BaseFragment;
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonutils.ToastUitl;
+import com.leon.common.ui.counterButton.CounterButton;
+import com.leon.common.ui.counterButton.VerificationInfo;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -47,9 +50,7 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
     @Bind(R.id.account_login_tv)
     TextView accountLoginTv;
     @Bind(R.id.sendsms_tv)
-    TextView sendsmsTv;
-    @Bind(R.id.sendsms_layout)
-    LinearLayout sendsmsLayout;
+    CounterButton sendsmsTv;
     @Bind(R.id.account_edit)
     EditText accountEdit;
     @Bind(R.id.verifycode_clear_iv)
@@ -94,6 +95,15 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
         MulitEditUtils.associate(mobileEdit, mobileClearIv);
         MulitEditUtils.associate(pwdEdit, pwdClearIv);
         MulitEditUtils.associate(verifycodeEdit, verifycodeClearIv);
+
+        sendsmsTv.setTimeCount(60000, 1000);
+        sendsmsTv.setOnTimerCountClickListener(new CounterButton.OnTimerCountClickListener() {
+            @Override
+            public VerificationInfo onClick(View v) {
+                sendVerifyCode();
+                return null;
+            }
+        });
     }
 
     @Override
@@ -109,7 +119,7 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.mobile_login_tv, R.id.account_login_tv, R.id.sendsms_layout, R.id.verifycode_clear_iv, R.id.mobile_clear_iv, R.id.pwd_clear_iv, R.id.login_btn, R.id.wechat_btn, R.id.register_btn, R.id.forget_pwd_btn})
+    @OnClick({R.id.mobile_login_tv, R.id.account_login_tv, R.id.verifycode_clear_iv, R.id.mobile_clear_iv, R.id.pwd_clear_iv, R.id.login_btn, R.id.wechat_btn, R.id.register_btn, R.id.forget_pwd_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.mobile_login_tv:
@@ -127,9 +137,6 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
                 mobileLoginLayout.setVisibility(View.GONE);
                 isAccountStatus = true;
 
-                break;
-            case R.id.sendsms_layout:
-                sendVerifyCode();
                 break;
             case R.id.login_btn:
 
@@ -159,7 +166,6 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
             return;
         }
         mPresenter.getVerifyCode(phone);
-
     }
 
     private void wechatLogin() {
@@ -201,7 +207,10 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
             ToastUitl.showShort("请输入密码");
             return;
         }
-
+        if (!PatternUtil.checkPassword(pwd)) {
+            ToastUitl.showShort("密码应为6-24位字母或数字组合");
+            return;
+        }
         mPresenter.accountLogin(phone, pwd);
     }
 
@@ -221,16 +230,30 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
     }
 
     @Override
-    public void returnVerifyCode(boolean result) {
-        ToastUitl.showShort(result ? "验证码已发送" : "验证码发送失败");
+    public void returnVerifyCode(BaseRespose<String> result) {
+        if (result.success()) {
+            sendsmsTv.startTimer();
+        } else {
+            ToastUitl.showShort("验证码发送失败");
+        }
     }
 
     @Override
     public void returnLoginResponse(UserInfo response) {
-
+        if (sendsmsTv != null) {
+            sendsmsTv.stopTimerCount();
+        }
         if (response != null && response.getToken() != null) {
             MyUtils.saveUserInfo(getActivity(), response);
         }
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (sendsmsTv != null) {
+            sendsmsTv.stopTimerCount();
+        }
     }
 }

@@ -91,11 +91,12 @@
                     android:layout_height="30dp"
                     android:background="@color/divider_line" />
 
-                <TextView
+                <com.leon.common.ui.counterButton.CounterButton
                     android:id="@+id/sendsms_tv"
                     android:layout_width="110dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="35dp"
                     android:layout_gravity="center"
+                    android:background="@null"
                     android:gravity="center"
                     android:text="@string/verifycode"
                     android:textSize="13sp" />
@@ -107,7 +108,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:layout_marginRight="25dp"
+                android:layout_marginRight="10dp"
                 android:layout_toLeftOf="@id/sendsms_layout"
                 android:background="@null"
                 android:hint="@string/verifycode_hint"
