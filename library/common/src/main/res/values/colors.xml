@@ -86,5 +86,9 @@
     <color name="alpha_90_black">#E6000000</color>
     <color name="alpha_95_black">#F2000000</color>
 
+    <!-- 对话框 -->
+    <color name="title_color">#0b7dd5</color>
+    <color name="message_color">#555555</color>
+    <color name="alert_divider_color">#e5e5e5</color>
 
 </resources>

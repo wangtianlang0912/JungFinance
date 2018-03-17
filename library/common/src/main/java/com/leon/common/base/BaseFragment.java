@@ -13,6 +13,7 @@ import com.leon.common.baserx.RxManager;
 import com.leon.common.commonutils.TUtil;
 import com.leon.common.commonutils.ToastUitl;
 import com.leon.common.commonwidget.LoadingDialog;
+import com.leon.common.ui.ProgressDialog;
 
 import butterknife.ButterKnife;
 
@@ -53,12 +54,12 @@ import butterknife.ButterKnife;
 //    public void initView() {
 //    }
 //}
-public abstract  class BaseFragment<T extends BasePresenter, E extends BaseModel> extends Fragment {
+public abstract  class BaseFragment<T extends BasePresenter, E extends BaseModel> extends Fragment implements ProgressView{
     protected View rootView;
     public T mPresenter;
     public E mModel;
     public RxManager mRxManager;
-
+    private ProgressDialog mProgressDialog;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -123,7 +124,29 @@ public abstract  class BaseFragment<T extends BasePresenter, E extends BaseModel
     }
 
 
+    @Override
+    public void showProgressBar() {
+        try {
+            if (mProgressDialog == null) {
+                mProgressDialog = new ProgressDialog(getActivity());
+            }
+            if (!mProgressDialog.isShowing()) {
+                mProgressDialog.show();
+            }
+        } catch (Exception e) {
+        }
+    }
 
+    @Override
+    public void dismissProgressBar() {
+        try {
+            if (mProgressDialog != null && mProgressDialog.isShowing()) {
+                mProgressDialog.dismiss();
+            }
+            mProgressDialog = null;
+        } catch (Exception e) {
+        }
+    }
     /**
      * 开启加载进度条
      */

@@ -1,6 +1,7 @@
 package com.jung.finance.ui.user.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +13,12 @@ import android.widget.TextView;
 
 import com.jung.finance.R;
 import com.jung.finance.app.AppIntent;
+import com.jung.finance.ui.user.model.RegisterModelImp;
+import com.jung.finance.ui.user.presenter.RegisterPresenterImp;
 import com.jung.finance.ui.user.presenter.UserContract;
 import com.jung.finance.ui.user.utils.MulitEditUtils;
 import com.leon.common.base.BaseFragment;
+import com.leon.common.commonutils.ToastUitl;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -34,7 +38,7 @@ import butterknife.OnClick;
  *
  *
  */
-public class RegisterFragment extends BaseFragment implements UserContract.RegisterView {
+public class RegisterFragment extends BaseFragment<RegisterPresenterImp, RegisterModelImp> implements UserContract.IRegisterView {
     @Bind(R.id.sendsms_tv)
     TextView sendsmsTv;
     @Bind(R.id.sendsms_layout)
@@ -61,8 +65,7 @@ public class RegisterFragment extends BaseFragment implements UserContract.Regis
 
     @Override
     public void initPresenter() {
-        mPresenter.setVM();
-        //http://www.dacaijin.cn/tool/user/register/phone/phonecode.xml
+        mPresenter.setVM(this, mModel);
     }
 
     @Override
@@ -90,6 +93,8 @@ public class RegisterFragment extends BaseFragment implements UserContract.Regis
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.sendsms_layout:
+
+                sendVerifyCode();
                 break;
             case R.id.register_btn:
                 break;
@@ -118,5 +123,21 @@ public class RegisterFragment extends BaseFragment implements UserContract.Regis
     @Override
     public void returnVerifyCode(String code) {
 
+
+    }
+
+    @Override
+    public void returnRegisterResponse(String response) {
+
+    }
+
+    private void sendVerifyCode() {
+
+        String phone = mobileEdit.getText().toString();
+        if (TextUtils.isEmpty(phone)) {
+            ToastUitl.showShort("请输入手机号");
+            return;
+        }
+        mPresenter.getVerifyCode(phone);
     }
 }

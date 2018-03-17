@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jung.finance.R;
+import com.jung.finance.app.AppIntent;
 import com.leon.common.base.BaseActivity;
 
 import butterknife.Bind;
@@ -46,7 +47,7 @@ public class SplashActivity extends BaseActivity {
         AnimatorSet animatorSet = new AnimatorSet();
         animatorSet.playTogether(objectAnimator1, objectAnimator2);
         animatorSet.setInterpolator(new AccelerateInterpolator());
-        animatorSet.setDuration(2000);
+        animatorSet.setDuration(1000);
         animatorSet.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
@@ -55,7 +56,8 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                MainActivity.startAction(SplashActivity.this);
+//                MainActivity.startAction(SplashActivity.this);
+                AppIntent.intentToLogin(SplashActivity.this);
                 finish();
             }
 

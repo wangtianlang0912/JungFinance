@@ -80,7 +80,7 @@ public class AppIntent {
 
         Intent intent = new Intent();
         intent.setClass(context, CommonActivity.class);
-        intent.putExtra(AppConstant.FLAG_FRAGMENT, fragmentClass);
+        intent.putExtra(AppConstant.FLAG_FRAGMENT, fragmentClass.getName());
         intent.putExtra(AppConstant.FLAG_NAME, title);
         if (bundle != null) {
             intent.putExtra(AppConstant.FLAG_BUNDLE, bundle);

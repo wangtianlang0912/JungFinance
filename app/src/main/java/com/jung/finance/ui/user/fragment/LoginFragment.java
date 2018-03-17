@@ -13,7 +13,13 @@ import android.widget.TextView;
 
 import com.jung.finance.R;
 import com.jung.finance.app.AppIntent;
+import com.jung.finance.ui.user.bean.UserInfo;
+import com.jung.finance.ui.user.model.LoginModelImp;
+import com.jung.finance.ui.user.presenter.LoginPresenterImp;
+import com.jung.finance.ui.user.presenter.UserContract;
 import com.jung.finance.ui.user.utils.MulitEditUtils;
+import com.jung.finance.utils.MyUtils;
+import com.jung.finance.utils.PatternUtil;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonutils.ToastUitl;
 
@@ -35,7 +41,7 @@ import butterknife.OnClick;
  *
  *
  */
-public class LoginFragment extends BaseFragment {
+public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp> implements UserContract.ILoginView {
     @Bind(R.id.mobile_login_tv)
     TextView mobileLoginTv;
     @Bind(R.id.account_login_tv)
@@ -80,7 +86,7 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     public void initPresenter() {
-
+        mPresenter.setVM(this, mModel);
     }
 
     @Override
@@ -127,9 +133,9 @@ public class LoginFragment extends BaseFragment {
                 break;
             case R.id.login_btn:
 
-                if(isAccountStatus){
+                if (isAccountStatus) {
                     accountLogin();
-                }else{
+                } else {
                     mobileLogin();
                 }
                 break;
@@ -152,7 +158,7 @@ public class LoginFragment extends BaseFragment {
             ToastUitl.showShort("请输入手机号");
             return;
         }
-
+        mPresenter.getVerifyCode(phone);
 
     }
 
@@ -162,11 +168,69 @@ public class LoginFragment extends BaseFragment {
     }
 
     private void mobileLogin() {
-
-
-
+        String phone = accountEdit.getText().toString();
+        if (TextUtils.isEmpty(phone)) {
+            ToastUitl.showShort("请输入手机号");
+            return;
+        }
+        if (!PatternUtil.checkTelPhone2(phone)) {
+            ToastUitl.showShort("请输入正确的手机号");
+            return;
+        }
+        String code = verifycodeEdit.getText().toString();
+        if (TextUtils.isEmpty(code)) {
+            ToastUitl.showShort("请输入验证码");
+            return;
+        }
+        mPresenter.mobileLogin(phone, code);
     }
 
     private void accountLogin() {
+
+        String phone = mobileEdit.getText().toString();
+        if (TextUtils.isEmpty(phone)) {
+            ToastUitl.showShort("请输入手机号");
+            return;
+        }
+        if (!PatternUtil.checkTelPhone2(phone)) {
+            ToastUitl.showShort("请输入正确的手机号");
+            return;
+        }
+        String pwd = pwdEdit.getText().toString();
+        if (TextUtils.isEmpty(pwd)) {
+            ToastUitl.showShort("请输入密码");
+            return;
+        }
+
+        mPresenter.accountLogin(phone, pwd);
+    }
+
+    @Override
+    public void showLoading(String title) {
+        showProgressBar();
+    }
+
+    @Override
+    public void stopLoading() {
+        dismissProgressBar();
+    }
+
+    @Override
+    public void showErrorTip(String msg) {
+        showShortToast(msg);
+    }
+
+    @Override
+    public void returnVerifyCode(boolean result) {
+        ToastUitl.showShort(result ? "验证码已发送" : "验证码发送失败");
+    }
+
+    @Override
+    public void returnLoginResponse(UserInfo response) {
+
+        if (response != null && response.getToken() != null) {
+            MyUtils.saveUserInfo(getActivity(), response);
+        }
+
     }
 }

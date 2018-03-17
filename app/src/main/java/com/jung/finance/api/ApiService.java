@@ -3,8 +3,8 @@ package com.jung.finance.api;
 import com.jung.finance.bean.GirlData;
 import com.jung.finance.bean.NewsDetail;
 import com.jung.finance.bean.NewsSummary;
-import com.jung.finance.bean.User;
 import com.jung.finance.bean.VideoData;
+import com.jung.finance.ui.user.bean.UserInfo;
 import com.leon.common.basebean.BaseRespose;
 
 import java.util.List;
@@ -13,6 +13,7 @@ import java.util.Map;
 import okhttp3.ResponseBody;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
@@ -24,9 +25,6 @@ import rx.Observable;
  * on 2016.06.15:47
  */
 public interface ApiService {
-
-    @GET("login")
-    Observable<BaseRespose<User>> login(@Query("username") String username, @Query("password") String password);
 
     @GET("nc/article/{postId}/full.html")
     Observable<Map<String, NewsDetail>> getNewDetail(
@@ -57,4 +55,23 @@ public interface ApiService {
             @Header("Cache-Control") String cacheControl,
             @Path("type") String type,
             @Path("startPage") int startPage);
+
+
+    @GET("app/user/register/phone/phonecode")
+    Observable<BaseRespose<String>> getVerifyCode(@Query("phone") String phone);
+
+
+    Observable<BaseRespose<String>> register(String phone, String code, String pwd);
+
+    //发送短信验证码[手机快速登录]
+    @GET("app/user/login/phone/phonecode")
+    Observable<BaseRespose<String>> sendSMSCode(@Query("phone") String phone);
+
+    //手机快速登录
+    @POST("app/user/login/phone/login")
+    Observable<BaseRespose<UserInfo>> loginByMobile(@Query("phone") String phone, @Query("phonecode") String code);
+
+    @POST("/app/user/login/login")
+    Observable<BaseRespose<UserInfo>> login(@Query("account") String account, @Query("password") String password);
+
 }

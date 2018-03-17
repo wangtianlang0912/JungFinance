@@ -40,4 +40,6 @@ public class AppConstant {
     public static final String FLAG_NAME = "frag_name";
     public static final String FLAG_DATA = "frag_data";
     public static final String FLAG_BUNDLE = "frag_bundle";
+
+    public static final String USERINFO_KEY = "userinfo";
 }

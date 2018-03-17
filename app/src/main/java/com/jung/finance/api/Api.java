@@ -7,11 +7,21 @@ import android.util.SparseArray;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.internal.$Gson$Types;
 import com.leon.common.baseapp.BaseApplication;
+import com.leon.common.basebean.BaseRespose;
+import com.leon.common.commonutils.LogUtils;
 import com.leon.common.commonutils.NetWorkUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
@@ -36,7 +46,7 @@ public class Api {
     //连接时长，单位：毫秒
     public static final int CONNECT_TIME_OUT = 7676;
     public Retrofit retrofit;
-    public ApiService movieService;
+    public ApiService apiService;
     public OkHttpClient okHttpClient;
     private static SparseArray<Api> sRetrofitManager = new SparseArray<>(HostType.TYPE_COUNT);
 
@@ -83,7 +93,7 @@ public class Api {
         File cacheFile = new File(BaseApplication.getAppContext().getCacheDir(), "cache");
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 100); //100Mb
         //增加头部信息
-        Interceptor headerInterceptor =new Interceptor() {
+        Interceptor headerInterceptor = new Interceptor() {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request build = chain.request().newBuilder()
@@ -103,14 +113,63 @@ public class Api {
                 .cache(cache)
                 .build();
 
-        Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").serializeNulls().create();
-        retrofit = new Retrofit.Builder()
-                .client(okHttpClient)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .baseUrl(ApiConstants.getHost(hostType))
-                .build();
-        movieService = retrofit.create(ApiService.class);
+        GsonBuilder gsonBuilder = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").serializeNulls();
+        gsonBuilder.registerTypeAdapter(BaseRespose.class, new BaseResponseJsonDeserializer());
+        Gson gson = gsonBuilder.create();
+        Retrofit.Builder builder = new Retrofit.Builder();
+        builder.client(okHttpClient);
+        builder.addConverterFactory(GsonConverterFactory.create(gson));
+        builder.addCallAdapterFactory(RxJavaCallAdapterFactory.create());
+        builder.baseUrl(ApiConstants.getHost(hostType));
+        retrofit = builder.build();
+        apiService = retrofit.create(ApiService.class);
+    }
+
+    private class BaseResponseJsonDeserializer<T> implements JsonDeserializer<BaseRespose<T>> {
+        @Override
+        public BaseRespose<T> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+            BaseRespose<T> baseResponse = new BaseRespose<>();
+
+            if (json.isJsonNull()) {
+                baseResponse.code = "-1";
+                baseResponse.msg = "response null";
+                baseResponse.data = newInstance(typeOfT);
+                return baseResponse;
+            }
+            if (json.isJsonObject()) {
+                JsonObject jsonObj = json.getAsJsonObject();
+
+                if (jsonObj.has("error") || jsonObj.has("error-code")) {
+                    if (jsonObj.has("error")) {
+                        baseResponse.msg = jsonObj.get("error").getAsString();
+                    }
+                    if (jsonObj.has("error-code")) {
+                        baseResponse.code = jsonObj.get("error-code").getAsString();
+                    }
+
+                    baseResponse.data = newInstance(typeOfT);
+                    return baseResponse;
+                }
+            }
+
+            GsonBuilder gsonBuilder = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").serializeNulls();
+            baseResponse.data = gsonBuilder.create().fromJson(json, ((ParameterizedType) typeOfT).getActualTypeArguments()[0]);
+
+            return baseResponse;
+        }
+
+        private T newInstance(Type typeOfT) {
+
+            Type type = ((ParameterizedType) typeOfT).getActualTypeArguments()[0];
+            Class<?> rawTypeOfSrc = $Gson$Types.getRawType(type);
+            try {
+                return (T) rawTypeOfSrc.newInstance();
+            } catch (Exception e) {
+                LogUtils.loge(e, " baseResponse.data = (T) rawTypeOfSrc.newInstance()");
+            }
+            return null;
+        }
+
     }
 
 
@@ -124,14 +183,15 @@ public class Api {
             retrofitManager = new Api(hostType);
             sRetrofitManager.put(hostType, retrofitManager);
         }
-        return retrofitManager.movieService;
+        return retrofitManager.apiService;
     }
 
     /**
      * OkHttpClient
+     *
      * @return
      */
-    public static OkHttpClient getOkHttpClient(){
+    public static OkHttpClient getOkHttpClient() {
         Api retrofitManager = sRetrofitManager.get(HostType.NETEASE_NEWS_VIDEO);
         if (retrofitManager == null) {
             retrofitManager = new Api(HostType.NETEASE_NEWS_VIDEO);
@@ -160,7 +220,7 @@ public class Api {
             String cacheControl = request.cacheControl().toString();
             if (!NetWorkUtils.isNetConnected(BaseApplication.getAppContext())) {
                 request = request.newBuilder()
-                        .cacheControl(TextUtils.isEmpty(cacheControl)?CacheControl.FORCE_NETWORK:CacheControl.FORCE_CACHE)
+                        .cacheControl(TextUtils.isEmpty(cacheControl) ? CacheControl.FORCE_NETWORK : CacheControl.FORCE_CACHE)
                         .build();
             }
             Response originalResponse = chain.proceed(request);

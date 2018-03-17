@@ -36,7 +36,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@id/clear_cache_arrow"
+            android:layout_toLeftOf="@id/bind_phone_arrow"
             android:gravity="right|center_vertical"
             android:textColor="@color/_666666"
             android:textSize="13sp" />
