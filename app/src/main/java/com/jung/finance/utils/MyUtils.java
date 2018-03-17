@@ -19,6 +19,7 @@ package com.jung.finance.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.support.design.widget.TabLayout;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -28,7 +29,9 @@ import com.jung.finance.ui.user.bean.UserInfo;
 import com.jung.finance.utils.encrypt.Base64;
 import com.leon.common.commonutils.LogUtils;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.security.cert.X509Certificate;
 
@@ -39,6 +42,8 @@ import javax.net.ssl.X509TrustManager;
  * @version 1.0 2016/5/31
  */
 public class MyUtils {
+
+    private static String token;
 
     public static void dynamicSetTabLayoutMode(TabLayout tabLayout) {
         int tabWidth = calculateTabWidth(tabLayout);
@@ -78,7 +83,7 @@ public class MyUtils {
     public static void saveUserInfo(Context context, UserInfo userInfo) {
         try {
             if (userInfo == null) {
-
+                token = null;
                 PerfrenceHelper.putString(context, AppConstant.USERINFO_KEY, "");
             } else {
 
@@ -94,6 +99,41 @@ public class MyUtils {
         } catch (Exception e) {
             LogUtils.loge(e, "saveUserInfo");
         }
+    }
+
+    /***
+     * @param context
+     * @return
+     */
+    public static UserInfo getUserInfoFromPreference(Context context) {
+        try {
+            String userStr = PerfrenceHelper.getString(context, AppConstant.USERINFO_KEY, "");
+            if (!TextUtils.isEmpty(userStr)) {
+                byte[] base64User = Base64.decode(userStr);
+                ByteArrayInputStream bais = new ByteArrayInputStream(base64User);
+                ObjectInputStream ois = new ObjectInputStream(bais);
+                UserInfo userInfo = (UserInfo) ois.readObject();
+
+                bais.close();
+                ois.close();
+                return userInfo;
+            }
+        } catch (Exception e) {
+            LogUtils.loge(e, "getUserInfoFromPreference");
+        }
+        return null;
+    }
+
+    public static String getToken() {
+
+        if (TextUtils.isEmpty(token)) {
+
+            UserInfo userInfo = getUserInfoFromPreference(AppApplication.getAppContext());
+            if (userInfo != null) {
+                token = userInfo.getToken();
+            }
+        }
+        return token;
     }
 
 

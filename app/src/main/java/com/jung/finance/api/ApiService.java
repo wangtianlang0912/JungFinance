@@ -56,10 +56,11 @@ public interface ApiService {
             @Path("type") String type,
             @Path("startPage") int startPage);
 
-
+    //注册
     @GET("app/user/register/phone/phonecode")
     Observable<BaseRespose<String>> getVerifyCode(@Query("phone") String phone);
 
+    //注册
     @POST("app/user/register/phone/register")
     Observable<BaseRespose<UserInfo>> register(@Query("phone") String phone, @Query("phonecode") String code, @Query("password") String password);
 
@@ -71,14 +72,40 @@ public interface ApiService {
     @POST("app/user/login/phone/login")
     Observable<BaseRespose<UserInfo>> loginByMobile(@Query("phone") String phone, @Query("phonecode") String code);
 
+    //账户登录
     @POST("/app/user/login/login")
     Observable<BaseRespose<UserInfo>> login(@Query("account") String account, @Query("password") String password);
-
 
     //发送短信验证码[忘记密码]
     @GET("app/user/forgot/phone/phonecode")
     Observable<BaseRespose<String>> sendSMSCodeForForgetPwd(@Query("phone") String phone);
 
+    //重置密码
     @POST("app/user/forgot/phone/reset")
     Observable<BaseRespose<UserInfo>> reset(@Query("phone") String phone, @Query("phonecode") String code, @Query("password") String password);
+
+    //注销
+    @POST("app/auth/logout")
+    Observable<BaseRespose<String>> logout(@Query("token") String token);
+
+    //获取当前登录用户ID
+    @GET("app/auth/me")
+    Observable<BaseRespose<UserInfo>> me(@Query("token") String token);
+
+    //修改手机号
+    @POST("app/me/phone/set")
+    Observable<BaseRespose<UserInfo>> updateMobile(@Query("token") String token, @Query("phone") String phone, @Query("phonecode") String code, @Query("password") String password);
+
+    //绑定手机号
+    @POST("app/me/phone/bind")
+    Observable<BaseRespose<UserInfo>> bindMobile(@Query("token") String token, @Query("phone") String phone, @Query("phonecode") String code, @Query("password") String password);
+
+    //发送短信验证码 (绑定手机号,修改手机号)
+    @GET("app/me/phone/phonecode")
+    Observable<BaseRespose<String>> sendSMSCodeByToken(@Query("token") String token, @Query("phone") String phone);
+
+    //设置用户登录密码
+    @POST("app/me/password/set")
+    Observable<BaseRespose<UserInfo>> updatePwd(@Query("token") String token,@Query("password") String password,@Query("newpassword") String newpassword,@Query("repassword") String repassword);
+
 }

@@ -53,11 +53,10 @@ public interface UserContract {
     }
 
 
-
     interface IForgetPwdModel extends BaseModel {
         Observable<BaseRespose<String>> getVerifyCode(String phone);
 
-        Observable<UserInfo> submit(String phone,String code, String pwd);
+        Observable<UserInfo> submit(String phone, String code, String pwd);
     }
 
 
@@ -70,8 +69,42 @@ public interface UserContract {
     abstract static class ForgetPwdPresenter extends BasePresenter<IForgetPwdView, IForgetPwdModel> {
         public abstract void getVerifyCode(String phone);
 
-        public abstract void submit(String phone,String code, String pwd);
+        public abstract void submit(String phone, String code, String pwd);
     }
 
 
+    interface IBindMobileModel extends BaseModel {
+        Observable<BaseRespose<String>> getVerifyCode(String phone);
+
+        Observable<UserInfo> submit(String phone, String code, String pwd);
+    }
+
+
+    interface IBindMobileView extends BaseView {
+        void returnVerifyCode(BaseRespose<String> result);
+
+        void returnSubmitResponse(UserInfo response);
+    }
+
+    abstract static class BindMobilePresenter extends BasePresenter<IBindMobileView, IBindMobileModel> {
+        public abstract void getVerifyCode(String phone);
+
+        public abstract void submit(String phone, String code, String pwd);
+    }
+
+
+
+    interface IUpdatePwdModel extends BaseModel {
+        Observable<UserInfo> submit(String oldPwd, String newPwd);
+    }
+
+
+    interface IUpdatePwdView extends BaseView {
+
+        void returnSubmitResponse(UserInfo response);
+    }
+
+    abstract static class UpdatePwdPresenter extends BasePresenter<IUpdatePwdView, IUpdatePwdModel> {
+        public abstract void submit(String oldPwd, String newPwd);
+    }
 }

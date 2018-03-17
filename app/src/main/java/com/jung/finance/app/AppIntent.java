@@ -13,7 +13,7 @@ import com.jung.finance.ui.user.fragment.BindMobileFragment;
 import com.jung.finance.ui.user.fragment.ForgetPwdFragment;
 import com.jung.finance.ui.user.fragment.LoginFragment;
 import com.jung.finance.ui.user.fragment.RegisterFragment;
-import com.jung.finance.ui.user.fragment.UpdateMobileFragment;
+import com.jung.finance.ui.user.fragment.UpdatePwdFragment;
 import com.jung.finance.ui.user.fragment.UserInfoFragment;
 
 /***
@@ -63,7 +63,7 @@ public class AppIntent {
 
     public static void intentToUpdatePwd(Context context) {
 
-        intentToAct(context, R.string.update_pwd, UpdateMobileFragment.class);
+        intentToAct(context, R.string.update_pwd, UpdatePwdFragment.class);
     }
 
     public static void intentToBindMobile(Context context) {

@@ -165,6 +165,10 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
             ToastUitl.showShort("请输入手机号");
             return;
         }
+        if (!PatternUtil.checkTelPhone2(phone)) {
+            ToastUitl.showShort("请输入正确的手机号");
+            return;
+        }
         mPresenter.getVerifyCode(phone);
     }
 
