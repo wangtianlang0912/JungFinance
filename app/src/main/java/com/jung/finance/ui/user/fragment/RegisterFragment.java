@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.jung.finance.R;
 import com.jung.finance.app.AppIntent;
+import com.jung.finance.ui.user.presenter.UserContract;
+import com.jung.finance.ui.user.utils.MulitEditUtils;
 import com.leon.common.base.BaseFragment;
 
 import butterknife.Bind;
@@ -32,7 +34,7 @@ import butterknife.OnClick;
  *
  *
  */
-public class RegisterFragment extends BaseFragment {
+public class RegisterFragment extends BaseFragment implements UserContract.RegisterView {
     @Bind(R.id.sendsms_tv)
     TextView sendsmsTv;
     @Bind(R.id.sendsms_layout)
@@ -59,11 +61,14 @@ public class RegisterFragment extends BaseFragment {
 
     @Override
     public void initPresenter() {
-
+        mPresenter.setVM();
+        //http://www.dacaijin.cn/tool/user/register/phone/phonecode.xml
     }
 
     @Override
     protected void initView() {
+        MulitEditUtils.associate(verifycodeEdit, verifycodeClearIv);
+        MulitEditUtils.associate(pwdEdit, pwdClearIv);
 
     }
 
@@ -86,10 +91,6 @@ public class RegisterFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.sendsms_layout:
                 break;
-            case R.id.verifycode_clear_iv:
-                break;
-            case R.id.pwd_clear_iv:
-                break;
             case R.id.register_btn:
                 break;
             case R.id.go_login:
@@ -97,5 +98,25 @@ public class RegisterFragment extends BaseFragment {
                 getActivity().finish();
                 break;
         }
+    }
+
+    @Override
+    public void showLoading(String title) {
+
+    }
+
+    @Override
+    public void stopLoading() {
+
+    }
+
+    @Override
+    public void showErrorTip(String msg) {
+
+    }
+
+    @Override
+    public void returnVerifyCode(String code) {
+
     }
 }

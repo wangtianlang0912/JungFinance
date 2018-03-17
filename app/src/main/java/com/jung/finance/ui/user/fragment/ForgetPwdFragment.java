@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jung.finance.R;
+import com.jung.finance.ui.user.utils.MulitEditUtils;
 import com.leon.common.base.BaseFragment;
 
 import butterknife.Bind;
@@ -65,6 +66,9 @@ public class ForgetPwdFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+        MulitEditUtils.associate(mobileEdit, mobileClearIv);
+        MulitEditUtils.associate(pwdEdit, pwdClearIv);
+        MulitEditUtils.associate(confirmPwdEdit, confirmPwdClearIv);
 
     }
 
@@ -85,13 +89,7 @@ public class ForgetPwdFragment extends BaseFragment {
     @OnClick({R.id.mobile_clear_iv, R.id.sendsms_layout, R.id.pwd_clear_iv, R.id.confirm_pwd_clear_iv, R.id.submit_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.mobile_clear_iv:
-                break;
             case R.id.sendsms_layout:
-                break;
-            case R.id.pwd_clear_iv:
-                break;
-            case R.id.confirm_pwd_clear_iv:
                 break;
             case R.id.submit_btn:
                 break;

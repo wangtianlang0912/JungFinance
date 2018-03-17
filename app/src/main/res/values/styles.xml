@@ -5,4 +5,24 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
+
+
+    <!-- Activity动画  从右进 -->
+    <style name="Theme_In_From_Right" mce_bogus="1">
+        <item name="android:windowAnimationStyle">@style/AnimationInFromRight</item>
+        <!--
+            <item name="android:windowIsTranslucent">true</item>
+       <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+
+        -->
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="AnimationInFromRight" mce_bogus="1" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/in_from_right</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_static</item>
+        <item name="@android:activityCloseEnterAnimation">@anim/anim_static</item>
+        <item name="@android:activityCloseExitAnimation">@anim/out_to_right</item>
+    </style>
+
 </resources>

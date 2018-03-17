@@ -1,6 +1,7 @@
 package com.jung.finance.ui.user.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +13,9 @@ import android.widget.TextView;
 
 import com.jung.finance.R;
 import com.jung.finance.app.AppIntent;
+import com.jung.finance.ui.user.utils.MulitEditUtils;
 import com.leon.common.base.BaseFragment;
+import com.leon.common.commonutils.ToastUitl;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -68,6 +71,8 @@ public class LoginFragment extends BaseFragment {
     @Bind(R.id.forget_pwd_btn)
     TextView forgetPwdBtn;
 
+    private boolean isAccountStatus;
+
     @Override
     protected int getLayoutResource() {
         return R.layout.fra_login;
@@ -80,12 +85,13 @@ public class LoginFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
+        MulitEditUtils.associate(mobileEdit, mobileClearIv);
+        MulitEditUtils.associate(pwdEdit, pwdClearIv);
+        MulitEditUtils.associate(verifycodeEdit, verifycodeClearIv);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
         View rootView = super.onCreateView(inflater, container, savedInstanceState);
         ButterKnife.bind(this, rootView);
         return rootView;
@@ -105,6 +111,7 @@ public class LoginFragment extends BaseFragment {
                 accountLoginTv.setTextColor(getResources().getColor(R.color._333333));
                 accountLoginLayout.setVisibility(View.GONE);
                 mobileLoginLayout.setVisibility(View.VISIBLE);
+                isAccountStatus = false;
 
                 break;
             case R.id.account_login_tv:
@@ -112,27 +119,54 @@ public class LoginFragment extends BaseFragment {
                 mobileLoginTv.setTextColor(getResources().getColor(R.color._333333));
                 accountLoginLayout.setVisibility(View.VISIBLE);
                 mobileLoginLayout.setVisibility(View.GONE);
+                isAccountStatus = true;
+
                 break;
             case R.id.sendsms_layout:
-                break;
-            case R.id.verifycode_clear_iv:
-                break;
-            case R.id.mobile_clear_iv:
-                break;
-            case R.id.pwd_clear_iv:
+                sendVerifyCode();
                 break;
             case R.id.login_btn:
+
+                if(isAccountStatus){
+                    accountLogin();
+                }else{
+                    mobileLogin();
+                }
                 break;
             case R.id.wechat_btn:
+                wechatLogin();
                 break;
             case R.id.register_btn:
-
                 AppIntent.intentToRegister(getActivity());
                 break;
             case R.id.forget_pwd_btn:
-
                 AppIntent.intentToForgetPwd(getActivity());
                 break;
         }
+    }
+
+    private void sendVerifyCode() {
+
+        String phone = accountEdit.getText().toString();
+        if (TextUtils.isEmpty(phone)) {
+            ToastUitl.showShort("请输入手机号");
+            return;
+        }
+
+
+    }
+
+    private void wechatLogin() {
+
+
+    }
+
+    private void mobileLogin() {
+
+
+
+    }
+
+    private void accountLogin() {
     }
 }
