@@ -2,7 +2,7 @@ package com.jung.finance.ui.user.presenter;
 
 
 import com.jung.finance.R;
-import com.leon.common.basebean.BaseRespose;
+import com.jung.finance.ui.user.bean.UserInfo;
 import com.leon.common.baserx.RxSubscriber;
 
 /***
@@ -14,14 +14,14 @@ import com.leon.common.baserx.RxSubscriber;
  * @author niufei
  *
  *
- * @date 2018/3/18. 上午12:17
+ * @date 2018/3/18. 下午3:18
  *
  *
  */
-public class UpdatePwdPresenterImp extends UserContract.UpdatePwdPresenter {
+public class UserInfoPresenterImp extends UserContract.UserInfoPresenter {
     @Override
-    public void submit(String oldPwd, String newPwd) {
-        mRxManage.add(mModel.submit(oldPwd, newPwd).subscribe(new RxSubscriber<BaseRespose>(mContext, false) {
+    public void submit(String nick, String desp, String phone, String logo) {
+        mRxManage.add(mModel.submit(nick, desp, phone, logo).subscribe(new RxSubscriber<UserInfo>(mContext, false) {
             @Override
             public void onStart() {
                 super.onStart();
@@ -29,7 +29,7 @@ public class UpdatePwdPresenterImp extends UserContract.UpdatePwdPresenter {
             }
 
             @Override
-            protected void _onNext(BaseRespose data) {
+            protected void _onNext(UserInfo data) {
                 mView.returnSubmitResponse(data);
                 mView.stopLoading();
             }
@@ -40,6 +40,4 @@ public class UpdatePwdPresenterImp extends UserContract.UpdatePwdPresenter {
             }
         }));
     }
-
-
 }

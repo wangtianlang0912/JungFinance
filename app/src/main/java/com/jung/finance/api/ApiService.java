@@ -1,9 +1,15 @@
 package com.jung.finance.api;
 
+import com.jung.finance.bean.ArticleModel;
+import com.jung.finance.bean.BannerModel;
+import com.jung.finance.bean.BloggerModel;
+import com.jung.finance.bean.ColumnModel;
 import com.jung.finance.bean.GirlData;
 import com.jung.finance.bean.NewsDetail;
 import com.jung.finance.bean.NewsSummary;
+import com.jung.finance.bean.TopicModel;
 import com.jung.finance.bean.VideoData;
+import com.jung.finance.ui.main.bean.ScoreInfo;
 import com.jung.finance.ui.user.bean.UserInfo;
 import com.leon.common.basebean.BaseRespose;
 
@@ -98,7 +104,7 @@ public interface ApiService {
 
     //绑定手机号
     @POST("app/me/phone/bind")
-    Observable<BaseRespose<UserInfo>> bindMobile(@Query("token") String token, @Query("phone") String phone, @Query("phonecode") String code, @Query("password") String password);
+    Observable<BaseRespose> bindMobile(@Query("token") String token, @Query("phone") String phone, @Query("phonecode") String code, @Query("password") String password);
 
     //发送短信验证码 (绑定手机号,修改手机号)
     @GET("app/me/phone/phonecode")
@@ -106,6 +112,50 @@ public interface ApiService {
 
     //设置用户登录密码
     @POST("app/me/password/set")
-    Observable<BaseRespose<UserInfo>> updatePwd(@Query("token") String token,@Query("password") String password,@Query("newpassword") String newpassword,@Query("repassword") String repassword);
+    Observable<BaseRespose> updatePwd(@Query("token") String token, @Query("password") String password, @Query("newpassword") String newpassword, @Query("repassword") String repassword);
+
+    //获取用户信息
+    @GET("app/me/get")
+    Observable<BaseRespose<UserInfo>> getUserInfo(@Query("token") String token);
+
+    @GET("app/me/score/get")
+    Observable<BaseRespose<ScoreInfo>> getScoreInfo(@Query("token") String token);
+
+    //修改用户信息
+    @POST("app/me/set")
+    Observable<BaseRespose<UserInfo>> updateUserInfo(@Query("token") String token, @Query("nick") String nick, @Query("phone") String phone, @Query("logo") String logo, @Query("remark") String desp);
+
+
+    // 分类
+    @GET("app/column/query")
+    Observable<BaseRespose<ColumnModel>> getColumnList(@Query("columnId") String columnId, @Query("type") String type);
+
+    //区块链/珠宝app/article/query?columnId=21&p=1
+    @GET("app/article/query")
+    Observable<BaseRespose<ArticleModel>> getArtileList(@Query("columnId") String columnId, @Query("p") int page);
+
+
+    //首页文章
+    @GET("app/article/query?isHead=1")
+    Observable<Map<String,  BaseRespose<ArticleModel>>> getTopArtileList(@Header("Cache-Control") String cacheControl,@Query("p") int page);
+
+    //首页banner
+    @GET("app/banner/query")
+    Observable<BaseRespose<BannerModel>> getBannerList();
+
+    //首页下载地址
+    @GET("app/link/get")
+    //site = home&alias=top
+    Observable<BaseRespose<BannerModel>> getBannerList(@Query("site") String columnId, @Query("alias") String type);
+
+    //名家uid=2977
+    @GET("app/media/query")
+//    app/media/query?p=1&uid=2977
+    Observable<BaseRespose<BloggerModel>> getBloggerList(@Query("uid") String uid, @Query("p") int page);
+
+    //专题uid=2977
+    @GET("app/theme/query")
+    Observable<BaseRespose<TopicModel>> getTopicList(@Query("uid") String uid, @Query("p") int page);
+
 
 }

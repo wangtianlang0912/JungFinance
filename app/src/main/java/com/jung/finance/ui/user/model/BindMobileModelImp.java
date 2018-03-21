@@ -2,7 +2,6 @@ package com.jung.finance.ui.user.model;
 
 import com.jung.finance.api.Api;
 import com.jung.finance.api.HostType;
-import com.jung.finance.ui.user.bean.UserInfo;
 import com.jung.finance.ui.user.presenter.UserContract;
 import com.jung.finance.utils.MyUtils;
 import com.leon.common.basebean.BaseRespose;
@@ -39,14 +38,14 @@ public class BindMobileModelImp implements UserContract.IBindMobileModel {
     }
 
     @Override
-    public Observable<UserInfo> submit(String phone, String code, String pwd) {
+    public Observable<BaseRespose> submit(String phone, String code, String pwd) {
         return Api.getDefault(HostType.Jung_FINANCE)
-                .bindMobile(MyUtils.getToken(), phone, code, pwd).map(new Func1<BaseRespose<UserInfo>, UserInfo>() {
+                .bindMobile(MyUtils.getToken(), phone, code, pwd).map(new Func1<BaseRespose, BaseRespose>() {
                     @Override
-                    public UserInfo call(BaseRespose<UserInfo> respose) {
-                        return respose.data;
+                    public BaseRespose call(BaseRespose respose) {
+                        return respose;
                     }
-                }).compose(RxSchedulers.<UserInfo>io_main());
+                }).compose(RxSchedulers.<BaseRespose>io_main());
     }
 
 }

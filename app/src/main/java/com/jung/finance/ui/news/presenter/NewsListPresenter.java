@@ -2,6 +2,7 @@ package com.jung.finance.ui.news.presenter;
 
 import com.jung.finance.R;
 import com.jung.finance.app.AppConstant;
+import com.jung.finance.bean.ArticleModel;
 import com.jung.finance.bean.NewsSummary;
 import com.jung.finance.ui.news.contract.NewsListContract;
 import com.leon.common.baserx.RxSubscriber;
@@ -37,7 +38,7 @@ public class NewsListPresenter extends NewsListContract.Presenter {
      */
     @Override
     public void getNewsListDataRequest(String type, String id, int startPage) {
-         mRxManage.add(mModel.getNewsListData(type,id,startPage).subscribe(new RxSubscriber<List<NewsSummary>>(mContext,false) {
+         mRxManage.add(mModel.getNewsListData(type,id,startPage).subscribe(new RxSubscriber<List<ArticleModel.Article>>(mContext,false) {
              @Override
              public void onStart() {
                  super.onStart();
@@ -45,7 +46,7 @@ public class NewsListPresenter extends NewsListContract.Presenter {
              }
 
              @Override
-             protected void _onNext(List<NewsSummary> newsSummaries) {
+             protected void _onNext(List<ArticleModel.Article> newsSummaries) {
                  mView.returnNewsListData(newsSummaries);
                  mView.stopLoading();
              }

@@ -173,6 +173,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenterImp, Registe
         }
         if (response != null && response.getToken() != null) {
             MyUtils.saveUserInfo(getActivity(), response);
+            MyUtils.saveToken(getActivity(), response.getToken());
         }
     }
 

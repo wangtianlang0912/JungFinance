@@ -249,8 +249,9 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
         }
         if (response != null && response.getToken() != null) {
             MyUtils.saveUserInfo(getActivity(), response);
+            MyUtils.saveToken(getActivity(), response.getToken());
         }
-
+        getActivity().finish();
     }
 
     @Override

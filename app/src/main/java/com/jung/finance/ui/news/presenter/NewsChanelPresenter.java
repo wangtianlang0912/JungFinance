@@ -13,13 +13,13 @@ import java.util.List;
  * Created by xsf
  * on 2016.09.17:43
  */
-public class NewsChanelPresenter extends NewsChannelContract.Presenter{
+public class NewsChanelPresenter extends NewsChannelContract.Presenter {
     @Override
     public void lodeChannelsRequest() {
-        mRxManage.add(mModel.lodeMineNewsChannels().subscribe(new RxSubscriber<List<NewsChannelTable>>(mContext,false) {
+        mRxManage.add(mModel.lodeMineNewsChannels().subscribe(new RxSubscriber<List<NewsChannelTable>>(mContext, false) {
             @Override
             protected void _onNext(List<NewsChannelTable> newsChannelTables) {
-               mView.returnMineNewsChannels(newsChannelTables);
+                mView.returnMineNewsChannels(newsChannelTables);
             }
 
             @Override
@@ -27,10 +27,26 @@ public class NewsChanelPresenter extends NewsChannelContract.Presenter{
 
             }
         }));
-        mRxManage.add(mModel.lodeMoreNewsChannels().subscribe(new RxSubscriber<List<NewsChannelTable>>(mContext,false) {
+        mRxManage.add(mModel.lodeMoreNewsChannelsByCache().subscribe(new RxSubscriber<List<NewsChannelTable>>(mContext, false) {
             @Override
             protected void _onNext(List<NewsChannelTable> newsChannelTables) {
-                mView.returnMoreNewsChannels(newsChannelTables);
+                if (newsChannelTables != null) {
+                    mView.returnMoreNewsChannels(newsChannelTables);
+                } else {
+                    mRxManage.add(mModel.lodeMoreNewsChannelsByNet().subscribe(new RxSubscriber<List<NewsChannelTable>>(mContext, false) {
+                        @Override
+                        protected void _onNext(List<NewsChannelTable> newsChannelTables) {
+                            if (newsChannelTables != null) {
+                                mView.returnMoreNewsChannels(newsChannelTables);
+                            }
+                        }
+
+                        @Override
+                        protected void _onError(String message) {
+
+                        }
+                    }));
+                }
             }
 
             @Override
@@ -42,10 +58,10 @@ public class NewsChanelPresenter extends NewsChannelContract.Presenter{
 
     @Override
     public void onItemSwap(final ArrayList<NewsChannelTable> newsChannelTableList, int fromPosition, int toPosition) {
-        mRxManage.add( mModel.swapDb(newsChannelTableList,fromPosition,toPosition).subscribe(new RxSubscriber<String>(mContext,false) {
+        mRxManage.add(mModel.swapDb(newsChannelTableList, fromPosition, toPosition).subscribe(new RxSubscriber<String>(mContext, false) {
             @Override
             protected void _onNext(String s) {
-                mRxManage.post(AppConstant.NEWS_CHANNEL_CHANGED,newsChannelTableList);
+                mRxManage.post(AppConstant.NEWS_CHANNEL_CHANGED, newsChannelTableList);
             }
 
             @Override
@@ -53,15 +69,15 @@ public class NewsChanelPresenter extends NewsChannelContract.Presenter{
 
             }
         }));
-       ;
+        ;
     }
 
     @Override
     public void onItemAddOrRemove(final ArrayList<NewsChannelTable> mineChannelTableList, ArrayList<NewsChannelTable> moreChannelTableList) {
-        mRxManage.add(mModel.updateDb(mineChannelTableList,moreChannelTableList).subscribe(new RxSubscriber<String>(mContext,false) {
+        mRxManage.add(mModel.updateDb(mineChannelTableList, moreChannelTableList).subscribe(new RxSubscriber<String>(mContext, false) {
             @Override
             protected void _onNext(String s) {
-             mRxManage.post(AppConstant.NEWS_CHANNEL_CHANGED,mineChannelTableList);
+                mRxManage.post(AppConstant.NEWS_CHANNEL_CHANGED, mineChannelTableList);
             }
 
             @Override

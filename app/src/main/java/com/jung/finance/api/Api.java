@@ -128,6 +128,9 @@ public class Api {
     private class BaseResponseJsonDeserializer<T> implements JsonDeserializer<BaseRespose<T>> {
         @Override
         public BaseRespose<T> deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+
+            GsonBuilder gsonBuilder = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").serializeNulls();
+
             BaseRespose<T> baseResponse = new BaseRespose<>();
 
             if (json.isJsonNull()) {
@@ -154,10 +157,14 @@ public class Api {
                     baseResponse.data = newInstance(typeOfT);
                     return baseResponse;
                 }
-            }
+                Type type = ((ParameterizedType) typeOfT).getActualTypeArguments()[0];
+                baseResponse.data = gsonBuilder.create().fromJson(json, type);
 
-            GsonBuilder gsonBuilder = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ").serializeNulls();
-            baseResponse.data = gsonBuilder.create().fromJson(json, ((ParameterizedType) typeOfT).getActualTypeArguments()[0]);
+            } else {
+
+                Type type = ((ParameterizedType) typeOfT).getActualTypeArguments()[0];
+                baseResponse.data = gsonBuilder.create().fromJson(json, type);
+            }
 
             return baseResponse;
         }

@@ -22,7 +22,7 @@ public interface UserContract {
         void returnRegisterResponse(UserInfo response);
     }
 
-    abstract  class RegisterPresenter extends BasePresenter<IRegisterView, IRegisterModel> {
+    abstract class RegisterPresenter extends BasePresenter<IRegisterView, IRegisterModel> {
         public abstract void getVerifyCode(String phone);
 
         public abstract void register(String phone, String code, String pwd);
@@ -44,7 +44,7 @@ public interface UserContract {
         void returnLoginResponse(UserInfo response);
     }
 
-    abstract  class LoginPresenter extends BasePresenter<ILoginView, ILoginModel> {
+    abstract class LoginPresenter extends BasePresenter<ILoginView, ILoginModel> {
         public abstract void getVerifyCode(String phone);
 
         public abstract void accountLogin(String phone, String pwd);
@@ -66,7 +66,7 @@ public interface UserContract {
         void returnSubmitResponse(UserInfo response);
     }
 
-    abstract  class ForgetPwdPresenter extends BasePresenter<IForgetPwdView, IForgetPwdModel> {
+    abstract class ForgetPwdPresenter extends BasePresenter<IForgetPwdView, IForgetPwdModel> {
         public abstract void getVerifyCode(String phone);
 
         public abstract void submit(String phone, String code, String pwd);
@@ -76,35 +76,48 @@ public interface UserContract {
     interface IBindMobileModel extends BaseModel {
         Observable<BaseRespose<String>> getVerifyCode(String phone);
 
-        Observable<UserInfo> submit(String phone, String code, String pwd);
+        Observable<BaseRespose> submit(String phone, String code, String pwd);
     }
 
 
     interface IBindMobileView extends BaseView {
         void returnVerifyCode(BaseRespose<String> result);
 
-        void returnSubmitResponse(UserInfo response);
+        void returnSubmitResponse(BaseRespose response);
     }
 
-    abstract  class BindMobilePresenter extends BasePresenter<IBindMobileView, IBindMobileModel> {
+    abstract class BindMobilePresenter extends BasePresenter<IBindMobileView, IBindMobileModel> {
         public abstract void getVerifyCode(String phone);
 
         public abstract void submit(String phone, String code, String pwd);
     }
 
 
-
     interface IUpdatePwdModel extends BaseModel {
-        Observable<UserInfo> submit(String oldPwd, String newPwd);
+        Observable<BaseRespose> submit(String oldPwd, String newPwd);
     }
 
 
     interface IUpdatePwdView extends BaseView {
 
+        void returnSubmitResponse(BaseRespose response);
+    }
+
+    abstract class UpdatePwdPresenter extends BasePresenter<IUpdatePwdView, IUpdatePwdModel> {
+        public abstract void submit(String oldPwd, String newPwd);
+    }
+
+    interface IUserInfoModel extends BaseModel {
+        Observable<UserInfo> submit(String nick, String desp, String phone, String logo);
+    }
+
+
+    interface IUserInfoView extends BaseView {
+
         void returnSubmitResponse(UserInfo response);
     }
 
-    abstract  class UpdatePwdPresenter extends BasePresenter<IUpdatePwdView, IUpdatePwdModel> {
-        public abstract void submit(String oldPwd, String newPwd);
+    abstract class UserInfoPresenter extends BasePresenter<IUserInfoView, IUserInfoModel> {
+        public abstract void submit(String nick, String desp, String phone, String logo);
     }
 }

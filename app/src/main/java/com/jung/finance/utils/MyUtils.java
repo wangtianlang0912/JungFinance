@@ -43,7 +43,7 @@ import javax.net.ssl.X509TrustManager;
  */
 public class MyUtils {
 
-    private static String token;
+    private static String mToken;
 
     public static void dynamicSetTabLayoutMode(TabLayout tabLayout) {
         int tabWidth = calculateTabWidth(tabLayout);
@@ -83,7 +83,6 @@ public class MyUtils {
     public static void saveUserInfo(Context context, UserInfo userInfo) {
         try {
             if (userInfo == null) {
-                token = null;
                 PerfrenceHelper.putString(context, AppConstant.USERINFO_KEY, "");
             } else {
 
@@ -124,16 +123,31 @@ public class MyUtils {
         return null;
     }
 
+    /**
+     * @param context
+     * @param token
+     */
+    public static void saveToken(Context context, String token) {
+        mToken = token;
+        if (TextUtils.isEmpty(token)) {
+            PerfrenceHelper.putString(context, AppConstant.TOKEN_KEY, "");
+        } else {
+            PerfrenceHelper.putString(context, AppConstant.TOKEN_KEY, token);
+        }
+    }
+
+
     public static String getToken() {
 
-        if (TextUtils.isEmpty(token)) {
-
-            UserInfo userInfo = getUserInfoFromPreference(AppApplication.getAppContext());
-            if (userInfo != null) {
-                token = userInfo.getToken();
-            }
+        if (TextUtils.isEmpty(mToken)) {
+            mToken = PerfrenceHelper.getString(AppApplication.getAppContext(), AppConstant.TOKEN_KEY);
         }
-        return token;
+        return mToken;
+    }
+
+    public static boolean isLogin() {
+
+        return getToken() != null;
     }
 
 

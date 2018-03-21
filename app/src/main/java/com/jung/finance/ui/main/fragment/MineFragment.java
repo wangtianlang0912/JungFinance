@@ -12,6 +12,11 @@ import android.widget.TextView;
 
 import com.jung.finance.R;
 import com.jung.finance.app.AppIntent;
+import com.jung.finance.ui.main.model.MineModelImp;
+import com.jung.finance.ui.main.presenter.MineContract;
+import com.jung.finance.ui.main.presenter.MinePresenterImp;
+import com.jung.finance.ui.user.bean.UserInfo;
+import com.jung.finance.utils.MyUtils;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonutils.ImageLoaderUtils;
 
@@ -24,7 +29,7 @@ import butterknife.OnClick;
  * Created by xsf
  * on 2016.09.17:07
  */
-public class MineFragment extends BaseFragment {
+public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> implements MineContract.IMineView {
     @Bind(R.id.setting)
     ImageView setting;
     @Bind(R.id.img_logo)
@@ -69,13 +74,37 @@ public class MineFragment extends BaseFragment {
 
     @Override
     public void initPresenter() {
+        mPresenter.setVM(this, mModel);
 
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (MyUtils.isLogin()) {
+            mPresenter.getUserInfo();
+        }
     }
 
     @Override
     protected void initView() {
-        ImageLoaderUtils.displayRound(getContext(), imgLogo, R.drawable.bgkobe);
+        if (MyUtils.isLogin()) {
+            UserInfo userInfo = MyUtils.getUserInfoFromPreference(getActivity());
+            if (userInfo != null && userInfo.getUser() != null) {
+                ImageLoaderUtils.displayRound(getContext(), imgLogo, userInfo.getUser().getLogo());
+                nickView.setText(userInfo.getUser().getNick());
+                despView.setText(userInfo.getUser().getRemark());
+                subscribeNum.setText(userInfo.getUser().getMCount() + "");
+                fansNum.setText(userInfo.getUser().getRole() + "");
+                if (userInfo.getUser().getMember() != null) {
+                    scoreNum.setText(userInfo.getUser().getMember().getScore() + "");
+                }
+            }
+        }
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -98,8 +127,11 @@ public class MineFragment extends BaseFragment {
                 AppIntent.intentToSetting(getActivity());
                 break;
             case R.id.img_logo_layout:
-
-                AppIntent.intentToUserInfo(getActivity());
+                if (MyUtils.isLogin()) {
+                    AppIntent.intentToUserInfo(getActivity());
+                } else {
+                    AppIntent.intentToLogin(getActivity());
+                }
                 break;
             case R.id.subscribe_layout:
                 break;
@@ -119,6 +151,36 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.activity_layout:
                 break;
+        }
+    }
+
+    @Override
+    public void showLoading(String title) {
+
+    }
+
+    @Override
+    public void stopLoading() {
+    }
+
+    @Override
+    public void showErrorTip(String msg) {
+    }
+
+    @Override
+    public void returnUserInfoResponse(UserInfo userInfo) {
+        if (userInfo != null && userInfo.getUser() != null) {
+
+            MyUtils.saveUserInfo(getActivity(), userInfo);
+
+            ImageLoaderUtils.displayRound(getContext(), imgLogo, userInfo.getUser().getLogo());
+            nickView.setText(userInfo.getUser().getNick());
+            despView.setText(userInfo.getUser().getRemark());
+            subscribeNum.setText(userInfo.getUser().getMCount() + "");
+            fansNum.setText(userInfo.getUser().getRole() + "");
+            if (userInfo.getUser().getMember() != null) {
+                scoreNum.setText(userInfo.getUser().getMember().getScore() + "");
+            }
         }
     }
 }

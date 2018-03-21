@@ -17,7 +17,6 @@ import java.util.Locale;
 
 /**
  * 描述：日期处理类.
- *
  */
 @SuppressWarnings("all")
 public class TimeUtil {
@@ -118,6 +117,7 @@ public class TimeUtil {
 
     /**
      * 时间戳转特定格式时间
+     *
      * @param dataFormat
      * @param timeStamp
      * @return
@@ -358,6 +358,7 @@ public class TimeUtil {
         }
         return curDateTime;
     }
+
     //获取当前系统前后第几小时
     public static String getNextHour(int i) {
         String curDateTime = null;
@@ -659,6 +660,60 @@ public class TimeUtil {
         return strDate;
     }
 
+    /**
+     * 描述：根据时间返回几天前或几分钟的描述.
+     *
+     * @param strDate the str date
+     */
+    public static String formatTimeStampStr2Desc(long timeStamp) {
+
+        DateFormat df = new SimpleDateFormat(dateFormatYMDHM);
+        Calendar c1 = Calendar.getInstance();
+        Calendar c2 = Calendar.getInstance();
+        try {
+            c2.setTime(new Date(timeStamp));
+            c1.setTime(new Date());
+            int d = getOffectDay(c1.getTimeInMillis(), c2.getTimeInMillis());
+            if (d == 0) {
+                int h = getOffectHour(c1.getTimeInMillis(), c2.getTimeInMillis());
+                if (h > 0) {
+                    return h + "小时前";
+                } else if (h < 0) {
+                    return Math.abs(h) + "小时后";
+                } else if (h == 0) {
+                    int m = getOffectMinutes(c1.getTimeInMillis(), c2.getTimeInMillis());
+                    if (m > 0) {
+                        return m + "分钟前";
+                    } else if (m < 0) {
+                        return Math.abs(m) + "分钟后";
+                    } else {
+                        return "刚刚";
+                    }
+                }
+            } else if (d > 0) {
+                if (d == 1) {
+                    return "昨天";
+                } else if (d == 2) {
+                    return "前天";
+                }
+            } else if (d < 0) {
+                if (d == -1) {
+                    return "明天";
+                } else if (d == -2) {
+                    return "后天";
+                }
+                return Math.abs(d) + "天后";
+            }
+
+            String out = getStringByFormat(new Date(timeStamp), dateFormat);
+            if (!TextUtils.isEmpty(out)) {
+                return out;
+            }
+        } catch (Exception e) {
+        }
+
+        return String.valueOf(timeStamp);
+    }
 
     /**
      * 取指定日期为星期几
@@ -807,6 +862,7 @@ public class TimeUtil {
 
     /**
      * 过了多少个小时
+     *
      * @param dateStr
      * @return
      */
@@ -818,19 +874,19 @@ public class TimeUtil {
         try {
             sendDate = sdf.parse(dateStr);
             Date dateNow = new Date(System.currentTimeMillis());
-            Log.e("JPush","date="+sendDate);
+            Log.e("JPush", "date=" + sendDate);
             long times = dateNow.getTime() - sendDate.getTime();
-            Log.e("JPush","date.getTime()="+sendDate.getTime());
+            Log.e("JPush", "date.getTime()=" + sendDate.getTime());
             if (times > 0) {
                 ret = ((int) (times / ONE_HOUR_MILLISECONDS));
-                int sdqf =(int)Math.floor(times /ONE_HOUR_MILLISECONDS);
+                int sdqf = (int) Math.floor(times / ONE_HOUR_MILLISECONDS);
             } else {
                 ret = -1;
             }
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        Log.e("JPush","ret="+ret);
+        Log.e("JPush", "ret=" + ret);
         return ret;
     }
 
@@ -948,6 +1004,7 @@ public class TimeUtil {
         tmpDuration %= 1;
         return str;
     }
+
     /**
      * 友好的时间间隔2
      *
@@ -957,9 +1014,9 @@ public class TimeUtil {
     public static String getFriendlyDuration2(long duration) {
         String str = "";
         long tmpDuration = duration;
-        str += (tmpDuration / 60>0?tmpDuration / 60+"'":"");
+        str += (tmpDuration / 60 > 0 ? tmpDuration / 60 + "'" : "");
         tmpDuration %= 60;
-        str += (tmpDuration / 1>=10?tmpDuration / 1+"''":"0"+tmpDuration / 1+"''");
+        str += (tmpDuration / 1 >= 10 ? tmpDuration / 1 + "''" : "0" + tmpDuration / 1 + "''");
         tmpDuration %= 1;
         return str;
     }
@@ -1015,12 +1072,13 @@ public class TimeUtil {
 
     /**
      * 返回聊天时间
+     *
      * @return
      */
-    public static  String getChatTimeForShow(long time){
-        if(TimeUtil.isToday(time)){
+    public static String getChatTimeForShow(long time) {
+        if (TimeUtil.isToday(time)) {
             return TimeUtil.getStringByFormat(time, TimeUtil.dateFormatHMofChinese);
-        }else{
+        } else {
             return TimeUtil.getStringByFormat(time, TimeUtil.dateFormatMDHMofChinese);
         }
     }
@@ -1028,7 +1086,7 @@ public class TimeUtil {
     /**
      * 获取指定时间的毫秒值
      */
-    public static long getDatelongMills(String fomat,String dateStr){
+    public static long getDatelongMills(String fomat, String dateStr) {
         SimpleDateFormat sdf = new SimpleDateFormat(fomat);
         Date date = null;
         try {
@@ -1042,6 +1100,7 @@ public class TimeUtil {
 
     /**
      * 两个日期比较
+     *
      * @param DATE1
      * @param DATE2
      * @return
@@ -1051,7 +1110,7 @@ public class TimeUtil {
         try {
             Date dt1 = df.parse(DATE1);
             Date dt2 = df.parse(DATE2);
-            if (dt1.getTime() - dt2.getTime()>0) {//date1>date2
+            if (dt1.getTime() - dt2.getTime() > 0) {//date1>date2
                 return 1;
             } else {
                 return -1;

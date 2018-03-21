@@ -62,6 +62,7 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mRxManager.on(AppConstant.CHANNEL_SWAP, new Action1<ChannelItemMoveEvent>() {
             @Override
             public void call(ChannelItemMoveEvent channelItemMoveEvent) {

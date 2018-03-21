@@ -11,7 +11,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jung.finance.R;
+import com.jung.finance.app.AppIntent;
+import com.jung.finance.ui.user.bean.UserInfo;
+import com.jung.finance.utils.MyUtils;
 import com.leon.common.base.BaseFragment;
+import com.leon.common.commonutils.ImageLoaderUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -73,7 +77,14 @@ public class SettingFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
+        if (MyUtils.isLogin()) {
+            UserInfo userInfo = MyUtils.getUserInfoFromPreference(getActivity());
+            if (userInfo != null && userInfo.getUser() != null) {
+                ImageLoaderUtils.displayRound(getContext(), logoView, userInfo.getUser().getLogo());
+                nickView.setText(userInfo.getUser().getNick());
+                despView.setText(userInfo.getUser().getRemark());
+            }
+        }
     }
 
     @Override
@@ -94,10 +105,13 @@ public class SettingFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.userinfo_layout:
+                AppIntent.intentToUserInfo(getActivity());
                 break;
             case R.id.account_safe_btn:
+                AppIntent.intentToAccountSafe(getActivity());
                 break;
             case R.id.clear_cache_layout:
+
                 break;
             case R.id.version_layout:
                 break;

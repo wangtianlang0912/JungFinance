@@ -56,8 +56,8 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-//                MainActivity.startAction(SplashActivity.this);
-                AppIntent.intentToUpdatePwd(SplashActivity.this);
+                MainActivity.startAction(SplashActivity.this);
+//                AppIntent.intentToUpdatePwd(SplashActivity.this);
                 finish();
             }
 

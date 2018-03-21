@@ -10,7 +10,7 @@ import com.aspsine.irecyclerview.animation.ScaleInAnimation;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.jung.finance.R;
 import com.jung.finance.app.AppConstant;
-import com.jung.finance.bean.NewsSummary;
+import com.jung.finance.bean.ArticleModel;
 import com.jung.finance.ui.news.adapter.NewListAdapter;
 import com.jung.finance.ui.news.contract.NewsListContract;
 import com.jung.finance.ui.news.model.NewsListModel;
@@ -34,7 +34,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
     @Bind(R.id.loadedTip)
     LoadingTip loadedTip;
     private NewListAdapter newListAdapter;
-    private List<NewsSummary> datas = new ArrayList<>();
+    private List<ArticleModel.Article> datas = new ArrayList<>();
 
     private String mNewsId;
     private String mNewsType;
@@ -76,7 +76,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
 
 
     @Override
-    public void returnNewsListData(List<NewsSummary> newsSummaries) {
+    public void returnNewsListData(List<ArticleModel.Article> newsSummaries) {
         if (newsSummaries != null) {
             mStartPage += 20;
             if (newListAdapter.getPageBean().isRefresh()) {

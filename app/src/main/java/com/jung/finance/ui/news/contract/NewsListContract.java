@@ -1,6 +1,6 @@
 package com.jung.finance.ui.news.contract;
 
-import com.jung.finance.bean.NewsSummary;
+import com.jung.finance.bean.ArticleModel;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;
@@ -17,12 +17,12 @@ import rx.Observable;
 public interface NewsListContract {
     interface Model extends BaseModel {
         //请求获取新闻
-        Observable <List<NewsSummary>> getNewsListData(String type, final String id, int startPage);
+        Observable <List<ArticleModel.Article>> getNewsListData(String type, final String id, int startPage);
     }
 
     interface View extends BaseView {
         //返回获取的新闻
-        void returnNewsListData(List<NewsSummary> newsSummaries);
+        void returnNewsListData(List<ArticleModel.Article> newsSummaries);
         //返回顶部
         void scrolltoTop();
     }

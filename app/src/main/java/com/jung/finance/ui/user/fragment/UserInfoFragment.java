@@ -10,7 +10,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jung.finance.R;
+import com.jung.finance.ui.user.bean.UserInfo;
+import com.jung.finance.ui.user.model.UserInfoModelImp;
+import com.jung.finance.ui.user.presenter.UserContract;
+import com.jung.finance.ui.user.presenter.UserInfoPresenterImp;
+import com.jung.finance.utils.MyUtils;
 import com.leon.common.base.BaseFragment;
+import com.leon.common.commonutils.ImageLoaderUtils;
+import com.leon.common.commonutils.ToastUitl;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -30,7 +37,7 @@ import butterknife.OnClick;
  *
  *
  */
-public class UserInfoFragment extends BaseFragment {
+public class UserInfoFragment extends BaseFragment<UserInfoPresenterImp, UserInfoModelImp> implements UserContract.IUserInfoView {
 
 
     @Bind(R.id.logo_view)
@@ -46,6 +53,8 @@ public class UserInfoFragment extends BaseFragment {
     @Bind(R.id.submit_btn)
     Button submitBtn;
 
+    private UserInfo userInfo;
+
     @Override
     protected int getLayoutResource() {
         return R.layout.fra_userinfo;
@@ -53,12 +62,19 @@ public class UserInfoFragment extends BaseFragment {
 
     @Override
     public void initPresenter() {
-
+        mPresenter.setVM(this, mModel);
     }
 
     @Override
     protected void initView() {
-
+        if (MyUtils.isLogin()) {
+            userInfo = MyUtils.getUserInfoFromPreference(getActivity());
+            if (userInfo != null && userInfo.getUser() != null) {
+                ImageLoaderUtils.displayRound(getContext(), logoView, userInfo.getUser().getLogo());
+                nickEdit.setText(userInfo.getUser().getNick());
+                despEdit.setText(userInfo.getUser().getRemark());
+            }
+        }
     }
 
     @Override
@@ -77,5 +93,34 @@ public class UserInfoFragment extends BaseFragment {
     @OnClick(R.id.submit_btn)
     public void onViewClicked() {
 
+        String nick = nickEdit.getText().toString().trim();
+        String desp = despEdit.getText().toString().trim();
+
+        if (userInfo != null && userInfo.getUser() != null) {
+            mPresenter.submit(nick, desp, userInfo.getUser().getPhone(), userInfo.getUser().getLogo());
+        }
+    }
+
+    @Override
+    public void showLoading(String title) {
+        showProgressBar();
+    }
+
+    @Override
+    public void stopLoading() {
+        dismissProgressBar();
+    }
+
+    @Override
+    public void showErrorTip(String msg) {
+        ToastUitl.showShort(msg);
+    }
+
+    @Override
+    public void returnSubmitResponse(UserInfo response) {
+        if (response != null) {
+            MyUtils.saveUserInfo(getActivity(), response);
+            getActivity().finish();
+        }
     }
 }

@@ -3,7 +3,6 @@ package com.jung.finance.ui.user.model;
 
 import com.jung.finance.api.Api;
 import com.jung.finance.api.HostType;
-import com.jung.finance.ui.user.bean.UserInfo;
 import com.jung.finance.ui.user.presenter.UserContract;
 import com.jung.finance.utils.MyUtils;
 import com.leon.common.basebean.BaseRespose;
@@ -28,13 +27,13 @@ import rx.functions.Func1;
 public class UpdatePwdModelImp implements UserContract.IUpdatePwdModel{
 
     @Override
-    public Observable<UserInfo> submit(String oldPwd, String newPwd) {
+    public Observable<BaseRespose> submit(String oldPwd, String newPwd) {
         return Api.getDefault(HostType.Jung_FINANCE)
-                .updatePwd(MyUtils.getToken(), oldPwd, newPwd, newPwd).map(new Func1<BaseRespose<UserInfo>, UserInfo>() {
+                .updatePwd(MyUtils.getToken(), oldPwd, newPwd, newPwd).map(new Func1<BaseRespose, BaseRespose>() {
                     @Override
-                    public UserInfo call(BaseRespose<UserInfo> respose) {
-                        return respose.data;
+                    public BaseRespose call(BaseRespose respose) {
+                        return respose;
                     }
-                }).compose(RxSchedulers.<UserInfo>io_main());
+                }).compose(RxSchedulers.<BaseRespose>io_main());
     }
 }

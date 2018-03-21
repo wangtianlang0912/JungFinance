@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.jung.finance.R;
-import com.jung.finance.ui.user.bean.UserInfo;
 import com.jung.finance.ui.user.model.BindMobileModelImp;
 import com.jung.finance.ui.user.presenter.BindMobilePresenterImp;
 import com.jung.finance.ui.user.presenter.UserContract;
@@ -162,9 +161,15 @@ public class BindMobileFragment extends BaseFragment<BindMobilePresenterImp, Bin
     }
 
     @Override
-    public void returnSubmitResponse(UserInfo response) {
+    public void returnSubmitResponse(BaseRespose response) {
         if (sendsmsTv != null) {
             sendsmsTv.stopTimerCount();
+        }
+        if (response.success()) {
+            ToastUitl.showShort(R.string.update_pwd_succ);
+            getActivity().finish();
+        } else {
+            ToastUitl.showShort(response.msg);
         }
     }
 }

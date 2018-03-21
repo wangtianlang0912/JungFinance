@@ -2,7 +2,6 @@ package com.jung.finance.ui.user.presenter;
 
 
 import com.jung.finance.R;
-import com.jung.finance.ui.user.bean.UserInfo;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
 
@@ -44,7 +43,7 @@ public class BindMobilePresenterImp extends UserContract.BindMobilePresenter {
 
     @Override
     public void submit(String phone, String code, String pwd) {
-        mRxManage.add(mModel.submit(phone, code, pwd).subscribe(new RxSubscriber<UserInfo>(mContext, false) {
+        mRxManage.add(mModel.submit(phone, code, pwd).subscribe(new RxSubscriber<BaseRespose>(mContext, false) {
             @Override
             public void onStart() {
                 super.onStart();
@@ -52,7 +51,7 @@ public class BindMobilePresenterImp extends UserContract.BindMobilePresenter {
             }
 
             @Override
-            protected void _onNext(UserInfo data) {
+            protected void _onNext(BaseRespose data) {
                 mView.returnSubmitResponse(data);
                 mView.stopLoading();
             }

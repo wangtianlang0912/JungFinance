@@ -1,6 +1,13 @@
 package com.jung.finance.ui.user.bean;
 
 
+import com.jung.finance.ui.main.bean.MediaInfo;
+import com.jung.finance.ui.main.bean.MessageInfo;
+import com.jung.finance.ui.main.bean.ScoreInfo;
+
+import java.io.Serializable;
+import java.util.List;
+
 /***
  *
  * @Copyright 2018
@@ -14,10 +21,12 @@ package com.jung.finance.ui.user.bean;
  *
  *
  */
-public class UserInfo {
+public class UserInfo implements Serializable {
     private String token;
 
     private User user;
+
+    private List<MessageInfo> messages;
 
     public void setToken(String token) {
         this.token = token;
@@ -35,12 +44,25 @@ public class UserInfo {
         return this.user;
     }
 
-    public class User {
+    public List<MessageInfo> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<MessageInfo> messages) {
+        this.messages = messages;
+    }
+
+    public class User implements Serializable{
+
+        private ScoreInfo.Member member;
+
         private int uid;
 
         private String logo;
 
         private String phone;
+
+        private String remark;
 
         private int btime;
 
@@ -58,15 +80,65 @@ public class UserInfo {
 
         private int mCount;
 
-        private int indexId;
-
         private String nick;
+
+        private int indexId;
 
         private int objectId;
 
         private int role;
 
         private int aCount;
+
+        private MediaInfo media;
+
+        public ScoreInfo.Member getMember() {
+            return member;
+        }
+
+        public void setMember(ScoreInfo.Member member) {
+            this.member = member;
+        }
+
+        public void setRemark(String remark) {
+            this.remark = remark;
+        }
+
+        public boolean isBlacked() {
+            return blacked;
+        }
+
+        public int getfCount() {
+            return fCount;
+        }
+
+        public void setfCount(int fCount) {
+            this.fCount = fCount;
+        }
+
+        public int getmCount() {
+            return mCount;
+        }
+
+        public void setmCount(int mCount) {
+            this.mCount = mCount;
+        }
+
+        public int getaCount() {
+            return aCount;
+        }
+
+        public void setaCount(int aCount) {
+            this.aCount = aCount;
+        }
+
+        public MediaInfo getMedia() {
+            return media;
+        }
+
+        public void setMedia(MediaInfo media) {
+            this.media = media;
+        }
 
         public void setUid(int uid) {
             this.uid = uid;
@@ -196,5 +268,8 @@ public class UserInfo {
             return this.aCount;
         }
 
+        public String getRemark() {
+            return remark;
+        }
     }
 }

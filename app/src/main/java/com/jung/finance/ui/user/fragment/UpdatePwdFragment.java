@@ -9,12 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.jung.finance.R;
-import com.jung.finance.ui.user.bean.UserInfo;
 import com.jung.finance.ui.user.model.UpdatePwdModelImp;
 import com.jung.finance.ui.user.presenter.UpdatePwdPresenterImp;
 import com.jung.finance.ui.user.presenter.UserContract;
 import com.jung.finance.utils.PatternUtil;
 import com.leon.common.base.BaseFragment;
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonutils.ToastUitl;
 
 import butterknife.Bind;
@@ -120,8 +120,12 @@ public class UpdatePwdFragment extends BaseFragment<UpdatePwdPresenterImp, Updat
     }
 
     @Override
-    public void returnSubmitResponse(UserInfo response) {
-
-        ToastUitl.showShort(response.toString());
+    public void returnSubmitResponse(BaseRespose response) {
+        if (response.success()) {
+            ToastUitl.showShort(R.string.update_pwd_succ);
+            getActivity().finish();
+        } else {
+            ToastUitl.showShort(response.msg);
+        }
     }
 }

@@ -1,21 +1,24 @@
 package com.jung.finance.ui.news.model;
 
-import com.jung.finance.app.AppApplication;
-import com.jung.finance.R;
+import com.jung.finance.api.Api;
 import com.jung.finance.api.ApiConstants;
+import com.jung.finance.api.HostType;
+import com.jung.finance.app.AppApplication;
 import com.jung.finance.app.AppConstant;
+import com.jung.finance.bean.ColumnModel;
 import com.jung.finance.bean.NewsChannelTable;
 import com.jung.finance.db.NewsChannelTableManager;
 import com.jung.finance.ui.news.contract.NewsChannelContract;
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 import com.leon.common.commonutils.ACache;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import rx.Observable;
 import rx.Subscriber;
+import rx.functions.Func1;
 
 /**
  * des:新闻频道
@@ -30,9 +33,9 @@ public class NewsChannelModel implements NewsChannelContract.Model {
             @Override
             public void call(Subscriber<? super List<NewsChannelTable>> subscriber) {
                 ArrayList<NewsChannelTable> newsChannelTableList = (ArrayList<NewsChannelTable>) ACache.get(AppApplication.getAppContext()).getAsObject(AppConstant.CHANNEL_MINE);
-               if(newsChannelTableList==null){
-                   newsChannelTableList= (ArrayList<NewsChannelTable>) NewsChannelTableManager.loadNewsChannelsStatic();
-               }
+                if (newsChannelTableList == null) {
+                    newsChannelTableList = (ArrayList<NewsChannelTable>) NewsChannelTableManager.loadNewsChannelsStatic();
+                }
                 subscriber.onNext(newsChannelTableList);
                 subscriber.onCompleted();
             }
@@ -40,33 +43,52 @@ public class NewsChannelModel implements NewsChannelContract.Model {
     }
 
     @Override
-    public Observable<List<NewsChannelTable>> lodeMoreNewsChannels() {
+    public Observable<List<NewsChannelTable>> lodeMoreNewsChannelsByCache() {
         return Observable.create(new Observable.OnSubscribe<List<NewsChannelTable>>() {
             @Override
             public void call(Subscriber<? super List<NewsChannelTable>> subscriber) {
-                ArrayList<NewsChannelTable> newsChannelTableList = (ArrayList<NewsChannelTable>) ACache.get(AppApplication.getAppContext()).getAsObject(AppConstant.CHANNEL_MORE);
-               if(newsChannelTableList==null) {
-                   List<String> channelName = Arrays.asList(AppApplication.getAppContext().getResources().getStringArray(R.array.news_channel_name));
-                   List<String> channelId = Arrays.asList(AppApplication.getAppContext().getResources().getStringArray(R.array.news_channel_id));
-                   newsChannelTableList = new ArrayList<>();
-                   for (int i = 0; i < channelName.size(); i++) {
-                       NewsChannelTable entity = new NewsChannelTable(channelName.get(i), channelId.get(i)
-                               , ApiConstants.getType(channelId.get(i)), i <= 5, i, false);
-                       newsChannelTableList.add(entity);
-                   }
-               }
+                ArrayList<NewsChannelTable> newsChannelTableList =
+                        (ArrayList<NewsChannelTable>) ACache.get(AppApplication.getAppContext()).getAsObject(AppConstant.CHANNEL_MORE);
+                if (newsChannelTableList == null) {
+
+
+                }
                 subscriber.onNext(newsChannelTableList);
                 subscriber.onCompleted();
             }
         }).compose(RxSchedulers.<List<NewsChannelTable>>io_main());
+    }
+
+    @Override
+    public Observable<List<NewsChannelTable>> lodeMoreNewsChannelsByNet() {
+
+        return Api.getDefault(HostType.Jung_FINANCE)
+                .getColumnList(null, null)
+                .map(new Func1<BaseRespose<ColumnModel>, List<NewsChannelTable>>() {
+                    @Override
+                    public List<NewsChannelTable> call(BaseRespose<ColumnModel> respose) {
+                        List<NewsChannelTable> tableList = new ArrayList<NewsChannelTable>();
+                        if (respose != null) {
+                            for (int i = 0; i < respose.data.getColumns().size(); i++) {
+                                ColumnModel.Column column = respose.data.getColumns().get(i);
+                                NewsChannelTable entity = new NewsChannelTable(column.getTitle(), String.valueOf(column.getObjectId())
+                                        , ApiConstants.getType(String.valueOf(column.getObjectId())), false, i, false);
+                                tableList.add(entity);
+                            }
+                        }
+                        return tableList;
+                    }
+                }).compose(RxSchedulers.<List<NewsChannelTable>>io_main());
+
+
     }
 
     @Override
     public Observable<String> swapDb(final ArrayList<NewsChannelTable> newsChannelTableList, int fromPosition, int toPosition) {
-       return Observable.create(new Observable.OnSubscribe<String>() {
+        return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                ACache.get(AppApplication.getAppContext()).put(AppConstant.CHANNEL_MINE,newsChannelTableList);
+                ACache.get(AppApplication.getAppContext()).put(AppConstant.CHANNEL_MINE, newsChannelTableList);
                 subscriber.onNext("");
                 subscriber.onCompleted();
             }
@@ -79,8 +101,8 @@ public class NewsChannelModel implements NewsChannelContract.Model {
         return Observable.create(new Observable.OnSubscribe<String>() {
             @Override
             public void call(Subscriber<? super String> subscriber) {
-                ACache.get(AppApplication.getAppContext()).put(AppConstant.CHANNEL_MINE,mineChannelTableList);
-                ACache.get(AppApplication.getAppContext()).put(AppConstant.CHANNEL_MORE,moreChannelTableList);
+                ACache.get(AppApplication.getAppContext()).put(AppConstant.CHANNEL_MINE, mineChannelTableList);
+                ACache.get(AppApplication.getAppContext()).put(AppConstant.CHANNEL_MORE, moreChannelTableList);
                 subscriber.onNext("");
                 subscriber.onCompleted();
             }

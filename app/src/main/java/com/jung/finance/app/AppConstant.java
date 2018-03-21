@@ -42,4 +42,5 @@ public class AppConstant {
     public static final String FLAG_BUNDLE = "frag_bundle";
 
     public static final String USERINFO_KEY = "userinfo";
+    public static final String TOKEN_KEY = "token";
 }

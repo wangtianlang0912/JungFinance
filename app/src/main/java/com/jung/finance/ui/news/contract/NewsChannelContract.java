@@ -20,7 +20,9 @@ public interface NewsChannelContract {
     interface Model extends BaseModel {
         Observable<List<NewsChannelTable>> lodeMineNewsChannels();
 
-        Observable<List<NewsChannelTable>> lodeMoreNewsChannels();
+        Observable<List<NewsChannelTable>> lodeMoreNewsChannelsByCache();
+
+        Observable<List<NewsChannelTable>> lodeMoreNewsChannelsByNet();
 
         Observable<String> swapDb(ArrayList<NewsChannelTable> newsChannelTableList, int fromPosition, int toPosition);
 

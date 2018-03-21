@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jung.finance.R;
+import com.jung.finance.app.AppIntent;
 import com.leon.common.base.BaseFragment;
 
 import butterknife.Bind;
@@ -72,8 +73,11 @@ public class AccountSafeFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bind_mobile_layout:
+
+                AppIntent.intentToBindMobile(getActivity());
                 break;
             case R.id.update_pwd_layout:
+                AppIntent.intentToUpdatePwd(getActivity());
                 break;
         }
     }

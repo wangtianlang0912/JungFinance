@@ -1,10 +1,10 @@
 package com.jung.finance.ui.news.model;
 
 import com.jung.finance.api.Api;
-import com.jung.finance.api.ApiConstants;
 import com.jung.finance.api.HostType;
-import com.jung.finance.bean.NewsSummary;
+import com.jung.finance.bean.ArticleModel;
 import com.jung.finance.ui.news.contract.NewsListContract;
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 import com.leon.common.commonutils.TimeUtil;
 
@@ -23,41 +23,38 @@ import rx.functions.Func2;
 public class NewsListModel implements NewsListContract.Model {
     /**
      * 获取新闻列表
+     *
      * @param type
      * @param id
      * @param startPage
      * @return
      */
     @Override
-    public Observable<List<NewsSummary>> getNewsListData(final String type, final String id, final int startPage) {
-       return Api.getDefault(HostType.NETEASE_NEWS_VIDEO).getNewsList(Api.getCacheControl(),type, id, startPage)
-                .flatMap(new Func1<Map<String, List<NewsSummary>>, Observable<NewsSummary>>() {
+    public Observable<List<ArticleModel.Article>> getNewsListData(final String type, final String id, final int startPage) {
+        return Api.getDefault(HostType.Jung_FINANCE).getTopArtileList(Api.getCacheControl(), startPage)
+                .flatMap(new Func1<Map<String, BaseRespose<ArticleModel>>, Observable<ArticleModel.Article>>() {
                     @Override
-                    public Observable<NewsSummary> call(Map<String, List<NewsSummary>> map) {
-                        if (id.endsWith(ApiConstants.HOUSE_ID)) {
-                            // 房产实际上针对地区的它的id与返回key不同
-                            return Observable.from(map.get("北京"));
-                        }
-                        return Observable.from(map.get(id));
+                    public Observable<ArticleModel.Article> call(Map<String, BaseRespose<ArticleModel>> map) {
+                        return Observable.from(map.get(id).data.getArticles());
                     }
                 })
                 //转化时间
-                .map(new Func1<NewsSummary, NewsSummary>() {
+                .map(new Func1<ArticleModel.Article, ArticleModel.Article>() {
                     @Override
-                    public NewsSummary call(NewsSummary newsSummary) {
+                    public ArticleModel.Article call(ArticleModel.Article newsSummary) {
                         String ptime = TimeUtil.formatDate(newsSummary.getPtime());
                         newsSummary.setPtime(ptime);
                         return newsSummary;
                     }
                 })
                 .distinct()//去重
-                .toSortedList(new Func2<NewsSummary, NewsSummary, Integer>() {
+                .toSortedList(new Func2<ArticleModel.Article, ArticleModel.Article, Integer>() {
                     @Override
-                    public Integer call(NewsSummary newsSummary, NewsSummary newsSummary2) {
+                    public Integer call(ArticleModel.Article newsSummary, ArticleModel.Article newsSummary2) {
                         return newsSummary2.getPtime().compareTo(newsSummary.getPtime());
                     }
                 })
                 //声明线程调度
-                .compose(RxSchedulers.<List<NewsSummary>>io_main());
+                .compose(RxSchedulers.<List<ArticleModel.Article>>io_main());
     }
 }
