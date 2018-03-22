@@ -9,8 +9,8 @@ android {
 
     defaultConfig {
         applicationId "com.jung.finance"
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 4
         versionName "1.0.3"
     }
@@ -57,7 +57,10 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'junit:junit:4.12'
     compile project(':library:photoPicker')//图片选择
     compile project(':library:irecyclerview')//万能适配器和recyclerview
     compile project(':library:oneKeyShareSDK')//分享

@@ -18,6 +18,9 @@ public interface NewsListContract {
     interface Model extends BaseModel {
         //请求获取新闻
         Observable <List<ArticleModel.Article>> getNewsListData(String type, final String id, int startPage);
+
+        Observable <List<ArticleModel.Article>> getNewsListData2(String type, final String id, int startPage);
+
     }
 
     interface View extends BaseView {

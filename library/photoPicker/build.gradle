@@ -2,10 +2,13 @@ apply plugin: 'com.android.library'
 version = "1.1.0" // 版本号
 
 android {
-
-    resourcePrefix "imgsel"
     compileSdkVersion rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+    }
+    resourcePrefix "imgsel"
     buildTypes {
         release {
             minifyEnabled false
