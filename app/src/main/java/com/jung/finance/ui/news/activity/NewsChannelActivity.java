@@ -8,7 +8,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
@@ -22,6 +21,7 @@ import com.jung.finance.ui.news.model.NewsChannelModel;
 import com.jung.finance.ui.news.presenter.NewsChanelPresenter;
 import com.jung.finance.widget.ItemDragHelperCallback;
 import com.leon.common.base.BaseActivity;
+import com.leon.common.commonwidget.NormalTitleBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +34,10 @@ import rx.functions.Action1;
  * Created by xsf
  * on 2016.09.11:51
  */
-public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsChannelModel>implements NewsChannelContract.View{
-    @Bind(R.id.toolbar)
-    Toolbar toolbar;
+public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsChannelModel> implements NewsChannelContract.View {
+
+    @Bind(R.id.ntb)
+    NormalTitleBar titleBar;
     @Bind(R.id.news_channel_mine_rv)
     RecyclerView newsChannelMineRv;
     @Bind(R.id.news_channel_more_rv)
@@ -52,11 +53,13 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
 
     /**
      * 入口
+     *
      * @param context
      */
-    public static void startAction(Context context){
+    public static void startAction(Context context) {
         Intent intent = new Intent(context, NewsChannelActivity.class);
         context.startActivity(intent);
+
     }
 
     @Override
@@ -66,8 +69,8 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
         mRxManager.on(AppConstant.CHANNEL_SWAP, new Action1<ChannelItemMoveEvent>() {
             @Override
             public void call(ChannelItemMoveEvent channelItemMoveEvent) {
-                if (channelItemMoveEvent!=null) {
-                    mPresenter.onItemSwap((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(),channelItemMoveEvent.getFromPosition(),channelItemMoveEvent.getToPosition());
+                if (channelItemMoveEvent != null) {
+                    mPresenter.onItemSwap((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(), channelItemMoveEvent.getFromPosition(), channelItemMoveEvent.getToPosition());
                 }
             }
         });
@@ -75,12 +78,15 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
 
     @Override
     public void initPresenter() {
-            mPresenter.setVM(this, mModel);
+        mPresenter.setVM(this, mModel);
     }
 
     @Override
     public void initView() {
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        titleBar.setTitleText(R.string.channel_manage);
+        titleBar.setBackVisibility(false);
+        titleBar.setRightImagSrc(R.drawable.logo_close_white);
+        titleBar.setOnRightImagListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -88,6 +94,7 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
                 } else {
                     finish();
                 }
+                overridePendingTransition(R.anim.anim_static, R.anim.top_exit);
             }
         });
         mPresenter.lodeChannelsRequest();
@@ -95,7 +102,7 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
 
     @Override
     public void returnMineNewsChannels(List<NewsChannelTable> newsChannelsMine) {
-        channelAdapterMine = new ChannelAdapter(mContext,R.layout.item_news_channel);
+        channelAdapterMine = new ChannelAdapter(mContext, R.layout.item_news_channel);
         newsChannelMineRv.setLayoutManager(new GridLayoutManager(this, 4, LinearLayoutManager.VERTICAL, false));
         newsChannelMineRv.setItemAnimator(new DefaultItemAnimator());
         newsChannelMineRv.setAdapter(channelAdapterMine);
@@ -104,9 +111,9 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
             @Override
             public void onItemClick(View view, int position) {
                 NewsChannelTable newsChannel = channelAdapterMine.get(position);
-                    channelAdapterMore.add(newsChannel);
-                    channelAdapterMine.removeAt(position);
-                    mPresenter.onItemAddOrRemove((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(), (ArrayList<NewsChannelTable>)channelAdapterMore.getAll());
+                channelAdapterMore.add(newsChannel);
+                channelAdapterMine.removeAt(position);
+                mPresenter.onItemAddOrRemove((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(), (ArrayList<NewsChannelTable>) channelAdapterMore.getAll());
 
             }
         });
@@ -120,7 +127,7 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
 
     @Override
     public void returnMoreNewsChannels(List<NewsChannelTable> newsChannelsMore) {
-        channelAdapterMore = new ChannelAdapter(mContext,R.layout.item_news_channel);
+        channelAdapterMore = new ChannelAdapter(mContext, R.layout.item_news_channel);
         newsChannelMoreRv.setLayoutManager(new GridLayoutManager(this, 4, LinearLayoutManager.VERTICAL, false));
         newsChannelMoreRv.setItemAnimator(new DefaultItemAnimator());
         newsChannelMoreRv.setAdapter(channelAdapterMore);
@@ -129,9 +136,9 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
             @Override
             public void onItemClick(View view, int position) {
                 NewsChannelTable newsChannel = channelAdapterMore.get(position);
-                    channelAdapterMine.add(newsChannel);
-                    channelAdapterMore.removeAt(position);
-                    mPresenter.onItemAddOrRemove((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(), (ArrayList<NewsChannelTable>)channelAdapterMore.getAll());
+                channelAdapterMine.add(newsChannel);
+                channelAdapterMore.removeAt(position);
+                mPresenter.onItemAddOrRemove((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(), (ArrayList<NewsChannelTable>) channelAdapterMore.getAll());
             }
         });
     }

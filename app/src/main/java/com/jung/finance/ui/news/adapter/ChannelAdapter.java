@@ -42,7 +42,7 @@ public class ChannelAdapter  extends CommonRecycleViewAdapter<NewsChannelTable>i
     public void convert(ViewHolderHelper helper, NewsChannelTable newsChannelTable) {
         helper.setText(R.id.news_channel_tv,newsChannelTable.getNewsChannelName());
         if (newsChannelTable.getNewsChannelFixed()) {
-            helper.setTextColor(R.id.news_channel_tv,ContextCompat.getColor(mContext,R.color.gray));
+            helper.setTextColor(R.id.news_channel_tv,ContextCompat.getColor(mContext,R.color.light_gray));
         }else{
             helper.setTextColor(R.id.news_channel_tv,ContextCompat.getColor(mContext,R.color.gray_deep));
         }

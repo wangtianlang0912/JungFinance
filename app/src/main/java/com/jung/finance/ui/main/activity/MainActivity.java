@@ -45,10 +45,10 @@ public class MainActivity extends BaseActivity {
 
     private String[] mTitles = null;
     private int[] mIconUnselectIds = {
-            R.mipmap.ic_home_normal, R.mipmap.ic_girl_normal, R.mipmap.ic_video_normal, R.mipmap.ic_care_normal, R.mipmap.ic_care_normal};
+            R.mipmap.ic_home_normal, R.mipmap.ic_info_normal, R.mipmap.ic_video_normal, R.mipmap.ic_comment_normal, R.mipmap.ic_mine_normal};
     private int[] mIconSelectIds = {
-            R.mipmap.ic_home_selected, R.mipmap.ic_girl_selected, R.mipmap.ic_video_selected
-            , R.mipmap.ic_care_selected, R.mipmap.ic_care_selected};
+            R.mipmap.ic_home_selected, R.mipmap.ic_info_selected, R.mipmap.ic_video_selected
+            , R.mipmap.ic_mine_selected, R.mipmap.ic_mine_selected};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     private NewsMainFragment newsMainFragment;
@@ -157,7 +157,7 @@ public class MainActivity extends BaseActivity {
             transaction.add(R.id.fl_body, newsMainFragment, "newsMainFragment");
             transaction.add(R.id.fl_body, photosMainFragment, "photosMainFragment");
             transaction.add(R.id.fl_body, videoMainFragment, "videoMainFragment");
-            transaction.add(R.id.fl_body,commentMainFragment,"commentMainFragment");
+            transaction.add(R.id.fl_body, commentMainFragment, "commentMainFragment");
             transaction.add(R.id.fl_body, mineFragment, "mineFragment");
         }
         transaction.commit();

@@ -151,7 +151,7 @@ public interface ApiService {
 
     //专题uid=2977
     @GET("app/theme/query")
-    Observable<BaseRespose<TopicModel>> getTopicList(@Query("uid") String uid, @Query("p") int page);
+    Observable<BaseRespose<TopicModel>> getTopicList(@Header("Cache-Control") String cacheControl,@Query("uid") String uid, @Query("p") int page);
 
 
 }

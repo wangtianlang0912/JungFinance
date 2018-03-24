@@ -17,6 +17,7 @@ import com.jung.finance.ui.main.presenter.NewsMainPresenter;
 import com.jung.finance.ui.news.activity.NewsChannelActivity;
 import com.jung.finance.ui.news.fragment.BloggerListFragment;
 import com.jung.finance.ui.news.fragment.NewsFrament;
+import com.jung.finance.ui.news.fragment.TopicListFragment;
 import com.jung.finance.utils.MyUtils;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.base.BaseFragmentAdapter;
@@ -76,6 +77,8 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
     @OnClick(R.id.add_channel_iv)
     public void clickAdd() {
         NewsChannelActivity.startAction(getContext());
+        getActivity().overridePendingTransition(R.anim.bottom_enter, R.anim.anim_static);
+
     }
 
     @Override
@@ -137,7 +140,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
             return listFragment;
         } else if ("theme".equals(newsChannel.getNewsChannelId())) {
 
-            BloggerListFragment listFragment = new BloggerListFragment();
+            TopicListFragment listFragment = new TopicListFragment();
             Bundle bundle = new Bundle();
             bundle.putString(AppConstant.NEWS_ID, "");
             bundle.putInt(AppConstant.CHANNEL_POSITION, newsChannel.getNewsChannelIndex());

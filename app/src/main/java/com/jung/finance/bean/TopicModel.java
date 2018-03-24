@@ -63,6 +63,8 @@ public class TopicModel {
 
         private int articleNum;
 
+        private String pubTime;
+
         public void setSummary(String summary) {
             this.summary = summary;
         }
@@ -159,5 +161,12 @@ public class TopicModel {
             return this.articleNum;
         }
 
+        public String getPubTime() {
+            return pubTime;
+        }
+
+        public void setPubTime(String pubTime) {
+            this.pubTime = pubTime;
+        }
     }
 }

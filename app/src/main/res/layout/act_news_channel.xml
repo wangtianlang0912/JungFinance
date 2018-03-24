@@ -8,13 +8,12 @@
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        style="@style/action_bar"
-        android:background="@color/colorPrimary"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:navigationIcon="@drawable/ic_arrow_back"
+    <com.leon.common.commonwidget.NormalTitleBar
+        android:id="@+id/ntb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:title="@string/channel_manage" />
+
 
     <TextView
         android:layout_width="wrap_content"
