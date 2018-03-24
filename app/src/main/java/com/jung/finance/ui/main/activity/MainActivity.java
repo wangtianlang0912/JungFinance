@@ -6,9 +6,11 @@ import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
@@ -57,6 +59,9 @@ public class MainActivity extends BaseActivity {
     private CommentMainFragment commentMainFragment;
     private MineFragment mineFragment;
     private static int tabLayoutHeight;
+
+
+    private boolean isExit;
 
     /**
      * 入口
@@ -259,7 +264,26 @@ public class MainActivity extends BaseActivity {
         if (JCVideoPlayer.backPress()) {
             return;
         }
-        super.onBackPressed();
+        if (!isExit) {
+            isExit = true;
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    isExit = false;
+                }
+            }, 3000);
+            Toast.makeText(this, "再次点击退出客户端", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!isFinishing()) {
+            // super.onBackPressed();
+            // You can't call onBackPressed() when your activity is paused.
+            // You should make sure in your onBackPressed()'s override that
+            // the activity is going to finish.
+            // Back can be pressed for other reasons.
+            finish();
+        }
     }
 
     /**
@@ -272,7 +296,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            moveTaskToBack(false);
+            onBackPressed();
             return true;
         }
         return super.onKeyDown(keyCode, event);
