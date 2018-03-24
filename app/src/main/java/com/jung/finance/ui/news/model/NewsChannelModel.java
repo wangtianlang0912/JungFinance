@@ -1,7 +1,6 @@
 package com.jung.finance.ui.news.model;
 
 import com.jung.finance.api.Api;
-import com.jung.finance.api.ApiConstants;
 import com.jung.finance.api.HostType;
 import com.jung.finance.app.AppApplication;
 import com.jung.finance.app.AppConstant;
@@ -72,7 +71,7 @@ public class NewsChannelModel implements NewsChannelContract.Model {
                             for (int i = 0; i < respose.data.getColumns().size(); i++) {
                                 ColumnModel.Column column = respose.data.getColumns().get(i);
                                 NewsChannelTable entity = new NewsChannelTable(column.getTitle(), String.valueOf(column.getObjectId())
-                                        , ApiConstants.getType(String.valueOf(column.getObjectId())), false, i, false);
+                                        , false, i, false);
                                 tableList.add(entity);
                             }
                         }

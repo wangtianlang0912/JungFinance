@@ -15,6 +15,7 @@ import com.jung.finance.ui.main.contract.NewsMainContract;
 import com.jung.finance.ui.main.model.NewsMainModel;
 import com.jung.finance.ui.main.presenter.NewsMainPresenter;
 import com.jung.finance.ui.news.activity.NewsChannelActivity;
+import com.jung.finance.ui.news.fragment.BloggerListFragment;
 import com.jung.finance.ui.news.fragment.NewsFrament;
 import com.jung.finance.utils.MyUtils;
 import com.leon.common.base.BaseFragment;
@@ -33,9 +34,9 @@ import butterknife.OnClick;
  * Created by xsf
  * on 2016.09.16:45
  */
-public class NewsMainFragment extends BaseFragment<NewsMainPresenter,NewsMainModel>implements NewsMainContract.View {
+public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainModel> implements NewsMainContract.View {
 
-//    @Bind(R.id.toolbar)
+    //    @Bind(R.id.toolbar)
 //    Toolbar toolbar;
     @Bind(R.id.ntb)
     NormalTitleBar ntb;
@@ -54,7 +55,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter,NewsMainMod
 
     @Override
     public void initPresenter() {
-      mPresenter.setVM(this,mModel);
+        mPresenter.setVM(this, mModel);
     }
 
     @Override
@@ -69,26 +70,28 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter,NewsMainMod
                 ToastUitl.show("Search", Toast.LENGTH_SHORT);
             }
         });
+
     }
+
     @OnClick(R.id.add_channel_iv)
-    public void clickAdd(){
+    public void clickAdd() {
         NewsChannelActivity.startAction(getContext());
     }
 
     @Override
     public void returnMineNewsChannels(List<NewsChannelTable> newsChannelsMine) {
-        if(newsChannelsMine!=null) {
+        if (newsChannelsMine != null) {
             List<String> channelNames = new ArrayList<>();
             List<Fragment> mNewsFragmentList = new ArrayList<>();
             for (int i = 0; i < newsChannelsMine.size(); i++) {
                 channelNames.add(newsChannelsMine.get(i).getNewsChannelName());
                 mNewsFragmentList.add(createListFragments(newsChannelsMine.get(i)));
             }
-            if(fragmentAdapter==null) {
+            if (fragmentAdapter == null) {
                 fragmentAdapter = new BaseFragmentAdapter(getChildFragmentManager(), mNewsFragmentList, channelNames);
-            }else{
+            } else {
                 //刷新fragment
-                fragmentAdapter.setFragments(getChildFragmentManager(),mNewsFragmentList,channelNames);
+                fragmentAdapter.setFragments(getChildFragmentManager(), mNewsFragmentList, channelNames);
             }
             viewPager.setAdapter(fragmentAdapter);
             tabs.setupWithViewPager(viewPager);
@@ -115,14 +118,39 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter,NewsMainMod
         });
     }
 
-    private NewsFrament createListFragments(NewsChannelTable newsChannel) {
-        NewsFrament fragment = new NewsFrament();
-        Bundle bundle = new Bundle();
-        bundle.putString(AppConstant.NEWS_ID, newsChannel.getNewsChannelId());
-        bundle.putString(AppConstant.NEWS_TYPE, newsChannel.getNewsChannelType());
-        bundle.putInt(AppConstant.CHANNEL_POSITION, newsChannel.getNewsChannelIndex());
-        fragment.setArguments(bundle);
-        return fragment;
+    private BaseFragment createListFragments(NewsChannelTable newsChannel) {
+
+        if ("top".equals(newsChannel.getNewsChannelId())) {
+            NewsFrament fragment = new NewsFrament();
+            Bundle bundle = new Bundle();
+            bundle.putString(AppConstant.NEWS_ID, "");
+            bundle.putInt(AppConstant.CHANNEL_POSITION, newsChannel.getNewsChannelIndex());
+            fragment.setArguments(bundle);
+            return fragment;
+
+        } else if ("media".equals(newsChannel.getNewsChannelId())) {
+            BloggerListFragment listFragment = new BloggerListFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(AppConstant.NEWS_ID, "");
+            bundle.putInt(AppConstant.CHANNEL_POSITION, newsChannel.getNewsChannelIndex());
+            listFragment.setArguments(bundle);
+            return listFragment;
+        } else if ("theme".equals(newsChannel.getNewsChannelId())) {
+
+            BloggerListFragment listFragment = new BloggerListFragment();
+            Bundle bundle = new Bundle();
+            bundle.putString(AppConstant.NEWS_ID, "");
+            bundle.putInt(AppConstant.CHANNEL_POSITION, newsChannel.getNewsChannelIndex());
+            listFragment.setArguments(bundle);
+            return listFragment;
+        } else {
+            NewsFrament fragment = new NewsFrament();
+            Bundle bundle = new Bundle();
+            bundle.putString(AppConstant.NEWS_ID, newsChannel.getNewsChannelId());
+            bundle.putInt(AppConstant.CHANNEL_POSITION, newsChannel.getNewsChannelIndex());
+            fragment.setArguments(bundle);
+            return fragment;
+        }
     }
 
     @Override

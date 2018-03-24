@@ -45,7 +45,7 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<ArticleModel.Art
                 if (!TextUtils.isEmpty(msg.getSummary())) {
                     return TYPE_ITEM;
                 }
-                return TYPE_PHOTO_ITEM;
+                return TYPE_ITEM;
             }
         });
     }
@@ -70,15 +70,12 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<ArticleModel.Art
      * @param position
      */
     private void setItemValues(final ViewHolderHelper holder, final ArticleModel.Article article, final int position) {
-        String title = article.getTitle();
-        String ptime = article.getPtime();
-        String digest = article.getSummary();
-        String imgSrc = article.getImage();
 
-        holder.setText(R.id.news_summary_title_tv, title);
-        holder.setText(R.id.news_summary_ptime_tv, ptime);
-        holder.setText(R.id.news_summary_digest_tv, digest);
-        holder.setImageUrl(R.id.news_summary_photo_iv, imgSrc);
+        holder.setText(R.id.news_summary_title_tv, article.getTitle());
+        holder.setText(R.id.source_view, TextUtils.isEmpty(article.getSource()) ?
+                mContext.getString(R.string.app_name) : article.getSource());
+        holder.setText(R.id.see_view, article.getPv() + "");
+        holder.setImageUrl(R.id.news_summary_photo_iv, article.getImage());
         holder.setOnClickListener(R.id.rl_root, new View.OnClickListener() {
             @Override
             public void onClick(View view) {

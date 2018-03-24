@@ -24,23 +24,6 @@ public class ApiConstants {
     // 新闻详情
     public static final String NEWS_DETAIL = NETEAST_HOST + "nc/article/";
 
-    // 头条TYPE
-    public static final String HEADLINE_TYPE = "headline";
-    // 房产TYPE
-    public static final String HOUSE_TYPE = "house";
-    // 其他TYPE
-    public static final String OTHER_TYPE = "list";
-
-    //    // 北京
-    //    public static final String LOCAL_TYPE = "local";
-    //    // 北京的Id
-    //    public static final String BEIJING_ID = "5YyX5Lqs";
-    //example：http://c.m.163.com/nc/article/headline/T1348647909107/0-20.html
-    // 头条id
-    public static final String HEADLINE_ID = "T1348647909107";
-    // 房产id
-    public static final String HOUSE_ID = "5YyX5Lqs";
-
 
     /**
      * 视频 http://c.3g.163.com/nc/video/list/V9LG4CHOR/n/10-10.html
@@ -79,25 +62,6 @@ public class ApiConstants {
 
     // 图片详情
     public static final String SINA_PHOTO_DETAIL_ID = "hdpic_hdpic_toutiao_4";
-
-    /**
-     * 新闻id获取类型
-     *
-     * @param id 新闻id
-     * @return 新闻类型
-     */
-    public static String getType(String id) {
-        switch (id) {
-            case HEADLINE_ID:
-                return HEADLINE_TYPE;
-            case HOUSE_ID:
-                return HOUSE_TYPE;
-            default:
-                break;
-        }
-        return OTHER_TYPE;
-    }
-
     /**
      * 获取对应的host
      *

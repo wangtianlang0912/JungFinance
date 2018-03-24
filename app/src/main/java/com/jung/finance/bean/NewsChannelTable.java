@@ -7,7 +7,6 @@ public class NewsChannelTable implements Serializable {
 
     private String newsChannelName;
     private String newsChannelId;
-    private String newsChannelType;
     private boolean newsChannelSelect;
     private int newsChannelIndex;
     private Boolean newsChannelFixed;
@@ -19,10 +18,9 @@ public class NewsChannelTable implements Serializable {
         this.newsChannelName = newsChannelName;
     }
 
-    public NewsChannelTable(String newsChannelName, String newsChannelId, String newsChannelType, boolean newsChannelSelect, int newsChannelIndex, Boolean newsChannelFixed) {
+    public NewsChannelTable(String newsChannelName, String newsChannelId, boolean newsChannelSelect, int newsChannelIndex, Boolean newsChannelFixed) {
         this.newsChannelName = newsChannelName;
         this.newsChannelId = newsChannelId;
-        this.newsChannelType = newsChannelType;
         this.newsChannelSelect = newsChannelSelect;
         this.newsChannelIndex = newsChannelIndex;
         this.newsChannelFixed = newsChannelFixed;
@@ -42,14 +40,6 @@ public class NewsChannelTable implements Serializable {
 
     public void setNewsChannelId(String newsChannelId) {
         this.newsChannelId = newsChannelId;
-    }
-
-    public String getNewsChannelType() {
-        return newsChannelType;
-    }
-
-    public void setNewsChannelType(String newsChannelType) {
-        this.newsChannelType = newsChannelType;
     }
 
     public boolean getNewsChannelSelect() {

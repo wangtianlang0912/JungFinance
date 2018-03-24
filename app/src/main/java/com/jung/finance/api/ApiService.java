@@ -5,6 +5,7 @@ import com.jung.finance.bean.BannerModel;
 import com.jung.finance.bean.BloggerModel;
 import com.jung.finance.bean.ColumnModel;
 import com.jung.finance.bean.GirlData;
+import com.jung.finance.bean.LinkModel;
 import com.jung.finance.bean.NewsDetail;
 import com.jung.finance.bean.NewsSummary;
 import com.jung.finance.bean.TopicModel;
@@ -130,14 +131,9 @@ public interface ApiService {
     @GET("app/column/query")
     Observable<BaseRespose<ColumnModel>> getColumnList(@Query("columnId") String columnId, @Query("type") String type);
 
-    //区块链/珠宝app/article/query?columnId=21&p=1
+    //首页文章/区块链/珠宝app/article/query?columnId=21&p=1
     @GET("app/article/query")
-    Observable<BaseRespose<ArticleModel>> getArtileList(@Query("columnId") String columnId, @Query("p") int page);
-
-
-    //首页文章
-    @GET("app/article/query?isHead=1")
-    Observable<Map<String,  BaseRespose<ArticleModel>>> getTopArtileList(@Header("Cache-Control") String cacheControl,@Query("p") int page);
+    Observable<BaseRespose<ArticleModel>> getArtileList(@Header("Cache-Control") String cacheControl, @Query("isHead") int isHead, @Query("columnId") String columnId, @Query("p") int page);
 
     //首页banner
     @GET("app/banner/query")
@@ -146,12 +142,12 @@ public interface ApiService {
     //首页下载地址
     @GET("app/link/get")
     //site = home&alias=top
-    Observable<BaseRespose<BannerModel>> getBannerList(@Query("site") String columnId, @Query("alias") String type);
+    Observable<BaseRespose<LinkModel>> getAdList(@Query("site") String columnId, @Query("alias") String type);
 
     //名家uid=2977
     @GET("app/media/query")
 //    app/media/query?p=1&uid=2977
-    Observable<BaseRespose<BloggerModel>> getBloggerList(@Query("uid") String uid, @Query("p") int page);
+    Observable<BaseRespose<BloggerModel>> getBloggerList(@Header("Cache-Control") String cacheControl, @Query("uid") String uid, @Query("p") int page);
 
     //专题uid=2977
     @GET("app/theme/query")

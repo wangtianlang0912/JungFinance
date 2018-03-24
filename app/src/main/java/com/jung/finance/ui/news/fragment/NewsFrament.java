@@ -11,6 +11,9 @@ import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.jung.finance.R;
 import com.jung.finance.app.AppConstant;
 import com.jung.finance.bean.ArticleModel;
+import com.jung.finance.bean.BannerModel;
+import com.jung.finance.bean.Counter;
+import com.jung.finance.bean.LinkModel;
 import com.jung.finance.ui.news.adapter.NewListAdapter;
 import com.jung.finance.ui.news.contract.NewsListContract;
 import com.jung.finance.ui.news.model.NewsListModel;
@@ -37,7 +40,6 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
     private List<ArticleModel.Article> datas = new ArrayList<>();
 
     private String mNewsId;
-    private String mNewsType;
     private int mStartPage=0;
 
     // 标志位，标志已经初始化完成。
@@ -58,7 +60,6 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
     protected void initView() {
         if (getArguments() != null) {
             mNewsId = getArguments().getString(AppConstant.NEWS_ID);
-            mNewsType = getArguments().getString(AppConstant.NEWS_TYPE);
         }
         irc.setLayoutManager(new LinearLayoutManager(getContext()));
         datas.clear();
@@ -70,27 +71,45 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
         //数据为空才重新发起请求
         if(newListAdapter.getSize()<=0) {
             mStartPage = 0;
-            mPresenter.getNewsListDataRequest(mNewsType, mNewsId, mStartPage);
+            mPresenter.getNewsListDataRequest(mNewsId, mStartPage);
         }
     }
 
 
     @Override
-    public void returnNewsListData(List<ArticleModel.Article> newsSummaries) {
-        if (newsSummaries != null) {
-            mStartPage += 20;
+    public void returnNewsListData(ArticleModel newsSummaries) {
+        List<ArticleModel.Article> list = newsSummaries.getArticles();
+        if (list != null) {
             if (newListAdapter.getPageBean().isRefresh()) {
                 irc.setRefreshing(false);
-                newListAdapter.replaceAll(newsSummaries);
+                newListAdapter.replaceAll(list);
             } else {
-                if (newsSummaries.size() > 0) {
-                    irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
-                    newListAdapter.addAll(newsSummaries);
-                } else {
-                    irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
-                }
+                newListAdapter.addAll(list);
             }
         }
+        newListAdapter.notifyDataSetChanged();
+        Counter counter = newsSummaries.getCounter();
+        if (counter != null) {
+
+            mStartPage++;
+            if (counter.getPageIndex() < counter.getPageSize()) {
+                irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+
+            } else {
+                irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
+
+            }
+        }
+    }
+
+    @Override
+    public void returnBannerList(List<BannerModel.Banner> list) {
+
+    }
+
+    @Override
+    public void returnAdLink(LinkModel linkModel) {
+
     }
 
     /**
@@ -107,7 +126,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
         mStartPage = 0;
         //发起请求
         irc.setRefreshing(true);
-        mPresenter.getNewsListDataRequest(mNewsType, mNewsId, mStartPage);
+        mPresenter.getNewsListDataRequest(mNewsId, mStartPage);
     }
 
     @Override
@@ -115,7 +134,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
         newListAdapter.getPageBean().setRefresh(false);
         //发起请求
         irc.setLoadMoreStatus(LoadMoreFooterView.Status.LOADING);
-        mPresenter.getNewsListDataRequest(mNewsType, mNewsId, mStartPage);
+        mPresenter.getNewsListDataRequest(mNewsId, mStartPage);
     }
 
     @Override
