@@ -6,7 +6,6 @@ import android.view.View;
 import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
-import com.aspsine.irecyclerview.animation.ScaleInAnimation;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.jung.finance.R;
 import com.jung.finance.app.AppConstant;
@@ -64,7 +63,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
         irc.setLayoutManager(new LinearLayoutManager(getContext()));
         datas.clear();
         newListAdapter = new NewListAdapter(getContext(), datas);
-        newListAdapter.openLoadAnimation(new ScaleInAnimation());
+//        newListAdapter.openLoadAnimation(new ScaleInAnimation());
         irc.setAdapter(newListAdapter);
         irc.setOnRefreshListener(this);
         irc.setOnLoadMoreListener(this);
@@ -141,7 +140,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
     public void showLoading(String title) {
         if( newListAdapter.getPageBean().isRefresh()) {
             if(newListAdapter.getSize()<=0) {
-                loadedTip.setLoadingTip(LoadingTip.LoadStatus.loading);
+                irc.setRefreshing(true);
             }
         }
     }

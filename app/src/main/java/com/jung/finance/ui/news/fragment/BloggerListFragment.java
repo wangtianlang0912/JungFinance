@@ -6,7 +6,6 @@ import android.view.View;
 import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
-import com.aspsine.irecyclerview.animation.ScaleInAnimation;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.jung.finance.R;
 import com.jung.finance.app.AppConstant;
@@ -58,7 +57,7 @@ public class BloggerListFragment extends BaseFragment<BloggerListPresenter, Blog
         irc.setLayoutManager(new LinearLayoutManager(getContext()));
         datas.clear();
         bloggerListAdapter = new BloggerListAdapter(getContext(), datas);
-        bloggerListAdapter.openLoadAnimation(new ScaleInAnimation());
+//        bloggerListAdapter.openLoadAnimation(new ScaleInAnimation());
         irc.setAdapter(bloggerListAdapter);
         irc.setOnRefreshListener(this);
         irc.setOnLoadMoreListener(this);
@@ -90,7 +89,7 @@ public class BloggerListFragment extends BaseFragment<BloggerListPresenter, Blog
     public void showLoading(String title) {
         if (bloggerListAdapter.getPageBean().isRefresh()) {
             if (bloggerListAdapter.getSize() <= 0) {
-                loadedTip.setLoadingTip(LoadingTip.LoadStatus.loading);
+                irc.setRefreshing(true);
             }
         }
     }

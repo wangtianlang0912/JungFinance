@@ -6,7 +6,6 @@ import android.view.View;
 import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
-import com.aspsine.irecyclerview.animation.ScaleInAnimation;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.jung.finance.R;
 import com.jung.finance.app.AppConstant;
@@ -58,7 +57,7 @@ public class TopicListFragment extends BaseFragment<TopicListPresenter, TopicLis
         irc.setLayoutManager(new LinearLayoutManager(getContext()));
         datas.clear();
         listAdapter = new TopicListAdapter(getContext(), datas);
-        listAdapter.openLoadAnimation(new ScaleInAnimation());
+//        listAdapter.openLoadAnimation(new ScaleInAnimation());
         irc.setAdapter(listAdapter);
         irc.setOnRefreshListener(this);
         irc.setOnLoadMoreListener(this);
@@ -90,14 +89,13 @@ public class TopicListFragment extends BaseFragment<TopicListPresenter, TopicLis
     public void showLoading(String title) {
         if (listAdapter.getPageBean().isRefresh()) {
             if (listAdapter.getSize() <= 0) {
-                loadedTip.setLoadingTip(LoadingTip.LoadStatus.loading);
+                irc.setRefreshing(true);
             }
         }
     }
 
     @Override
     public void stopLoading() {
-        loadedTip.setLoadingTip(LoadingTip.LoadStatus.finish);
     }
 
     @Override

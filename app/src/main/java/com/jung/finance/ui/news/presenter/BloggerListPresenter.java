@@ -27,7 +27,6 @@ public class BloggerListPresenter extends BloggerListContract.Presenter {
             protected void _onNext(BloggerModel data) {
                 mView.returnListData(data);
                 mView.stopLoading();
-
             }
 
             @Override
