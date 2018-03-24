@@ -27,6 +27,7 @@ import java.util.List;
 public class NewListAdapter extends MultiItemRecycleViewAdapter<ArticleModel.Article> {
     public static final int TYPE_ITEM = 0;
     public static final int TYPE_PHOTO_ITEM = 1;
+    public static final int TYPE_AD_ITEM = 2;
 
     public NewListAdapter(Context context, final List<ArticleModel.Article> datas) {
         super(context, datas, new MultiItemTypeSupport<ArticleModel.Article>() {
@@ -35,6 +36,9 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<ArticleModel.Art
             public int getLayoutId(int type) {
                 if (type == TYPE_PHOTO_ITEM) {
                     return R.layout.item_news_photo;
+
+                } else if (type == TYPE_AD_ITEM) {
+                    return R.layout.item_ad;
                 } else {
                     return R.layout.item_news;
                 }
@@ -42,10 +46,24 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<ArticleModel.Art
 
             @Override
             public int getItemViewType(int position, ArticleModel.Article msg) {
-                if (!TextUtils.isEmpty(msg.getSummary())) {
-                    return TYPE_ITEM;
+
+                int typeVal = TYPE_ITEM;
+                switch (msg.getType()) {
+
+                    case DEFAULT:
+
+                        typeVal = TYPE_ITEM;
+                        break;
+                    case AD:
+                        typeVal = TYPE_AD_ITEM;
+                        break;
+                    case PIC:
+                        typeVal = TYPE_PHOTO_ITEM;
+                        break;
+                    default:
+                        break;
                 }
-                return TYPE_ITEM;
+                return typeVal;
             }
         });
     }
@@ -58,6 +76,9 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<ArticleModel.Art
                 break;
             case R.layout.item_news_photo:
                 setPhotoItemValues(holder, article, getPosition(holder));
+                break;
+            case R.layout.item_ad:
+                setAdItemValues(holder, article, getPosition(holder));
                 break;
         }
     }
@@ -80,6 +101,17 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<ArticleModel.Art
             @Override
             public void onClick(View view) {
                 NewsDetailActivity.startAction(mContext, holder.getView(R.id.news_summary_photo_iv), String.valueOf(article.getObjectId()), article.getImage());
+            }
+        });
+    }
+
+    private void setAdItemValues(final ViewHolderHelper holder, final ArticleModel.Article article, final int position) {
+
+        holder.setText(R.id.title_view, article.getTitle());
+        holder.setImageUrl(R.id.logo_view, article.getImage());
+        holder.setOnClickListener(R.id.rl_root, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
             }
         });
     }

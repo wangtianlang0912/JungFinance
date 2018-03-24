@@ -39,7 +39,12 @@ public class NewsListPresenter extends NewsListContract.Presenter {
      */
     @Override
     public void getNewsListDataRequest(String id, int startPage) {
-        mRxManage.add(mModel.getNewsListData("".equals(id), id, startPage).subscribe(new RxSubscriber<ArticleModel>(mContext, false) {
+        boolean isTopColumn = "".equals(id);
+        if (isTopColumn && startPage == 0) {
+            getBannerList();
+            getAdList("article", "top");
+        }
+        mRxManage.add(mModel.getNewsListData(isTopColumn, id, startPage).subscribe(new RxSubscriber<ArticleModel>(mContext, false) {
             @Override
             public void onStart() {
                 super.onStart();

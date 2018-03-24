@@ -18,20 +18,23 @@ import java.util.List;
  */
 public class ArticleModel {
 
-    private List<Article> articles ;
+    private List<Article> articles;
 
     private Counter counter;
 
-    public void setArticles(List<Article> articles){
+    public void setArticles(List<Article> articles) {
         this.articles = articles;
     }
-    public List<Article> getArticles(){
+
+    public List<Article> getArticles() {
         return this.articles;
     }
-    public void setCounter(Counter counter){
+
+    public void setCounter(Counter counter) {
         this.counter = counter;
     }
-    public Counter getCounter(){
+
+    public Counter getCounter() {
         return this.counter;
     }
 
@@ -43,25 +46,35 @@ public class ArticleModel {
 
         private String keyword;
 
-        public void setObjectId(int objectId){
+        public void setObjectId(int objectId) {
             this.objectId = objectId;
         }
-        public int getObjectId(){
+
+        public int getObjectId() {
             return this.objectId;
         }
-        public void setTitle(String title){
+
+        public void setTitle(String title) {
             this.title = title;
         }
-        public String getTitle(){
+
+        public String getTitle() {
             return this.title;
         }
-        public void setKeyword(String keyword){
+
+        public void setKeyword(String keyword) {
             this.keyword = keyword;
         }
-        public String getKeyword(){
+
+        public String getKeyword() {
             return this.keyword;
         }
 
+    }
+
+    public enum ContentType {
+
+        DEFAULT, AD, PIC;
     }
 
     public static class Article {
@@ -97,82 +110,109 @@ public class ArticleModel {
 
         private int isRecommend;
 
-        public void setSummary(String summary){
+        private ContentType type = ContentType.DEFAULT;
+
+        public void setSummary(String summary) {
             this.summary = summary;
         }
-        public String getSummary(){
+
+        public String getSummary() {
             return this.summary;
         }
-        public void setIsHead(int isHead){
+
+        public void setIsHead(int isHead) {
             this.isHead = isHead;
         }
-        public int getIsHead(){
+
+        public int getIsHead() {
             return this.isHead;
         }
-        public void setKeyword(String keyword){
+
+        public void setKeyword(String keyword) {
             this.keyword = keyword;
         }
-        public String getKeyword(){
+
+        public String getKeyword() {
             return this.keyword;
         }
-        public void setImage(String image){
+
+        public void setImage(String image) {
             this.image = image;
         }
-        public String getImage(){
+
+        public String getImage() {
             return this.image;
         }
-        public void setColumnId(int columnId){
+
+        public void setColumnId(int columnId) {
             this.columnId = columnId;
         }
-        public int getColumnId(){
+
+        public int getColumnId() {
             return this.columnId;
         }
-        public void setVtime(int vtime){
+
+        public void setVtime(int vtime) {
             this.vtime = vtime;
         }
-        public long getVtime(){
+
+        public long getVtime() {
             return this.vtime;
         }
-        public void setAuthor(String author){
+
+        public void setAuthor(String author) {
             this.author = author;
         }
-        public String getAuthor(){
+
+        public String getAuthor() {
             return this.author;
         }
-        public void setTitle(String title){
+
+        public void setTitle(String title) {
             this.title = title;
         }
-        public String getTitle(){
+
+        public String getTitle() {
             return this.title;
         }
-        public void setSource(String source){
+
+        public void setSource(String source) {
             this.source = source;
         }
-        public String getSource(){
+
+        public String getSource() {
             return this.source;
         }
-        public void setObjectId(int objectId){
+
+        public void setObjectId(int objectId) {
             this.objectId = objectId;
         }
-        public int getObjectId(){
+
+        public int getObjectId() {
             return this.objectId;
         }
-        public void setColumn(Column column){
+
+        public void setColumn(Column column) {
             this.column = column;
         }
-        public Column getColumn(){
+
+        public Column getColumn() {
             return this.column;
         }
-        public void setSubtitle(String subtitle){
+
+        public void setSubtitle(String subtitle) {
             this.subtitle = subtitle;
         }
-        public String getSubtitle(){
+
+        public String getSubtitle() {
             return this.subtitle;
         }
-        public void setPv(int pv){
+
+        public void setPv(int pv) {
             this.pv = pv;
         }
-        public int getPv(){
+
+        public int getPv() {
             return this.pv;
         }
 //        public void setAttributes(List<Attributes> attributes){
@@ -182,6 +222,15 @@ public class ArticleModel {
 //            return this.attributes;
 //        }
 
+
+        public ContentType getType() {
+            return type;
+        }
+
+        public void setType(ContentType type) {
+            this.type = type;
+        }
+
         public String getPtime() {
             return ptime;
         }
@@ -190,10 +239,11 @@ public class ArticleModel {
             this.ptime = ptime;
         }
 
-        public void setIsRecommend(int isRecommend){
+        public void setIsRecommend(int isRecommend) {
             this.isRecommend = isRecommend;
         }
-        public int getIsRecommend(){
+
+        public int getIsRecommend() {
             return this.isRecommend;
         }
 

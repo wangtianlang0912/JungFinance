@@ -38,8 +38,8 @@ public class NewsListModel implements NewsListContract.Model {
                     public ArticleModel call(BaseRespose<ArticleModel> baseRespose) {
                         ArticleModel articleModel = baseRespose.data;
                         for (ArticleModel.Article article : articleModel.getArticles()) {
-                            String cooverImage = ApiConstants.getHost(HostType.Jung_FINANCE) + article.getImage();
-                            article.setImage(cooverImage);
+                            String coverImage = ApiConstants.getHost(HostType.Jung_FINANCE) + article.getImage();
+                            article.setImage(coverImage);
 
                             String ptime = TimeUtil.formatTimeStampStr2Desc(article.getVtime() * 1000);
                             article.setPtime(ptime);
@@ -58,6 +58,11 @@ public class NewsListModel implements NewsListContract.Model {
                 .map(new Func1<BaseRespose<BannerModel>, List<BannerModel.Banner>>() {
                     @Override
                     public List<BannerModel.Banner> call(BaseRespose<BannerModel> respose) {
+
+                        for (BannerModel.Banner banner : respose.data.getBanners()) {
+                            String coverImage = ApiConstants.getHost(HostType.Jung_FINANCE) + banner.getImage();
+                            banner.setImage(coverImage);
+                        }
                         return respose.data.getBanners();
                     }
                 }).compose(RxSchedulers.<List<BannerModel.Banner>>io_main());
@@ -68,7 +73,10 @@ public class NewsListModel implements NewsListContract.Model {
         return Api.getDefault(HostType.Jung_FINANCE).getAdList(site, alias).map(new Func1<BaseRespose<LinkModel>, LinkModel>() {
             @Override
             public LinkModel call(BaseRespose<LinkModel> linkModelBaseRespose) {
-                return linkModelBaseRespose.data;
+                LinkModel linkModel = linkModelBaseRespose.data;
+                LinkModel.Link link = linkModel.getLink();
+                link.setWapImage(ApiConstants.getHost(HostType.Jung_FINANCE) + link.getWapImage());
+                return linkModel;
             }
         }).compose(RxSchedulers.<LinkModel>io_main());
     }
