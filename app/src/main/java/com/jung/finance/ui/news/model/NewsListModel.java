@@ -75,7 +75,9 @@ public class NewsListModel implements NewsListContract.Model {
             public LinkModel call(BaseRespose<LinkModel> linkModelBaseRespose) {
                 LinkModel linkModel = linkModelBaseRespose.data;
                 LinkModel.Link link = linkModel.getLink();
-                link.setWapImage(ApiConstants.getHost(HostType.Jung_FINANCE) + link.getWapImage());
+                if (link != null) {
+                    link.setWapImage(ApiConstants.getHost(HostType.Jung_FINANCE) + link.getWapImage());
+                }
                 return linkModel;
             }
         }).compose(RxSchedulers.<LinkModel>io_main());

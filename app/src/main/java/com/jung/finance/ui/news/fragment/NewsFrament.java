@@ -159,7 +159,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
 
     @Override
     public void returnAdLink(LinkModel linkModel) {
-        if (linkModel != null) {
+        if (linkModel != null && linkModel.getLink() != null) {
             ArticleModel.Article article = new ArticleModel.Article();
             article.setImage(linkModel.getLink().getWapImage());
             article.setTitle(linkModel.getLink().getTitle());

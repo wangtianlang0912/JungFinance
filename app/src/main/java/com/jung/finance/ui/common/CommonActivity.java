@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 
 import com.jung.finance.R;
@@ -103,9 +104,28 @@ public class CommonActivity extends BaseActivity {
 
     }
 
+
+    public NormalTitleBar getNtb() {
+        return ntb;
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (fragment != null && fragment instanceof BaseFragment) {
+
+            if (((BaseFragment)fragment).onKeyDown(keyCode, event)) {
+
+                return true;
+            }
+        }
+
+
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.jung.finance.R;
+import com.jung.finance.api.ApiConstants;
 import com.jung.finance.app.AppIntent;
 import com.jung.finance.ui.user.bean.UserInfo;
 import com.jung.finance.utils.MyUtils;
@@ -111,13 +112,15 @@ public class SettingFragment extends BaseFragment {
                 AppIntent.intentToAccountSafe(getActivity());
                 break;
             case R.id.clear_cache_layout:
-
                 break;
             case R.id.version_layout:
                 break;
             case R.id.about_us_layout:
+                AppIntent.intentToCommonWeb(getActivity(), R.string.about_us, ApiConstants.URL_ABOUT);
                 break;
             case R.id.contact_us_layout:
+                AppIntent.intentToCommonWeb(getActivity(), R.string.contact_us, ApiConstants.URL_CONTACT);
+
                 break;
             case R.id.feedback_layout:
                 break;

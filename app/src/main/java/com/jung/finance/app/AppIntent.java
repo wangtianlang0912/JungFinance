@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.jung.finance.R;
 import com.jung.finance.ui.common.CommonActivity;
+import com.jung.finance.ui.common.CommonWebFragment;
 import com.jung.finance.ui.setting.fragment.SettingFragment;
 import com.jung.finance.ui.user.fragment.AccountSafeFragment;
 import com.jung.finance.ui.user.fragment.BindMobileFragment;
@@ -71,6 +72,16 @@ public class AppIntent {
         intentToAct(context, R.string.bind_phone, BindMobileFragment.class);
     }
 
+    public static void intentToCommonWeb(Context context, int resTitle, String url) {
+        intentToCommonWeb(context, context.getString(resTitle), url);
+    }
+
+    public static void intentToCommonWeb(Context context, String title, String url) {
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstant.FLAG_DATA, url);
+        intentToAct(context, title, CommonWebFragment.class, bundle);
+    }
+
 
     public static void intentToAct(Context context, int titleId, Class fragmentClass) {
         intentToAct(context, context.getString(titleId), fragmentClass, null);
@@ -87,4 +98,5 @@ public class AppIntent {
         }
         context.startActivity(intent);
     }
+
 }
