@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">荣格财经</string>
 
+    <string name="main_tab_news">新闻</string>
+    <string name="main_tab_fast">快评</string>
+    <string name="main_tab_activity">活动</string>
+    <string name="main_tab_mine">我的</string>
+
     <!--menu-->
     <string name="news">AndroidFire新闻</string>
     <string name="zhihu">知乎</string>

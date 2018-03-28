@@ -4,6 +4,7 @@ import com.jung.finance.bean.ArticleModel;
 import com.jung.finance.bean.BannerModel;
 import com.jung.finance.bean.BloggerModel;
 import com.jung.finance.bean.ColumnModel;
+import com.jung.finance.bean.FastModel;
 import com.jung.finance.bean.GirlData;
 import com.jung.finance.bean.LinkModel;
 import com.jung.finance.bean.NewsDetail;
@@ -151,7 +152,9 @@ public interface ApiService {
 
     //专题uid=2977
     @GET("app/theme/query")
-    Observable<BaseRespose<TopicModel>> getTopicList(@Header("Cache-Control") String cacheControl,@Query("uid") String uid, @Query("p") int page);
+    Observable<BaseRespose<TopicModel>> getTopicList(@Header("Cache-Control") String cacheControl, @Query("uid") String uid, @Query("p") int page);
 
 
+    @GET("app/fast/query")
+    Observable<BaseRespose<FastModel>> getFastCommentList(@Header("Cache-Control") String cacheControl, @Query("p") int page);
 }

@@ -21,8 +21,7 @@ import com.jung.finance.bean.TabEntity;
 import com.jung.finance.ui.main.fragment.CommentMainFragment;
 import com.jung.finance.ui.main.fragment.MineFragment;
 import com.jung.finance.ui.main.fragment.NewsMainFragment;
-import com.jung.finance.ui.main.fragment.PhotosMainFragment;
-import com.jung.finance.ui.main.fragment.VideoMainFragment;
+import com.jung.finance.ui.news.fragment.FastListFragment;
 import com.leon.common.base.BaseActivity;
 import com.leon.common.baseapp.AppConfig;
 import com.leon.common.commonutils.LogUtils;
@@ -45,17 +44,16 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.tab_layout)
     CommonTabLayout tabLayout;
 
-    private String[] mTitles = null;
+    private int[] mTitles = {R.string.main_tab_news, R.string.main_tab_fast, R.string.main_tab_activity, R.string.main_tab_mine};
     private int[] mIconUnselectIds = {
-            R.mipmap.ic_home_normal, R.mipmap.ic_info_normal, R.mipmap.ic_video_normal, R.mipmap.ic_comment_normal, R.mipmap.ic_mine_normal};
+            R.mipmap.ic_home_normal, R.mipmap.ic_info_normal, R.mipmap.ic_comment_normal, R.mipmap.ic_mine_normal};
     private int[] mIconSelectIds = {
-            R.mipmap.ic_home_selected, R.mipmap.ic_info_selected, R.mipmap.ic_video_selected
-            , R.mipmap.ic_mine_selected, R.mipmap.ic_mine_selected};
+            R.mipmap.ic_home_selected, R.mipmap.ic_info_selected, R.mipmap.ic_mine_selected, R.mipmap.ic_mine_selected};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     private NewsMainFragment newsMainFragment;
-    private PhotosMainFragment photosMainFragment;
-    private VideoMainFragment videoMainFragment;
+    private FastListFragment fastListFragment;
+    //    private VideoMainFragment videoMainFragment;
     private CommentMainFragment commentMainFragment;
     private MineFragment mineFragment;
     private static int tabLayoutHeight;
@@ -121,9 +119,8 @@ public class MainActivity extends BaseActivity {
      */
     private void initTab() {
 
-        mTitles = getResources().getStringArray(R.array.main_tab);
         for (int i = 0; i < mTitles.length; i++) {
-            mTabEntities.add(new TabEntity(mTitles[i], mIconSelectIds[i], mIconUnselectIds[i]));
+            mTabEntities.add(new TabEntity(getString(mTitles[i]), mIconSelectIds[i], mIconUnselectIds[i]));
         }
         tabLayout.setTabData(mTabEntities);
         //点击监听
@@ -147,21 +144,21 @@ public class MainActivity extends BaseActivity {
         int currentTabPosition = 0;
         if (savedInstanceState != null) {
             newsMainFragment = (NewsMainFragment) getSupportFragmentManager().findFragmentByTag("newsMainFragment");
-            photosMainFragment = (PhotosMainFragment) getSupportFragmentManager().findFragmentByTag("photosMainFragment");
-            videoMainFragment = (VideoMainFragment) getSupportFragmentManager().findFragmentByTag("videoMainFragment");
+            fastListFragment = (FastListFragment) getSupportFragmentManager().findFragmentByTag("fastListFragment");
+//            videoMainFragment = (VideoMainFragment) getSupportFragmentManager().findFragmentByTag("videoMainFragment");
             commentMainFragment = (CommentMainFragment) getSupportFragmentManager().findFragmentByTag("commentMainFragment");
             mineFragment = (MineFragment) getSupportFragmentManager().findFragmentByTag("mineFragment");
             currentTabPosition = savedInstanceState.getInt(AppConstant.HOME_CURRENT_TAB_POSITION);
         } else {
             newsMainFragment = new NewsMainFragment();
-            photosMainFragment = new PhotosMainFragment();
-            videoMainFragment = new VideoMainFragment();
+            fastListFragment = new FastListFragment();
+//            videoMainFragment = new VideoMainFragment();
             commentMainFragment = new CommentMainFragment();
             mineFragment = new MineFragment();
 
             transaction.add(R.id.fl_body, newsMainFragment, "newsMainFragment");
-            transaction.add(R.id.fl_body, photosMainFragment, "photosMainFragment");
-            transaction.add(R.id.fl_body, videoMainFragment, "videoMainFragment");
+            transaction.add(R.id.fl_body, fastListFragment, "fastListFragment");
+//            transaction.add(R.id.fl_body, videoMainFragment, "videoMainFragment");
             transaction.add(R.id.fl_body, commentMainFragment, "commentMainFragment");
             transaction.add(R.id.fl_body, mineFragment, "mineFragment");
         }
@@ -179,45 +176,45 @@ public class MainActivity extends BaseActivity {
         switch (position) {
             //首页
             case 0:
-                transaction.hide(photosMainFragment);
-                transaction.hide(videoMainFragment);
+                transaction.hide(fastListFragment);
+//                transaction.hide(videoMainFragment);
                 transaction.hide(commentMainFragment);
                 transaction.hide(mineFragment);
                 transaction.show(newsMainFragment);
                 transaction.commitAllowingStateLoss();
                 break;
-            // 快讯
+            // 快评
             case 1:
                 transaction.hide(newsMainFragment);
-                transaction.hide(videoMainFragment);
+//                transaction.hide(videoMainFragment);
                 transaction.hide(commentMainFragment);
                 transaction.hide(mineFragment);
-                transaction.show(photosMainFragment);
+                transaction.show(fastListFragment);
                 transaction.commitAllowingStateLoss();
                 break;
             //视频
+//            case 2:
+//                transaction.hide(newsMainFragment);
+//                transaction.hide(photosMainFragment);
+//                transaction.hide(commentMainFragment);
+//                transaction.hide(mineFragment);
+//                transaction.show(videoMainFragment);
+//                transaction.commitAllowingStateLoss();
+//                break;
+            // 活动
             case 2:
                 transaction.hide(newsMainFragment);
-                transaction.hide(photosMainFragment);
-                transaction.hide(commentMainFragment);
-                transaction.hide(mineFragment);
-                transaction.show(videoMainFragment);
-                transaction.commitAllowingStateLoss();
-                break;
-            // 快评
-            case 3:
-                transaction.hide(newsMainFragment);
-                transaction.hide(photosMainFragment);
-                transaction.hide(videoMainFragment);
+                transaction.hide(fastListFragment);
+//                transaction.hide(videoMainFragment);
                 transaction.hide(mineFragment);
                 transaction.show(commentMainFragment);
                 transaction.commitAllowingStateLoss();
                 break;
             // 我的
-            case 4:
+            case 3:
                 transaction.hide(newsMainFragment);
-                transaction.hide(photosMainFragment);
-                transaction.hide(videoMainFragment);
+                transaction.hide(fastListFragment);
+//                transaction.hide(videoMainFragment);
                 transaction.hide(commentMainFragment);
                 transaction.show(mineFragment);
                 transaction.commitAllowingStateLoss();

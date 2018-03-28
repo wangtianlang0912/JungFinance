@@ -3,14 +3,17 @@
     <string-array name="news_channel_name_static">
         <!--定死不能更改的5个频道-->
         <item>头条</item>
-        <item>名家</item>
-        <item>专题</item>
+        <item>资讯</item>
+        <item>行情</item>
+        <item>专栏</item>
+        <item>学院</item>
     </string-array>
     <string-array name="news_channel_id_static">
-        <!--定死不能更改的三个频道ID-->
+        <!--定死不能更改的5个频道ID-->
         <item>top</item>
-        <item>media</item>
+        <item>news</item>
         <item>theme</item>
-
+        <item>media</item>
+        <item>college</item>
     </string-array>
 </resources>
