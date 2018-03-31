@@ -15,6 +15,7 @@ import com.aspsine.irecyclerview.banner.BannerGalleryView;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.jung.finance.R;
 import com.jung.finance.app.AppConstant;
+import com.jung.finance.app.AppIntent;
 import com.jung.finance.bean.ArticleModel;
 import com.jung.finance.bean.BannerModel;
 import com.jung.finance.bean.Counter;
@@ -153,6 +154,17 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
             bannerAdapter.notifyDataSetChanged();
             bannerView.notifyPagerControler();
 //            bannerView.startAutoScroll();
+
+            bannerView.setOnItemClicklistener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    BannerBean bannerBean = (BannerBean) adapterView.getItemAtPosition(i);
+                    if (bannerBean != null) {
+                        AppIntent.intentToCommonWeb(getActivity(), R.string.news, bannerBean.getUrl());
+                    }
+                }
+            });
         }
     }
 
@@ -193,7 +205,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
 
     @Override
     public void onLoadMore(View loadMoreView) {
-        if (!irc.canLoadMore()){
+        if (!irc.canLoadMore()) {
             return;
         }
         newListAdapter.getPageBean().setRefresh(false);

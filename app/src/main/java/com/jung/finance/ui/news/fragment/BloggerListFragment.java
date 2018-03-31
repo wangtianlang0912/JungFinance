@@ -79,6 +79,9 @@ public class BloggerListFragment extends BaseFragment<BloggerListPresenter, Blog
 
     @Override
     public void onLoadMore(View loadMoreView) {
+        if (!irc.canLoadMore()) {
+            return;
+        }
         bloggerListAdapter.getPageBean().setRefresh(false);
         //发起请求
         irc.setLoadMoreStatus(LoadMoreFooterView.Status.LOADING);
@@ -127,13 +130,12 @@ public class BloggerListFragment extends BaseFragment<BloggerListPresenter, Blog
         Counter counter = data.getCounter();
         if (counter != null) {
 
-            mStartPage++;
-            if (counter.getPageIndex() < counter.getPageSize()) {
-                irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
 
+            if (counter.getPageIndex() < counter.getPageCount()) {
+                irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+                mStartPage++;
             } else {
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
-
             }
         }
     }

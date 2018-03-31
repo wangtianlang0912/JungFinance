@@ -10,9 +10,9 @@ import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemRecycleViewAdapter;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemTypeSupport;
 import com.jung.finance.R;
+import com.jung.finance.app.AppIntent;
 import com.jung.finance.bean.ArticleModel;
 import com.jung.finance.bean.NewsPhotoDetail;
-import com.jung.finance.ui.news.activity.NewsDetailActivity;
 import com.jung.finance.ui.news.activity.NewsPhotoDetailActivity;
 import com.leon.common.commonutils.DisplayUtil;
 
@@ -100,7 +100,8 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<ArticleModel.Art
         holder.setOnClickListener(R.id.rl_root, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NewsDetailActivity.startAction(mContext, holder.getView(R.id.news_summary_photo_iv), String.valueOf(article.getObjectId()), article.getImage());
+//                NewsDetailActivity.startAction(mContext, holder.getView(R.id.news_summary_photo_iv), String.valueOf(article.getObjectId()), article.getImage());
+                AppIntent.intentToCommonWeb(mContext, R.string.ad, article.getSummary());
             }
         });
     }
@@ -112,6 +113,8 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<ArticleModel.Art
         holder.setOnClickListener(R.id.rl_root, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                AppIntent.intentToCommonWeb(mContext, R.string.ad, article.getSummary());
             }
         });
     }
