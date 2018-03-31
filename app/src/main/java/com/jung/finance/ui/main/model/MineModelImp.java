@@ -2,7 +2,7 @@ package com.jung.finance.ui.main.model;
 
 import com.jung.finance.api.Api;
 import com.jung.finance.api.HostType;
-import com.jung.finance.ui.main.presenter.MineContract;
+import com.jung.finance.ui.main.contract.MineContract;
 import com.jung.finance.ui.user.bean.UserInfo;
 import com.jung.finance.utils.MyUtils;
 import com.leon.common.basebean.BaseRespose;

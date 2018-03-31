@@ -1,5 +1,6 @@
 package com.jung.finance.api;
 
+import com.jung.finance.bean.ActivityModel;
 import com.jung.finance.bean.ArticleModel;
 import com.jung.finance.bean.BannerModel;
 import com.jung.finance.bean.BloggerModel;
@@ -157,4 +158,8 @@ public interface ApiService {
 
     @GET("app/fast/query")
     Observable<BaseRespose<FastModel>> getFastCommentList(@Header("Cache-Control") String cacheControl, @Query("p") int page);
+
+    @GET("app/activity/query")
+    Observable<BaseRespose<ActivityModel>> getActivityList(@Header("Cache-Control") String cacheControl, @Query("p") int page);
+
 }

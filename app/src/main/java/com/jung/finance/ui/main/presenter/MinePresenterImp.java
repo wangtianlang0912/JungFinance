@@ -2,6 +2,7 @@ package com.jung.finance.ui.main.presenter;
 
 
 import com.jung.finance.R;
+import com.jung.finance.ui.main.contract.MineContract;
 import com.jung.finance.ui.user.bean.UserInfo;
 import com.leon.common.baserx.RxSubscriber;
 

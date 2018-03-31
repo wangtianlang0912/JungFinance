@@ -18,7 +18,7 @@ package com.jung.finance.api;
 
 public class ApiConstants {
     public static final String NETEAST_HOST = "http://c.m.163.com/";
-    public static final String URL = "http://www.dacaijin.cn/";
+    public static final String URL = "http://rg.yuyifan.cn/";
 
 
     /**

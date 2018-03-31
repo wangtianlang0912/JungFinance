@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.jung.finance.R;
 import com.jung.finance.app.AppIntent;
 import com.jung.finance.ui.main.model.MineModelImp;
-import com.jung.finance.ui.main.presenter.MineContract;
+import com.jung.finance.ui.main.contract.MineContract;
 import com.jung.finance.ui.main.presenter.MinePresenterImp;
 import com.jung.finance.ui.user.bean.UserInfo;
 import com.jung.finance.utils.MyUtils;

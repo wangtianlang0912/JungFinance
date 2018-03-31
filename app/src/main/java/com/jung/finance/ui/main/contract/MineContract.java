@@ -1,4 +1,4 @@
-package com.jung.finance.ui.main.presenter;
+package com.jung.finance.ui.main.contract;
 
 
 import com.jung.finance.ui.user.bean.UserInfo;

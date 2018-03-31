@@ -1,4 +1,4 @@
-package com.jung.finance.ui.news.presenter;
+package com.jung.finance.ui.main.presenter;
 
 import com.jung.finance.R;
 import com.jung.finance.bean.FastModel;
@@ -19,7 +19,7 @@ import com.leon.common.baserx.RxSubscriber;
  *
  *
  */
-public class FastListPresenter extends FastListContract.Presenter {
+public class FastListPresenterImp extends FastListContract.Presenter {
     @Override
     public void getNewsListDataRequest(int startPage) {
         mRxManage.add(mModel.getNewsListData(startPage).subscribe(new RxSubscriber<FastModel>(mContext, false) {

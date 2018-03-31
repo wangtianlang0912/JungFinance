@@ -18,10 +18,10 @@ import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.jung.finance.R;
 import com.jung.finance.app.AppConstant;
 import com.jung.finance.bean.TabEntity;
-import com.jung.finance.ui.main.fragment.CommentMainFragment;
+import com.jung.finance.ui.main.fragment.ActivityMainFragment;
+import com.jung.finance.ui.main.fragment.FastMainFragment;
 import com.jung.finance.ui.main.fragment.MineFragment;
 import com.jung.finance.ui.main.fragment.NewsMainFragment;
-import com.jung.finance.ui.news.fragment.FastListFragment;
 import com.leon.common.base.BaseActivity;
 import com.leon.common.baseapp.AppConfig;
 import com.leon.common.commonutils.LogUtils;
@@ -52,9 +52,9 @@ public class MainActivity extends BaseActivity {
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     private NewsMainFragment newsMainFragment;
-    private FastListFragment fastListFragment;
+    private FastMainFragment fastMainFragment;
     //    private VideoMainFragment videoMainFragment;
-    private CommentMainFragment commentMainFragment;
+    private ActivityMainFragment activityListFragment;
     private MineFragment mineFragment;
     private static int tabLayoutHeight;
 
@@ -144,22 +144,22 @@ public class MainActivity extends BaseActivity {
         int currentTabPosition = 0;
         if (savedInstanceState != null) {
             newsMainFragment = (NewsMainFragment) getSupportFragmentManager().findFragmentByTag("newsMainFragment");
-            fastListFragment = (FastListFragment) getSupportFragmentManager().findFragmentByTag("fastListFragment");
+            fastMainFragment = (FastMainFragment) getSupportFragmentManager().findFragmentByTag("fastMainFragment");
 //            videoMainFragment = (VideoMainFragment) getSupportFragmentManager().findFragmentByTag("videoMainFragment");
-            commentMainFragment = (CommentMainFragment) getSupportFragmentManager().findFragmentByTag("commentMainFragment");
+            activityListFragment = (ActivityMainFragment) getSupportFragmentManager().findFragmentByTag("activityListFragment");
             mineFragment = (MineFragment) getSupportFragmentManager().findFragmentByTag("mineFragment");
             currentTabPosition = savedInstanceState.getInt(AppConstant.HOME_CURRENT_TAB_POSITION);
         } else {
             newsMainFragment = new NewsMainFragment();
-            fastListFragment = new FastListFragment();
+            fastMainFragment = new FastMainFragment();
 //            videoMainFragment = new VideoMainFragment();
-            commentMainFragment = new CommentMainFragment();
+            activityListFragment = new ActivityMainFragment();
             mineFragment = new MineFragment();
 
             transaction.add(R.id.fl_body, newsMainFragment, "newsMainFragment");
-            transaction.add(R.id.fl_body, fastListFragment, "fastListFragment");
+            transaction.add(R.id.fl_body, fastMainFragment, "fastMainFragment");
 //            transaction.add(R.id.fl_body, videoMainFragment, "videoMainFragment");
-            transaction.add(R.id.fl_body, commentMainFragment, "commentMainFragment");
+            transaction.add(R.id.fl_body, activityListFragment, "activityListFragment");
             transaction.add(R.id.fl_body, mineFragment, "mineFragment");
         }
         transaction.commit();
@@ -176,9 +176,9 @@ public class MainActivity extends BaseActivity {
         switch (position) {
             //首页
             case 0:
-                transaction.hide(fastListFragment);
+                transaction.hide(fastMainFragment);
 //                transaction.hide(videoMainFragment);
-                transaction.hide(commentMainFragment);
+                transaction.hide(activityListFragment);
                 transaction.hide(mineFragment);
                 transaction.show(newsMainFragment);
                 transaction.commitAllowingStateLoss();
@@ -187,16 +187,16 @@ public class MainActivity extends BaseActivity {
             case 1:
                 transaction.hide(newsMainFragment);
 //                transaction.hide(videoMainFragment);
-                transaction.hide(commentMainFragment);
+                transaction.hide(activityListFragment);
                 transaction.hide(mineFragment);
-                transaction.show(fastListFragment);
+                transaction.show(fastMainFragment);
                 transaction.commitAllowingStateLoss();
                 break;
             //视频
 //            case 2:
 //                transaction.hide(newsMainFragment);
 //                transaction.hide(photosMainFragment);
-//                transaction.hide(commentMainFragment);
+//                transaction.hide(activityListFragment);
 //                transaction.hide(mineFragment);
 //                transaction.show(videoMainFragment);
 //                transaction.commitAllowingStateLoss();
@@ -204,18 +204,18 @@ public class MainActivity extends BaseActivity {
             // 活动
             case 2:
                 transaction.hide(newsMainFragment);
-                transaction.hide(fastListFragment);
+                transaction.hide(fastMainFragment);
 //                transaction.hide(videoMainFragment);
                 transaction.hide(mineFragment);
-                transaction.show(commentMainFragment);
+                transaction.show(activityListFragment);
                 transaction.commitAllowingStateLoss();
                 break;
             // 我的
             case 3:
                 transaction.hide(newsMainFragment);
-                transaction.hide(fastListFragment);
+                transaction.hide(fastMainFragment);
 //                transaction.hide(videoMainFragment);
-                transaction.hide(commentMainFragment);
+                transaction.hide(activityListFragment);
                 transaction.show(mineFragment);
                 transaction.commitAllowingStateLoss();
                 break;

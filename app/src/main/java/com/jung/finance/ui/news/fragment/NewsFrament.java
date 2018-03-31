@@ -124,7 +124,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
         if (counter != null) {
 
             mStartPage++;
-            if (counter.getPageIndex() < counter.getPageSize()) {
+            if (counter.getPageIndex() < counter.getPageCount()) {
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
 
             } else {

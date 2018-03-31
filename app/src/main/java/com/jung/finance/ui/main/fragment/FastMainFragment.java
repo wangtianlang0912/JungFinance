@@ -1,4 +1,4 @@
-package com.jung.finance.ui.news.fragment;
+package com.jung.finance.ui.main.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,13 +12,12 @@ import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.jung.finance.R;
-import com.jung.finance.bean.ArticleModel;
 import com.jung.finance.bean.Counter;
 import com.jung.finance.bean.FastModel;
-import com.jung.finance.ui.news.adapter.FastListAdapter;
+import com.jung.finance.ui.main.adapter.FastListAdapter;
+import com.jung.finance.ui.main.model.FastModelImp;
+import com.jung.finance.ui.main.presenter.FastListPresenterImp;
 import com.jung.finance.ui.news.contract.FastListContract;
-import com.jung.finance.ui.news.model.FastListModel;
-import com.jung.finance.ui.news.presenter.FastListPresenter;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonwidget.LoadingTip;
 import com.leon.common.commonwidget.NormalTitleBar;
@@ -43,7 +42,7 @@ import butterknife.ButterKnife;
  *
  *
  */
-public class FastListFragment extends BaseFragment<FastListPresenter, FastListModel> implements FastListContract.View, OnRefreshListener, OnLoadMoreListener {
+public class FastMainFragment extends BaseFragment<FastListPresenterImp, FastModelImp> implements FastListContract.View, OnRefreshListener, OnLoadMoreListener {
     @Bind(R.id.irc)
     IRecyclerView irc;
     @Bind(R.id.loadedTip)
@@ -58,8 +57,6 @@ public class FastListFragment extends BaseFragment<FastListPresenter, FastListMo
     // 标志位，标志已经初始化完成。
     private boolean isPrepared;
     private boolean isVisible;
-
-    ArticleModel.Article mArticleAd;
 
     @Override
     protected int getLayoutResource() {
@@ -107,7 +104,7 @@ public class FastListFragment extends BaseFragment<FastListPresenter, FastListMo
         if (counter != null) {
 
             mStartPage++;
-            if (counter.getPageIndex() < counter.getPageSize()) {
+            if (counter.getPageIndex() < counter.getPageCount()) {
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
 
             } else {

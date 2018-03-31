@@ -1,4 +1,4 @@
-package com.jung.finance.ui.news.adapter;
+package com.jung.finance.ui.main.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;

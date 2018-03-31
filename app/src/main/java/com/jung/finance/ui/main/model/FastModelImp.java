@@ -1,4 +1,4 @@
-package com.jung.finance.ui.news.model;
+package com.jung.finance.ui.main.model;
 
 
 import com.jung.finance.api.Api;
@@ -26,7 +26,7 @@ import rx.functions.Func1;
  *
  *
  */
-public class FastListModel implements FastListContract.Model {
+public class FastModelImp implements FastListContract.Model {
 
     @Override
     public Observable<FastModel> getNewsListData(int startPage) {
