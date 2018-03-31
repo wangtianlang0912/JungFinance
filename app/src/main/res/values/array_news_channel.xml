@@ -12,7 +12,7 @@
         <!--定死不能更改的5个频道ID-->
         <item>top</item>
         <!--<item>news</item>-->
-        <item>theme</item>
+        <!--<item>theme</item>-->
         <item>media</item>
         <!--<item>college</item>-->
     </string-array>

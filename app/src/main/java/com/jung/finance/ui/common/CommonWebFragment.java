@@ -38,9 +38,9 @@ import butterknife.ButterKnife;
  */
 public class CommonWebFragment extends BaseFragment {
     @Bind(R.id.common_web_main_web_view)
-    ProgressWebView progressWebView;
-    WebView detailwebview;
-    private Intent homeIntent;
+    protected ProgressWebView progressWebView;
+    protected WebView detailwebview;
+    protected Intent homeIntent;
 
     @Override
     protected int getLayoutResource() {
@@ -57,6 +57,8 @@ public class CommonWebFragment extends BaseFragment {
         detailwebview = progressWebView.getWebView();
         detailwebview.getSettings().setJavaScriptEnabled(true);
         detailwebview.canGoBack();
+        String userAgent = detailwebview.getSettings().getUserAgentString();
+        detailwebview.getSettings().setUserAgentString(userAgent + ";" + "cn.efunding.app");
         detailwebview.setVerticalScrollBarEnabled(true);
         detailwebview.requestFocus();
         detailwebview.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
@@ -79,6 +81,11 @@ public class CommonWebFragment extends BaseFragment {
                 }
             }
         });
+
+        loadData();
+    }
+
+    protected void loadData() {
 
         homeIntent = getActivity().getIntent();
         Bundle bundle = homeIntent.getBundleExtra(AppConstant.FLAG_BUNDLE);

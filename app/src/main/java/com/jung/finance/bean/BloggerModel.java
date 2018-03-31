@@ -58,6 +58,19 @@ public class BloggerModel {
 
         private String coverImage;
 
+        private Role role;
+
+        public Role getRole() {
+            if (role == null) {
+                role = new Role();
+            }
+            return role;
+        }
+
+        public void setRole(Role role) {
+            this.role = role;
+        }
+
         public void setUid(int uid) {
             this.uid = uid;
         }
@@ -132,21 +145,46 @@ public class BloggerModel {
 
     }
 
+    public class Role {
+
+        int mCount;
+        int role;
+
+        public int getmCount() {
+            return mCount;
+        }
+
+        public void setmCount(int mCount) {
+            this.mCount = mCount;
+        }
+
+        public int getRole() {
+            return role;
+        }
+
+        public void setRole(int role) {
+            this.role = role;
+        }
+    }
+
     public class Blogger {
         private int uid;
 
         private int mCount;
 
-        public void setUid(int uid){
+        public void setUid(int uid) {
             this.uid = uid;
         }
-        public int getUid(){
+
+        public int getUid() {
             return this.uid;
         }
-        public void setMCount(int mCount){
+
+        public void setMCount(int mCount) {
             this.mCount = mCount;
         }
-        public int getMCount(){
+
+        public int getMCount() {
             return this.mCount;
         }
 
@@ -162,28 +200,35 @@ public class BloggerModel {
 
         private int pageIndex;
 
-        public void setTotal(int total){
+        public void setTotal(int total) {
             this.total = total;
         }
-        public int getTotal(){
+
+        public int getTotal() {
             return this.total;
         }
-        public void setPageSize(int pageSize){
+
+        public void setPageSize(int pageSize) {
             this.pageSize = pageSize;
         }
-        public int getPageSize(){
+
+        public int getPageSize() {
             return this.pageSize;
         }
-        public void setPageCount(int pageCount){
+
+        public void setPageCount(int pageCount) {
             this.pageCount = pageCount;
         }
-        public int getPageCount(){
+
+        public int getPageCount() {
             return this.pageCount;
         }
-        public void setPageIndex(int pageIndex){
+
+        public void setPageIndex(int pageIndex) {
             this.pageIndex = pageIndex;
         }
-        public int getPageIndex(){
+
+        public int getPageIndex() {
             return this.pageIndex;
         }
 

@@ -39,6 +39,8 @@ public class AppConstant {
     public static final String FLAG_FRAGMENT = "frag-fragment";
     public static final String FLAG_NAME = "frag_name";
     public static final String FLAG_DATA = "frag_data";
+    public static final String FLAG_DATA2 = "frag_data2";
+    public static final String FLAG_DATA3 = "frag_data3";
     public static final String FLAG_BUNDLE = "frag_bundle";
 
     public static final String USERINFO_KEY = "userinfo";

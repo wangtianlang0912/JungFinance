@@ -110,7 +110,17 @@ public class ArticleModel {
 
         private int isRecommend;
 
+        private BloggerModel.Media media;
+
         private ContentType type = ContentType.DEFAULT;
+
+        public BloggerModel.Media getMedia() {
+            return media;
+        }
+
+        public void setMedia(BloggerModel.Media media) {
+            this.media = media;
+        }
 
         public void setSummary(String summary) {
             this.summary = summary;

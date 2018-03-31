@@ -8,6 +8,8 @@ import android.view.View;
 import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.CommonRecycleViewAdapter;
 import com.jung.finance.R;
+import com.jung.finance.api.ApiConstants;
+import com.jung.finance.app.AppIntent;
 import com.jung.finance.bean.BloggerModel;
 
 import java.util.List;
@@ -49,10 +51,20 @@ public class BloggerListAdapter extends CommonRecycleViewAdapter<BloggerModel.Me
         holder.setText(R.id.content_view, TextUtils.isEmpty(media.getRemark()) ? "暂无简介" : media.getRemark());
         holder.setImageRoundUrl(R.id.logo_view, media.getCoverImage());
         holder.setText(R.id.public_view, String.format("他共发表%d篇文章", media.getArticleNum()));
+
+        holder.setOnClickListener(R.id.logo_view, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AppIntent.intentToBloggerInfo(mContext, media.getObjectId());
+            }
+        });
         holder.setOnClickListener(R.id.rl_root, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                NewsDetailActivity.startAction(mContext, holder.getView(R.id.news_summary_photo_iv), String.valueOf(article.getObjectId()), article.getImage());
+
+                AppIntent.intentToBloggerArticleDetail(mContext, String.format(ApiConstants.URL + "media/i-%d.html", media.getObjectId()),
+                        media.getObjectId(), media.getUid());
             }
         });
     }

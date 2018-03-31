@@ -6,8 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.jung.finance.R;
+import com.jung.finance.ui.blogger.fragment.BloggerArticleDetailFragment;
+import com.jung.finance.ui.blogger.fragment.BloggerFragment;
 import com.jung.finance.ui.common.CommonActivity;
 import com.jung.finance.ui.common.CommonWebFragment;
+import com.jung.finance.ui.news.fragment.ArticleDetailFragment;
 import com.jung.finance.ui.setting.fragment.SettingFragment;
 import com.jung.finance.ui.user.fragment.AccountSafeFragment;
 import com.jung.finance.ui.user.fragment.BindMobileFragment;
@@ -71,6 +74,43 @@ public class AppIntent {
 
         intentToAct(context, R.string.bind_phone, BindMobileFragment.class);
     }
+
+    public static void intentToBloggerInfo(Context context, int uid) {
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(AppConstant.FLAG_DATA, uid);
+        intentToAct(context, "", BloggerFragment.class, bundle);
+    }
+
+    /***
+     * 博主文章详情
+     * @param context
+     * @param objectId
+     */
+    public static void intentToBloggerArticleDetail(Context context, String articleUrl, int objectId, int bloggerUid) {
+
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstant.FLAG_DATA, articleUrl);
+        bundle.putInt(AppConstant.FLAG_DATA2, objectId);
+        bundle.putInt(AppConstant.FLAG_DATA3, bloggerUid);
+        intentToAct(context, context.getString(R.string.article_detail), BloggerArticleDetailFragment.class, bundle);
+    }
+
+
+    /***
+     * 普通文章详情
+     * @param context
+     * @param articleUrl
+     * @param objectId
+     */
+    public static void intentToArticleDetail(Context context, String articleUrl, int objectId) {
+
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstant.FLAG_DATA, articleUrl);
+        bundle.putInt(AppConstant.FLAG_DATA2, objectId);
+        intentToAct(context, context.getString(R.string.article_detail), ArticleDetailFragment.class, bundle);
+    }
+
 
     public static void intentToCommonWeb(Context context, int resTitle, String url) {
         intentToCommonWeb(context, context.getString(resTitle), url);

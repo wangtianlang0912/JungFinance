@@ -12,6 +12,7 @@ import com.jung.finance.bean.NewsDetail;
 import com.jung.finance.bean.NewsSummary;
 import com.jung.finance.bean.TopicModel;
 import com.jung.finance.bean.VideoData;
+import com.jung.finance.ui.blogger.bean.BloggerBean;
 import com.jung.finance.ui.main.bean.ScoreInfo;
 import com.jung.finance.ui.user.bean.UserInfo;
 import com.leon.common.basebean.BaseRespose;
@@ -162,4 +163,11 @@ public interface ApiService {
     @GET("app/activity/query")
     Observable<BaseRespose<ActivityModel>> getActivityList(@Header("Cache-Control") String cacheControl, @Query("p") int page);
 
+    // 获取自媒体
+    @GET("app/media/get")
+    Observable<BaseRespose<BloggerBean>> getBloggerInfo(@Query("id") int id, @Query("uid") int uid);
+
+    // 获取自媒体列表
+    @GET("app/media/article/query")
+    Observable<BaseRespose<ArticleModel>> getBloggerArticleList(@Query("mediaId") int id, @Query("uid") int uid, @Query("p") int page);
 }
