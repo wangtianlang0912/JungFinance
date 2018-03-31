@@ -8,7 +8,6 @@ import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemRecycleViewAdapter;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemTypeSupport;
 import com.jung.finance.R;
-import com.jung.finance.api.ApiConstants;
 import com.jung.finance.app.AppIntent;
 import com.jung.finance.bean.ArticleModel;
 
@@ -98,12 +97,10 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<ArticleModel.Art
 
                 if (article.getMedia() != null) {
                     AppIntent.intentToBloggerArticleDetail(mContext,
-                            String.format(ApiConstants.URL + "media/i-%d.html", article.getObjectId()),
                             article.getObjectId(),
                             article.getMedia().getObjectId());
                 } else {
                     AppIntent.intentToArticleDetail(mContext,
-                            String.format(ApiConstants.URL + "news/i-%d.html", article.getObjectId()),
                             article.getObjectId());
                 }
             }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.jung.finance.R;
+import com.jung.finance.api.ApiConstants;
 import com.jung.finance.ui.blogger.fragment.BloggerArticleDetailFragment;
 import com.jung.finance.ui.blogger.fragment.BloggerFragment;
 import com.jung.finance.ui.common.CommonActivity;
@@ -87,9 +88,10 @@ public class AppIntent {
      * @param context
      * @param objectId
      */
-    public static void intentToBloggerArticleDetail(Context context, String articleUrl, int objectId, int bloggerUid) {
+    public static void intentToBloggerArticleDetail(Context context, int objectId, int bloggerUid) {
 
         Bundle bundle = new Bundle();
+        String articleUrl = String.format(ApiConstants.URL + "media/i-%d.html", objectId);
         bundle.putString(AppConstant.FLAG_DATA, articleUrl);
         bundle.putInt(AppConstant.FLAG_DATA2, objectId);
         bundle.putInt(AppConstant.FLAG_DATA3, bloggerUid);
@@ -100,12 +102,12 @@ public class AppIntent {
     /***
      * 普通文章详情
      * @param context
-     * @param articleUrl
      * @param objectId
      */
-    public static void intentToArticleDetail(Context context, String articleUrl, int objectId) {
+    public static void intentToArticleDetail(Context context, int objectId) {
 
         Bundle bundle = new Bundle();
+        String articleUrl = String.format(ApiConstants.URL + "article/i-%d.html", objectId);
         bundle.putString(AppConstant.FLAG_DATA, articleUrl);
         bundle.putInt(AppConstant.FLAG_DATA2, objectId);
         intentToAct(context, context.getString(R.string.article_detail), ArticleDetailFragment.class, bundle);

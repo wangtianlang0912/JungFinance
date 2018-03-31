@@ -144,6 +144,34 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已发布"
+            android:textColor="@color/_333333"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/num_show_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textColor="@color/_f2a924"
+            android:textSize="14sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="篇文章"
+            android:textColor="@color/_333333"
+            android:textSize="14sp" />
+    </LinearLayout>
 
     <include
         layout="@layout/framents_news"

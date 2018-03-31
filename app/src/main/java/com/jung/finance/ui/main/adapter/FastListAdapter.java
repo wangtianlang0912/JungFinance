@@ -8,8 +8,8 @@ import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemRecycleViewAdapter;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemTypeSupport;
 import com.jung.finance.R;
+import com.jung.finance.app.AppIntent;
 import com.jung.finance.bean.FastModel;
-import com.jung.finance.ui.news.activity.NewsDetailActivity;
 
 import java.util.List;
 
@@ -66,7 +66,9 @@ public class FastListAdapter extends MultiItemRecycleViewAdapter<FastModel.FastC
         holder.setOnClickListener(R.id.rl_root, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                NewsDetailActivity.startAction(mContext, holder.getView(R.id.news_summary_photo_iv), String.valueOf(article.getObjectId()), article.getImage());
+
+                AppIntent.intentToArticleDetail(mContext, article.getObjectId());
+
             }
         });
     }

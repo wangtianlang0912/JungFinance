@@ -8,7 +8,6 @@ import android.view.View;
 import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.CommonRecycleViewAdapter;
 import com.jung.finance.R;
-import com.jung.finance.api.ApiConstants;
 import com.jung.finance.app.AppIntent;
 import com.jung.finance.bean.BloggerModel;
 
@@ -63,7 +62,7 @@ public class BloggerListAdapter extends CommonRecycleViewAdapter<BloggerModel.Me
             @Override
             public void onClick(View view) {
 
-                AppIntent.intentToBloggerArticleDetail(mContext, String.format(ApiConstants.URL + "media/i-%d.html", media.getObjectId()),
+                AppIntent.intentToBloggerArticleDetail(mContext,
                         media.getObjectId(), media.getUid());
             }
         });

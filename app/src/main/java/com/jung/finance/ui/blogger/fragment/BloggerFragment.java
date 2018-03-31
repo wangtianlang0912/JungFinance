@@ -68,7 +68,8 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
     IRecyclerView irc;
     @Bind(R.id.loadedTip)
     LoadingTip loadedTip;
-
+    @Bind(R.id.num_show_view)
+    TextView numShowView;
     NewListAdapter newListAdapter;
     int mStartPage;
     int mUid;
@@ -91,6 +92,7 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
             mUid = bundle.getInt(AppConstant.FLAG_DATA);
             mPresenter.getBloggerInfo(mUid);
         }
+
         irc.setLayoutManager(new LinearLayoutManager(getContext()));
         datas.clear();
         newListAdapter = new NewListAdapter(getContext(), datas);
@@ -187,7 +189,7 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
         subscribeNum.setText(blogger.getRole().getmCount() + "");
         fansNum.setText(blogger.getGznum() + "");
         subscribeBtn.setText(blogger.getRole().getRole() == 1 ? "+订阅" : "已订阅");
-
+        numShowView.setText(blogger.getGznum() + "");
     }
 
 
