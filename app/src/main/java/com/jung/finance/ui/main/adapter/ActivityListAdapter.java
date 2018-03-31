@@ -2,12 +2,14 @@ package com.jung.finance.ui.main.adapter;
 
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemRecycleViewAdapter;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemTypeSupport;
 import com.jung.finance.R;
+import com.jung.finance.app.AppIntent;
 import com.jung.finance.bean.ActivityModel;
 
 import java.util.List;
@@ -84,6 +86,10 @@ public class ActivityListAdapter extends MultiItemRecycleViewAdapter<ActivityMod
         holder.setOnClickListener(R.id.rl_root, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (TextUtils.isEmpty(activity.getUrl())) {
+                    return;
+                }
+                AppIntent.intentToCommonWeb(mContext, R.string.activity, activity.getUrl());
             }
         });
     }

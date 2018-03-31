@@ -38,7 +38,8 @@ import butterknife.ButterKnife;
  */
 public class CommonWebFragment extends BaseFragment {
     @Bind(R.id.common_web_main_web_view)
-    ProgressWebView detailwebview;
+    ProgressWebView progressWebView;
+    WebView detailwebview;
     private Intent homeIntent;
 
     @Override
@@ -53,14 +54,14 @@ public class CommonWebFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
+        detailwebview = progressWebView.getWebView();
         detailwebview.getSettings().setJavaScriptEnabled(true);
         detailwebview.canGoBack();
         detailwebview.setVerticalScrollBarEnabled(true);
         detailwebview.requestFocus();
         detailwebview.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         detailwebview.setWebViewClient(new InnerWebViewClient(getActivity()));
-        detailwebview.setWebChromeClient(new InjectedChromeClient("JsCallBack", InnerHostJsScope.class));
+        detailwebview.setWebChromeClient(new InjectedChromeClient(progressWebView.getProgressbar(), "JsCallBack", InnerHostJsScope.class));
         detailwebview.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -80,7 +81,8 @@ public class CommonWebFragment extends BaseFragment {
         });
 
         homeIntent = getActivity().getIntent();
-        String urlAddress = homeIntent.getStringExtra(AppConstant.FLAG_DATA);
+        Bundle bundle = homeIntent.getBundleExtra(AppConstant.FLAG_BUNDLE);
+        String urlAddress = bundle.getString(AppConstant.FLAG_DATA);
         detailwebview.loadUrl(urlAddress);
     }
 
