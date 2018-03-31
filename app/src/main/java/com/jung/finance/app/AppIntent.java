@@ -107,7 +107,7 @@ public class AppIntent {
     public static void intentToArticleDetail(Context context, int objectId) {
 
         Bundle bundle = new Bundle();
-        String articleUrl = String.format(ApiConstants.URL + "article/i-%d.html", objectId);
+        String articleUrl = String.format(ApiConstants.URL + "news/i-%d.html", objectId);
         bundle.putString(AppConstant.FLAG_DATA, articleUrl);
         bundle.putInt(AppConstant.FLAG_DATA2, objectId);
         intentToAct(context, context.getString(R.string.article_detail), ArticleDetailFragment.class, bundle);
