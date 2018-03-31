@@ -130,10 +130,8 @@ public interface ApiService {
 
 
     // 分类
-    @GET("app/column/query")
-    Observable<BaseRespose<ColumnModel>> getColumnList(@Query("columnId") String columnId, @Query("type") String type);
-
-
+    @GET("app/column/select")
+    Observable<BaseRespose<ColumnModel>> getColumnCategoryList();
 
     //首页文章/区块链/珠宝app/article/query?columnId=21&p=1
     @GET("app/article/query")

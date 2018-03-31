@@ -93,6 +93,8 @@ public class ActivityModel {
 
         private String endTime;
 
+        private int objectId;
+
         public void setStime(int stime) {
             this.stime = stime;
         }
@@ -212,6 +214,14 @@ public class ActivityModel {
 
         public void setEndTime(String endTime) {
             this.endTime = endTime;
+        }
+
+        public int getObjectId() {
+            return objectId;
+        }
+
+        public void setObjectId(int objectId) {
+            this.objectId = objectId;
         }
     }
 }

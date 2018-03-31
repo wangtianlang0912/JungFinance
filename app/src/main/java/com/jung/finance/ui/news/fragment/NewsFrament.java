@@ -123,10 +123,9 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
         Counter counter = newsSummaries.getCounter();
         if (counter != null) {
 
-            mStartPage++;
             if (counter.getPageIndex() < counter.getPageCount()) {
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
-
+                mStartPage++;
             } else {
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
 
@@ -194,6 +193,9 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
 
     @Override
     public void onLoadMore(View loadMoreView) {
+        if (!irc.canLoadMore()){
+            return;
+        }
         newListAdapter.getPageBean().setRefresh(false);
         //发起请求
         irc.setLoadMoreStatus(LoadMoreFooterView.Status.LOADING);

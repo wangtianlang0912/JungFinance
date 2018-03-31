@@ -1,6 +1,7 @@
 package com.jung.finance.ui.news.contract;
 
 import com.jung.finance.bean.NewsChannelTable;
+import com.jung.finance.bean.NewsChannelTableGroup;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;
@@ -20,19 +21,19 @@ public interface NewsChannelContract {
     interface Model extends BaseModel {
         Observable<List<NewsChannelTable>> lodeMineNewsChannels();
 
-        Observable<List<NewsChannelTable>> lodeMoreNewsChannelsByCache();
+        Observable<NewsChannelTableGroup> lodeMoreNewsChannelsByCache();
 
-        Observable<List<NewsChannelTable>> lodeMoreNewsChannelsByNet();
+        Observable<NewsChannelTableGroup> lodeMoreNewsChannelsByNet();
 
         Observable<String> swapDb(ArrayList<NewsChannelTable> newsChannelTableList, int fromPosition, int toPosition);
 
-        Observable<String> updateDb(ArrayList<NewsChannelTable> mineChannelTableList, ArrayList<NewsChannelTable> moreChannelTableList);
+        Observable<String> updateDb(ArrayList<NewsChannelTable> mineChannelTableList, NewsChannelTableGroup tableGroup);
     }
 
     interface View extends BaseView {
         void returnMineNewsChannels(List<NewsChannelTable> newsChannelsMine);
 
-        void returnMoreNewsChannels(List<NewsChannelTable> newsChannelsMore);
+        void returnMoreNewsChannels(NewsChannelTableGroup group);
     }
 
     abstract static class Presenter extends BasePresenter<View, Model> {
@@ -40,6 +41,6 @@ public interface NewsChannelContract {
 
         public abstract void onItemSwap(ArrayList<NewsChannelTable> newsChannelTableList, int fromPosition, final int toPosition);
 
-        public abstract void onItemAddOrRemove(ArrayList<NewsChannelTable> mineChannelTableList, ArrayList<NewsChannelTable> moreChannelTableList);
+        public abstract void onItemAddOrRemove(ArrayList<NewsChannelTable> mineChannelTableList, NewsChannelTableGroup tableGroup);
     }
 }

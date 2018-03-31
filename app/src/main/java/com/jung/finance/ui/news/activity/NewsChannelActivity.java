@@ -14,6 +14,7 @@ import android.view.View;
 import com.jung.finance.R;
 import com.jung.finance.app.AppConstant;
 import com.jung.finance.bean.NewsChannelTable;
+import com.jung.finance.bean.NewsChannelTableGroup;
 import com.jung.finance.ui.news.adapter.ChannelAdapter;
 import com.jung.finance.ui.news.contract.NewsChannelContract;
 import com.jung.finance.ui.news.event.ChannelItemMoveEvent;
@@ -40,11 +41,17 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
     NormalTitleBar titleBar;
     @Bind(R.id.news_channel_mine_rv)
     RecyclerView newsChannelMineRv;
-    @Bind(R.id.news_channel_more_rv)
-    RecyclerView newsChannelMoreRv;
+    @Bind(R.id.news_channel_news_rv)
+    RecyclerView newsChannelNewsRv;
+    @Bind(R.id.news_channel_market_rv)
+    RecyclerView newsChannelMarketRv;
+    @Bind(R.id.news_channel_college_rv)
+    RecyclerView newsChannelCollegeRv;
 
     private ChannelAdapter channelAdapterMine;
-    private ChannelAdapter channelAdapterMore;
+    private ChannelAdapter channelAdapterNews;
+    private ChannelAdapter channelAdapterCollege;
+    private ChannelAdapter channelAdapterMarket;
 
     @Override
     public int getLayoutId() {
@@ -102,6 +109,7 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
 
     @Override
     public void returnMineNewsChannels(List<NewsChannelTable> newsChannelsMine) {
+
         channelAdapterMine = new ChannelAdapter(mContext, R.layout.item_news_channel);
         newsChannelMineRv.setLayoutManager(new GridLayoutManager(this, 4, LinearLayoutManager.VERTICAL, false));
         newsChannelMineRv.setItemAnimator(new DefaultItemAnimator());
@@ -111,13 +119,25 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
             @Override
             public void onItemClick(View view, int position) {
                 NewsChannelTable newsChannel = channelAdapterMine.get(position);
-                channelAdapterMore.add(newsChannel);
+
+                if (newsChannel.getType() == channelAdapterCollege.getType()) {
+                    channelAdapterCollege.add(newsChannel);
+                } else if (newsChannel.getType() == channelAdapterNews.getType()) {
+                    channelAdapterNews.add(newsChannel);
+                } else if (newsChannel.getType() == channelAdapterMarket.getType()) {
+                    channelAdapterMarket.add(newsChannel);
+                }
+
+
+                NewsChannelTableGroup tableGroup = new NewsChannelTableGroup();
+                tableGroup.setMarkets(channelAdapterMarket.getAll());
+                tableGroup.setNews(channelAdapterNews.getAll());
+                tableGroup.setColleges(channelAdapterCollege.getAll());
                 channelAdapterMine.removeAt(position);
-                mPresenter.onItemAddOrRemove((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(), (ArrayList<NewsChannelTable>) channelAdapterMore.getAll());
+                mPresenter.onItemAddOrRemove((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(), tableGroup);
 
             }
         });
-
 
         ItemDragHelperCallback itemDragHelperCallback = new ItemDragHelperCallback(channelAdapterMine);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemDragHelperCallback);
@@ -126,21 +146,69 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
     }
 
     @Override
-    public void returnMoreNewsChannels(List<NewsChannelTable> newsChannelsMore) {
-        channelAdapterMore = new ChannelAdapter(mContext, R.layout.item_news_channel);
-        newsChannelMoreRv.setLayoutManager(new GridLayoutManager(this, 4, LinearLayoutManager.VERTICAL, false));
-        newsChannelMoreRv.setItemAnimator(new DefaultItemAnimator());
-        newsChannelMoreRv.setAdapter(channelAdapterMore);
-        channelAdapterMore.replaceAll(newsChannelsMore);
-        channelAdapterMore.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                NewsChannelTable newsChannel = channelAdapterMore.get(position);
-                channelAdapterMine.add(newsChannel);
-                channelAdapterMore.removeAt(position);
-                mPresenter.onItemAddOrRemove((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(), (ArrayList<NewsChannelTable>) channelAdapterMore.getAll());
-            }
-        });
+    public void returnMoreNewsChannels(final NewsChannelTableGroup group) {
+
+        if (group == null) {
+            return;
+        }
+        // news
+        List<NewsChannelTable> newsChannelTables = group.getNews();
+        if (newsChannelTables != null && !newsChannelTables.isEmpty()) {
+            channelAdapterNews = new ChannelAdapter(mContext, R.layout.item_news_channel);
+            newsChannelNewsRv.setLayoutManager(new GridLayoutManager(this, 4, LinearLayoutManager.VERTICAL, false));
+            newsChannelNewsRv.setItemAnimator(new DefaultItemAnimator());
+            newsChannelNewsRv.setAdapter(channelAdapterNews);
+            channelAdapterNews.replaceAll(newsChannelTables);
+            channelAdapterNews.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    NewsChannelTable newsChannel = channelAdapterNews.get(position);
+                    channelAdapterMine.add(newsChannel);
+                    channelAdapterNews.removeAt(position);
+                    mPresenter.onItemAddOrRemove((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(), group);
+                }
+            });
+        }
+
+        // college
+        List<NewsChannelTable> collegesChannelTables = group.getColleges();
+        if (collegesChannelTables != null && !collegesChannelTables.isEmpty()) {
+
+            channelAdapterCollege = new ChannelAdapter(mContext, R.layout.item_news_channel);
+            newsChannelCollegeRv.setLayoutManager(new GridLayoutManager(this, 4, LinearLayoutManager.VERTICAL, false));
+            newsChannelCollegeRv.setItemAnimator(new DefaultItemAnimator());
+            newsChannelCollegeRv.setAdapter(channelAdapterCollege);
+            channelAdapterCollege.replaceAll(collegesChannelTables);
+            channelAdapterCollege.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    NewsChannelTable newsChannel = channelAdapterCollege.get(position);
+                    channelAdapterMine.add(newsChannel);
+                    channelAdapterCollege.removeAt(position);
+                    mPresenter.onItemAddOrRemove((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(), group);
+                }
+            });
+        }
+
+        // market
+        List<NewsChannelTable> marketChannelTables = group.getMarkets();
+        if (marketChannelTables != null && !marketChannelTables.isEmpty()) {
+
+            channelAdapterMarket = new ChannelAdapter(mContext, R.layout.item_news_channel);
+            newsChannelMarketRv.setLayoutManager(new GridLayoutManager(this, 4, LinearLayoutManager.VERTICAL, false));
+            newsChannelMarketRv.setItemAnimator(new DefaultItemAnimator());
+            newsChannelMarketRv.setAdapter(channelAdapterMarket);
+            channelAdapterMarket.replaceAll(marketChannelTables);
+            channelAdapterMarket.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    NewsChannelTable newsChannel = channelAdapterCollege.get(position);
+                    channelAdapterMine.add(newsChannel);
+                    channelAdapterMarket.removeAt(position);
+                    mPresenter.onItemAddOrRemove((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(), group);
+                }
+            });
+        }
     }
 
     @Override

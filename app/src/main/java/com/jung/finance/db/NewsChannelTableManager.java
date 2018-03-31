@@ -37,7 +37,7 @@ public class NewsChannelTableManager {
         List<String> channelId = Arrays.asList(AppApplication.getAppContext().getResources().getStringArray(R.array.news_channel_id_static));
         ArrayList<NewsChannelTable> newsChannelTables = new ArrayList<>();
         for (int i = 0; i < channelName.size(); i++) {
-            NewsChannelTable entity = new NewsChannelTable(channelName.get(i), channelId.get(i)
+            NewsChannelTable entity = new NewsChannelTable(channelName.get(i), channelId.get(i), 0
                     , i <= 5, i, true);
             newsChannelTables.add(entity);
         }

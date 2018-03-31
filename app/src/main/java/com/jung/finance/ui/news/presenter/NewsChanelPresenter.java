@@ -2,6 +2,7 @@ package com.jung.finance.ui.news.presenter;
 
 import com.jung.finance.app.AppConstant;
 import com.jung.finance.bean.NewsChannelTable;
+import com.jung.finance.bean.NewsChannelTableGroup;
 import com.jung.finance.ui.news.contract.NewsChannelContract;
 import com.leon.common.baserx.RxSubscriber;
 
@@ -27,17 +28,17 @@ public class NewsChanelPresenter extends NewsChannelContract.Presenter {
 
             }
         }));
-        mRxManage.add(mModel.lodeMoreNewsChannelsByCache().subscribe(new RxSubscriber<List<NewsChannelTable>>(mContext, false) {
+        mRxManage.add(mModel.lodeMoreNewsChannelsByCache().subscribe(new RxSubscriber<NewsChannelTableGroup>(mContext, false) {
             @Override
-            protected void _onNext(List<NewsChannelTable> newsChannelTables) {
-                if (newsChannelTables != null) {
-                    mView.returnMoreNewsChannels(newsChannelTables);
+            protected void _onNext(NewsChannelTableGroup tableGroup) {
+                if (tableGroup != null) {
+                    mView.returnMoreNewsChannels(tableGroup);
                 } else {
-                    mRxManage.add(mModel.lodeMoreNewsChannelsByNet().subscribe(new RxSubscriber<List<NewsChannelTable>>(mContext, false) {
+                    mRxManage.add(mModel.lodeMoreNewsChannelsByNet().subscribe(new RxSubscriber<NewsChannelTableGroup>(mContext, false) {
                         @Override
-                        protected void _onNext(List<NewsChannelTable> newsChannelTables) {
-                            if (newsChannelTables != null) {
-                                mView.returnMoreNewsChannels(newsChannelTables);
+                        protected void _onNext(NewsChannelTableGroup tableGroups) {
+                            if (tableGroups != null) {
+                                mView.returnMoreNewsChannels(tableGroups);
                             }
                         }
 
@@ -73,8 +74,8 @@ public class NewsChanelPresenter extends NewsChannelContract.Presenter {
     }
 
     @Override
-    public void onItemAddOrRemove(final ArrayList<NewsChannelTable> mineChannelTableList, ArrayList<NewsChannelTable> moreChannelTableList) {
-        mRxManage.add(mModel.updateDb(mineChannelTableList, moreChannelTableList).subscribe(new RxSubscriber<String>(mContext, false) {
+    public void onItemAddOrRemove(final ArrayList<NewsChannelTable> mineChannelTableList, NewsChannelTableGroup tableGroup) {
+        mRxManage.add(mModel.updateDb(mineChannelTableList, tableGroup).subscribe(new RxSubscriber<String>(mContext, false) {
             @Override
             protected void _onNext(String s) {
                 mRxManage.post(AppConstant.NEWS_CHANNEL_CHANGED, mineChannelTableList);

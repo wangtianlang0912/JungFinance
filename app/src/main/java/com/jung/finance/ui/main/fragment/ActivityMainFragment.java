@@ -89,6 +89,9 @@ public class ActivityMainFragment extends BaseFragment<ActivityPresenterImp, Act
 
     @Override
     public void onLoadMore(View loadMoreView) {
+        if (!irc.canLoadMore()){
+            return;
+        }
         listAdapter.getPageBean().setRefresh(false);
         //发起请求
         irc.setLoadMoreStatus(LoadMoreFooterView.Status.LOADING);
@@ -151,13 +154,11 @@ public class ActivityMainFragment extends BaseFragment<ActivityPresenterImp, Act
         Counter counter = activityModel.getCounter();
         if (counter != null) {
 
-            mStartPage++;
             if (counter.getPageIndex() < counter.getPageCount()) {
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
-
+                mStartPage++;
             } else {
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
-
             }
         }
     }

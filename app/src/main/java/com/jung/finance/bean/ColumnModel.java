@@ -18,149 +18,67 @@ import java.util.List;
  */
 public class ColumnModel {
 
-    private List<Column> columns;
+    private List<Column> college;
 
-    private Counter counter;
+    private List<Column> news;
 
-    public void setColumns(List<Column> columns) {
-        this.columns = columns;
+    private List<Column> market;
+
+    public List<Column> getCollege() {
+        return college;
     }
 
-    public List<Column> getColumns() {
-        return this.columns;
+    public void setCollege(List<Column> college) {
+        this.college = college;
     }
 
-    public void setCounter(Counter counter) {
-        this.counter = counter;
+    public List<Column> getNews() {
+        return news;
     }
 
-    public Counter getCounter() {
-        return this.counter;
+    public void setNews(List<Column> news) {
+        this.news = news;
     }
+
+    public List<Column> getMarket() {
+        return market;
+    }
+
+    public void setMarket(List<Column> market) {
+        this.market = market;
+    }
+
 
     public class Column {
-        private String summary;
-
-        private int parentId;
 
         private String title;
 
-        private int indexId;
-
-        private int status;
-
         private int objectId;
-
-        private String keyword;
-
-        private int mtime;
-
-        private String image;
-
-        private int columnId;
-
-//        private List<Attribute> attributes;
 
         private int type;
 
-        private int ctime;
-
-        public void setSummary(String summary) {
-            this.summary = summary;
-        }
-
-        public String getSummary() {
-            return this.summary;
-        }
-
-        public void setParentId(int parentId) {
-            this.parentId = parentId;
-        }
-
-        public int getParentId() {
-            return this.parentId;
+        public String getTitle() {
+            return title;
         }
 
         public void setTitle(String title) {
             this.title = title;
         }
 
-        public String getTitle() {
-            return this.title;
-        }
-
-        public void setIndexId(int indexId) {
-            this.indexId = indexId;
-        }
-
-        public int getIndexId() {
-            return this.indexId;
-        }
-
-        public void setStatus(int status) {
-            this.status = status;
-        }
-
-        public int getStatus() {
-            return this.status;
+        public int getObjectId() {
+            return objectId;
         }
 
         public void setObjectId(int objectId) {
             this.objectId = objectId;
         }
 
-        public int getObjectId() {
-            return this.objectId;
-        }
-
-        public void setKeyword(String keyword) {
-            this.keyword = keyword;
-        }
-
-        public String getKeyword() {
-            return this.keyword;
-        }
-
-        public void setMtime(int mtime) {
-            this.mtime = mtime;
-        }
-
-        public int getMtime() {
-            return this.mtime;
-        }
-
-        public void setImage(String image) {
-            this.image = image;
-        }
-
-        public String getImage() {
-            return this.image;
-        }
-
-        public void setColumnId(int columnId) {
-            this.columnId = columnId;
-        }
-
-        public int getColumnId() {
-            return this.columnId;
+        public int getType() {
+            return type;
         }
 
         public void setType(int type) {
             this.type = type;
         }
-
-        public int getType() {
-            return this.type;
-        }
-
-        public void setCtime(int ctime) {
-            this.ctime = ctime;
-        }
-
-        public int getCtime() {
-            return this.ctime;
-        }
-
     }
-
 }

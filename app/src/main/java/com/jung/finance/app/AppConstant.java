@@ -15,6 +15,7 @@ public class AppConstant {
     public static final String CHANNEL_POSITION = "channel_position";
     public static final String CHANNEL_MINE = "CHANNEL_MINE";
     public static final String CHANNEL_MORE = "CHANNEL_MORE";
+
     public static final String CHANNEL_SWAP = "CHANNEL_SWAP";
     public static final String NEWS_CHANNEL_CHANGED = "NEWS_CHANNEL_CHANGED";
 
