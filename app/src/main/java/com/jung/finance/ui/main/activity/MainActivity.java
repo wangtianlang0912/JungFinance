@@ -46,9 +46,9 @@ public class MainActivity extends BaseActivity {
 
     private int[] mTitles = {R.string.main_tab_news, R.string.main_tab_fast, R.string.main_tab_activity, R.string.main_tab_mine};
     private int[] mIconUnselectIds = {
-            R.mipmap.ic_home_normal, R.mipmap.ic_info_normal, R.mipmap.ic_comment_normal, R.mipmap.ic_mine_normal};
+            R.mipmap.ic_home_normal, R.mipmap.ic_info_normal, R.mipmap.ic_active_normal, R.mipmap.ic_mine_normal};
     private int[] mIconSelectIds = {
-            R.mipmap.ic_home_selected, R.mipmap.ic_info_selected, R.mipmap.ic_mine_selected, R.mipmap.ic_mine_selected};
+            R.mipmap.ic_home_selected, R.mipmap.ic_info_selected, R.mipmap.ic_active_selected, R.mipmap.ic_mine_selected};
     private ArrayList<CustomTabEntity> mTabEntities = new ArrayList<>();
 
     private NewsMainFragment newsMainFragment;
