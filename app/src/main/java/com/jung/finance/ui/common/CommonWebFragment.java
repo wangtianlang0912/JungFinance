@@ -199,8 +199,5 @@ public class CommonWebFragment extends BaseFragment {
         public MInjectedChromeClient(ProgressBar progressbar, String injectedName, Class injectedCls) {
             super(progressbar, injectedName, injectedCls);
         }
-
-       p
-
     }
 }
