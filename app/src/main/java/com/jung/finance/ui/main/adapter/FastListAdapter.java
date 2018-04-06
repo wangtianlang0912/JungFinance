@@ -1,7 +1,6 @@
 package com.jung.finance.ui.main.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
@@ -59,10 +58,6 @@ public class FastListAdapter extends MultiItemRecycleViewAdapter<FastModel.FastC
     private void setItemValues(final ViewHolderHelper holder, final FastModel.FastComment article, final int position) {
 
         holder.setText(R.id.news_summary_title_tv, article.getTitle());
-        holder.setText(R.id.source_view, TextUtils.isEmpty(article.getAuthor()) ?
-                mContext.getString(R.string.app_name) : article.getAuthor());
-        holder.setText(R.id.see_view, article.getPv() + "");
-        holder.setImageUrl(R.id.news_summary_photo_iv, article.getImage());
         holder.setOnClickListener(R.id.rl_root, new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -30,7 +30,7 @@ public class FastModelImp implements FastListContract.Model {
 
     @Override
     public Observable<FastModel> getNewsListData(int startPage) {
-        return Api.getDefault(HostType.Jung_FINANCE).getFastCommentList(Api.getCacheControl(),startPage)
+        return Api.getDefault(HostType.Jung_FINANCE).getFastCommentList(Api.getCacheControl(), startPage, 20)
                 .map(new Func1<BaseRespose<FastModel>, FastModel>() {
                     @Override
                     public FastModel call(BaseRespose<FastModel> baseRespose) {

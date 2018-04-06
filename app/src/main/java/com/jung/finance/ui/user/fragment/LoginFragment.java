@@ -151,6 +151,7 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
                 break;
             case R.id.register_btn:
                 AppIntent.intentToRegister(getActivity());
+                getActivity().finish();
                 break;
             case R.id.forget_pwd_btn:
                 AppIntent.intentToForgetPwd(getActivity());

@@ -175,6 +175,8 @@ public class RegisterFragment extends BaseFragment<RegisterPresenterImp, Registe
             MyUtils.saveUserInfo(getActivity(), response);
             MyUtils.saveToken(getActivity(), response.getToken());
         }
+        showShortToast(getString(R.string.register_success));
+        getActivity().finish();
     }
 
     private void sendVerifyCode() {

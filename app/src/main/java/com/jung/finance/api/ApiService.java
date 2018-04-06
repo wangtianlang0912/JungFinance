@@ -158,7 +158,7 @@ public interface ApiService {
 
 
     @GET("app/fast/query")
-    Observable<BaseRespose<FastModel>> getFastCommentList(@Header("Cache-Control") String cacheControl, @Query("p") int page);
+    Observable<BaseRespose<FastModel>> getFastCommentList(@Header("Cache-Control") String cacheControl, @Query("p") int page, @Query("size") int pageSize);
 
     @GET("app/activity/query")
     Observable<BaseRespose<ActivityModel>> getActivityList(@Header("Cache-Control") String cacheControl, @Query("p") int page);
