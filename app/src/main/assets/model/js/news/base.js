@@ -13,6 +13,11 @@ function setArticleData(title,ptime,source,summary,content,views){
 
 function setBloggerData(logo,name,gnum,uid,status){
 
+    document.getElementById('article.media.count_all').style.display="inline";
+    document.getElementById('article.media.button').style.display="inline";
+    document.getElementById('article.media.logo').style.display="inline";
+
+
     document.getElementById('article.media.logo').src=logo;
     document.getElementById('article.media.name').innerHTML=name;
     document.getElementById('article.media.count').innerHTML=gnum;
@@ -20,6 +25,11 @@ function setBloggerData(logo,name,gnum,uid,status){
     document.getElementById('article.media.button').innerHTML = (status == 1 ? "+ 关注" : "已关注");
     document.getElementById('article.media.button').tag = status;
 
+
+}
+
+function hideBloggerLayout() {
+    document.getElementById('article_media').style.display="none";
 }
 
 // 修改关注状态

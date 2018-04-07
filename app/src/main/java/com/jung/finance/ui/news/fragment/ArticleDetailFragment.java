@@ -319,7 +319,10 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
                         ",'" + media.getObjectId() + "'" +
                         ",'" + media.getStatus() + "')");
 
+            } else {
+                detailwebview.loadUrl("javascript:hideBloggerLayout();");
             }
+
         }
     }
 

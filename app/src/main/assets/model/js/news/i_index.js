@@ -1,34 +1,6 @@
 
         
-        $(function(){
-        	$(".article_media_gz").bind("click",function(){
-        		el = $(this);
-        		id= el.attr('tag');
-        		if(!id){
-        			return ;
-        		}
-				rel = el.attr('rel');
-				if(rel){
-					alert("请先登录");
-					window.location.href = rel;
-					return;
-					}
-        		 $.ajax({
-                  type: "post",
-                  url: '/api/me/media/fav/create',
-                   data: {id:id},
-                  dataType: 'JSON',
-                  success: function (data) {
-                      if (data && data.error) {
-                          alert(data.error);
-                      }else {
-                    	  alert("关注成功");
-        				  el.text("已关注");
-                    	 
-                      }
-                  }
-              });
-        	});
+
         	
         	$("#article_right a.a2,#article_media .a2").bind("click",function(){
         		

@@ -654,6 +654,19 @@ body{
     border-top: none;
 }
 
+.detail_wrap article{
+     width: 100%;
+     margin: 0 auto;
+     font-size: 1.6rem;
+     line-height: 2.3rem;
+
+
+ }
+.detail_wrap img{
+
+    width: 100%;
+}
+
 /* 分享 */
 .bdshare-button-style0-24{
     margin-top: 1rem;
@@ -1483,4 +1496,3 @@ body{
     color: #999;
 	font-weight:normal;
 }
-
