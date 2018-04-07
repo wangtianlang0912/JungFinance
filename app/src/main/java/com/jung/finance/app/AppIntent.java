@@ -139,7 +139,7 @@ public class AppIntent {
     public static void intentToCommentList(Context context,int articleId) {
         Bundle bundle = new Bundle();
         bundle.putInt(AppConstant.FLAG_DATA, articleId);
-        intentToAct(context, context.getString(R.string.activity), CommentListFragment.class, bundle);
+        intentToAct(context, context.getString(R.string.comment_list), CommentListFragment.class, bundle);
 
     }
 
