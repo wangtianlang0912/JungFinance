@@ -112,6 +112,8 @@ public class ArticleModel {
 
         private BloggerModel.Media media;
 
+        private String content;
+
         private ContentType type = ContentType.DEFAULT;
 
         public BloggerModel.Media getMedia() {
@@ -257,5 +259,12 @@ public class ArticleModel {
             return this.isRecommend;
         }
 
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
     }
 }

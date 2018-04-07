@@ -165,33 +165,14 @@ public class CommonWebFragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    public class InnerHostJsScope extends HostJsScope {
+    public static class InnerHostJsScope extends HostJsScope {
 
-        public void getSuccessFeedBack(final WebView webView, String message) {
-            alert(webView, message);
-        }
-
-        public void getFailureFeedBack(WebView webView, String message) {
-            alert(webView, message);
-        }
-
-        @Override
-        public void getUrl(WebView webView, String param, String url) {
+        public static void getUrl(WebView webView, String param, String url) {
             if (url != null) {
 
-                AppIntent.intentToCommonWeb(getActivity(), param, url);
+                AppIntent.intentToCommonWeb(webView.getContext(), param, url);
             }
         }
-
-        public void login(WebView webView) {
-
-
-        }
-
-        public void intentToBloggerInfo(WebView webView) {
-
-        }
-
     }
 
     private class MInjectedChromeClient extends InjectedChromeClient {

@@ -1,0 +1,124 @@
+@CHARSET "UTF-8";
+/*
+* 2016-12-13
+* 行情
+*/
+#market_iframe{
+	margin-top: 1.5rem;
+}
+.market_warp{
+	padding: 1.5rem;
+}
+.market_box{
+	 width: 100%;
+    overflow: hidden;
+}
+.market_top{
+	padding: 1.5rem;
+	line-height: 2rem;
+	min-height: 2rem;
+	font-size: 1.4rem;
+	color: #333;
+	display: inline-block;
+	width: 100%;
+	box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+   -moz-box-sizing:border-box;
+	background-color: #f9f8f9;
+	border-bottom: 1px solid #e7e7e7;
+}
+.market_top em{
+	color:  #c79937;
+}
+.top_nav{
+    width: 100%;
+    height: 4.5rem;
+    padding: 0 1rem;
+    border-bottom: 1px solid #999;
+    overflow: hidden;
+    box-sizing: border-box;
+    position: relative;
+}
+.top_nav ul{
+    white-space: nowrap;
+    height: 4.5rem;
+}
+.top_nav ul li{
+    display: inline-block;
+    padding: 0 0.8rem;
+    height: 4.2rem;
+    line-height: 4.2rem;
+    margin: 0 0.5rem;
+    color: #999;
+    font-size: 1.3rem;
+}
+.top_nav ul li a{
+	color:#999;
+}
+.top_nav ul li.selected{
+    border-bottom: 0.3rem solid #c79937;
+    color: #333;
+}
+/*分析列表*/
+.market_item{
+	display: inline-block;
+	width: 100%;
+	padding:1.5rem 0px;
+	overflow: hidden;
+	border-bottom: 1px solid #e7e7e7;  
+}
+.market_item h1{
+	font-size: 1.4rem;
+	color: #333;
+	line-height: 1.6rem;
+	
+	padding: 0.5rem;
+}
+.market_item h3{
+	font-size: 1.2rem;
+	color: #999999;
+	line-height: 1.4rem;
+}
+.market_item h2{
+	font-size: 1.4rem;
+	color: #333;
+	line-height: 1.8rem;
+	margin: 0.5rem 0;
+	max-height: 5.4rem;
+	overflow: hidden;
+}
+.market_item p{
+	height: 3rem;
+	line-height: 3rem;
+	text-align: center;
+}
+.market_item p em{
+	display: inline-block;
+	height: 2.8rem;
+	width: 9rem;
+	font-size: 1.4rem;
+	color: #333;
+	border: 0.1rem solid #333;
+	border-radius: 0.3rem;
+	line-height: 2.8rem;
+
+}
+.market_item h2 i,.market_item h1 i{
+	
+	color: #c79a36;
+}
+.market_item p i{
+	font-size: 1.4rem;
+	color: #c79a36;
+}
+.market_item  article{
+	max-height: 4.2rem;
+	overflow: hidden;
+	line-height: 1.4rem;
+	margin-bottom: 0.5rem;
+}
+.market_item  article p{
+	height: auto;
+	line-height: 1.4rem;
+	text-align: left;
+}

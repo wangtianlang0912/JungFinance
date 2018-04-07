@@ -1,0 +1,177 @@
+/*
+ *张龙
+ *2017-01-18
+ *登录
+ */
+@charset "utf-8";
+#about_bg{
+	width: 100%;
+	margin: 0 auto;
+	height: 8rem;
+	line-height: 8rem;
+	text-align: center;
+	background: url(img/about/about.jpg) top center no-repeat;
+}
+#about_bg span{
+	border: 1px solid #fff;
+	font-size: 1.6rem;
+	padding: 0.5rem 1rem;
+	color: #fff;
+}
+#about_title{
+	text-align: center;
+}
+#about_title h2{
+	line-height: 2rem;
+	font-size: 1.8rem;
+	color: #333;
+
+}
+#about_title p{
+	line-height: 1.8rem;
+	font-size: 1.6rem;
+	color: #999999;
+
+}
+#about_content p{
+	padding-top: 1rem;
+	line-height: 2rem;
+	text-indent: 2em;
+	font-size: 1.4rem;
+	color: #333;
+}
+.about_logo{
+	width: 13.7rem;
+	height: 4.6rem;
+	margin: 2rem auto 0; 
+	background: url(img/about/about_rg.jpg) top center no-repeat;
+	background-size: 100% 100%;
+}
+.about_dis{
+	width: 13.7rem;
+	height: 13.7rem;
+	margin: 2rem auto 0; 
+	background: url(img/about/about_c.png) top center no-repeat;
+	background-size: 100% 100%;
+}
+.contact_item{
+	width: 100%;
+	margin-top: 1rem;
+	margin-bottom: 0.5rem;
+}
+.contact_item ul{
+	margin-bottom:1rem;
+}
+.contact_item h2{
+	height: 1.8rem;
+	line-height: 1.8rem;
+	border-left: 0.2rem solid #c79a36;
+	color: #c79a36;
+	font-size: 1.6rem;
+	text-indent: 1rem;
+}
+.contact_item p{
+	padding-top: 1rem;
+	padding-bottom: 0.3rem;
+	line-height: 2rem;
+	overflow: hidden;
+	font-size: 1.4rem;
+	color: #333;
+}
+.contact_item  li{
+	line-height: 1.7rem;
+	font-size: 1.2rem;
+	color: #999;
+}
+.contact_item img{
+	border: 1px solid #dfdfdf;
+	margin-top: 1rem;
+	width: 10rem;
+	height: 10rem;
+
+}
+.contact_item_r{
+	margin-right: 0px;
+}
+/*专题 2017 02 14*/
+#zhuanti_bg{
+	height: 5rem;
+    padding-bottom: .5rem;
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+#zhuanti_bg h1{
+	line-height: 2.4rem;  
+    padding-top: 1.3rem;
+    color: #fff;
+    font-size: 1.6rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+	padding-top: 1.3rem;
+	color: #fff;
+	font-size: 1.6rem;
+	font-weight: bold;
+}
+#zhuanti_box{
+	position: absolute;
+	top: 50%;
+	margin-top: -1.2rem;
+	height: 2.4rem;
+	right: 0.5rem;
+}
+#zhuanti_box a{
+	padding: 0 !important;
+	margin: 0 !important;
+	color: #fff;
+	background-image: none !important; 
+	font-size: 1.2rem;
+}
+#zhuanti_box3,#zhuanti_box2{
+	padding-top: 0.5rem;
+}
+.bdshare_popup_box{
+	display: none !important; 
+}
+.zhuanti_summary{
+	line-height: 1.6rem;
+	font-size: 1.4rem;
+	margin-top:1rem;
+	line-height:2rem;
+	margin-bottom:1rem;
+}
+.zhuanti_summary span{
+	font-size: 1.4rem;
+	font-weight:bold;
+	margin-right:0.5rem;
+}
+.zhuanti_fenxi{
+	display: inline-block;
+	padding: 0.5rem 0;
+	border-bottom: 1px solid #ddd;
+	width: 100%;
+	overflow: hidden;
+}
+.zhuanti_fenxi h2{
+	color: #333;
+	font-size: 1.4rem;
+	line-height: 1.6rem;
+}
+.zhuanti_fenxi p{
+	color: #999999;
+	font-size: 1.2rem;
+	line-height: 1.4rem;
+	padding: 0.3rem;
+}
+.zhuanti_fenxi div{
+	font-size: 1.2rem;
+	line-height: 1.4rem;
+}
+.zhuanti_fenxi div i{
+	float: right;
+	color: #cccccc;
+}
+.zhuanti_fenxi div em{
+	float: left;
+	color: #c79a36;
+}

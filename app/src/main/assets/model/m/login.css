@@ -1,0 +1,331 @@
+@CHARSET "UTF-8";
+/*
+* 2016-12-21
+* 登录
+*/
+/*帐号登录*/
+#login_body{
+	background-color: #f5f5f5;
+}
+#login_logo{
+	width: 9rem;
+	height: 9rem;
+	display: block;
+	margin:3rem auto 3rem;
+	background:url(img/login/login_logo.png) center center no-repeat;
+	background-size: 100% 100%; 
+}
+#login_form_nav{
+	text-align: center;
+	overflow: hidden;
+	padding-bottom: 1rem;
+}
+#login_form_nav a{
+	font-size: 1.4rem;
+	color: #333;
+}
+#login_form_nav a.selected{
+	color: #c79937;
+}
+#login_form_nav span{
+	color: #ddd;
+	padding: 0 3rem;
+	font-size: 1.4rem;
+}
+.login_field{
+	height: 4rem;
+	width: 100%;
+	margin-bottom: 1rem;
+	position: relative;
+}
+.login_field .login_text{
+	border:1px solid #dddddd;
+	height: 4rem;
+	width: 100%;
+	font-size: 1.4rem;
+	box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+   -moz-box-sizing:border-box;
+   padding-left: 3.5rem;
+   background:#fff url(img/login/login_1.png)  no-repeat;
+   background-size: 1.6rem 1.6rem; 
+   background-position: 1rem center;
+
+}
+.login_text:active ,.login_text:focus {
+	border:1px solid #c79937;
+}
+.login_field .login_text[type=password]{
+	 background:#fff url(img/login/login_2.png)  no-repeat;
+   background-size: 1.6rem 1.6rem; 
+   background-position: 1rem center;
+
+}
+.login_field .login_text[type=number]{
+	 background:#fff url(img/login/login_4.png)  no-repeat;
+   background-size: 1.6rem 1.6rem; 
+   background-position: 1rem center;
+
+}
+
+.login_button{
+	height: 4rem;
+    width: 100%;
+    margin:0.5rem 0; 
+    float: left;
+    clear: both;
+   
+}
+
+.wecaht_login{
+	height: 2.8rem;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+}
+.wecaht_login p{
+	height: 0px;
+	border-bottom: 1px solid #cccccc;
+	margin-top: 1.4rem;
+}
+.wecaht_login span{
+	display: inline-block;
+	left: 50%;
+	top: 0;
+	position: absolute;
+	height: 2.8rem;
+	line-height: 2.8rem;
+	text-align: center;
+	width: 3.1rem;
+	margin-left: -1.55rem;
+	background-color: #f5f5f5;
+	font-size: 1.2rem;
+	color: #333;
+}
+.wecaht_link{
+	border:1px solid #dddddd;
+	height: 4rem;
+	width: 100%;
+	box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+   -moz-box-sizing:border-box;
+   background-color: #fff;
+   text-align: center;
+   border-radius: 0.3rem;
+   display: inline-block;
+   overflow: hidden;
+}
+.wecaht_link span{
+	display: inline-block;
+	height: 4rem;
+	padding-left: 3.2rem;
+	 background:#fff url(img/login/login_3.png) left center  no-repeat;
+   background-size: 2.3rem 1.9rem;
+   line-height: 4rem;
+   font-size: 1.2rem; 
+   color: #333;
+   
+
+}
+.login_link{
+	overflow: hidden;
+	line-height: 3rem;
+	margin-top: 1rem;
+	clear: both;
+}
+.login_link a{
+	color: #999;
+	font-size: 1.2rem;
+}
+.left{
+	float: left;
+}
+.right{
+	float: right;
+}
+/*join*/
+.getVerifyCode{
+	position: absolute;
+	height: 3rem;
+	right: 0;
+	padding: 0 0.5rem;
+	top: 0.5rem;
+	font-size: 1.4rem;
+	border-left: 1px solid #dddddd;
+}
+.phoneImgCode{
+	position: absolute;
+	height: 4rem;
+	right: 0;
+	width: 9rem;
+	top: 0rem;
+	font-size: 1.4rem;
+	border-left: 1px solid #dddddd;
+}
+/*publish_warp*/
+#publish_warp{
+	text-align: center;
+	margin-top: 2rem;
+}
+#publish_warp div{
+	width: 4rem;
+	height: 5.1rem;
+	margin:4rem auto 1.5rem;
+	background: url(img/publish.png) center center no-repeat;
+	background-size: 100% 100%;
+}
+#publish_warp div.ok{
+	width: 3.1rem;
+	height: 2.9rem;
+	background: url(img/edit.png) center center no-repeat;
+	background-size: 100% 100%;
+
+}
+#publish_warp div.error{
+	width: 5rem;
+	height: 5.9rem;
+	background: url(img/404.png) center center no-repeat;
+	background-size: 100% 100%;
+
+}
+#publish_warp div.no_data{
+	width: 2.3rem;
+	height: 2.7rem;
+	background: url(img/no_entrust.png) center center no-repeat;
+	background-size: 100% 100%;
+
+}
+#publish_warp h2{
+	line-height: 2rem;
+	font-size: 1.6rem;
+}
+#publish_warp p{
+	line-height: 2rem;
+	font-size: 1.4rem;
+	color: #999999;
+}
+#publish_warp p a{
+	color: #c79937;
+}
+.publish_field{
+	min-height: 4rem;
+	width: 100%;
+	position: relative;
+	border-bottom: 1px solid #ddd;
+}
+.publish_field label{
+	color: #333;
+	font-size: 1.4rem;
+	display: inline-block;
+	width: 6.5rem;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	height: 4rem;
+	line-height: 4rem;
+}
+.publish_type{
+	padding-left: 6.5rem;
+
+}
+.publish_type a{
+	display: inline-block;
+	height: 2rem;
+	line-height: 2rem;
+	border: 1px solid #ddd;
+	padding: 0 1rem;
+	color: #333;
+	font-size: 1.3rem;
+	float: left;
+	margin-right: 1rem;
+	margin-top: 1rem;
+}
+.publish_type a.selected{
+	border: 1px solid #333;
+	color: #c79a36;
+	background-color: #333;
+
+}
+/*apply_div*/
+.apply_div{
+	float: left;
+	width: 46%;
+}
+.apply_div_right{
+	float: right;
+}
+.apply_div_right .one{
+	margin-left:2rem;
+    font-size: 1.4rem;
+    color: #333;
+    line-height: 2rem;
+}
+.app_tit{
+	width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+.apply_div div{
+	width: 5rem;
+	height: 4.1rem;
+	margin:0 auto 1rem;
+	background: url(img/apply/apply_08.png) center center no-repeat;
+	background-size: 100% 100%;
+}
+.apply_div_right div{
+	background: url(img/apply/apply_09.png) center center no-repeat;
+	background-size: 100% 100%;
+
+}
+.apply_div ul{
+	background-color: #f5f5f5;
+	border-top: 0.2rem solid #333;
+	padding: 1rem 0;
+	height: 21.6rem;
+	margin-bottom: 1rem;
+}
+
+.apply_div ul li {
+	line-height: 2.4rem;
+	height: 2.4rem;
+	padding-left: 3.2rem;
+	background: url(img/apply/apply_07.png) left 1rem center no-repeat;
+	background-size: 1.6rem 1.6rem;
+	font-size: 1.4rem;
+	color: #999999;
+}
+.apply_div ul li.apply_li{
+	color: #333;
+}
+.apply_div ul li.apply_li_1{
+	background: url(img/apply/apply_01.png) left 1rem center no-repeat;
+	background-size: 1.6rem 1.6rem;
+}
+.apply_div ul li.apply_li_2{
+	background: url(img/apply/apply_02.png) left 1rem center no-repeat;
+	background-size: 1.6rem 1.6rem;
+}
+.apply_div ul li.apply_li_3{
+	background: url(img/apply/apply_03.png) left 1rem center no-repeat;
+	background-size: 1.6rem 1.6rem;
+}
+.apply_div ul li.apply_li_4{
+	background: url(img/apply/apply_04.png) left 1rem center no-repeat;
+	background-size: 1.6rem 1.6rem;
+}
+.apply_div ul li.apply_li_5{
+	background: url(img/apply/apply_05.png) left 1rem center no-repeat;
+	background-size: 1.6rem 1.6rem;
+}
+.apply_div ul li.apply_li_6{
+	background: url(img/apply/apply_06.png) left 1rem center no-repeat;
+	background-size: 1.6rem 1.6rem;
+}
+.apply_div ul li.apply_li_10{
+	background: url(../img/apply_new.png) left 1rem center no-repeat;
+	background-size: 1.6rem 1.6rem;
+}

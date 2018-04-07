@@ -1,0 +1,158 @@
+/*
+ *张龙
+ *2016-11-07
+ *首页样式
+ */
+@charset "utf-8";
+*{
+	margin:0;
+	padding:0;
+	font-family:"宋体"
+}
+
+body{
+	font-size:12px;
+	color:#333;
+	background:#fff
+}
+
+
+.c{
+	clear:both
+}
+
+a{
+	text-decoration:none;
+	color:#000
+}
+
+a:hover{
+	color:#c60000;
+	text-decoration:underline
+}
+
+ul{
+	list-style:none
+}
+
+.w1000{
+	width:1000px;
+	margin:20px
+auto 0
+}
+
+
+.quoted{
+	width:100%;
+	height: 305px;
+	border:1px solid #e7e7e7;
+	box-sizing:border-box;
+    -moz-box-sizing:border-box;
+}
+
+.quoted_title{
+	width:100%;
+	height:34px;
+}
+.quoted_title ul{
+	margin-top: -1px;
+}
+.quoted_title ul li{
+	width:25%;
+	float:left;
+	line-height:31px;
+	height: 31px;
+	text-align:center;
+	font-family:"微软雅黑";
+	font-size:16px;
+	cursor:pointer;
+	border-top:3px solid transparent;
+	border-bottom:1px solid #e7e7e7;
+	border-left:1px solid #e7e7e7;
+	margin-left: -1px;
+}
+.quoted_title ul li#ta0{
+	border-left:0;
+}
+.quoted_title ul li.New_active{
+	border-top:3px solid #c79a36;
+	color:#000;
+	border-bottom:1px solid #fff;
+    font-weight: bold;
+}
+
+.quoted_title ul li.New_active a{
+	color:#000;
+	text-decoration:none
+}
+.quoted_title ul li a{
+    font-family:"微软雅黑";
+}
+
+
+.roadshow_title{
+	width:279px;
+	height:39px;
+	border:1px
+solid #eaeaea;
+	line-height:39px;
+	padding-left:10px;
+	font-size:14px;
+	color:#000;
+	font-family:"微软雅黑"
+}
+.baojia{
+	width:100%;
+	padding:20px 0 0;
+}
+
+.baojia ul{
+	padding:0;
+	width: 100%;
+}
+
+.baojia_til ul li{
+	float:left;
+	display:inline;
+	color:#333;
+	height:24px;
+	background:#f0ece6;
+	width:33.3%;
+	border-left: 1px solid #fff;
+	text-align:center;
+	line-height:24px;
+	font-size: 14px;
+	list-style:none;
+    font-family:"微软雅黑";
+    box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+   -moz-box-sizing:border-box;
+}
+.sp{}
+.sp ul{
+	border-bottom:1px solid #e7e7e7;
+}
+.sp ul:last-child{
+	border-bottom:0px;
+}
+.sp ul li{
+	float:left;
+	display:inline;
+	text-align:center;
+	line-height:37px;
+	font-family:"微软雅黑";
+}
+.sp ul li a{
+    font-family:"微软雅黑";
+}
+.w92{
+	width:33%
+}
+
+.w104{
+	width:34%
+}
+
+.w91{
+	width:33%
+}

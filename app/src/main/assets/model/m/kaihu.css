@@ -1,0 +1,157 @@
+/*
+ *张龙
+ *2017-01-18
+ *开户
+ */
+@charset "utf-8";
+.kaihu{
+	box-sizing: border-box;
+	width: 100%;
+	padding: 0 1rem;
+}
+.kaihu_title{
+	height: 3.2rem;
+	line-height: 3.2rem;
+	text-indent: 1rem;
+	border-bottom: 0.1rem solid #dddddd;
+	font-size: 1.4rem;
+	color: #999;
+}
+.kaihu li{
+	height: 4.4rem;
+	line-height: 4.4rem;
+	text-indent: 1rem;
+	border-bottom: 0.1rem solid #dddddd;
+	font-size: 1.4rem;
+	color: #999;
+}
+.kaihu li em{
+	padding-left: 0.5rem;
+	font-size: 1.2rem;
+}
+.kaihu li label{
+	float: left;
+}
+.kaihu li input{
+	float: left;
+	text-indent: 1rem;
+	height: 4.4rem;
+	font-size: 1.2rem;
+	border:0;
+}
+.kaihu li i{
+	display: inline-block;
+	float: right;
+	margin-left: 0.5rem;
+	background: url(img/kaihu/01.png) left center no-repeat;
+	background-size: 1rem auto;
+	padding-left:1.2rem;
+	font-size: 1.2rem;
+}
+.kaihu li i.on{
+	background: url(img/kaihu/02.png) left center no-repeat;
+	background-size: 1rem 1rem;
+}
+.kaihu li.on label{
+	color: #cc3333;
+}
+.kaihu li.on label em{
+	color: #333;
+}
+.input_image{
+	background: url(img/kaihu/03.png) top center no-repeat;
+	height: 22rem;
+	background-size:100% auto;
+	margin-top: 1.5rem;
+	overflow: hidden;
+}
+.input_image img{
+	width: 100%;
+}
+.input_image input{
+	display: none;
+}
+.input_image_a{
+	background: url(img/kaihu/04.png) top center no-repeat;
+	background-size:100% auto;
+}
+.kaihu_nocite{
+	background: url(img/kaihu/05.png) left center no-repeat;
+	color: #666;
+	font-size:1.4rem;
+	background-size: 1.4rem auto;
+	padding-left: 1.6rem;
+	margin:1rem 0;
+}
+.kaihu_nocite a{
+	color: #be8a1a;
+}
+.kaihu_btn{
+	height: 4.4rem;
+	border-radius: 0.3rem;
+	background-color: #be8a1a;
+	color: #fff;
+	font-size: 2rem;
+	border: 0;
+	width: 100%;
+	margin-bottom: 2rem;
+}
+
+/**/
+.mask_window{
+	background:#fff url(img/kaihu/06.png) bottom center no-repeat;
+	background-size: 100% auto;
+}
+.mask_title{
+	background-color: #fff;
+	color: #333;
+	position: relative;
+	padding-top:0.5rem;
+}
+.mask_title a{
+	display: inline-block;
+	position: absolute;
+	background: url(img/kaihu/07.png) bottom center no-repeat;
+	width: 1.6rem;
+	height: 1.6rem;
+	top: 1rem;
+	right: 1rem;
+	background-size: 100% auto;
+
+}
+.baoming_ok{
+	width: 12rem;
+	height: 12rem;
+	margin:0 auto;
+	overflow: hidden;
+}
+.baoming_ok img{
+	width: 100%;
+}
+.mask_window h2{
+	text-align: center;
+	color: #fff;
+	padding-top: 0.5rem;
+	font-size: 1.2rem;
+}
+.mask_window h3{
+	text-align: center;
+	color: #fff;
+	font-size: 1.2rem;
+}
+
+.kaihu_tishi{
+	padding:1rem 0 1rem;
+	overflow: hidden;
+}
+.kaihu_tishi h2{
+	color: #cc9933;
+	font-size: 1.8rem;
+	line-height: 2.4rem;
+}
+.kaihu_tishi p{
+	padding-top: 0.5rem;
+	color: #666666;
+	font-size: 1.4rem;
+	line-height: 1.8rem;
+}

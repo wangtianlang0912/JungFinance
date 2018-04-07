@@ -1,6 +1,7 @@
 package com.jung.finance.api;
 
 import com.jung.finance.bean.ActivityModel;
+import com.jung.finance.bean.ArticleDetail;
 import com.jung.finance.bean.ArticleModel;
 import com.jung.finance.bean.BannerModel;
 import com.jung.finance.bean.BloggerModel;
@@ -138,6 +139,14 @@ public interface ApiService {
     @GET("app/article/query")
     Observable<BaseRespose<ArticleModel>> getArtileList(@Header("Cache-Control") String cacheControl, @Query("isHead") int isHead, @Query("columnId") String columnId, @Query("p") int page);
 
+    // 获取文章详情
+    @GET("app/media/article/get")
+    Observable<BaseRespose<ArticleDetail>> getArticleDetail(@Query("id") String id);
+
+    // 获取推荐文章
+    @GET("app/media/article/relate")
+    Observable<BaseRespose<ArticleModel>> getRelateList(String id);
+
     //首页banner
     @GET("app/banner/query")
     Observable<BaseRespose<BannerModel>> getBannerList();
@@ -170,4 +179,6 @@ public interface ApiService {
     // 获取自媒体列表
     @GET("app/media/article/query")
     Observable<BaseRespose<ArticleModel>> getBloggerArticleList(@Query("mediaId") int id, @Query("uid") int uid, @Query("p") int page);
+
+
 }

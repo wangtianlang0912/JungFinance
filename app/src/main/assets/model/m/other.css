@@ -1,0 +1,42 @@
+#login_logo{
+	width: 9rem;
+	height: 9rem;
+	display: block;
+	margin:3rem auto 3rem;
+	background:url(img/login/login_logo.png) center center no-repeat;
+	background-size: 100% 100%; 
+}
+.about_logo{
+	width: 13.7rem;
+	height: 4.6rem;
+	margin: 2rem auto 0; 
+	background: url(img/about/about_rg.jpg) top center no-repeat;
+	background-size: 100% 100%;
+}
+.about_dis{
+	width: 13.7rem;
+	height: 13.7rem;
+	margin: 2rem auto 0; 
+	background: url(img/about/about_c.png) top center no-repeat;
+	background-size: 100% 100%;
+}
+.kuaiping_new_item{
+	padding:1rem 0rem 0.75rem 2rem;
+	height:4rem;
+	width:100%;
+	margin-left:-0.8rem;
+	position:relative;
+	background:url(img/kuaiping/kuaiping_07.png) left center no-repeat;
+	background-size: 1.6rem 1.3rem;
+	 display:inline-block;
+}
+#footer a.ico_0{
+    
+    background: url("img/home/ico_0.png") no-repeat;
+    background-position: center 0.5rem;
+    background-size: 2.4rem 10rem;
+}
+#footer a.selected{
+    background-position: center -4.5rem;
+}
+

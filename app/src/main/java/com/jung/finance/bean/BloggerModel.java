@@ -60,6 +60,8 @@ public class BloggerModel {
 
         private Role role;
 
+        private int status;
+
         public Role getRole() {
             if (role == null) {
                 role = new Role();
@@ -143,6 +145,13 @@ public class BloggerModel {
             return this.coverImage;
         }
 
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
     }
 
     public class Role {

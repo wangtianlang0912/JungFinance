@@ -34,25 +34,25 @@ import java.util.List;
 //HostJsScope中需要被JS调用的函数，必须定义成public ，且必须包含WebView这个参数
 public class HostJsScope {
 
-    public void getUrl(WebView webView, String param, String url) {
+    public static void getUrl(WebView webView, String param, String url) {
         if (url != null) {
           //  new LoadSysSoft().OpenBrowser(webView.getContext(), url);
         }
     }
 
-    public  void getVideoUrl(WebView webView, String videoUrl) {
+    public static void getVideoUrl(WebView webView, String videoUrl) {
         if (videoUrl != null) {
             new LoadSysSoft().OpenVideo(webView.getContext(), videoUrl);
         }
     }
 
-    public  void getDownLoadUrl(WebView webView, String url) {
+    public static void getDownLoadUrl(WebView webView, String url) {
         if (url != null) {
             new LoadSysSoft().OpenBrowser(webView.getContext(), url);
         }
     }
 
-    public  void onFinish(WebView webView) {
+    public static void onFinish(WebView webView) {
         if (webView.getContext() instanceof Activity) {
 
             Activity activity = (Activity) webView.getContext();
@@ -60,7 +60,7 @@ public class HostJsScope {
         }
     }
 
-    public  void OpenMarketApp(WebView webView, String appPackageName) {
+    public static void OpenMarketApp(WebView webView, String appPackageName) {
         if (appPackageName != null) {
             new LoadSysSoft().OpenMarketApp(webView.getContext(), appPackageName);
         }
@@ -72,7 +72,7 @@ public class HostJsScope {
      * @param webView 浏览器
      * @param message 提示信息
      */
-    public  void toast(WebView webView, String message) {
+    public static void toast(WebView webView, String message) {
         Toast.makeText(webView.getContext(), message, Toast.LENGTH_SHORT).show();
     }
 
@@ -83,7 +83,7 @@ public class HostJsScope {
      * @param message    提示信息
      * @param isShowLong 提醒时间方式
      */
-    public  void toast(WebView webView, String message, int isShowLong) {
+    public static void toast(WebView webView, String message, int isShowLong) {
         Toast.makeText(webView.getContext(), message, isShowLong).show();
     }
 
@@ -93,7 +93,7 @@ public class HostJsScope {
      * @param webView   浏览器
      * @param timeStamp js层执行时的时间戳
      */
-    public  void testLossTime(WebView webView, long timeStamp) {
+    public static void testLossTime(WebView webView, long timeStamp) {
         timeStamp = System.currentTimeMillis() - timeStamp;
         alert(webView, String.valueOf(timeStamp));
     }
@@ -104,7 +104,7 @@ public class HostJsScope {
      * @param webView 浏览器
      * @param message 提示信息
      */
-    public  void alert(WebView webView, String message) {
+    public static void alert(WebView webView, String message) {
 
         final DuAlertDialog.Builder builder = new DuAlertDialog().createBuilder(webView.getContext());
 
@@ -124,11 +124,11 @@ public class HostJsScope {
         builder.show();
     }
 
-    public  void alert(WebView webView, int msg) {
+    public static void alert(WebView webView, int msg) {
         alert(webView, String.valueOf(msg));
     }
 
-    public  void alert(WebView webView, boolean msg) {
+    public static void alert(WebView webView, boolean msg) {
         alert(webView, String.valueOf(msg));
     }
 
@@ -138,7 +138,7 @@ public class HostJsScope {
      * @param webView 浏览器
      * @return 设备IMSI
      */
-    public  String getIMSI(WebView webView) {
+    public static String getIMSI(WebView webView) {
         return ((TelephonyManager) webView.getContext().getSystemService(Context.TELEPHONY_SERVICE)).getSubscriberId();
     }
 
@@ -148,7 +148,7 @@ public class HostJsScope {
      * @param webView 浏览器
      * @return 安卓SDK版本
      */
-    public  int getOsSdk(WebView webView) {
+    public static int getOsSdk(WebView webView) {
         return Build.VERSION.SDK_INT;
     }
 
@@ -159,7 +159,7 @@ public class HostJsScope {
      *
      * @param view 浏览器
      */
-    public  void goBack(WebView view) {
+    public static void goBack(WebView view) {
         if (view.getContext() instanceof Activity) {
             ((Activity) view.getContext()).finish();
         }
@@ -172,7 +172,7 @@ public class HostJsScope {
      * @param jo   传入的JSON对象
      * @return 返回对象的第一个键值对
      */
-    public  String passJson2Java(WebView view, JSONObject jo) {
+    public static String passJson2Java(WebView view, JSONObject jo) {
         Iterator iterator = jo.keys();
         String res = null;
         if (iterator.hasNext()) {
@@ -193,15 +193,15 @@ public class HostJsScope {
      * @param jo   传入的JSON对象
      * @return 返回对象的第一个键值对
      */
-    public  JSONObject retBackPassJson(WebView view, JSONObject jo) {
+    public static JSONObject retBackPassJson(WebView view, JSONObject jo) {
         return jo;
     }
 
-    public  int overloadMethod(WebView view, int val) {
+    public static int overloadMethod(WebView view, int val) {
         return val;
     }
 
-    public  String overloadMethod(WebView view, String val) {
+    public static String overloadMethod(WebView view, String val) {
         return val;
     }
 
