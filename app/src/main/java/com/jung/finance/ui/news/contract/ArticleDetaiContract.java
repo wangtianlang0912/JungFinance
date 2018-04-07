@@ -3,6 +3,8 @@ package com.jung.finance.ui.news.contract;
 
 import com.jung.finance.bean.ArticleDetail;
 import com.jung.finance.bean.ArticleModel;
+import com.jung.finance.bean.CommentCreateModel;
+import com.jung.finance.bean.CommentListModel;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;
@@ -31,11 +33,15 @@ public class ArticleDetaiContract {
 
         Observable<ArticleModel> getArticleReleateList(String id);
 
-        Observable<Boolean>  favActionArticle(int articleId, boolean status);
+        Observable<Boolean> favActionArticle(int articleId, boolean status);
 
-        Observable<Boolean> focusAction(int bloggerId,boolean status);
+        Observable<Boolean> focusAction(int bloggerId, boolean status);
 
         Observable<Boolean> getArticleFavState(int articleId);
+
+        Observable<CommentCreateModel> createComment(int articleId, String body);
+
+        Observable<CommentListModel> getCommentList(int articleId);
     }
 
     public interface View extends BaseView {
@@ -46,6 +52,10 @@ public class ArticleDetaiContract {
         void returnFavArticleState(boolean result);
 
         void returnFocusBloggerState(boolean result);
+
+        void returnCreateComment(CommentCreateModel model);
+
+        void returnCommentList(CommentListModel model);
     }
 
     public abstract static class Presenter extends BasePresenter<View, Model> {
@@ -58,8 +68,14 @@ public class ArticleDetaiContract {
         public abstract void favActionArticle(int articleId, boolean status);
 
         // 关注
-        public abstract void focusAction(int bloggerId,boolean status);
+        public abstract void focusAction(int bloggerId, boolean status);
 
         public abstract void getArticleFavState(int articleId);
+
+        // 创建评论
+        public abstract void createComment(int articleId, String value);
+
+        //获取3条评论展示在文章详情中
+        public abstract void getCommentList(int articleId);
     }
 }

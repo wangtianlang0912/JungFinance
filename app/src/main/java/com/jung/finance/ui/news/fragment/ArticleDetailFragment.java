@@ -1,9 +1,11 @@
 package com.jung.finance.ui.news.fragment;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -11,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -22,6 +26,8 @@ import com.jung.finance.app.AppIntent;
 import com.jung.finance.bean.ArticleDetail;
 import com.jung.finance.bean.ArticleModel;
 import com.jung.finance.bean.BloggerModel;
+import com.jung.finance.bean.CommentCreateModel;
+import com.jung.finance.bean.CommentListModel;
 import com.jung.finance.ui.common.CommonActivity;
 import com.jung.finance.ui.news.contract.ArticleDetaiContract;
 import com.jung.finance.ui.news.model.ArticleDetailModel;
@@ -32,6 +38,7 @@ import com.leon.common.browser.HostJsScope;
 import com.leon.common.browser.InjectedChromeClient;
 import com.leon.common.browser.InnerWebViewClient;
 import com.leon.common.browser.ProgressWebView;
+import com.leon.common.ui.DuAlertDialog;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -70,6 +77,8 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
     ImageView shareBtn;
     @Bind(R.id.bottom_layout)
     RelativeLayout bottomLayout;
+
+    private Dialog commentDialog;
 
     @Override
     protected int getLayoutResource() {
@@ -119,6 +128,9 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
         articleId = bundle.getInt(AppConstant.FLAG_DATA2);
         mPresenter.getArticleDetail(String.valueOf(articleId));
         detailwebview.loadUrl("file:///android_asset/model/article.html");
+
+        mPresenter.getCommentList(articleId);
+//        mPresenter.getArticleRelateList(String.valueOf(articleId));
     }
 
     @Override
@@ -166,9 +178,10 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
         switch (view.getId()) {
             case R.id.write_comment_view:
 
-
+                showCommentCreateDialog();
                 break;
             case R.id.comment_btn:
+                AppIntent.intentToCommentList(getActivity(), articleId);
                 break;
             case R.id.fav_btn:
                 Object tag = favBtn.getTag();
@@ -205,6 +218,33 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
                 break;
         }
     }
+
+    private void showCommentCreateDialog() {
+
+        DuAlertDialog.Builder builder = new DuAlertDialog().createBottomBuilder(getActivity());
+        View commentView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_comment_publish, null);
+        builder.setView(commentView);
+        Button button = (Button) commentView.findViewById(R.id.sub_layout);
+        final EditText editText = (EditText) commentView.findViewById(R.id.edit_view);
+        editText.requestFocus();
+        commentDialog = builder.create();
+        commentDialog.getWindow().setGravity(Gravity.BOTTOM);
+        commentDialog.show();
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String value = editText.getText().toString().trim();
+                if (TextUtils.isEmpty(value)) {
+                    return;
+                }
+
+                mPresenter.createComment(articleId, value);
+            }
+        });
+
+    }
+
 
     private void favBtnClicked(boolean hasFav) {
 
@@ -340,6 +380,25 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
     @Override
     public void returnFocusBloggerState(boolean result) {
         detailwebview.loadUrl("javascript:setBloggerFocusState('" + (result ? 0 : 1) + "');");
+    }
+
+    @Override
+    public void returnCreateComment(CommentCreateModel model) {
+
+        if (model != null) {
+            if (commentDialog != null && commentDialog.isShowing()) {
+                commentDialog.dismiss();
+            }
+            showShortToast(R.string.submit_success);
+        }
+
+    }
+
+    @Override
+    public void returnCommentList(CommentListModel model) {
+        if (model != null && model.getComments() != null) {
+//            detailwebview.loadUrl("javascript:setCommentList('" + (result ? 0 : 1) + "');");
+        }
     }
 }
 

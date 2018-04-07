@@ -13,6 +13,7 @@ import com.jung.finance.ui.common.CommonActivity;
 import com.jung.finance.ui.common.CommonWebFragment;
 import com.jung.finance.ui.main.fragment.ActivityInfoFragment;
 import com.jung.finance.ui.news.fragment.ArticleDetailFragment;
+import com.jung.finance.ui.news.fragment.CommentListFragment;
 import com.jung.finance.ui.setting.fragment.SettingFragment;
 import com.jung.finance.ui.user.fragment.AccountSafeFragment;
 import com.jung.finance.ui.user.fragment.BindMobileFragment;
@@ -127,6 +128,18 @@ public class AppIntent {
         bundle.putString(AppConstant.FLAG_DATA, activityUrl);
         bundle.putInt(AppConstant.FLAG_DATA2, objectId);
         intentToAct(context, context.getString(R.string.activity), ActivityInfoFragment.class, bundle);
+
+    }
+
+    /***
+     * 评论列表
+     * @param context
+     * @param articleId
+     */
+    public static void intentToCommentList(Context context,int articleId) {
+        Bundle bundle = new Bundle();
+        bundle.putInt(AppConstant.FLAG_DATA, articleId);
+        intentToAct(context, context.getString(R.string.activity), CommentListFragment.class, bundle);
 
     }
 

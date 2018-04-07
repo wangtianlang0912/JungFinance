@@ -3,10 +3,12 @@ package com.jung.finance.ui.news.model;
 import com.jung.finance.api.Api;
 import com.jung.finance.api.ApiConstants;
 import com.jung.finance.api.HostType;
-import com.jung.finance.bean.FavActionModel;
 import com.jung.finance.bean.ArticleDetail;
 import com.jung.finance.bean.ArticleModel;
 import com.jung.finance.bean.BloggerModel;
+import com.jung.finance.bean.CommentCreateModel;
+import com.jung.finance.bean.CommentListModel;
+import com.jung.finance.bean.FavActionModel;
 import com.jung.finance.ui.news.contract.ArticleDetaiContract;
 import com.jung.finance.utils.MyUtils;
 import com.jung.finance.utils.PatternUtil;
@@ -111,7 +113,7 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
     }
 
     @Override
-    public Observable<Boolean> focusAction(int bloggerId,final boolean status) {
+    public Observable<Boolean> focusAction(int bloggerId, final boolean status) {
         String token = MyUtils.getToken();
         Observable<BaseRespose<FavActionModel>> observable = null;
         if (status) {
@@ -150,5 +152,42 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
                 })
                 //声明线程调度
                 .compose(RxSchedulers.<Boolean>io_main());
+    }
+
+    @Override
+    public Observable<CommentCreateModel> createComment(int articleId, String body) {
+        String token = MyUtils.getToken();
+        return Api.getDefault(HostType.Jung_FINANCE).createComment(token, articleId, body, null)
+                .map(new Func1<BaseRespose<CommentCreateModel>, CommentCreateModel>() {
+                    @Override
+                    public CommentCreateModel call(BaseRespose<CommentCreateModel> baseRespose) {
+                        return baseRespose.data;
+                    }
+                })
+                //声明线程调度
+                .compose(RxSchedulers.<CommentCreateModel>io_main());
+    }
+
+    @Override
+    public Observable<CommentListModel> getCommentList(int articleId) {
+        return Api.getDefault(HostType.Jung_FINANCE).getCommentList(articleId, 0, 0, 3)
+                .map(new Func1<BaseRespose<CommentListModel>, CommentListModel>() {
+                    @Override
+                    public CommentListModel call(BaseRespose<CommentListModel> baseRespose) {
+                        CommentListModel listModel = baseRespose.data;
+                        if (listModel != null && listModel.getComments() != null) {
+
+                            for (CommentCreateModel.Comment comment : listModel.getComments()) {
+                                String ptime = TimeUtil.formatTimeStampStr2Desc(comment.getCtime() * 1000);
+                                comment.setcTimeStr(ptime);
+                                String logo = comment.getUser().getLogo();
+                                comment.getUser().setLogo(ApiConstants.URL + logo);
+                            }
+                        }
+                        return listModel;
+                    }
+                })
+                //声明线程调度
+                .compose(RxSchedulers.<CommentListModel>io_main());
     }
 }

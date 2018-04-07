@@ -1,6 +1,5 @@
 package com.jung.finance.api;
 
-import com.jung.finance.bean.FavActionModel;
 import com.jung.finance.bean.ActivityFavGetModel;
 import com.jung.finance.bean.ActivityModel;
 import com.jung.finance.bean.ArticleDetail;
@@ -8,7 +7,10 @@ import com.jung.finance.bean.ArticleModel;
 import com.jung.finance.bean.BannerModel;
 import com.jung.finance.bean.BloggerModel;
 import com.jung.finance.bean.ColumnModel;
+import com.jung.finance.bean.CommentCreateModel;
+import com.jung.finance.bean.CommentListModel;
 import com.jung.finance.bean.FastModel;
+import com.jung.finance.bean.FavActionModel;
 import com.jung.finance.bean.GirlData;
 import com.jung.finance.bean.LinkModel;
 import com.jung.finance.bean.NewsDetail;
@@ -146,7 +148,7 @@ public interface ApiService {
     Observable<BaseRespose<ArticleDetail>> getArticleDetail(@Query("id") String id);
 
     // 获取推荐文章
-    @GET("app/media/article/relate")
+    @GET("app/article/relevant")
     Observable<BaseRespose<ArticleModel>> getRelateList(String id);
 
     //首页banner
@@ -227,4 +229,16 @@ public interface ApiService {
     // 移除收藏项目
     @POST("app/me/media/fav/remove")
     Observable<BaseRespose<FavActionModel>> unFocusMedia(@Query("token") String token, @Query("id") int mediaId);
+
+    // 创建评论
+    @POST("app/comment/create")
+    Observable<BaseRespose<CommentCreateModel>> createComment(@Query("token") String token, @Query("id") int id,
+                                                              @Query("body") String body, @Query("touid") String touid);
+
+    // 评论列表
+    @GET("app/comment/query")
+    Observable<BaseRespose<CommentListModel>> getCommentList(@Query("id") int id, @Query("touid") int touid,
+                                                             @Query("p") int page, @Query("size") int size);
+
+
 }
