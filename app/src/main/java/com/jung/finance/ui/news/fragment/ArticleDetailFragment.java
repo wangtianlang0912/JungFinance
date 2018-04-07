@@ -3,6 +3,7 @@ package com.jung.finance.ui.news.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -10,7 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.jung.finance.R;
 import com.jung.finance.app.AppConstant;
@@ -31,6 +35,7 @@ import com.leon.common.browser.ProgressWebView;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
 
@@ -55,10 +60,20 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
     protected ProgressWebView progressWebView;
     protected WebView detailwebview;
     protected Intent homeIntent;
+    @Bind(R.id.write_comment_view)
+    TextView writeCommentView;
+    @Bind(R.id.comment_btn)
+    ImageView commentBtn;
+    @Bind(R.id.fav_btn)
+    ImageView favBtn;
+    @Bind(R.id.share_btn)
+    ImageView shareBtn;
+    @Bind(R.id.bottom_layout)
+    RelativeLayout bottomLayout;
 
     @Override
     protected int getLayoutResource() {
-        return R.layout.com_web_layout;
+        return R.layout.article_layout;
     }
 
 
@@ -91,36 +106,6 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
                 } else {
                     detailwebview.goBack();
                 }
-            }
-        });
-
-        ((CommonActivity) getActivity()).getNtb().setRightTitle(getString(R.string.share));
-        ((CommonActivity) getActivity()).getNtb().setRightTitleVisibility(true);
-        ((CommonActivity) getActivity()).getNtb().setOnRightTextListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                OnekeyShare oks = new OnekeyShare();
-                //关闭sso授权
-                oks.disableSSOWhenAuthorize();
-                // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
-                oks.setTitle("Yizhi");
-                // titleUrl是标题的网络链接，QQ和QQ空间等使用
-                oks.setTitleUrl("https://github.com/Horrarndoo/YiZhi");
-                // text是分享文本，所有平台都需要这个字段
-                oks.setText("每日新闻，精选干货，最新资讯，应有尽有.项目详情链接：https://github.com/Horrarndoo/YiZhi");
-                // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
-                //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
-                // url仅在微信（包括好友和朋友圈）中使用
-                //由于微信需要注册AppKey才能演示，这里取消微信分享，个人根据自己的需求注册Appkey使用
-                oks.setUrl("https://github.com/Horrarndoo/YiZhi");
-                // comment是我对这条分享的评论，仅在人人网和QQ空间使用
-                oks.setComment("这个App贼好用，快下载体验吧~");
-                // site是分享此内容的网站名称，仅在QQ空间使用
-                oks.setSite(getString(R.string.app_name));
-                // siteUrl是分享此内容的网站地址，仅在QQ空间使用
-                oks.setSiteUrl("https://github.com/Horrarndoo/YiZhi");
-                // 启动分享GUI
-                oks.show(getActivity());
             }
         });
 
@@ -178,7 +163,46 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
 
     private void focusBtnClicked(int bloggerId, int status) {
 
-        mPresenter.focusChanged(bloggerId,status);
+        mPresenter.focusChanged(bloggerId, status);
+    }
+
+    @OnClick({R.id.write_comment_view, R.id.comment_btn, R.id.fav_btn, R.id.share_btn})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.write_comment_view:
+
+
+                break;
+            case R.id.comment_btn:
+                break;
+            case R.id.fav_btn:
+                break;
+            case R.id.share_btn:
+
+                OnekeyShare oks = new OnekeyShare();
+                //关闭sso授权
+                oks.disableSSOWhenAuthorize();
+                // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间等使用
+                oks.setTitle("Yizhi");
+                // titleUrl是标题的网络链接，QQ和QQ空间等使用
+                oks.setTitleUrl("https://github.com/Horrarndoo/YiZhi");
+                // text是分享文本，所有平台都需要这个字段
+                oks.setText("每日新闻，精选干货，最新资讯，应有尽有.项目详情链接：https://github.com/Horrarndoo/YiZhi");
+                // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
+                //oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
+                // url仅在微信（包括好友和朋友圈）中使用
+                //由于微信需要注册AppKey才能演示，这里取消微信分享，个人根据自己的需求注册Appkey使用
+                oks.setUrl("https://github.com/Horrarndoo/YiZhi");
+                // comment是我对这条分享的评论，仅在人人网和QQ空间使用
+                oks.setComment("这个App贼好用，快下载体验吧~");
+                // site是分享此内容的网站名称，仅在QQ空间使用
+                oks.setSite(getString(R.string.app_name));
+                // siteUrl是分享此内容的网站地址，仅在QQ空间使用
+                oks.setSiteUrl("https://github.com/Horrarndoo/YiZhi");
+                // 启动分享GUI
+                oks.show(getActivity());
+                break;
+        }
     }
 
 
@@ -204,25 +228,24 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
             AppIntent.intentToLogin(webView.getContext());
         }
 
-        public static void intentToBloggerInfo(WebView webView, int bloggerId) {
+        public static void intentToBloggerInfo(WebView webView, String bloggerId) {
 
-            if (bloggerId != 0) {
-                AppIntent.intentToBloggerInfo(webView.getContext(), bloggerId);
+            if (!TextUtils.isEmpty(bloggerId)) {
+                AppIntent.intentToBloggerInfo(webView.getContext(), Integer.valueOf(bloggerId));
             }
         }
 
-        public static void bloggerFocusClicked(WebView webView, int bloggerId,int status){
-            if(!MyUtils.isLogin()) {
+        public static void bloggerFocusClicked(WebView webView, String bloggerId, String status) {
+            if (!MyUtils.isLogin()) {
                 AppIntent.intentToLogin(webView.getContext());
                 return;
             }
-            if (bloggerId != 0) {
+//            if (bloggerId != 0) {
 //                focusBtnClicked(bloggerId,status);
-            }
+//            }
         }
 
     }
-
 
 
     private class MInjectedChromeClient extends InjectedChromeClient {
@@ -272,7 +295,7 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
                 detailwebview.loadUrl("javascript:setBloggerData('" + media.getCoverImage() + "'" +
                         ",'" + media.getName() + "'" +
                         ",'" + media.getArticleNum() + "'" +
-                        ",'" + media.getUid() + "'" +
+                        ",'" + media.getObjectId() + "'" +
                         ",'" + media.getStatus() + "')");
 
             }

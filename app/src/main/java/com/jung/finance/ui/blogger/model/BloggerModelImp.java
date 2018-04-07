@@ -69,9 +69,11 @@ public class BloggerModelImp implements BloggerContract.Model {
                     public BloggerBean call(BaseRespose<BloggerBean> respose) {
 
                         BloggerBean blogger = respose.data;
-                        if (blogger != null) {
-                            String cooverImage = ApiConstants.getHost(HostType.Jung_FINANCE) + blogger.getMedia().getCoverImage();
-                            blogger.getMedia().setCoverImage(cooverImage);
+                        if (blogger != null && blogger.getMedia() != null) {
+                            if (blogger.getMedia().getCoverImage() != null) {
+                                String cooverImage = ApiConstants.getHost(HostType.Jung_FINANCE) + blogger.getMedia().getCoverImage();
+                                blogger.getMedia().setCoverImage(cooverImage);
+                            }
                         }
                         return blogger;
                     }

@@ -189,7 +189,7 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
         subscribeNum.setText(blogger.getRole().getmCount() + "");
         fansNum.setText(blogger.getGznum() + "");
         subscribeBtn.setText(blogger.getRole().getRole() == 1 ? "+订阅" : "已订阅");
-        numShowView.setText(blogger.getGznum() + "");
+        numShowView.setText(blogger.getArticleNum() + "");
     }
 
 
