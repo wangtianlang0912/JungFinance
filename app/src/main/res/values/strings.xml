@@ -111,5 +111,5 @@
     <string name="mobile_login">手机登录</string>
     <string name="account_login">账号登录</string>
     <string name="register_success">注册成功</string>
-
+    <string name="fav">收藏</string>
 </resources>

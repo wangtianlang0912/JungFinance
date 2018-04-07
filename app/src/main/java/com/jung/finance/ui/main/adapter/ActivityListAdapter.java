@@ -89,7 +89,7 @@ public class ActivityListAdapter extends MultiItemRecycleViewAdapter<ActivityMod
             public void onClick(View view) {
                 if (TextUtils.isEmpty(activity.getUrl())) {
 
-                    AppIntent.intentToCommonWeb(mContext, R.string.activity, String.format(ApiConstants.URL + "activity/i-%d.html", activity.getObjectId()));
+                    AppIntent.intentToActivityInfo(mContext, activity.getObjectId());
 
                     return;
                 }

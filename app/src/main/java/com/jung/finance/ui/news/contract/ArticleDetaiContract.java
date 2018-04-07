@@ -31,12 +31,21 @@ public class ArticleDetaiContract {
 
         Observable<ArticleModel> getArticleReleateList(String id);
 
+        Observable<Boolean>  favActionArticle(int articleId, boolean status);
+
+        Observable<Boolean> focusAction(int bloggerId,boolean status);
+
+        Observable<Boolean> getArticleFavState(int articleId);
     }
 
     public interface View extends BaseView {
         void returnArticleData(ArticleDetail data);
 
         void returnRelateList(ArticleModel articleModel);
+
+        void returnFavArticleState(boolean result);
+
+        void returnFocusBloggerState(boolean result);
     }
 
     public abstract static class Presenter extends BasePresenter<View, Model> {
@@ -45,7 +54,12 @@ public class ArticleDetaiContract {
         //相关新闻
         public abstract void getArticleRelateList(String id);
 
-        //关注
-        public abstract void focusChanged(int bloggerId, int status);
+        //收藏文章
+        public abstract void favActionArticle(int articleId, boolean status);
+
+        // 关注
+        public abstract void focusAction(int bloggerId,boolean status);
+
+        public abstract void getArticleFavState(int articleId);
     }
 }

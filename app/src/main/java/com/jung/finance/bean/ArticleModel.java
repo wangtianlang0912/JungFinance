@@ -106,6 +106,8 @@ public class ArticleModel {
 
         private int pv;
 
+        private int fav;
+
 //        private List<Attributes> attributes ;
 
         private int isRecommend;
@@ -234,6 +236,14 @@ public class ArticleModel {
 //            return this.attributes;
 //        }
 
+
+        public boolean hasFaved() {
+            return fav == 1;
+        }
+
+        public void setFav(int fav) {
+            this.fav = fav;
+        }
 
         public ContentType getType() {
             return type;

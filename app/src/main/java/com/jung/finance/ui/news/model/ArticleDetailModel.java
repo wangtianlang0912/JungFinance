@@ -3,10 +3,12 @@ package com.jung.finance.ui.news.model;
 import com.jung.finance.api.Api;
 import com.jung.finance.api.ApiConstants;
 import com.jung.finance.api.HostType;
+import com.jung.finance.bean.FavActionModel;
 import com.jung.finance.bean.ArticleDetail;
 import com.jung.finance.bean.ArticleModel;
 import com.jung.finance.bean.BloggerModel;
 import com.jung.finance.ui.news.contract.ArticleDetaiContract;
+import com.jung.finance.utils.MyUtils;
 import com.jung.finance.utils.PatternUtil;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
@@ -79,5 +81,74 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
                 })
                 //声明线程调度
                 .compose(RxSchedulers.<ArticleModel>io_main());
+    }
+
+    @Override
+    public Observable<Boolean> favActionArticle(int articleId, final boolean status) {
+        String token = MyUtils.getToken();
+        Observable<BaseRespose<FavActionModel>> observable = null;
+        if (status) {
+            observable = Api.getDefault(HostType.Jung_FINANCE).unfavArticle(token, articleId);
+        } else {
+            observable = Api.getDefault(HostType.Jung_FINANCE).favArticle(token, articleId);
+        }
+        return observable.map(new Func1<BaseRespose<FavActionModel>, Boolean>() {
+            @Override
+            public Boolean call(BaseRespose<FavActionModel> baseRespose) {
+                if (status) {
+                    if (baseRespose.success()) {
+                        return false; // 返回的是当前收藏的状态
+                    }
+                    return status;
+                } else {
+                    FavActionModel activityModel = baseRespose.data;
+                    return activityModel != null && activityModel.getFavorite() != null; // 收藏成功返回fav对象
+                }
+            }
+        })
+                //声明线程调度
+                .compose(RxSchedulers.<Boolean>io_main());
+    }
+
+    @Override
+    public Observable<Boolean> focusAction(int bloggerId,final boolean status) {
+        String token = MyUtils.getToken();
+        Observable<BaseRespose<FavActionModel>> observable = null;
+        if (status) {
+            observable = Api.getDefault(HostType.Jung_FINANCE).unFocusMedia(token, bloggerId);
+        } else {
+            observable = Api.getDefault(HostType.Jung_FINANCE).focusMedia(token, bloggerId);
+        }
+        return observable.map(new Func1<BaseRespose<FavActionModel>, Boolean>() {
+            @Override
+            public Boolean call(BaseRespose<FavActionModel> baseRespose) {
+                if (status) {
+                    if (baseRespose.success()) {
+                        return false; // 返回的是当前收藏的状态
+                    }
+                    return status;
+                } else {
+                    FavActionModel activityModel = baseRespose.data;
+                    return activityModel != null && activityModel.getFavorite() != null; // 收藏成功返回fav对象
+                }
+            }
+        })
+                //声明线程调度
+                .compose(RxSchedulers.<Boolean>io_main());
+    }
+
+    @Override
+    public Observable<Boolean> getArticleFavState(int articleId) {
+        String token = MyUtils.getToken();
+        return Api.getDefault(HostType.Jung_FINANCE).getArticleFavState(token, articleId)
+                .map(new Func1<BaseRespose<FavActionModel>, Boolean>() {
+                    @Override
+                    public Boolean call(BaseRespose<FavActionModel> baseRespose) {
+                        FavActionModel activityModel = baseRespose.data;
+                        return activityModel != null && activityModel.getFavorite() != null;
+                    }
+                })
+                //声明线程调度
+                .compose(RxSchedulers.<Boolean>io_main());
     }
 }

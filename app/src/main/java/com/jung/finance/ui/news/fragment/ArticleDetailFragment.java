@@ -161,11 +161,6 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
         ButterKnife.unbind(this);
     }
 
-    private void focusBtnClicked(int bloggerId, int status) {
-
-        mPresenter.focusChanged(bloggerId, status);
-    }
-
     @OnClick({R.id.write_comment_view, R.id.comment_btn, R.id.fav_btn, R.id.share_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -176,6 +171,12 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
             case R.id.comment_btn:
                 break;
             case R.id.fav_btn:
+                Object tag = favBtn.getTag();
+                boolean hasFav = false;
+                if (tag != null) {
+                    hasFav = (boolean) tag;
+                }
+                favBtnClicked(hasFav);
                 break;
             case R.id.share_btn:
 
@@ -203,6 +204,24 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
                 oks.show(getActivity());
                 break;
         }
+    }
+
+    private void favBtnClicked(boolean hasFav) {
+
+        if (articleId <= 0) {
+            return;
+        }
+        if (!MyUtils.isLogin()) {
+            AppIntent.intentToLogin(getContext());
+            return;
+        }
+        mPresenter.favActionArticle(articleId, hasFav);
+    }
+
+
+    private void focusBtnClicked(int bloggerId, boolean status) {
+
+        mPresenter.focusAction(bloggerId, status);
     }
 
 
@@ -240,9 +259,9 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
                 AppIntent.intentToLogin(webView.getContext());
                 return;
             }
-//            if (bloggerId != 0) {
-//                focusBtnClicked(bloggerId,status);
-//            }
+            if (!TextUtils.isEmpty(bloggerId)) {
+//                focusBtnClicked(Integer.valueOf(bloggerId), Integer.valueOf(status) == 0);
+            }
         }
 
     }
@@ -282,6 +301,8 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
         if (data != null && data.getArticle() != null) {
 
             ArticleModel.Article article = data.getArticle();
+            returnFavArticleState(article.hasFaved());
+
             detailwebview.loadUrl("javascript:setArticleData('" + article.getTitle() + "'" +
                     ",'" + article.getPtime() + "'" +
                     ",'" + article.getSource() + "'" +
@@ -305,6 +326,17 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
     @Override
     public void returnRelateList(ArticleModel articleModel) {
 
+    }
+
+    @Override
+    public void returnFavArticleState(boolean result) {
+        favBtn.setImageResource(result ? R.drawable.icon_fav_s : R.drawable.icon_fav_n);
+        favBtn.setTag(result);
+    }
+
+    @Override
+    public void returnFocusBloggerState(boolean result) {
+        detailwebview.loadUrl("javascript:setBloggerFocusState('" + (result ? 0 : 1) + "');");
     }
 }
 

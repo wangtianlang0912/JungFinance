@@ -1,5 +1,7 @@
 package com.jung.finance.api;
 
+import com.jung.finance.bean.FavActionModel;
+import com.jung.finance.bean.ActivityFavGetModel;
 import com.jung.finance.bean.ActivityModel;
 import com.jung.finance.bean.ArticleDetail;
 import com.jung.finance.bean.ArticleModel;
@@ -180,5 +182,49 @@ public interface ApiService {
     @GET("app/media/article/query")
     Observable<BaseRespose<ArticleModel>> getBloggerArticleList(@Query("mediaId") int id, @Query("uid") int uid, @Query("p") int page);
 
+    // 收藏文章
+    @POST("app/me/article/fav/create")
+    Observable<BaseRespose<FavActionModel>> favArticle(@Query("token") String token, @Query("id") int articleId);
 
+    // 获取收藏
+    @GET("app/me/article/fav/get")
+    Observable<BaseRespose<FavActionModel>> getArticleFavState(@Query("token") String token, @Query("id") int articleId);
+
+
+    // 取消收藏文章
+    @POST("app/me/article/fav/remove")
+    Observable<BaseRespose<FavActionModel>> unfavArticle(@Query("token") String token, @Query("id") int articleId);
+
+    // 参加活动
+    @POST("app/me/activity/join")
+    Observable<BaseRespose<Boolean>> joinActivity(@Query("token") String token, @Query("id") String activeId,
+                                                  @Query("name") String name, @Query("phone") String phone,
+                                                  @Query("number") int number, @Query("company") String company);
+
+    // 收藏活动
+    @POST("app/me/activity/fav/create")
+    Observable<BaseRespose<FavActionModel>> favActivity(@Query("token") String token, @Query("id") int activeId);
+
+    // 取消收藏活动
+    @POST("app/me/activity/fav/remove")
+    Observable<BaseRespose<FavActionModel>> unfavActivity(@Query("token") String token, @Query("id") int activeId);
+
+    // 获取收藏状态
+    @GET("app/me/activity/fav/get")
+    Observable<BaseRespose<ActivityFavGetModel>> getActivityFavState(@Query("token") String token, @Query("id") int activeId);
+
+    // 获取我收藏的活动
+    @GET("app/me/activity/fav/query")
+    Observable<BaseRespose<ActivityModel>> getActivityFavList(@Query("token") String token, @Query("id") String activeId,
+                                                              @Query("type") String type, @Query("orderBy") String orderBy,
+                                                              @Query("p") int p, @Query("size") int size);
+
+
+    // 收藏媒体
+    @POST("app/me/media/fav/create")
+    Observable<BaseRespose<FavActionModel>> focusMedia(@Query("token") String token, @Query("id") int mediaId);
+
+    // 移除收藏项目
+    @POST("app/me/media/fav/remove")
+    Observable<BaseRespose<FavActionModel>> unFocusMedia(@Query("token") String token, @Query("id") int mediaId);
 }

@@ -51,8 +51,50 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
     }
 
     @Override
-    public void focusChanged(int bloggerId, int status) {
+    public void favActionArticle(int acticleId, boolean status) {
 
+        mRxManage.add(mModel.favActionArticle(acticleId, status).subscribe(new RxSubscriber<Boolean>(mContext, false) {
+            @Override
+            protected void _onNext(Boolean result) {
+                mView.returnFavArticleState(result);
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.showErrorTip(message);
+            }
+        }));
     }
+
+    @Override
+    public void focusAction(int bloggerId, boolean status) {
+        mRxManage.add(mModel.focusAction(bloggerId, status).subscribe(new RxSubscriber<Boolean>(mContext, false) {
+            @Override
+            protected void _onNext(Boolean result) {
+                mView.returnFocusBloggerState(result);
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.showErrorTip(message);
+            }
+        }));
+    }
+
+    @Override
+    public void getArticleFavState(int articleId) {
+        mRxManage.add(mModel.getArticleFavState(articleId).subscribe(new RxSubscriber<Boolean>(mContext, false) {
+            @Override
+            protected void _onNext(Boolean result) {
+                mView.returnFavArticleState(result);
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.showErrorTip(message);
+            }
+        }));
+    }
+
 
 }

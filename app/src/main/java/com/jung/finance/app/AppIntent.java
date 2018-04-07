@@ -11,6 +11,7 @@ import com.jung.finance.ui.blogger.fragment.BloggerArticleDetailFragment;
 import com.jung.finance.ui.blogger.fragment.BloggerFragment;
 import com.jung.finance.ui.common.CommonActivity;
 import com.jung.finance.ui.common.CommonWebFragment;
+import com.jung.finance.ui.main.fragment.ActivityInfoFragment;
 import com.jung.finance.ui.news.fragment.ArticleDetailFragment;
 import com.jung.finance.ui.setting.fragment.SettingFragment;
 import com.jung.finance.ui.user.fragment.AccountSafeFragment;
@@ -113,6 +114,21 @@ public class AppIntent {
         intentToAct(context, context.getString(R.string.article_detail), ArticleDetailFragment.class, bundle);
     }
 
+    /**
+     * 活动详情
+     *
+     * @param context
+     * @param objectId
+     */
+    public static void intentToActivityInfo(Context context, int objectId) {
+
+        Bundle bundle = new Bundle();
+        String activityUrl = String.format(ApiConstants.URL + "activity/i-%d.html", objectId);
+        bundle.putString(AppConstant.FLAG_DATA, activityUrl);
+        bundle.putInt(AppConstant.FLAG_DATA2, objectId);
+        intentToAct(context, context.getString(R.string.activity), ActivityInfoFragment.class, bundle);
+
+    }
 
     public static void intentToCommonWeb(Context context, int resTitle, String url) {
         intentToCommonWeb(context, context.getString(resTitle), url);
