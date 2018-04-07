@@ -87,7 +87,7 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
 
         Intent homeIntent = getActivity().getIntent();
         Bundle bundle = homeIntent.getBundleExtra(AppConstant.FLAG_BUNDLE);
-        articleId = bundle.getInt(AppConstant.FLAG_DATA2);
+        articleId = bundle.getInt(AppConstant.FLAG_DATA);
         //数据为空才重新发起请求
         if (commentListAdapter.getSize() <= 0) {
             mStartPage = 0;
@@ -104,7 +104,7 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
             }
             showShortToast(R.string.submit_success);
         }
-
+        onRefresh();
     }
 
     @Override

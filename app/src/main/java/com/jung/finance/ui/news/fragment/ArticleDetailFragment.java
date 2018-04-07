@@ -181,6 +181,9 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
                 showCommentCreateDialog();
                 break;
             case R.id.comment_btn:
+                if (articleId <= 0) {
+                    return;
+                }
                 AppIntent.intentToCommentList(getActivity(), articleId);
                 break;
             case R.id.fav_btn:
