@@ -91,5 +91,5 @@ dependencies {
     compile "com.tbruyelle.rxpermissions2:rxpermissions:$rootProject.rxPerssionsVersion"
 
     //Bugly
-    compile 'com.tencent.bugly:crashreport:latest.release'
+//    compile 'com.tencent.bugly:crashreport:latest.release'
 }

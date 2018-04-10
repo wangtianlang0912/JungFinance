@@ -1,6 +1,6 @@
 package com.jung.finance.api;
 
-import com.jung.finance.bean.ActivityFavGetModel;
+import com.jung.finance.bean.ActivityFavModel;
 import com.jung.finance.bean.ActivityModel;
 import com.jung.finance.bean.ArticleDetail;
 import com.jung.finance.bean.ArticleModel;
@@ -205,15 +205,15 @@ public interface ApiService {
 
     // 收藏活动
     @POST("app/me/activity/fav/create")
-    Observable<BaseRespose<FavActionModel>> favActivity(@Query("token") String token, @Query("id") int activeId);
+    Observable<BaseRespose<ActivityFavModel>> favActivity(@Query("token") String token, @Query("id") int activeId);
 
     // 取消收藏活动
     @POST("app/me/activity/fav/remove")
-    Observable<BaseRespose<FavActionModel>> unfavActivity(@Query("token") String token, @Query("id") int activeId);
+    Observable<BaseRespose<ActivityFavModel>> unfavActivity(@Query("token") String token, @Query("id") int activeId);
 
     // 获取收藏状态
     @GET("app/me/activity/fav/get")
-    Observable<BaseRespose<ActivityFavGetModel>> getActivityFavState(@Query("token") String token, @Query("id") int activeId);
+    Observable<BaseRespose<ActivityFavModel>> getActivityFavState(@Query("token") String token, @Query("id") int activeId);
 
     // 获取我收藏的活动
     @GET("app/me/activity/fav/query")

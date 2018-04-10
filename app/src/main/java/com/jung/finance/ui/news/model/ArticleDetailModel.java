@@ -86,30 +86,22 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
     }
 
     @Override
-    public Observable<Boolean> favActionArticle(int articleId, final boolean status) {
+    public Observable<FavActionModel.Favorite> favActionArticle(int objectId, final boolean status) {
         String token = MyUtils.getToken();
         Observable<BaseRespose<FavActionModel>> observable = null;
         if (status) {
-            observable = Api.getDefault(HostType.Jung_FINANCE).unfavArticle(token, articleId);
+            observable = Api.getDefault(HostType.Jung_FINANCE).unfavArticle(token, objectId);
         } else {
-            observable = Api.getDefault(HostType.Jung_FINANCE).favArticle(token, articleId);
+            observable = Api.getDefault(HostType.Jung_FINANCE).favArticle(token, objectId);
         }
-        return observable.map(new Func1<BaseRespose<FavActionModel>, Boolean>() {
+        return observable.map(new Func1<BaseRespose<FavActionModel>, FavActionModel.Favorite>() {
             @Override
-            public Boolean call(BaseRespose<FavActionModel> baseRespose) {
-                if (status) {
-                    if (baseRespose.success()) {
-                        return false; // 返回的是当前收藏的状态
-                    }
-                    return status;
-                } else {
-                    FavActionModel activityModel = baseRespose.data;
-                    return activityModel != null && activityModel.getFavorite() != null; // 收藏成功返回fav对象
-                }
+            public FavActionModel.Favorite call(BaseRespose<FavActionModel> baseRespose) {
+                return baseRespose.data.getFavorite();
             }
         })
                 //声明线程调度
-                .compose(RxSchedulers.<Boolean>io_main());
+                .compose(RxSchedulers.<FavActionModel.Favorite>io_main());
     }
 
     @Override
@@ -140,18 +132,18 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
     }
 
     @Override
-    public Observable<Boolean> getArticleFavState(int articleId) {
+    public Observable<FavActionModel.Favorite> getArticleFavState(int articleId) {
         String token = MyUtils.getToken();
         return Api.getDefault(HostType.Jung_FINANCE).getArticleFavState(token, articleId)
-                .map(new Func1<BaseRespose<FavActionModel>, Boolean>() {
+                .map(new Func1<BaseRespose<FavActionModel>, FavActionModel.Favorite>() {
                     @Override
-                    public Boolean call(BaseRespose<FavActionModel> baseRespose) {
+                    public FavActionModel.Favorite call(BaseRespose<FavActionModel> baseRespose) {
                         FavActionModel activityModel = baseRespose.data;
-                        return activityModel != null && activityModel.getFavorite() != null;
+                        return activityModel.getFavorite();
                     }
                 })
                 //声明线程调度
-                .compose(RxSchedulers.<Boolean>io_main());
+                .compose(RxSchedulers.<FavActionModel.Favorite>io_main());
     }
 
     @Override

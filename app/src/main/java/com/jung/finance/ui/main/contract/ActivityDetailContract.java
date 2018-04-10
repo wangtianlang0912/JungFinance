@@ -1,6 +1,7 @@
 package com.jung.finance.ui.main.contract;
 
 
+import com.jung.finance.bean.ActivityFavModel;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;
@@ -26,15 +27,15 @@ public class ActivityDetailContract {
     public interface Model extends BaseModel {
         Observable<Boolean> attentActivity(int objectId);
 
-        Observable<Boolean> getFavActivityState(int activityId);
+        Observable<ActivityFavModel.Favorite> getFavActivityState(int activityId);
 
-        Observable<Boolean> favActionActivity(int activityId,boolean hasFav);
+        Observable<ActivityFavModel.Favorite> favActionActivity(int objectId, boolean hasFav);
     }
 
     public interface View extends BaseView {
         void returnAttentActivity(boolean result);
 
-        void returnFavActivityState(boolean result);
+        void returnFavActivityState(ActivityFavModel.Favorite result);
 
     }
 
@@ -43,7 +44,7 @@ public class ActivityDetailContract {
 
         public abstract void getFavActivityState(int activityId);
 
-        public abstract void favActionActivity(int activityId, boolean hasFav);
+        public abstract void favActionActivity(int objectId, boolean hasFav);
 
     }
 }

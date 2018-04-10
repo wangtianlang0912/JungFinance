@@ -28,6 +28,7 @@ import com.jung.finance.bean.ArticleModel;
 import com.jung.finance.bean.BloggerModel;
 import com.jung.finance.bean.CommentCreateModel;
 import com.jung.finance.bean.CommentListModel;
+import com.jung.finance.bean.FavActionModel;
 import com.jung.finance.ui.common.CommonActivity;
 import com.jung.finance.ui.news.contract.ArticleDetaiContract;
 import com.jung.finance.ui.news.model.ArticleDetailModel;
@@ -131,6 +132,7 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
 
         mPresenter.getCommentList(articleId);
 //        mPresenter.getArticleRelateList(String.valueOf(articleId));
+        mPresenter.getArticleFavState(articleId);
     }
 
     @Override
@@ -188,11 +190,11 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
                 break;
             case R.id.fav_btn:
                 Object tag = favBtn.getTag();
-                boolean hasFav = false;
-                if (tag != null) {
-                    hasFav = (boolean) tag;
+                if (tag == null) {
+                    favBtnClicked(articleId);
+                } else {
+                    unFavBtnClicked((int) tag);
                 }
-                favBtnClicked(hasFav);
                 break;
             case R.id.share_btn:
 
@@ -249,7 +251,7 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
     }
 
 
-    private void favBtnClicked(boolean hasFav) {
+    private void favBtnClicked(int articleId) {
 
         if (articleId <= 0) {
             return;
@@ -258,7 +260,20 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
             AppIntent.intentToLogin(getContext());
             return;
         }
-        mPresenter.favActionArticle(articleId, hasFav);
+        mPresenter.favActionArticle(articleId, false);
+    }
+
+
+    private void unFavBtnClicked(int favItemId) {
+
+        if (favItemId <= 0) {
+            return;
+        }
+        if (!MyUtils.isLogin()) {
+            AppIntent.intentToLogin(getContext());
+            return;
+        }
+        mPresenter.favActionArticle(favItemId, true);
     }
 
 
@@ -344,7 +359,6 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
         if (data != null && data.getArticle() != null) {
 
             ArticleModel.Article article = data.getArticle();
-            returnFavArticleState(article.hasFaved());
 
             detailwebview.loadUrl("javascript:setArticleData('" + article.getTitle() + "'" +
                     ",'" + article.getPtime() + "'" +
@@ -375,9 +389,16 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
     }
 
     @Override
-    public void returnFavArticleState(boolean result) {
-        favBtn.setImageResource(result ? R.drawable.icon_fav_s : R.drawable.icon_fav_n);
-        favBtn.setTag(result);
+    public void returnFavArticleState(FavActionModel.Favorite result) {
+
+        if (result != null) {
+            favBtn.setTag(result.getObjectId());
+            favBtn.setImageResource(R.drawable.icon_fav_s);
+        } else {
+
+            favBtn.setImageResource(R.drawable.icon_fav_n);
+            favBtn.setTag(null);
+        }
     }
 
     @Override

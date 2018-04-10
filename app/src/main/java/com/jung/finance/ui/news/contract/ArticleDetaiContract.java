@@ -5,6 +5,7 @@ import com.jung.finance.bean.ArticleDetail;
 import com.jung.finance.bean.ArticleModel;
 import com.jung.finance.bean.CommentCreateModel;
 import com.jung.finance.bean.CommentListModel;
+import com.jung.finance.bean.FavActionModel;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;
@@ -33,11 +34,11 @@ public class ArticleDetaiContract {
 
         Observable<ArticleModel> getArticleReleateList(String id);
 
-        Observable<Boolean> favActionArticle(int articleId, boolean status);
+        Observable<FavActionModel.Favorite> favActionArticle(int articleId, boolean status);
 
         Observable<Boolean> focusAction(int bloggerId, boolean status);
 
-        Observable<Boolean> getArticleFavState(int articleId);
+        Observable<FavActionModel.Favorite> getArticleFavState(int articleId);
 
         Observable<CommentCreateModel> createComment(int articleId, String body);
 
@@ -49,7 +50,7 @@ public class ArticleDetaiContract {
 
         void returnRelateList(ArticleModel articleModel);
 
-        void returnFavArticleState(boolean result);
+        void returnFavArticleState(FavActionModel.Favorite result);
 
         void returnFocusBloggerState(boolean result);
 

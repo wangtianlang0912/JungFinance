@@ -14,7 +14,7 @@ package com.jung.finance.bean;
  *
  *
  */
-public class ActivityFavGetModel {
+public class ActivityFavModel {
 
     private Favorite favorite;
 

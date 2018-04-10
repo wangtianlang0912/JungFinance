@@ -1,6 +1,7 @@
 package com.jung.finance.ui.main.presenter;
 
 import com.jung.finance.R;
+import com.jung.finance.bean.ActivityFavModel;
 import com.jung.finance.ui.main.contract.ActivityDetailContract;
 import com.leon.common.baserx.RxSubscriber;
 
@@ -26,7 +27,7 @@ public class ActivityDetailPresenterImp extends ActivityDetailContract.Presenter
 
     @Override
     public void getFavActivityState(int activityId) {
-        mRxManage.add(mModel.getFavActivityState(activityId).subscribe(new RxSubscriber<Boolean>(mContext, false) {
+        mRxManage.add(mModel.getFavActivityState(activityId).subscribe(new RxSubscriber<ActivityFavModel.Favorite>(mContext, false) {
             @Override
             public void onStart() {
                 super.onStart();
@@ -34,7 +35,7 @@ public class ActivityDetailPresenterImp extends ActivityDetailContract.Presenter
             }
 
             @Override
-            protected void _onNext(Boolean result) {
+            protected void _onNext(ActivityFavModel.Favorite result) {
                 mView.returnFavActivityState(result);
                 mView.stopLoading();
             }
@@ -49,7 +50,7 @@ public class ActivityDetailPresenterImp extends ActivityDetailContract.Presenter
     @Override
     public void favActionActivity(int activityId, boolean hasFav) {
 
-        mRxManage.add(mModel.favActionActivity(activityId,hasFav).subscribe(new RxSubscriber<Boolean>(mContext, false) {
+        mRxManage.add(mModel.favActionActivity(activityId,hasFav).subscribe(new RxSubscriber<ActivityFavModel.Favorite>(mContext, false) {
             @Override
             public void onStart() {
                 super.onStart();
@@ -57,7 +58,7 @@ public class ActivityDetailPresenterImp extends ActivityDetailContract.Presenter
             }
 
             @Override
-            protected void _onNext(Boolean result) {
+            protected void _onNext(ActivityFavModel.Favorite result) {
                 mView.returnFavActivityState(result);
                 mView.stopLoading();
             }

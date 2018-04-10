@@ -4,6 +4,7 @@ import com.jung.finance.bean.ArticleDetail;
 import com.jung.finance.bean.ArticleModel;
 import com.jung.finance.bean.CommentCreateModel;
 import com.jung.finance.bean.CommentListModel;
+import com.jung.finance.bean.FavActionModel;
 import com.jung.finance.ui.news.contract.ArticleDetaiContract;
 import com.leon.common.baserx.RxSubscriber;
 
@@ -63,9 +64,9 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
     }
 
     @Override
-    public void favActionArticle(int acticleId, boolean status) {
+    public void favActionArticle(int objectId, boolean status) {
 
-        mRxManage.add(mModel.favActionArticle(acticleId, status).subscribe(new RxSubscriber<Boolean>(mContext, false) {
+        mRxManage.add(mModel.favActionArticle(objectId, status).subscribe(new RxSubscriber<FavActionModel.Favorite>(mContext, false) {
 
             @Override
             public void onStart() {
@@ -74,7 +75,7 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
             }
 
             @Override
-            protected void _onNext(Boolean result) {
+            protected void _onNext(FavActionModel.Favorite result) {
                 mView.stopLoading();
                 mView.returnFavArticleState(result);
             }
@@ -114,9 +115,9 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
 
     @Override
     public void getArticleFavState(int articleId) {
-        mRxManage.add(mModel.getArticleFavState(articleId).subscribe(new RxSubscriber<Boolean>(mContext, false) {
+        mRxManage.add(mModel.getArticleFavState(articleId).subscribe(new RxSubscriber<FavActionModel.Favorite>(mContext, false) {
             @Override
-            protected void _onNext(Boolean result) {
+            protected void _onNext(FavActionModel.Favorite result) {
                 mView.returnFavArticleState(result);
             }
 
