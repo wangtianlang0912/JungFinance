@@ -62,8 +62,8 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
     LinearLayout infoLayout;
     @Bind(R.id.analyze_layout)
     LinearLayout analyzeLayout;
-//    @Bind(R.id.video_layout)
-//    LinearLayout videoLayout;
+    @Bind(R.id.fast_layout)
+    LinearLayout fastLayout;
     @Bind(R.id.activity_layout)
     LinearLayout activityLayout;
 
@@ -144,10 +144,16 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
             case R.id.refer_view:
                 break;
             case R.id.info_layout:
+                AppIntent.intentToNewsEdit(getActivity());
                 break;
             case R.id.analyze_layout:
+                AppIntent.intentToHqEdit(getActivity());
+                break;
+            case R.id.fast_layout:
+                AppIntent.intentToFastEdit(getActivity());
                 break;
             case R.id.activity_layout:
+                AppIntent.intentToActivityEdit(getActivity());
                 break;
         }
     }

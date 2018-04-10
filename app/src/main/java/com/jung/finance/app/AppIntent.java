@@ -12,6 +12,10 @@ import com.jung.finance.ui.blogger.fragment.BloggerArticleDetailFragment;
 import com.jung.finance.ui.blogger.fragment.BloggerFragment;
 import com.jung.finance.ui.common.CommonActivity;
 import com.jung.finance.ui.common.CommonWebFragment;
+import com.jung.finance.ui.fav.ui.ActivityEditFragment;
+import com.jung.finance.ui.fav.ui.FastEditFragment;
+import com.jung.finance.ui.fav.ui.HqEditFragment;
+import com.jung.finance.ui.fav.ui.NewsEditFragment;
 import com.jung.finance.ui.main.fragment.ActivityInfoFragment;
 import com.jung.finance.ui.news.fragment.ArticleDetailFragment;
 import com.jung.finance.ui.news.fragment.CommentListFragment;
@@ -136,12 +140,37 @@ public class AppIntent {
      * @param context
      * @param articleId
      */
-    public static void intentToCommentList(Context context,int articleId) {
+    public static void intentToCommentList(Context context, int articleId) {
         Bundle bundle = new Bundle();
         bundle.putInt(AppConstant.FLAG_DATA, articleId);
         intentToAct(context, context.getString(R.string.comment_list), CommentListFragment.class, bundle);
 
     }
+
+
+    public static void intentToNewsEdit(Context context) {
+
+        Bundle bundle = new Bundle();
+        intentToAct(context, context.getString(R.string.info), NewsEditFragment.class, bundle);
+    }
+
+    public static void intentToHqEdit(Context context) {
+
+        Bundle bundle = new Bundle();
+        intentToAct(context, context.getString(R.string.analyze), HqEditFragment.class, bundle);
+    }
+
+    public static void intentToFastEdit(Context context) {
+        Bundle bundle = new Bundle();
+        intentToAct(context, context.getString(R.string.main_tab_fast), FastEditFragment.class, bundle);
+    }
+
+    public static void intentToActivityEdit(Context context) {
+
+        Bundle bundle = new Bundle();
+        intentToAct(context, context.getString(R.string.activity), ActivityEditFragment.class, bundle);
+    }
+
 
     public static void intentToCommonWeb(Context context, int resTitle, String url) {
         intentToCommonWeb(context, context.getString(resTitle), url);
