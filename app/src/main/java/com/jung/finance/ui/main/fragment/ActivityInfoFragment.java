@@ -17,6 +17,7 @@ import com.jung.finance.R;
 import com.jung.finance.app.AppConstant;
 import com.jung.finance.app.AppIntent;
 import com.jung.finance.bean.ActivityFavModel;
+import com.jung.finance.bean.ActivityModel;
 import com.jung.finance.ui.common.CommonActivity;
 import com.jung.finance.ui.main.contract.ActivityDetailContract;
 import com.jung.finance.ui.main.model.ActivityDetailModelImp;
@@ -51,11 +52,11 @@ public class ActivityInfoFragment extends BaseFragment<ActivityDetailPresenterIm
 
     @Bind(R.id.fav_layout)
     LinearLayout favLayout;
-    @Bind(R.id.attent_view)
-    TextView attentView;
+    @Bind(R.id.action_view)
+    TextView actionView;
     @Bind(R.id.fav_view)
     ImageView favView;
-    int activityId;
+    ActivityModel.Activity mActivity;
     @Bind(R.id.common_web_main_web_view)
     ProgressWebView progressWebView;
 
@@ -142,8 +143,12 @@ public class ActivityInfoFragment extends BaseFragment<ActivityDetailPresenterIm
         Bundle bundle = homeIntent.getBundleExtra(AppConstant.FLAG_BUNDLE);
         String url = bundle.getString(AppConstant.FLAG_DATA);
         detailwebview.loadUrl(url);
-        activityId = bundle.getInt(AppConstant.FLAG_DATA2);
-        mPresenter.getFavActivityState(activityId);
+        mActivity = (ActivityModel.Activity) bundle.getSerializable(AppConstant.FLAG_DATA2);
+        mPresenter.getFavActivityState(mActivity.getObjectId());
+
+
+        updateActionBtnState(mActivity);
+
     }
 
     @Override
@@ -160,18 +165,16 @@ public class ActivityInfoFragment extends BaseFragment<ActivityDetailPresenterIm
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.fav_layout, R.id.attent_view})
+    @OnClick({R.id.fav_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.fav_layout:
                 Object tag = favView.getTag();
                 if (tag == null) {
-                    favBtnClicked(activityId);
+                    favBtnClicked(mActivity.getObjectId());
                 } else {
                     unFavBtnClicked((int) tag);
                 }
-                break;
-            case R.id.attent_view:
                 break;
         }
     }
@@ -199,5 +202,40 @@ public class ActivityInfoFragment extends BaseFragment<ActivityDetailPresenterIm
             return;
         }
         mPresenter.favActionActivity(activityId, false);
+    }
+
+    private void updateActionBtnState(ActivityModel.Activity activity) {
+
+        if (activity == null) {
+            return;
+        }
+        if (activity.getStatus() == ActivityModel.Status.IDLE) {
+            actionView.setText("未开始");
+            actionView.setBackgroundColor(getResources().getColor(R.color._86C789));
+            actionView.setOnClickListener(null);
+        } else if (activity.getStatus() == ActivityModel.Status.SIGNUP) {
+            actionView.setText("报名中");
+            actionView.setBackgroundColor(getResources().getColor(R.color._86C711));
+            actionView.setOnClickListener(getOnSignUpListener(activity));
+        } else if (activity.getStatus() == ActivityModel.Status.START) {
+            actionView.setText("正在进行中");
+            actionView.setBackgroundColor(getResources().getColor(R.color._86C789));
+            actionView.setOnClickListener(null);
+        } else if (activity.getStatus() == ActivityModel.Status.FINISH) {
+            actionView.setText("已结束");
+            actionView.setBackgroundColor(getResources().getColor(R.color._86C789));
+            actionView.setOnClickListener(null);
+        }
+    }
+
+    private View.OnClickListener getOnSignUpListener(ActivityModel.Activity activity) {
+
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        };
     }
 }

@@ -1,6 +1,7 @@
 package com.jung.finance.bean;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 /***
@@ -45,7 +46,7 @@ public class ActivityModel {
 
     }
 
-    public class Activity {
+    public class Activity implements Serializable {
         /**
          * 初始
          */

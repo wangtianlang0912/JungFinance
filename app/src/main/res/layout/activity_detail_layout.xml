@@ -57,7 +57,7 @@
             android:background="@color/divider_line" />
 
         <TextView
-            android:id="@+id/attent_view"
+            android:id="@+id/action_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"

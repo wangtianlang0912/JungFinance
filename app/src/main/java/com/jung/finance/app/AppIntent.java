@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import com.jung.finance.R;
 import com.jung.finance.api.ApiConstants;
+import com.jung.finance.bean.ActivityModel;
 import com.jung.finance.ui.blogger.fragment.BloggerArticleDetailFragment;
 import com.jung.finance.ui.blogger.fragment.BloggerFragment;
 import com.jung.finance.ui.common.CommonActivity;
@@ -119,14 +120,13 @@ public class AppIntent {
      * 活动详情
      *
      * @param context
-     * @param objectId
      */
-    public static void intentToActivityInfo(Context context, int objectId) {
+    public static void intentToActivityInfo(Context context, ActivityModel.Activity activity) {
 
         Bundle bundle = new Bundle();
-        String activityUrl = String.format(ApiConstants.URL + "activity/i-%d.html", objectId);
+        String activityUrl = String.format(ApiConstants.URL + "activity/i-%d.html", activity.getObjectId());
         bundle.putString(AppConstant.FLAG_DATA, activityUrl);
-        bundle.putInt(AppConstant.FLAG_DATA2, objectId);
+        bundle.putSerializable(AppConstant.FLAG_DATA2, activity);
         intentToAct(context, context.getString(R.string.activity), ActivityInfoFragment.class, bundle);
 
     }

@@ -9,7 +9,6 @@ import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemRecycleViewAdapter;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemTypeSupport;
 import com.jung.finance.R;
-import com.jung.finance.api.ApiConstants;
 import com.jung.finance.app.AppIntent;
 import com.jung.finance.bean.ActivityModel;
 
@@ -89,7 +88,7 @@ public class ActivityListAdapter extends MultiItemRecycleViewAdapter<ActivityMod
             public void onClick(View view) {
                 if (TextUtils.isEmpty(activity.getUrl())) {
 
-                    AppIntent.intentToActivityInfo(mContext, activity.getObjectId());
+                    AppIntent.intentToActivityInfo(mContext, activity);
 
                     return;
                 }
