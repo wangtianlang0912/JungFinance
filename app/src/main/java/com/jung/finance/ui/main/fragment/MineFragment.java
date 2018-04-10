@@ -62,8 +62,8 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
     LinearLayout infoLayout;
     @Bind(R.id.analyze_layout)
     LinearLayout analyzeLayout;
-    @Bind(R.id.video_layout)
-    LinearLayout videoLayout;
+//    @Bind(R.id.video_layout)
+//    LinearLayout videoLayout;
     @Bind(R.id.activity_layout)
     LinearLayout activityLayout;
 
@@ -120,7 +120,7 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.setting, R.id.img_logo_layout, R.id.subscribe_layout, R.id.fans_layout, R.id.score_layout, R.id.media_account_btn, R.id.refer_view, R.id.info_layout, R.id.analyze_layout, R.id.video_layout, R.id.activity_layout})
+    @OnClick({R.id.setting, R.id.img_logo_layout, R.id.subscribe_layout, R.id.fans_layout, R.id.score_layout, R.id.media_account_btn, R.id.refer_view, R.id.info_layout, R.id.analyze_layout, R.id.activity_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting:
@@ -146,8 +146,6 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
             case R.id.info_layout:
                 break;
             case R.id.analyze_layout:
-                break;
-            case R.id.video_layout:
                 break;
             case R.id.activity_layout:
                 break;

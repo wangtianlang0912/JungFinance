@@ -73,8 +73,7 @@
     <string name="my_fav">我的收藏</string>
     <string name="media_publish">媒体发布</string>
     <string name="info">资讯</string>
-    <string name="analyze">分析</string>
-    <string name="video">视频</string>
+    <string name="analyze">行情</string>
     <string name="activity">活动</string>
     <string name="nick_name">昵称: </string>
     <string name="description">简介: </string>
