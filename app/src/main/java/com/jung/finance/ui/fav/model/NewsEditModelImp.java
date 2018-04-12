@@ -17,13 +17,14 @@ import com.jung.finance.ui.fav.contract.NewsEditContract;
  *
  */
 public class NewsEditModelImp implements NewsEditContract.Model {
+
     @Override
-    public void loadData() {
+    public void loadData(int startPage) {
 
     }
 
     @Override
-    public void unFavAction() {
+    public void unFavAction(int objectId) {
 
     }
 }
