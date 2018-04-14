@@ -1,7 +1,7 @@
-package com.jung.android.bean;
+package cn.jungmedia.android.bean;
 
 
-import com.jung.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
 
 /***
  *

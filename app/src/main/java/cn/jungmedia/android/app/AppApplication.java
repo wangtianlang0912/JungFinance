@@ -1,9 +1,10 @@
-package com.jung.android.app;
+package cn.jungmedia.android.app;
 
-import com.jung.finance.BuildConfig;
-import com.jung.android.utils.PerfrenceHelper;
 import com.leon.common.baseapp.BaseApplication;
 import com.leon.common.commonutils.LogUtils;
+
+import cn.jungmedia.android.BuildConfig;
+import cn.jungmedia.android.utils.PerfrenceHelper;
 
 /**
  * APPLICATION

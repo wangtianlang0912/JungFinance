@@ -1,4 +1,4 @@
-package com.jung.android.ui.user.fragment;
+package cn.jungmedia.android.ui.user.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,8 +8,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jung.android.app.AppIntent;
-import com.jung.finance.R;
+import cn.jungmedia.android.app.AppIntent;
+import cn.jungmedia.android.R;
 import com.leon.common.base.BaseFragment;
 
 import butterknife.Bind;

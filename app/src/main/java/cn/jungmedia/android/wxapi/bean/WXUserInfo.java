@@ -1,4 +1,4 @@
-package com.jung.android.wxapi.bean;
+package cn.jungmedia.android.wxapi.bean;
 
 
 /***

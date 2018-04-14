@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package com.jung.android.widget;
+package cn.jungmedia.android.widget;
 
 import android.content.Context;
 import android.support.design.widget.CoordinatorLayout;
@@ -23,7 +23,7 @@ import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.jung.android.app.AppConstant;
+import cn.jungmedia.android.app.AppConstant;
 import com.leon.common.baserx.RxBus;
 import com.leon.common.baserx.RxManager;
 

@@ -1,28 +1,39 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.jung.finance">
+    package="cn.jungmedia.android">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
-        android:name="com.jung.finance.app.AppApplication"
+        android:name="cn.jungmedia.android.app.AppApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         tools:overrideLibrary="android.support.design">
 
-        <uses-library android:name="android.test.runner"/>
+        <uses-library android:name="android.test.runner" />
 
         <instrumentation
             android:name="android.test.InstrumentationTestRunner"
             android:targetPackage="com.jung.finance" />
 
         <activity
-            android:name="com.jung.finance.ui.main.activity.SplashActivity"
+            android:name="cn.jungmedia.android.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent">
+
+        </activity>
+
+        <activity
+            android:name="cn.jungmedia.android.ui.main.activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
@@ -32,38 +43,38 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.jung.finance.ui.news.activity.PhotosDetailActivity"
+            android:name="cn.jungmedia.android.ui.news.activity.PhotosDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/BaseAppTheme.Trans" />
         <activity
-            android:name="com.jung.finance.ui.main.activity.MainActivity"
+            android:name="cn.jungmedia.android.ui.main.activity.MainActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jung.finance.ui.news.activity.NewsDetailActivity"
+            android:name="cn.jungmedia.android.ui.news.activity.NewsDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jung.finance.ui.news.activity.NewsBrowserActivity"
+            android:name="cn.jungmedia.android.ui.news.activity.NewsBrowserActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jung.finance.ui.news.activity.NewsPhotoDetailActivity"
+            android:name="cn.jungmedia.android.ui.news.activity.NewsPhotoDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jung.finance.ui.news.activity.NewsChannelActivity"
+            android:name="cn.jungmedia.android.ui.news.activity.NewsChannelActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jung.finance.ui.zone.activity.CircleZoneActivity"
+            android:name="cn.jungmedia.android.ui.zone.activity.CircleZoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jung.finance.ui.zone.activity.CirclePublishActivity"
+            android:name="cn.jungmedia.android.ui.zone.activity.CirclePublishActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.jung.finance.ui.news.activity.AboutActivity"
+            android:name="cn.jungmedia.android.ui.news.activity.AboutActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.jung.finance.ui.common.CommonActivity"
-            android:theme="@style/Theme_In_From_Right"
-            android:screenOrientation="portrait" />
+            android:name="cn.jungmedia.android.ui.common.CommonActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme_In_From_Right" />
 
 
         <!-- 友盟统计 -->

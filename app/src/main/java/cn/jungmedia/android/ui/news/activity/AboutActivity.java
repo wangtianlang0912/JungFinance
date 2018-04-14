@@ -1,4 +1,4 @@
-package com.jung.android.ui.news.activity;
+package cn.jungmedia.android.ui.news.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,12 +11,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jung.finance.R;
+import cn.jungmedia.android.R;
 import com.leon.common.base.BaseActivity;
 
 import butterknife.Bind;
 
-import static com.jung.finance.R.layout.act_about;
+import static cn.jungmedia.android.R.layout.act_about;
 
 /**
  * des:关于

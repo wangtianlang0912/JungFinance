@@ -1,4 +1,4 @@
-package com.jung.android.ui.zone.adapter;
+package cn.jungmedia.android.ui.zone.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jung.android.ui.zone.bean.CommentItem;
-import com.jung.android.ui.zone.spannable.CircleMovementMethod;
-import com.jung.android.ui.zone.spannable.NameClickable;
-import com.jung.finance.R;
-import com.jung.android.ui.zone.spannable.NameClickListener;
-import com.jung.android.ui.zone.widget.CommentListView;
+import cn.jungmedia.android.ui.zone.bean.CommentItem;
+import cn.jungmedia.android.ui.zone.spannable.CircleMovementMethod;
+import cn.jungmedia.android.ui.zone.spannable.NameClickable;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.ui.zone.spannable.NameClickListener;
+import cn.jungmedia.android.ui.zone.widget.CommentListView;
 
 import java.util.ArrayList;
 import java.util.List;

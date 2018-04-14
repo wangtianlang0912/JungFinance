@@ -6,8 +6,8 @@ import android.test.ApplicationTestCase;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.jung.finance.api.Api;
-import com.jung.finance.bean.ArticleModel;
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.bean.ArticleModel;
 import com.leon.common.basebean.BaseRespose;
 
 import java.lang.reflect.Type;

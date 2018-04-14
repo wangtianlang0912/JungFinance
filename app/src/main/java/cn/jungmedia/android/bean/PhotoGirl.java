@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package com.jung.android.bean;
+package cn.jungmedia.android.bean;
 
 public class PhotoGirl {
     /**

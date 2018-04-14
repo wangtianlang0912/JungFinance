@@ -1,32 +1,32 @@
-package com.jung.android.app;
+package cn.jungmedia.android.app;
 
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.jung.android.api.ApiConstants;
-import com.jung.android.ui.blogger.fragment.BloggerArticleDetailFragment;
-import com.jung.android.ui.blogger.fragment.BloggerFragment;
-import com.jung.android.ui.common.CommonActivity;
-import com.jung.android.ui.common.CommonWebFragment;
-import com.jung.android.ui.fav.ui.FastEditFragment;
-import com.jung.android.ui.fav.ui.HqEditFragment;
-import com.jung.android.ui.fav.ui.NewsEditFragment;
-import com.jung.android.ui.news.fragment.ArticleDetailFragment;
-import com.jung.android.ui.user.fragment.ForgetPwdFragment;
-import com.jung.android.ui.user.fragment.RegisterFragment;
-import com.jung.android.ui.user.fragment.UpdatePwdFragment;
-import com.jung.finance.R;
-import com.jung.android.bean.ActivityModel;
-import com.jung.android.ui.fav.ui.ActivityEditFragment;
-import com.jung.android.ui.main.fragment.ActivityInfoFragment;
-import com.jung.android.ui.news.fragment.CommentListFragment;
-import com.jung.android.ui.setting.fragment.SettingFragment;
-import com.jung.android.ui.user.fragment.AccountSafeFragment;
-import com.jung.android.ui.user.fragment.BindMobileFragment;
-import com.jung.android.ui.user.fragment.LoginFragment;
-import com.jung.android.ui.user.fragment.UserInfoFragment;
+import cn.jungmedia.android.api.ApiConstants;
+import cn.jungmedia.android.ui.blogger.fragment.BloggerArticleDetailFragment;
+import cn.jungmedia.android.ui.blogger.fragment.BloggerFragment;
+import cn.jungmedia.android.ui.common.CommonActivity;
+import cn.jungmedia.android.ui.common.CommonWebFragment;
+import cn.jungmedia.android.ui.fav.ui.FastEditFragment;
+import cn.jungmedia.android.ui.fav.ui.HqEditFragment;
+import cn.jungmedia.android.ui.fav.ui.NewsEditFragment;
+import cn.jungmedia.android.ui.news.fragment.ArticleDetailFragment;
+import cn.jungmedia.android.ui.user.fragment.ForgetPwdFragment;
+import cn.jungmedia.android.ui.user.fragment.RegisterFragment;
+import cn.jungmedia.android.ui.user.fragment.UpdatePwdFragment;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.ActivityModel;
+import cn.jungmedia.android.ui.fav.ui.ActivityEditFragment;
+import cn.jungmedia.android.ui.main.fragment.ActivityInfoFragment;
+import cn.jungmedia.android.ui.news.fragment.CommentListFragment;
+import cn.jungmedia.android.ui.setting.fragment.SettingFragment;
+import cn.jungmedia.android.ui.user.fragment.AccountSafeFragment;
+import cn.jungmedia.android.ui.user.fragment.BindMobileFragment;
+import cn.jungmedia.android.ui.user.fragment.LoginFragment;
+import cn.jungmedia.android.ui.user.fragment.UserInfoFragment;
 
 /***
  *

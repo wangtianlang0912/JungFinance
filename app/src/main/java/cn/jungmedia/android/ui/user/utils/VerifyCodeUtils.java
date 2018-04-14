@@ -1,4 +1,4 @@
-package com.jung.android.ui.user.utils;
+package cn.jungmedia.android.ui.user.utils;
 
 
 import android.view.View;

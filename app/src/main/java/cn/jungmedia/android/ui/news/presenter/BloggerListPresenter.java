@@ -1,9 +1,9 @@
-package com.jung.android.ui.news.presenter;
+package cn.jungmedia.android.ui.news.presenter;
 
 
-import com.jung.android.bean.BloggerModel;
-import com.jung.android.ui.news.contract.BloggerListContract;
-import com.jung.finance.R;
+import cn.jungmedia.android.bean.BloggerModel;
+import cn.jungmedia.android.ui.news.contract.BloggerListContract;
+import cn.jungmedia.android.R;
 import com.leon.common.baserx.RxSubscriber;
 
 /***

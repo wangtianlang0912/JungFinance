@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package com.jung.android.utils;
+package cn.jungmedia.android.utils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

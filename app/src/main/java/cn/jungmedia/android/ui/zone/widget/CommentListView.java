@@ -1,10 +1,10 @@
-package com.jung.android.ui.zone.widget;
+package cn.jungmedia.android.ui.zone.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 
-import com.jung.android.ui.zone.adapter.CommentAdapter;
+import cn.jungmedia.android.ui.zone.adapter.CommentAdapter;
 
 
 /**

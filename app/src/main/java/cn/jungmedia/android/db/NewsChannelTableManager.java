@@ -14,12 +14,12 @@
  * limitations under the License.
  *
  */
-package com.jung.android.db;
+package cn.jungmedia.android.db;
 
 
-import com.jung.finance.R;
-import com.jung.android.app.AppApplication;
-import com.jung.android.bean.NewsChannelTable;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppApplication;
+import cn.jungmedia.android.bean.NewsChannelTable;
 
 import java.util.ArrayList;
 import java.util.Arrays;

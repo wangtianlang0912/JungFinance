@@ -1,4 +1,4 @@
-package com.jung.android.bean;
+package cn.jungmedia.android.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package com.jung.android.widget;
+package cn.jungmedia.android.widget;
 
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -23,10 +23,10 @@ import android.support.annotation.Nullable;
 import android.text.Html;
 import android.widget.TextView;
 
-import com.jung.android.api.Api;
-import com.jung.android.api.HostType;
-import com.jung.android.app.AppApplication;
-import com.jung.finance.R;
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.app.AppApplication;
+import cn.jungmedia.android.R;
 
 import java.io.File;
 import java.io.FileOutputStream;

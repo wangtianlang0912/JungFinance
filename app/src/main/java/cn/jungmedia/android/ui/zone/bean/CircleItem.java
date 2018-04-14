@@ -1,10 +1,10 @@
-package com.jung.android.ui.zone.bean;
+package cn.jungmedia.android.ui.zone.bean;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.jung.android.ui.zone.widget.ImageUtil;
+import cn.jungmedia.android.ui.zone.widget.ImageUtil;
 import com.leon.common.baseapp.AppCache;
 
 import java.util.ArrayList;

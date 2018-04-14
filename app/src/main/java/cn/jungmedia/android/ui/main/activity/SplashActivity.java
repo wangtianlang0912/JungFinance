@@ -1,4 +1,4 @@
-package com.jung.android.ui.main.activity;
+package cn.jungmedia.android.ui.main.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -8,10 +8,10 @@ import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jung.finance.R;
 import com.leon.common.base.BaseActivity;
 
 import butterknife.Bind;
+import cn.jungmedia.android.R;
 
 /**
  * des:启动页

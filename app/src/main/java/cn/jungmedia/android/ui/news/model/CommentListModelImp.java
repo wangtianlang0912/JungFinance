@@ -1,12 +1,12 @@
-package com.jung.android.ui.news.model;
+package cn.jungmedia.android.ui.news.model;
 
-import com.jung.android.api.ApiConstants;
-import com.jung.android.api.HostType;
-import com.jung.android.bean.CommentCreateModel;
-import com.jung.android.api.Api;
-import com.jung.android.bean.CommentListModel;
-import com.jung.android.ui.news.contract.CommentListContract;
-import com.jung.android.utils.MyUtils;
+import cn.jungmedia.android.api.ApiConstants;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.bean.CommentCreateModel;
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.bean.CommentListModel;
+import cn.jungmedia.android.ui.news.contract.CommentListContract;
+import cn.jungmedia.android.utils.MyUtils;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 import com.leon.common.commonutils.TimeUtil;

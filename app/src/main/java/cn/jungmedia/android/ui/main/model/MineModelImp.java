@@ -1,13 +1,14 @@
-package com.jung.android.ui.main.model;
+package cn.jungmedia.android.ui.main.model;
 
-import com.jung.android.api.HostType;
-import com.jung.android.ui.main.contract.MineContract;
-import com.jung.android.api.Api;
-import com.jung.android.ui.user.bean.UserInfo;
-import com.jung.android.utils.MyUtils;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.api.ApiConstants;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.ui.main.contract.MineContract;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.utils.MyUtils;
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -33,6 +34,10 @@ public class MineModelImp implements MineContract.IMineModel {
                 .map(new Func1<BaseRespose<UserInfo>, UserInfo>() {
                     @Override
                     public UserInfo call(BaseRespose<UserInfo> respose) {
+                        UserInfo userInfo = respose.data;
+                        if (userInfo != null && userInfo.getUser() != null) {
+                            userInfo.getUser().setLogo(ApiConstants.getHost(HostType.Jung_FINANCE) + userInfo.getUser().getLogo());
+                        }
                         return respose.data;
                     }
                 }).compose(RxSchedulers.<UserInfo>io_main());

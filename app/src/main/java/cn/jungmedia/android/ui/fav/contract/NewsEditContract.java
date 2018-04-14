@@ -1,4 +1,4 @@
-package com.jung.android.ui.fav.contract;
+package cn.jungmedia.android.ui.fav.contract;
 
 
 import com.leon.common.base.BaseModel;

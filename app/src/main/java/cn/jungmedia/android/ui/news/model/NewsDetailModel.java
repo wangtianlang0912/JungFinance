@@ -1,9 +1,9 @@
-package com.jung.android.ui.news.model;
+package cn.jungmedia.android.ui.news.model;
 
-import com.jung.android.api.HostType;
-import com.jung.android.bean.NewsDetail;
-import com.jung.android.ui.news.contract.NewsDetailContract;
-import com.jung.android.api.Api;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.bean.NewsDetail;
+import cn.jungmedia.android.ui.news.contract.NewsDetailContract;
+import cn.jungmedia.android.api.Api;
 import com.leon.common.baserx.RxSchedulers;
 
 import java.util.List;

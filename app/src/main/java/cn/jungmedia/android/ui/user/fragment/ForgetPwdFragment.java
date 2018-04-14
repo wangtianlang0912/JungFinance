@@ -1,4 +1,4 @@
-package com.jung.android.ui.user.fragment;
+package cn.jungmedia.android.ui.user.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,13 +9,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.jung.android.utils.PatternUtil;
-import com.jung.finance.R;
-import com.jung.android.ui.user.bean.UserInfo;
-import com.jung.android.ui.user.model.ForgetPwdModelImp;
-import com.jung.android.ui.user.presenter.ForgetPwdPresenterImp;
-import com.jung.android.ui.user.presenter.UserContract;
-import com.jung.android.ui.user.utils.MulitEditUtils;
+import cn.jungmedia.android.utils.PatternUtil;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.ui.user.model.ForgetPwdModelImp;
+import cn.jungmedia.android.ui.user.presenter.ForgetPwdPresenterImp;
+import cn.jungmedia.android.ui.user.presenter.UserContract;
+import cn.jungmedia.android.ui.user.utils.MulitEditUtils;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonutils.ToastUitl;

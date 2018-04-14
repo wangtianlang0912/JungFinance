@@ -1,7 +1,7 @@
-package com.jung.android.ui.zone.widget;
+package cn.jungmedia.android.ui.zone.widget;
 
 
-import com.jung.finance.R;
+import cn.jungmedia.android.R;
 
 /**
  * des:点赞效果接口

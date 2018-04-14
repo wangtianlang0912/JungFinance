@@ -1,4 +1,4 @@
-package com.jung.android.utils.encrypt;
+package cn.jungmedia.android.utils.encrypt;
 
 
 import java.io.ByteArrayInputStream;

@@ -1,4 +1,4 @@
-package com.jung.android.wxapi;
+package cn.jungmedia.android.wxapi;
 
 
 import android.app.Activity;

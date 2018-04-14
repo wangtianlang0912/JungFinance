@@ -1,4 +1,4 @@
-package com.jung.android.ui.common;
+package cn.jungmedia.android.ui.common;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,8 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.jung.android.app.AppConstant;
-import com.jung.finance.R;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.R;
 import com.leon.common.base.BaseActivity;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonutils.LogUtils;

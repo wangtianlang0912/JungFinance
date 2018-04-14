@@ -1,10 +1,10 @@
-package com.jung.android.ui.news.model;
+package cn.jungmedia.android.ui.news.model;
 
-import com.jung.android.api.ApiConstants;
-import com.jung.android.api.HostType;
-import com.jung.android.api.Api;
-import com.jung.android.bean.BloggerModel;
-import com.jung.android.ui.news.contract.BloggerListContract;
+import cn.jungmedia.android.api.ApiConstants;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.bean.BloggerModel;
+import cn.jungmedia.android.ui.news.contract.BloggerListContract;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 

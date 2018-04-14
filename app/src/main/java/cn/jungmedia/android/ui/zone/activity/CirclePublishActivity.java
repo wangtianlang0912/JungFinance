@@ -1,4 +1,4 @@
-package com.jung.android.ui.zone.activity;
+package cn.jungmedia.android.ui.zone.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,10 +9,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import com.jung.android.app.AppConstant;
-import com.jung.android.ui.zone.adapter.NinePicturesAdapter;
-import com.jung.android.ui.zone.bean.CircleItem;
-import com.jung.finance.R;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.ui.zone.adapter.NinePicturesAdapter;
+import cn.jungmedia.android.ui.zone.bean.CircleItem;
+import cn.jungmedia.android.R;
 import com.leon.common.base.BaseActivity;
 import com.leon.common.baseapp.AppCache;
 import com.leon.common.commonutils.ImageLoaderUtils;

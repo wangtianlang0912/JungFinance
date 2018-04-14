@@ -1,4 +1,4 @@
-package com.jung.android.ui.zone.adapter;
+package cn.jungmedia.android.ui.zone.adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.aspsine.irecyclerview.baseadapter.BaseAblistViewAdapter;
-import com.jung.finance.R;
+import cn.jungmedia.android.R;
 import com.leon.common.commonutils.ImageLoaderUtils;
 import com.leon.common.commonutils.ViewHolderUtil;
 import com.leon.common.imagePager.BigImagePagerActivity;

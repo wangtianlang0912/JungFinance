@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package com.jung.android.utils;
+package cn.jungmedia.android.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -23,10 +23,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jung.android.app.AppApplication;
-import com.jung.android.app.AppConstant;
-import com.jung.android.ui.user.bean.UserInfo;
-import com.jung.android.utils.encrypt.Base64;
 import com.leon.common.commonutils.LogUtils;
 
 import java.io.ByteArrayInputStream;
@@ -36,6 +32,11 @@ import java.io.ObjectOutputStream;
 import java.security.cert.X509Certificate;
 
 import javax.net.ssl.X509TrustManager;
+
+import cn.jungmedia.android.app.AppApplication;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.utils.encrypt.Base64;
 
 /**
  * @author 咖枯
@@ -148,6 +149,12 @@ public class MyUtils {
     public static boolean isLogin() {
 
         return getToken() != null;
+    }
+
+    public static void clearUser() {
+        mToken = null;
+        PerfrenceHelper.clearKey(AppApplication.getAppContext(), AppConstant.TOKEN_KEY);
+        PerfrenceHelper.clearKey(AppApplication.getAppContext(), AppConstant.USERINFO_KEY);
     }
 
 

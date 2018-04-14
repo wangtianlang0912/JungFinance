@@ -1,4 +1,4 @@
-package com.jung.android.ui.news.fragment;
+package cn.jungmedia.android.ui.news.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,12 +14,12 @@ import com.aspsine.irecyclerview.universaladapter.recyclerview.CommonRecycleView
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.jung.android.app.AppConstant;
-import com.jung.android.ui.news.contract.VideosListContract;
-import com.jung.android.ui.news.presenter.VideoListPresenter;
-import com.jung.finance.R;
-import com.jung.android.bean.VideoData;
-import com.jung.android.ui.news.model.VideosListModel;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.ui.news.contract.VideosListContract;
+import cn.jungmedia.android.ui.news.presenter.VideoListPresenter;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.VideoData;
+import cn.jungmedia.android.ui.news.model.VideosListModel;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonwidget.LoadingTip;
 

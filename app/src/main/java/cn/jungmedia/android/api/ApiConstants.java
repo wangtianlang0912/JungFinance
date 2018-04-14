@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package com.jung.android.api;
+package cn.jungmedia.android.api;
 
 public class ApiConstants {
     public static final String NETEAST_HOST = "http://c.m.163.com/";

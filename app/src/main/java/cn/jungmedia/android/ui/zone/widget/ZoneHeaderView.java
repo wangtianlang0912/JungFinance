@@ -1,4 +1,4 @@
-package com.jung.android.ui.zone.widget;
+package cn.jungmedia.android.ui.zone.widget;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -10,11 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jung.android.ui.zone.DatasUtil;
-import com.jung.finance.R;
+import cn.jungmedia.android.R;
 import com.leon.common.commonutils.FormatUtil;
 import com.leon.common.commonutils.ImageLoaderUtils;
 import com.leon.common.commonwidget.WaveView;
+
+import cn.jungmedia.android.ui.zone.DatasUtil;
 
 /**
  * des:圈子消息头

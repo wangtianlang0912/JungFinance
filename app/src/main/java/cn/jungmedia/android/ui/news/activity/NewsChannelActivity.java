@@ -1,4 +1,4 @@
-package com.jung.android.ui.news.activity;
+package cn.jungmedia.android.ui.news.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,16 +11,16 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
-import com.jung.android.app.AppConstant;
-import com.jung.android.bean.NewsChannelTable;
-import com.jung.finance.R;
-import com.jung.android.bean.NewsChannelTableGroup;
-import com.jung.android.ui.news.adapter.ChannelAdapter;
-import com.jung.android.ui.news.contract.NewsChannelContract;
-import com.jung.android.ui.news.event.ChannelItemMoveEvent;
-import com.jung.android.ui.news.model.NewsChannelModel;
-import com.jung.android.ui.news.presenter.NewsChanelPresenter;
-import com.jung.android.widget.ItemDragHelperCallback;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.bean.NewsChannelTable;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.NewsChannelTableGroup;
+import cn.jungmedia.android.ui.news.adapter.ChannelAdapter;
+import cn.jungmedia.android.ui.news.contract.NewsChannelContract;
+import cn.jungmedia.android.ui.news.event.ChannelItemMoveEvent;
+import cn.jungmedia.android.ui.news.model.NewsChannelModel;
+import cn.jungmedia.android.ui.news.presenter.NewsChanelPresenter;
+import cn.jungmedia.android.widget.ItemDragHelperCallback;
 import com.leon.common.base.BaseActivity;
 import com.leon.common.commonwidget.NormalTitleBar;
 

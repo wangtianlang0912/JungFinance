@@ -42,17 +42,17 @@ android {
             // 移除无用的resource文件
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            //apk命名
-            android.applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    def outputFile = output.outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        //这里修改apk文件名
-                        def fileName = "jungmedia-${defaultConfig.versionCode}-${defaultConfig.versionName}-${releaseTime()}.apk"
-                        output.outputFile = new File(outputFile.parent, fileName)
-                    }
-                }
-            }
+//            //apk命名
+//            android.applicationVariants.all { variant ->
+//                variant.outputs.each { output ->
+//                    def outputFile = output.outputFile
+//                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+//                        //这里修改apk文件名
+//                        def fileName = "jungmedia-${defaultConfig.versionCode}-${defaultConfig.versionName}-${releaseTime()}.apk"
+//                        output.outputFile = new File(outputFile.parent, fileName)
+//                    }
+//                }
+//            }
             signingConfig signingConfigs.release
 
         }
@@ -86,9 +86,9 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':library:photoPicker')//图片选择
     compile project(':library:irecyclerview')//万能适配器和recyclerview
-    compile project(':library:oneKeyShareSDK')//分享
+//    compile project(':library:oneKeyShareSDK')//分享
     compile project(':library:jcvideoplayer')//视频播放
     compile project(':library:selectordialog')//常用提示框
 
-
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.1.6'
 }

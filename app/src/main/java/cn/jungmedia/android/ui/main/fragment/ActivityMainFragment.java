@@ -1,4 +1,4 @@
-package com.jung.android.ui.main.fragment;
+package cn.jungmedia.android.ui.main.fragment;
 
 
 import android.os.Bundle;
@@ -11,13 +11,13 @@ import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
-import com.jung.android.bean.Counter;
-import com.jung.android.ui.main.model.ActivityModelImp;
-import com.jung.android.ui.main.presenter.ActivityPresenterImp;
-import com.jung.finance.R;
-import com.jung.android.bean.ActivityModel;
-import com.jung.android.ui.main.adapter.ActivityListAdapter;
-import com.jung.android.ui.main.contract.ActivityContract;
+import cn.jungmedia.android.bean.Counter;
+import cn.jungmedia.android.ui.main.model.ActivityModelImp;
+import cn.jungmedia.android.ui.main.presenter.ActivityPresenterImp;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.ActivityModel;
+import cn.jungmedia.android.ui.main.adapter.ActivityListAdapter;
+import cn.jungmedia.android.ui.main.contract.ActivityContract;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonwidget.LoadingTip;
 import com.leon.common.commonwidget.NormalTitleBar;

@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package com.jung.android.widget;
+package cn.jungmedia.android.widget;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;

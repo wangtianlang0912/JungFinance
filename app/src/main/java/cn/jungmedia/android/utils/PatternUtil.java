@@ -1,4 +1,4 @@
-package com.jung.android.utils;
+package cn.jungmedia.android.utils;
 
 
 import android.text.TextUtils;

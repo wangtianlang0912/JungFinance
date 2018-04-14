@@ -1,8 +1,8 @@
-package com.jung.android.ui.fav.ui;
+package cn.jungmedia.android.ui.fav.ui;
 
-import com.jung.android.ui.fav.contract.FastEditContract;
-import com.jung.android.ui.fav.model.FastEditModelImp;
-import com.jung.android.ui.fav.presenter.FastEditPresenter;
+import cn.jungmedia.android.ui.fav.contract.FastEditContract;
+import cn.jungmedia.android.ui.fav.model.FastEditModelImp;
+import cn.jungmedia.android.ui.fav.presenter.FastEditPresenter;
 import com.leon.common.base.BaseFragment;
 
 

@@ -1,6 +1,6 @@
-package com.jung.android.ui.fav.presenter;
+package cn.jungmedia.android.ui.fav.presenter;
 
-import com.jung.android.ui.fav.contract.FastEditContract;
+import cn.jungmedia.android.ui.fav.contract.FastEditContract;
 
 
 /***

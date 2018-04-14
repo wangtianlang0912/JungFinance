@@ -1,9 +1,9 @@
-package com.jung.android.ui.news.presenter;
+package cn.jungmedia.android.ui.news.presenter;
 
-import com.jung.android.app.AppConstant;
-import com.jung.android.bean.NewsChannelTable;
-import com.jung.android.bean.NewsChannelTableGroup;
-import com.jung.android.ui.news.contract.NewsChannelContract;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.bean.NewsChannelTable;
+import cn.jungmedia.android.bean.NewsChannelTableGroup;
+import cn.jungmedia.android.ui.news.contract.NewsChannelContract;
 import com.leon.common.baserx.RxSubscriber;
 
 import java.util.ArrayList;

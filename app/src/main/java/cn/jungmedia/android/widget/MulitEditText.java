@@ -1,4 +1,4 @@
-package com.jung.android.widget;
+package cn.jungmedia.android.widget;
 
 
 import android.content.Context;

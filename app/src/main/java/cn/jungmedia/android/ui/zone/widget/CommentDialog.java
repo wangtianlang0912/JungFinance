@@ -1,4 +1,4 @@
-package com.jung.android.ui.zone.widget;
+package cn.jungmedia.android.ui.zone.widget;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -11,9 +11,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.jung.android.ui.zone.bean.CommentItem;
-import com.jung.android.ui.zone.presenter.CircleZonePresenter;
-import com.jung.finance.R;
+import cn.jungmedia.android.ui.zone.bean.CommentItem;
+import cn.jungmedia.android.ui.zone.presenter.CircleZonePresenter;
+import cn.jungmedia.android.R;
 import com.leon.common.baseapp.AppCache;
 import com.leon.common.commonutils.FormatUtil;
 

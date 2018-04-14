@@ -1,4 +1,4 @@
-package com.jung.android.ui.user.fragment;
+package cn.jungmedia.android.ui.user.fragment;
 
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,16 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jung.android.app.AppConstant;
-import com.jung.android.app.AppIntent;
-import com.jung.android.ui.user.bean.UserInfo;
-import com.jung.android.ui.user.model.LoginModelImp;
-import com.jung.android.ui.user.presenter.LoginPresenterImp;
-import com.jung.android.ui.user.utils.MulitEditUtils;
-import com.jung.android.utils.PatternUtil;
-import com.jung.finance.R;
-import com.jung.android.ui.user.presenter.UserContract;
-import com.jung.android.utils.MyUtils;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonutils.ToastUitl;
@@ -32,6 +22,16 @@ import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.app.AppIntent;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.ui.user.model.LoginModelImp;
+import cn.jungmedia.android.ui.user.presenter.LoginPresenterImp;
+import cn.jungmedia.android.ui.user.presenter.UserContract;
+import cn.jungmedia.android.ui.user.utils.MulitEditUtils;
+import cn.jungmedia.android.utils.MyUtils;
+import cn.jungmedia.android.utils.PatternUtil;
 
 
 /***
@@ -122,6 +122,15 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
         ButterKnife.unbind(this);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (MyUtils.isLogin()) {
+            getActivity().finish();
+        }
+    }
+
     @OnClick({R.id.mobile_login_tv, R.id.account_login_tv, R.id.verifycode_clear_iv, R.id.mobile_clear_iv, R.id.pwd_clear_iv, R.id.login_btn, R.id.wechat_btn, R.id.register_btn, R.id.forget_pwd_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -178,18 +187,17 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
 
     private void wechatLogin() {
 
-        //创建微信api并注册到微信
-        AppConstant.wx_api = WXAPIFactory.createWXAPI(getActivity(), AppConstant.APP_ID, true);
-
+        if (AppConstant.wx_api == null) {
+            //创建微信api并注册到微信
+            AppConstant.wx_api = WXAPIFactory.createWXAPI(getContext(), AppConstant.APP_ID, false);
+            AppConstant.wx_api.registerApp(AppConstant.APP_ID);
+        }
         if (!AppConstant.wx_api.isWXAppInstalled()) {
-            showShortToast("请安装微信客户端");
+            ToastUitl.showShort("请安装微信客户端");
             return;
         }
-
-        AppConstant.wx_api.registerApp(AppConstant.APP_ID);
-
         //发起登录请求
-        final SendAuth.Req req = new SendAuth.Req();
+        SendAuth.Req req = new SendAuth.Req();
         req.scope = "snsapi_userinfo";
         req.state = getContext().getPackageName();
         AppConstant.wx_api.sendReq(req);

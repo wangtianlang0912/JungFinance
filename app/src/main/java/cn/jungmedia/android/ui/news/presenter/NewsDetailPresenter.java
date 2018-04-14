@@ -1,8 +1,8 @@
-package com.jung.android.ui.news.presenter;
+package cn.jungmedia.android.ui.news.presenter;
 
-import com.jung.android.bean.NewsDetail;
-import com.jung.android.ui.news.contract.NewsDetailContract;
-import com.jung.finance.R;
+import cn.jungmedia.android.bean.NewsDetail;
+import cn.jungmedia.android.ui.news.contract.NewsDetailContract;
+import cn.jungmedia.android.R;
 import com.leon.common.baserx.RxSubscriber;
 import com.leon.common.commonutils.ToastUitl;
 

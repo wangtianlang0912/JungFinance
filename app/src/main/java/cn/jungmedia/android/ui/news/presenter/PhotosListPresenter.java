@@ -1,8 +1,8 @@
-package com.jung.android.ui.news.presenter;
+package cn.jungmedia.android.ui.news.presenter;
 
-import com.jung.android.ui.news.contract.PhotoListContract;
-import com.jung.finance.R;
-import com.jung.android.bean.PhotoGirl;
+import cn.jungmedia.android.ui.news.contract.PhotoListContract;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.PhotoGirl;
 import com.leon.common.baserx.RxSubscriber;
 
 import java.util.List;

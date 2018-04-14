@@ -1,6 +1,6 @@
-package com.jung.android.ui.main.contract;
+package cn.jungmedia.android.ui.main.contract;
 
-import com.jung.android.bean.NewsChannelTable;
+import cn.jungmedia.android.bean.NewsChannelTable;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;

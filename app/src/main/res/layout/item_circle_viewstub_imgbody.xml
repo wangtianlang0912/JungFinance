@@ -3,10 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.jung.finance.ui.zone.widget.MultiImageView
+    <cn.jungmedia.android.ui.zone.widget.MultiImageView
         android:id="@+id/multiImagView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"></com.jung.finance.ui.zone.widget.MultiImageView>
+        android:layout_marginTop="5dp"></cn.jungmedia.android.ui.zone.widget.MultiImageView>
 
 </LinearLayout>

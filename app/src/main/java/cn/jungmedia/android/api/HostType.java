@@ -14,7 +14,7 @@
  * limitations under the License.
  *
  */
-package com.jung.android.api;
+package cn.jungmedia.android.api;
 
 public class HostType {
 

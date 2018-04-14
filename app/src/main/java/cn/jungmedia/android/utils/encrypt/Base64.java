@@ -1,4 +1,4 @@
-package com.jung.android.utils.encrypt;
+package cn.jungmedia.android.utils.encrypt;
 
 /**
  * <p>Encodes and decodes to and from Base64 notation.</p>

@@ -1,2 +1,2 @@
-include ':yizhi', ':sdk', ':wechatdemo'
+include ':yizhi', ':sdk'
 include ':library:common', ':library:selectordialog', ':library:jcvideoplayer', ':app', ':library:oneKeyShareSDK', ':library:irecyclerview', ':library:photoPicker'

@@ -1,4 +1,4 @@
-package com.jung.android.ui.zone.spannable;
+package cn.jungmedia.android.ui.zone.spannable;
 
 import android.text.SpannableString;
 

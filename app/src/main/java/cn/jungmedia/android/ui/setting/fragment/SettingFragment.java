@@ -1,4 +1,4 @@
-package com.jung.android.ui.setting.fragment;
+package cn.jungmedia.android.ui.setting.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,17 +10,21 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jung.android.api.ApiConstants;
-import com.jung.android.app.AppIntent;
-import com.jung.android.ui.user.bean.UserInfo;
-import com.jung.finance.R;
-import com.jung.android.utils.MyUtils;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonutils.ImageLoaderUtils;
+import com.leon.common.commonutils.ToastUitl;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.api.ApiConstants;
+import cn.jungmedia.android.app.AppIntent;
+import cn.jungmedia.android.ui.setting.contract.SettingContract;
+import cn.jungmedia.android.ui.setting.model.SettingModel;
+import cn.jungmedia.android.ui.setting.presenter.SettingPresenter;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.utils.MyUtils;
 
 
 /***
@@ -36,7 +40,7 @@ import butterknife.OnClick;
  *
  *
  */
-public class SettingFragment extends BaseFragment {
+public class SettingFragment extends BaseFragment<SettingPresenter, SettingModel> implements SettingContract.View {
     @Bind(R.id.logo_view)
     ImageView logoView;
     @Bind(R.id.nick_view)
@@ -73,7 +77,7 @@ public class SettingFragment extends BaseFragment {
 
     @Override
     public void initPresenter() {
-
+        mPresenter.setVM(this, mModel);
     }
 
     @Override
@@ -85,6 +89,10 @@ public class SettingFragment extends BaseFragment {
                 nickView.setText(userInfo.getUser().getNick());
                 despView.setText(userInfo.getUser().getRemark());
             }
+
+            logoutBtn.setVisibility(View.VISIBLE);
+        } else {
+            logoutBtn.setVisibility(View.GONE);
         }
     }
 
@@ -102,13 +110,21 @@ public class SettingFragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.userinfo_layout, R.id.account_safe_btn, R.id.clear_cache_layout, R.id.version_layout, R.id.about_us_layout, R.id.contact_us_layout, R.id.feedback_layout})
+    @OnClick({R.id.userinfo_layout, R.id.account_safe_btn, R.id.clear_cache_layout, R.id.version_layout, R.id.about_us_layout, R.id.contact_us_layout, R.id.feedback_layout, R.id.logout_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.userinfo_layout:
+                if (!MyUtils.isLogin()) {
+                    AppIntent.intentToLogin(getActivity());
+                    return;
+                }
                 AppIntent.intentToUserInfo(getActivity());
                 break;
             case R.id.account_safe_btn:
+                if (!MyUtils.isLogin()) {
+                    AppIntent.intentToLogin(getActivity());
+                    return;
+                }
                 AppIntent.intentToAccountSafe(getActivity());
                 break;
             case R.id.clear_cache_layout:
@@ -120,10 +136,41 @@ public class SettingFragment extends BaseFragment {
                 break;
             case R.id.contact_us_layout:
                 AppIntent.intentToCommonWeb(getActivity(), R.string.contact_us, ApiConstants.URL_CONTACT);
-
                 break;
             case R.id.feedback_layout:
                 break;
+
+            case R.id.logout_btn:
+
+                mPresenter.logout();
+                break;
+        }
+    }
+
+    @Override
+    public void showLoading(String title) {
+        showProgressBar();
+    }
+
+    @Override
+    public void stopLoading() {
+        dismissProgressBar();
+    }
+
+    @Override
+    public void showErrorTip(String msg) {
+        showShortToast(msg);
+    }
+
+    @Override
+    public void returnLogout(boolean result) {
+        if (result) {
+            MyUtils.clearUser();
+            ToastUitl.showShort("注销成功");
+            getActivity().finish();
+        } else {
+
+            ToastUitl.showShort("注销失败");
         }
     }
 }

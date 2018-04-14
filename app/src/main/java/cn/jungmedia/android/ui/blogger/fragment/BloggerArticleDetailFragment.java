@@ -1,9 +1,9 @@
-package com.jung.android.ui.blogger.fragment;
+package cn.jungmedia.android.ui.blogger.fragment;
 
 import android.os.Bundle;
 
-import com.jung.android.app.AppConstant;
-import com.jung.android.ui.news.fragment.ArticleDetailFragment;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.ui.news.fragment.ArticleDetailFragment;
 
 
 /***

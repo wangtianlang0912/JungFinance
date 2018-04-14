@@ -1,4 +1,4 @@
-package com.jung.android.ui.zone.adapter;
+package cn.jungmedia.android.ui.zone.adapter;
 
 import android.support.annotation.NonNull;
 import android.text.Spannable;
@@ -7,12 +7,12 @@ import android.text.SpannableStringBuilder;
 import android.text.style.DynamicDrawableSpan;
 import android.text.style.ImageSpan;
 
-import com.jung.android.ui.zone.bean.FavortItem;
-import com.jung.android.ui.zone.spannable.CircleMovementMethod;
-import com.jung.android.ui.zone.spannable.NameClickable;
-import com.jung.android.app.AppApplication;
-import com.jung.finance.R;
-import com.jung.android.ui.zone.widget.FavortListView;
+import cn.jungmedia.android.ui.zone.bean.FavortItem;
+import cn.jungmedia.android.ui.zone.spannable.CircleMovementMethod;
+import cn.jungmedia.android.ui.zone.spannable.NameClickable;
+import cn.jungmedia.android.app.AppApplication;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.ui.zone.widget.FavortListView;
 
 import java.util.List;
 

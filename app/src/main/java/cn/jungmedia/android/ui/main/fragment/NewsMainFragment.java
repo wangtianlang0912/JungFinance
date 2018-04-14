@@ -1,4 +1,4 @@
-package com.jung.android.ui.main.fragment;
+package cn.jungmedia.android.ui.main.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,17 +8,17 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.jung.android.app.AppConstant;
-import com.jung.android.bean.NewsChannelTable;
-import com.jung.android.ui.news.activity.NewsChannelActivity;
-import com.jung.finance.R;
-import com.jung.android.ui.main.contract.NewsMainContract;
-import com.jung.android.ui.main.model.NewsMainModel;
-import com.jung.android.ui.main.presenter.NewsMainPresenter;
-import com.jung.android.ui.news.fragment.BloggerListFragment;
-import com.jung.android.ui.news.fragment.NewsFrament;
-import com.jung.android.ui.news.fragment.TopicListFragment;
-import com.jung.android.utils.MyUtils;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.bean.NewsChannelTable;
+import cn.jungmedia.android.ui.news.activity.NewsChannelActivity;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.ui.main.contract.NewsMainContract;
+import cn.jungmedia.android.ui.main.model.NewsMainModel;
+import cn.jungmedia.android.ui.main.presenter.NewsMainPresenter;
+import cn.jungmedia.android.ui.news.fragment.BloggerListFragment;
+import cn.jungmedia.android.ui.news.fragment.NewsFrament;
+import cn.jungmedia.android.ui.news.fragment.TopicListFragment;
+import cn.jungmedia.android.utils.MyUtils;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.base.BaseFragmentAdapter;
 import com.leon.common.commonutils.ToastUitl;

@@ -1,4 +1,4 @@
-package com.jung.android.ui.news.fragment;
+package cn.jungmedia.android.ui.news.fragment;
 
 import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,17 +13,17 @@ import com.aspsine.irecyclerview.banner.BannerAdapter;
 import com.aspsine.irecyclerview.banner.BannerBean;
 import com.aspsine.irecyclerview.banner.BannerGalleryView;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
-import com.jung.android.app.AppConstant;
-import com.jung.android.app.AppIntent;
-import com.jung.android.bean.ArticleModel;
-import com.jung.android.bean.BannerModel;
-import com.jung.android.bean.Counter;
-import com.jung.android.bean.LinkModel;
-import com.jung.android.ui.news.adapter.NewListAdapter;
-import com.jung.android.ui.news.contract.NewsListContract;
-import com.jung.android.ui.news.model.NewsListModel;
-import com.jung.android.ui.news.presenter.NewsListPresenter;
-import com.jung.finance.R;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.app.AppIntent;
+import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.bean.BannerModel;
+import cn.jungmedia.android.bean.Counter;
+import cn.jungmedia.android.bean.LinkModel;
+import cn.jungmedia.android.ui.news.adapter.NewListAdapter;
+import cn.jungmedia.android.ui.news.contract.NewsListContract;
+import cn.jungmedia.android.ui.news.model.NewsListModel;
+import cn.jungmedia.android.ui.news.presenter.NewsListPresenter;
+import cn.jungmedia.android.R;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonwidget.LoadingTip;
 

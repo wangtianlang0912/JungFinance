@@ -21,7 +21,7 @@ public class ScanQRCodeLoginActivity extends Activity implements OAuthListener{
 
 	private static final String TAG = "ScanQRCodeLoginActivity";
 
-	private static final String APP_ID = "wx929be39cf668f738";//"wxd930ea5d5a258f4f";
+	private static final String APP_ID = "wx5164f014ada66b19";//"wxd930ea5d5a258f4f";
 
 	private IDiffDevOAuth oauth;
 
@@ -55,7 +55,7 @@ public class ScanQRCodeLoginActivity extends Activity implements OAuthListener{
 						"snsapi_login", //应用授权作用域，如果有多个，用逗号(,)分隔
 						genNonceStr(), //随机串
 						genTimestamp(), //时间戳
-						signature, //签名
+						"683f8e90479652077c509b74aa4b3bae", //签名
 						ScanQRCodeLoginActivity.this); // 授权完成回调接口（OAuthListener）
 
 				Log.d(TAG, "authRet = %b" + authRet);

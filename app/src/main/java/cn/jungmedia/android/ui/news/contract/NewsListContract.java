@@ -1,8 +1,8 @@
-package com.jung.android.ui.news.contract;
+package cn.jungmedia.android.ui.news.contract;
 
-import com.jung.android.bean.ArticleModel;
-import com.jung.android.bean.BannerModel;
-import com.jung.android.bean.LinkModel;
+import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.bean.BannerModel;
+import cn.jungmedia.android.bean.LinkModel;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;

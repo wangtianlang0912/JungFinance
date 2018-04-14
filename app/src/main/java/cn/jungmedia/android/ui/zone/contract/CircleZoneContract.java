@@ -1,12 +1,12 @@
-package com.jung.android.ui.zone.contract;
+package cn.jungmedia.android.ui.zone.contract;
 
 
 import com.aspsine.irecyclerview.bean.PageBean;
-import com.jung.android.bean.Result;
-import com.jung.android.ui.zone.bean.CircleItem;
-import com.jung.android.ui.zone.bean.CommentConfig;
-import com.jung.android.ui.zone.bean.CommentItem;
-import com.jung.android.ui.zone.bean.FavortItem;
+import cn.jungmedia.android.bean.Result;
+import cn.jungmedia.android.ui.zone.bean.CircleItem;
+import cn.jungmedia.android.ui.zone.bean.CommentConfig;
+import cn.jungmedia.android.ui.zone.bean.CommentItem;
+import cn.jungmedia.android.ui.zone.bean.FavortItem;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;

@@ -1,8 +1,8 @@
-package com.jung.android.ui.news.contract;
+package cn.jungmedia.android.ui.news.contract;
 
 
-import com.jung.android.bean.CommentCreateModel;
-import com.jung.android.bean.CommentListModel;
+import cn.jungmedia.android.bean.CommentCreateModel;
+import cn.jungmedia.android.bean.CommentListModel;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;

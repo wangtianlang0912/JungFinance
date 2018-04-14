@@ -1,4 +1,4 @@
-package com.jung.android.ui.news.activity;
+package cn.jungmedia.android.ui.news.activity;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
@@ -11,10 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 
-import com.jung.android.ui.news.fragment.PhotoDetailFragment;
-import com.jung.finance.R;
-import com.jung.android.app.AppConstant;
-import com.jung.android.bean.NewsPhotoDetail;
+import cn.jungmedia.android.ui.news.fragment.PhotoDetailFragment;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.bean.NewsPhotoDetail;
 import com.leon.common.base.BaseActivity;
 import com.leon.common.base.BaseFragmentAdapter;
 import com.leon.common.commonwidget.ViewPagerFixed;

@@ -1,5 +1,5 @@
 
-package com.jung.android.ui.news.activity;
+package cn.jungmedia.android.ui.news.activity;
 
 
 import android.content.Context;
@@ -12,8 +12,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
-import com.jung.android.app.AppConstant;
-import com.jung.finance.R;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.R;
 import com.leon.common.base.BaseActivity;
 
 import butterknife.Bind;

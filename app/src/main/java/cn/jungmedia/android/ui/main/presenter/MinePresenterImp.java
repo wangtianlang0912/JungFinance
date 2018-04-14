@@ -1,10 +1,11 @@
-package com.jung.android.ui.main.presenter;
+package cn.jungmedia.android.ui.main.presenter;
 
 
-import com.jung.android.ui.main.contract.MineContract;
-import com.jung.finance.R;
-import com.jung.android.ui.user.bean.UserInfo;
 import com.leon.common.baserx.RxSubscriber;
+
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.ui.main.contract.MineContract;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
 
 /***
  *

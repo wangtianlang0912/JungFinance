@@ -1,4 +1,4 @@
-package com.jung.android.bean;
+package cn.jungmedia.android.bean;
 
 
 import com.google.gson.annotations.SerializedName;

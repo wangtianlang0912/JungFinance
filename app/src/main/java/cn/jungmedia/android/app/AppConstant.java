@@ -1,4 +1,4 @@
-package com.jung.android.app;
+package cn.jungmedia.android.app;
 
 import com.tencent.mm.sdk.openapi.IWXAPI;
 

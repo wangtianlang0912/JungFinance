@@ -1,7 +1,7 @@
-package com.jung.android.utils.encrypt.rsa;
+package cn.jungmedia.android.utils.encrypt.rsa;
 
 
-import com.jung.android.utils.encrypt.Base64;
+import cn.jungmedia.android.utils.encrypt.Base64;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

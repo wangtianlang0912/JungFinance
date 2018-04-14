@@ -1,8 +1,8 @@
-package com.jung.android.ui.main.presenter;
+package cn.jungmedia.android.ui.main.presenter;
 
-import com.jung.finance.R;
-import com.jung.android.bean.FastModel;
-import com.jung.android.ui.news.contract.FastListContract;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.FastModel;
+import cn.jungmedia.android.ui.news.contract.FastListContract;
 import com.leon.common.baserx.RxSubscriber;
 
 

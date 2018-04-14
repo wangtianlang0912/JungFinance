@@ -1,10 +1,10 @@
-package com.jung.android.ui.news.model;
+package cn.jungmedia.android.ui.news.model;
 
-import com.jung.android.api.HostType;
-import com.jung.android.ui.news.contract.PhotoListContract;
-import com.jung.android.api.Api;
-import com.jung.android.bean.GirlData;
-import com.jung.android.bean.PhotoGirl;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.ui.news.contract.PhotoListContract;
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.bean.GirlData;
+import cn.jungmedia.android.bean.PhotoGirl;
 import com.leon.common.baserx.RxSchedulers;
 
 import java.util.List;

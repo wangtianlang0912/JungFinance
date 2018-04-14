@@ -1,10 +1,10 @@
-package com.jung.android.ui.user.model;
+package cn.jungmedia.android.ui.user.model;
 
 
-import com.jung.android.api.Api;
-import com.jung.android.api.HostType;
-import com.jung.android.ui.user.presenter.UserContract;
-import com.jung.android.utils.MyUtils;
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.ui.user.presenter.UserContract;
+import cn.jungmedia.android.utils.MyUtils;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 

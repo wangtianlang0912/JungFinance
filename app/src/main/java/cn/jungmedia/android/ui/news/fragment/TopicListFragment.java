@@ -1,4 +1,4 @@
-package com.jung.android.ui.news.fragment;
+package cn.jungmedia.android.ui.news.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -7,14 +7,14 @@ import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
-import com.jung.android.app.AppConstant;
-import com.jung.android.bean.Counter;
-import com.jung.android.bean.TopicModel;
-import com.jung.android.ui.news.contract.TopicListContract;
-import com.jung.android.ui.news.presenter.TopicListPresenter;
-import com.jung.finance.R;
-import com.jung.android.ui.news.adapter.TopicListAdapter;
-import com.jung.android.ui.news.model.TopicListModel;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.bean.Counter;
+import cn.jungmedia.android.bean.TopicModel;
+import cn.jungmedia.android.ui.news.contract.TopicListContract;
+import cn.jungmedia.android.ui.news.presenter.TopicListPresenter;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.ui.news.adapter.TopicListAdapter;
+import cn.jungmedia.android.ui.news.model.TopicListModel;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonwidget.LoadingTip;
 

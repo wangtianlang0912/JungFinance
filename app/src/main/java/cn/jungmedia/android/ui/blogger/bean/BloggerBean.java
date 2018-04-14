@@ -1,7 +1,7 @@
-package com.jung.android.ui.blogger.bean;
+package cn.jungmedia.android.ui.blogger.bean;
 
 
-import com.jung.android.bean.BloggerModel;
+import cn.jungmedia.android.bean.BloggerModel;
 
 /***
  *

@@ -1,7 +1,7 @@
-package com.jung.android.ui.user.presenter;
+package cn.jungmedia.android.ui.user.presenter;
 
-import com.jung.finance.R;
-import com.jung.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
 

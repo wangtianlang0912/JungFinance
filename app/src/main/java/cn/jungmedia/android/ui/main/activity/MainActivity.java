@@ -1,4 +1,4 @@
-package com.jung.android.ui.main.activity;
+package cn.jungmedia.android.ui.main.activity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
@@ -15,13 +15,13 @@ import android.widget.Toast;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
-import com.jung.android.app.AppConstant;
-import com.jung.finance.R;
-import com.jung.android.bean.TabEntity;
-import com.jung.android.ui.main.fragment.ActivityMainFragment;
-import com.jung.android.ui.main.fragment.FastMainFragment;
-import com.jung.android.ui.main.fragment.MineFragment;
-import com.jung.android.ui.main.fragment.NewsMainFragment;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.TabEntity;
+import cn.jungmedia.android.ui.main.fragment.ActivityMainFragment;
+import cn.jungmedia.android.ui.main.fragment.FastMainFragment;
+import cn.jungmedia.android.ui.main.fragment.MineFragment;
+import cn.jungmedia.android.ui.main.fragment.NewsMainFragment;
 import com.leon.common.base.BaseActivity;
 import com.leon.common.commonutils.LogUtils;
 import com.leon.common.daynightmodeutils.ChangeModeController;

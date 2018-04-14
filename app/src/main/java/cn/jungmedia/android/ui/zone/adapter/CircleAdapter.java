@@ -1,13 +1,13 @@
-package com.jung.android.ui.zone.adapter;
+package cn.jungmedia.android.ui.zone.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import com.aspsine.irecyclerview.baseadapter.BaseReclyerViewAdapter;
-import com.jung.android.ui.zone.bean.CircleItem;
-import com.jung.android.ui.zone.presenter.CircleZonePresenter;
-import com.jung.android.ui.zone.viewholder.ZoneViewHolder;
+import cn.jungmedia.android.ui.zone.bean.CircleItem;
+import cn.jungmedia.android.ui.zone.presenter.CircleZonePresenter;
+import cn.jungmedia.android.ui.zone.viewholder.ZoneViewHolder;
 
 /**
  * des: 圈子列表的adapter

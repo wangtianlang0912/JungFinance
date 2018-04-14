@@ -1,8 +1,8 @@
-package com.jung.android.ui.news.presenter;
+package cn.jungmedia.android.ui.news.presenter;
 
-import com.jung.android.bean.CommentCreateModel;
-import com.jung.android.bean.CommentListModel;
-import com.jung.android.ui.news.contract.CommentListContract;
+import cn.jungmedia.android.bean.CommentCreateModel;
+import cn.jungmedia.android.bean.CommentListModel;
+import cn.jungmedia.android.ui.news.contract.CommentListContract;
 import com.leon.common.baserx.RxSubscriber;
 
 

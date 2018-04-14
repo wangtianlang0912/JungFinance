@@ -1,4 +1,4 @@
-package com.jung.android.ui.user.fragment;
+package cn.jungmedia.android.ui.user.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,12 +9,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.jung.android.ui.user.bean.UserInfo;
-import com.jung.android.ui.user.presenter.UserInfoPresenterImp;
-import com.jung.finance.R;
-import com.jung.android.ui.user.model.UserInfoModelImp;
-import com.jung.android.ui.user.presenter.UserContract;
-import com.jung.android.utils.MyUtils;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonutils.ImageLoaderUtils;
 import com.leon.common.commonutils.ToastUitl;
@@ -22,6 +16,12 @@ import com.leon.common.commonutils.ToastUitl;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.ui.user.model.UserInfoModelImp;
+import cn.jungmedia.android.ui.user.presenter.UserContract;
+import cn.jungmedia.android.ui.user.presenter.UserInfoPresenterImp;
+import cn.jungmedia.android.utils.MyUtils;
 
 
 /***

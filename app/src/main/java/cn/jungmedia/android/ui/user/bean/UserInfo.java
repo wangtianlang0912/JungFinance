@@ -1,12 +1,12 @@
-package com.jung.android.ui.user.bean;
+package cn.jungmedia.android.ui.user.bean;
 
-
-import com.jung.android.ui.main.bean.MessageInfo;
-import com.jung.android.ui.main.bean.ScoreInfo;
-import com.jung.android.ui.main.bean.MediaInfo;
 
 import java.io.Serializable;
 import java.util.List;
+
+import cn.jungmedia.android.ui.main.bean.MediaInfo;
+import cn.jungmedia.android.ui.main.bean.MessageInfo;
+import cn.jungmedia.android.ui.main.bean.ScoreInfo;
 
 /***
  *

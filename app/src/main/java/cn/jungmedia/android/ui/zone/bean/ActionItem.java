@@ -1,4 +1,4 @@
-package com.jung.android.ui.zone.bean;
+package cn.jungmedia.android.ui.zone.bean;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;

@@ -1,12 +1,12 @@
-package com.jung.android.ui.news.adapter;
+package cn.jungmedia.android.ui.news.adapter;
 
 
 import android.content.Context;
 
 import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.CommonRecycleViewAdapter;
-import com.jung.finance.R;
-import com.jung.android.bean.CommentCreateModel;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.CommentCreateModel;
 
 import java.util.List;
 

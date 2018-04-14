@@ -1,4 +1,4 @@
-package com.jung.android.ui.zone.spannable;
+package cn.jungmedia.android.ui.zone.spannable;
 
 import android.text.Layout;
 import android.text.Selection;
@@ -10,8 +10,8 @@ import android.text.style.ClickableSpan;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
-import com.jung.android.app.AppApplication;
-import com.jung.finance.R;
+import cn.jungmedia.android.app.AppApplication;
+import cn.jungmedia.android.R;
 
 
 /**

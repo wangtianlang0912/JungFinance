@@ -1,11 +1,11 @@
-package com.jung.android.ui.news.presenter;
+package cn.jungmedia.android.ui.news.presenter;
 
-import com.jung.android.app.AppConstant;
-import com.jung.android.bean.ArticleModel;
-import com.jung.finance.R;
-import com.jung.android.bean.BannerModel;
-import com.jung.android.bean.LinkModel;
-import com.jung.android.ui.news.contract.NewsListContract;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.BannerModel;
+import cn.jungmedia.android.bean.LinkModel;
+import cn.jungmedia.android.ui.news.contract.NewsListContract;
 import com.leon.common.baserx.RxSubscriber;
 
 import java.util.List;

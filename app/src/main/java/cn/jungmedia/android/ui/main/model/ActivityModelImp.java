@@ -1,10 +1,10 @@
-package com.jung.android.ui.main.model;
+package cn.jungmedia.android.ui.main.model;
 
-import com.jung.android.api.ApiConstants;
-import com.jung.android.api.HostType;
-import com.jung.android.api.Api;
-import com.jung.android.bean.ActivityModel;
-import com.jung.android.ui.main.contract.ActivityContract;
+import cn.jungmedia.android.api.ApiConstants;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.bean.ActivityModel;
+import cn.jungmedia.android.ui.main.contract.ActivityContract;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 import com.leon.common.commonutils.TimeUtil;

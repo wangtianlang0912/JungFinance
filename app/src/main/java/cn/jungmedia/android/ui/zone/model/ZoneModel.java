@@ -1,9 +1,9 @@
-package com.jung.android.ui.zone.model;
+package cn.jungmedia.android.ui.zone.model;
 
-import com.jung.android.bean.Result;
-import com.jung.android.ui.zone.DatasUtil;
-import com.jung.android.ui.zone.bean.CommentItem;
-import com.jung.android.ui.zone.contract.CircleZoneContract;
+import cn.jungmedia.android.bean.Result;
+import cn.jungmedia.android.ui.zone.DatasUtil;
+import cn.jungmedia.android.ui.zone.bean.CommentItem;
+import cn.jungmedia.android.ui.zone.contract.CircleZoneContract;
 import com.leon.common.baseapp.AppCache;
 import com.leon.common.baserx.RxSchedulers;
 import com.leon.common.commonutils.LogUtils;

@@ -1,4 +1,4 @@
-package com.jung.android.api;
+package cn.jungmedia.android.api;
 
 
 import android.support.annotation.NonNull;

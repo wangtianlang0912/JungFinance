@@ -1,9 +1,9 @@
-package com.jung.android.ui.news.presenter;
+package cn.jungmedia.android.ui.news.presenter;
 
-import com.jung.android.app.AppConstant;
-import com.jung.android.ui.news.contract.VideosListContract;
-import com.jung.finance.R;
-import com.jung.android.bean.VideoData;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.ui.news.contract.VideosListContract;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.VideoData;
 import com.leon.common.baserx.RxSubscriber;
 
 import java.util.List;

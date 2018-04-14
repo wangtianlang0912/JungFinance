@@ -1,8 +1,8 @@
-package com.jung.android.ui.fav.ui;
+package cn.jungmedia.android.ui.fav.ui;
 
-import com.jung.android.ui.fav.contract.HqEditContract;
-import com.jung.android.ui.fav.presenter.HqEditPresenter;
-import com.jung.android.ui.fav.model.HqEditModelImp;
+import cn.jungmedia.android.ui.fav.contract.HqEditContract;
+import cn.jungmedia.android.ui.fav.presenter.HqEditPresenter;
+import cn.jungmedia.android.ui.fav.model.HqEditModelImp;
 import com.leon.common.base.BaseFragment;
 
 

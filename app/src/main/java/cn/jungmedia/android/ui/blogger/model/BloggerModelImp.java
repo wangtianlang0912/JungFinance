@@ -1,17 +1,17 @@
-package com.jung.android.ui.blogger.model;
+package cn.jungmedia.android.ui.blogger.model;
 
-import com.jung.android.api.Api;
-import com.jung.android.api.ApiConstants;
-import com.jung.android.api.HostType;
-import com.jung.android.app.AppApplication;
-import com.jung.android.bean.ArticleModel;
-import com.jung.android.ui.blogger.bean.BloggerBean;
-import com.jung.android.ui.blogger.contract.BloggerContract;
-import com.jung.android.ui.user.bean.UserInfo;
-import com.jung.android.utils.MyUtils;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.api.ApiConstants;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.app.AppApplication;
+import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.ui.blogger.bean.BloggerBean;
+import cn.jungmedia.android.ui.blogger.contract.BloggerContract;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.utils.MyUtils;
 import rx.Observable;
 import rx.functions.Func1;
 

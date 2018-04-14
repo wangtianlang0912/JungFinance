@@ -1,12 +1,12 @@
-package com.jung.android.ui.blogger.contract;
+package cn.jungmedia.android.ui.blogger.contract;
 
 
-import com.jung.android.bean.ArticleModel;
-import com.jung.android.ui.blogger.bean.BloggerBean;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;
 
+import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.ui.blogger.bean.BloggerBean;
 import rx.Observable;
 
 /***

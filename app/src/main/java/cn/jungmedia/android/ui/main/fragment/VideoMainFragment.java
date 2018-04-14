@@ -1,4 +1,4 @@
-package com.jung.android.ui.main.fragment;
+package cn.jungmedia.android.ui.main.fragment;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -8,12 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jung.android.app.AppConstant;
-import com.jung.android.db.VideosChannelTableManager;
-import com.jung.android.ui.news.fragment.VideosFragment;
-import com.jung.finance.R;
-import com.jung.android.bean.VideoChannelTable;
-import com.jung.android.utils.MyUtils;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.db.VideosChannelTableManager;
+import cn.jungmedia.android.ui.news.fragment.VideosFragment;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.VideoChannelTable;
+import cn.jungmedia.android.utils.MyUtils;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.base.BaseFragmentAdapter;
 

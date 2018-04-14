@@ -1,19 +1,19 @@
-package com.jung.android.ui.zone.presenter;
+package cn.jungmedia.android.ui.zone.presenter;
 
 import android.view.View;
 
 import com.alibaba.fastjson.JSON;
 import com.aspsine.irecyclerview.bean.PageBean;
-import com.jung.android.app.AppConstant;
-import com.jung.android.bean.Result;
-import com.jung.android.ui.zone.DatasUtil;
-import com.jung.android.ui.zone.bean.CircleItem;
-import com.jung.android.ui.zone.bean.CommentItem;
-import com.jung.android.ui.zone.bean.FavortItem;
-import com.jung.android.ui.zone.widget.GoodView;
-import com.jung.finance.R;
-import com.jung.android.ui.zone.bean.CommentConfig;
-import com.jung.android.ui.zone.contract.CircleZoneContract;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.bean.Result;
+import cn.jungmedia.android.ui.zone.DatasUtil;
+import cn.jungmedia.android.ui.zone.bean.CircleItem;
+import cn.jungmedia.android.ui.zone.bean.CommentItem;
+import cn.jungmedia.android.ui.zone.bean.FavortItem;
+import cn.jungmedia.android.ui.zone.widget.GoodView;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.ui.zone.bean.CommentConfig;
+import cn.jungmedia.android.ui.zone.contract.CircleZoneContract;
 import com.leon.common.baseapp.AppCache;
 import com.leon.common.commonutils.JsonUtils;
 import com.leon.common.commonutils.LogUtils;

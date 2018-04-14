@@ -1,11 +1,11 @@
-package com.jung.android.ui.main.model;
+package cn.jungmedia.android.ui.main.model;
 
 
-import com.jung.android.api.Api;
-import com.jung.android.api.HostType;
-import com.jung.android.bean.ActivityFavModel;
-import com.jung.android.ui.main.contract.ActivityDetailContract;
-import com.jung.android.utils.MyUtils;
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.bean.ActivityFavModel;
+import cn.jungmedia.android.ui.main.contract.ActivityDetailContract;
+import cn.jungmedia.android.utils.MyUtils;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 

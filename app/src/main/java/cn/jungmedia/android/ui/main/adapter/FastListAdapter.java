@@ -1,4 +1,4 @@
-package com.jung.android.ui.main.adapter;
+package cn.jungmedia.android.ui.main.adapter;
 
 import android.content.Context;
 import android.view.View;
@@ -6,9 +6,9 @@ import android.view.View;
 import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemRecycleViewAdapter;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemTypeSupport;
-import com.jung.finance.R;
-import com.jung.android.app.AppIntent;
-import com.jung.android.bean.FastModel;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppIntent;
+import cn.jungmedia.android.bean.FastModel;
 
 import java.util.List;
 

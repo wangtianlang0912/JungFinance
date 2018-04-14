@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.jung.android.ui.zone.widget;
+package cn.jungmedia.android.ui.zone.widget;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
@@ -36,7 +36,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jung.finance.R;
+import cn.jungmedia.android.R;
 import com.leon.common.commonutils.DisplayUtil;
 
 public class ExpandableTextView extends LinearLayout implements View.OnClickListener {

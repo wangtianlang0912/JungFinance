@@ -1,9 +1,9 @@
-package com.jung.android.ui.news.model;
+package cn.jungmedia.android.ui.news.model;
 
-import com.jung.android.api.Api;
-import com.jung.android.api.HostType;
-import com.jung.android.bean.VideoData;
-import com.jung.android.ui.news.contract.VideosListContract;
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.bean.VideoData;
+import cn.jungmedia.android.ui.news.contract.VideosListContract;
 import com.leon.common.baserx.RxSchedulers;
 import com.leon.common.commonutils.TimeUtil;
 

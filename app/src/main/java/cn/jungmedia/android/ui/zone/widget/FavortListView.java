@@ -1,11 +1,11 @@
-package com.jung.android.ui.zone.widget;
+package cn.jungmedia.android.ui.zone.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.jung.android.ui.zone.adapter.FavortListAdapter;
-import com.jung.android.ui.zone.spannable.ISpanClick;
+import cn.jungmedia.android.ui.zone.adapter.FavortListAdapter;
+import cn.jungmedia.android.ui.zone.spannable.ISpanClick;
 
 
 /**

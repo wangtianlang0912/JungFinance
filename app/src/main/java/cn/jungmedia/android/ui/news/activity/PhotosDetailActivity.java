@@ -1,4 +1,4 @@
-package com.jung.android.ui.news.activity;
+package cn.jungmedia.android.ui.news.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,11 +14,11 @@ import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.jung.android.app.AppConstant;
-import com.jung.finance.R;
-import com.jung.android.utils.MyUtils;
-import com.jung.android.utils.SystemUiVisibilityUtil;
-import com.jung.android.widget.PullBackLayout;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.utils.MyUtils;
+import cn.jungmedia.android.utils.SystemUiVisibilityUtil;
+import cn.jungmedia.android.widget.PullBackLayout;
 import com.leon.common.commonwidget.StatusBarCompat;
 
 import butterknife.Bind;

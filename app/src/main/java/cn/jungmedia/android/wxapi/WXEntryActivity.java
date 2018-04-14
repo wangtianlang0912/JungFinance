@@ -1,4 +1,4 @@
-package com.jung.android.wxapi;
+package cn.jungmedia.android.wxapi;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,13 +9,6 @@ import android.util.Log;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.jung.android.app.AppConstant;
-import com.jung.android.ui.user.bean.UserInfo;
-import com.jung.android.utils.MyUtils;
-import com.jung.android.wxapi.bean.WXUserInfo;
-import com.jung.android.wxapi.contract.WXContract;
-import com.jung.android.wxapi.model.WxModel;
-import com.jung.android.wxapi.presenter.WxPresenter;
 import com.leon.common.base.BaseActivity;
 import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
@@ -24,6 +17,14 @@ import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
 
 import java.util.concurrent.TimeUnit;
 
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.utils.MyUtils;
+import cn.jungmedia.android.wxapi.bean.WXUserInfo;
+import cn.jungmedia.android.wxapi.contract.WXContract;
+import cn.jungmedia.android.wxapi.model.WxModel;
+import cn.jungmedia.android.wxapi.presenter.WxPresenter;
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -64,16 +65,21 @@ public class WXEntryActivity extends BaseActivity<WxPresenter, WxModel> implemen
                         showErrorTip("微信授权请求失败");
                         finish();
                         break;
+                    case 2:
+                        WXUserInfo userInfo = (WXUserInfo) msg.obj;
+                        mPresenter.userLogin(userInfo.getOpenid(), userInfo.getNickname(), userInfo.getHeadimgurl());
+                        break;
                 }
             }
         };
 
+        Log.d("WXEntryActivity", "onCreate");
         AppConstant.wx_api.handleIntent(getIntent(), this);
     }
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.com_web_layout;
     }
 
     @Override
@@ -132,7 +138,9 @@ public class WXEntryActivity extends BaseActivity<WxPresenter, WxModel> implemen
                                     mHandler.sendEmptyMessage(1);
                                     return;
                                 }
-                                mPresenter.userLogin(userInfo.getOpenid(), userInfo.getNickname(), userInfo.getHeadimgurl());
+                                Message message = mHandler.obtainMessage(2);
+                                message.obj = userInfo;
+                                message.sendToTarget();
                             }
 
                         }

@@ -1,4 +1,4 @@
-package com.jung.android.ui.news.adapter;
+package cn.jungmedia.android.ui.news.adapter;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;
@@ -7,11 +7,11 @@ import android.view.View;
 
 import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.CommonRecycleViewAdapter;
-import com.jung.android.app.AppConstant;
-import com.jung.android.bean.NewsChannelTable;
-import com.jung.android.ui.news.event.ChannelItemMoveEvent;
-import com.jung.android.widget.ItemDragHelperCallback;
-import com.jung.finance.R;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.bean.NewsChannelTable;
+import cn.jungmedia.android.ui.news.event.ChannelItemMoveEvent;
+import cn.jungmedia.android.widget.ItemDragHelperCallback;
+import cn.jungmedia.android.R;
 import com.leon.common.baserx.RxBus;
 import com.leon.common.commonwidget.OnNoDoubleClickListener;
 

@@ -1,11 +1,11 @@
-package com.jung.android.ui.news.presenter;
+package cn.jungmedia.android.ui.news.presenter;
 
-import com.jung.android.bean.ArticleDetail;
-import com.jung.android.bean.ArticleModel;
-import com.jung.android.bean.CommentCreateModel;
-import com.jung.android.bean.CommentListModel;
-import com.jung.android.bean.FavActionModel;
-import com.jung.android.ui.news.contract.ArticleDetaiContract;
+import cn.jungmedia.android.bean.ArticleDetail;
+import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.bean.CommentCreateModel;
+import cn.jungmedia.android.bean.CommentListModel;
+import cn.jungmedia.android.bean.FavActionModel;
+import cn.jungmedia.android.ui.news.contract.ArticleDetaiContract;
 import com.leon.common.baserx.RxSubscriber;
 
 

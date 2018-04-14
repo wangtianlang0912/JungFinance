@@ -1,4 +1,4 @@
-package com.jung.android.ui.main.presenter;
+package cn.jungmedia.android.ui.main.presenter;
 
 
 /***

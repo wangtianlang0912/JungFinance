@@ -1,4 +1,4 @@
-package com.jung.android.ui.zone.widget;
+package cn.jungmedia.android.ui.zone.widget;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 
-import com.jung.finance.R;
+import cn.jungmedia.android.R;
 import com.leon.common.commonutils.DisplayUtil;
 import com.leon.common.commonutils.ImageLoaderUtils;
 

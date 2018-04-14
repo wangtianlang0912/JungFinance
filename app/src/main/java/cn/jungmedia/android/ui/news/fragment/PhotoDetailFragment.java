@@ -1,10 +1,10 @@
-package com.jung.android.ui.news.fragment;
+package cn.jungmedia.android.ui.news.fragment;
 
 import android.view.View;
 import android.widget.ProgressBar;
 
-import com.jung.finance.R;
-import com.jung.android.app.AppConstant;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppConstant;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.baserx.RxSchedulers;
 import com.leon.common.commonutils.ImageLoaderUtils;

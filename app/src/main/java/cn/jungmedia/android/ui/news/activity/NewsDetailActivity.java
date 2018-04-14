@@ -1,4 +1,4 @@
-package com.jung.android.ui.news.activity;
+package cn.jungmedia.android.ui.news.activity;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
@@ -21,13 +21,13 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.jung.android.app.AppConstant;
-import com.jung.android.bean.NewsDetail;
-import com.jung.android.ui.news.contract.NewsDetailContract;
-import com.jung.android.ui.news.model.NewsDetailModel;
-import com.jung.android.widget.URLImageGetter;
-import com.jung.finance.R;
-import com.jung.android.ui.news.presenter.NewsDetailPresenter;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.bean.NewsDetail;
+import cn.jungmedia.android.ui.news.contract.NewsDetailContract;
+import cn.jungmedia.android.ui.news.model.NewsDetailModel;
+import cn.jungmedia.android.widget.URLImageGetter;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.ui.news.presenter.NewsDetailPresenter;
 import com.leon.common.base.BaseActivity;
 import com.leon.common.baserx.RxSchedulers;
 import com.leon.common.commonutils.TimeUtil;

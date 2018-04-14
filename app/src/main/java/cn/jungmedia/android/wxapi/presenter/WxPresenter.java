@@ -1,9 +1,10 @@
-package com.jung.android.wxapi.presenter;
+package cn.jungmedia.android.wxapi.presenter;
 
-import com.jung.finance.R;
-import com.jung.android.ui.user.bean.UserInfo;
-import com.jung.android.wxapi.contract.WXContract;
 import com.leon.common.baserx.RxSubscriber;
+
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.wxapi.contract.WXContract;
 
 
 /***

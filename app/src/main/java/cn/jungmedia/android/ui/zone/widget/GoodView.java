@@ -1,4 +1,4 @@
-package com.jung.android.ui.zone.widget;
+package cn.jungmedia.android.ui.zone.widget;
 
 
 import android.content.Context;

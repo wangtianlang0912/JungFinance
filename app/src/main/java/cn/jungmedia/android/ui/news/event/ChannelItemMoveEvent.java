@@ -1,5 +1,5 @@
 
-package com.jung.android.ui.news.event;
+package cn.jungmedia.android.ui.news.event;
 
 public class ChannelItemMoveEvent {
     private int fromPosition;

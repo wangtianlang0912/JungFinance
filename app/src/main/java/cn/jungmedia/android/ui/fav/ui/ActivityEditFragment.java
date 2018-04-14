@@ -1,8 +1,8 @@
-package com.jung.android.ui.fav.ui;
+package cn.jungmedia.android.ui.fav.ui;
 
-import com.jung.android.ui.fav.contract.ActivityEditContract;
-import com.jung.android.ui.fav.model.ActivityEditModelImp;
-import com.jung.android.ui.fav.presenter.ActivityEditPresenter;
+import cn.jungmedia.android.ui.fav.contract.ActivityEditContract;
+import cn.jungmedia.android.ui.fav.model.ActivityEditModelImp;
+import cn.jungmedia.android.ui.fav.presenter.ActivityEditPresenter;
 import com.leon.common.base.BaseFragment;
 
 

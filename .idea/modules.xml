@@ -12,7 +12,6 @@
       <module fileurl="file://$PROJECT_DIR$/library/photoPicker/photoPicker.iml" filepath="$PROJECT_DIR$/library/photoPicker/photoPicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/sdk/sdk.iml" filepath="$PROJECT_DIR$/sdk/sdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/selectordialog/selectordialog.iml" filepath="$PROJECT_DIR$/library/selectordialog/selectordialog.iml" />
-      <module fileurl="file://$PROJECT_DIR$/wechatdemo/wechatdemo.iml" filepath="$PROJECT_DIR$/wechatdemo/wechatdemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/yizhi/yizhi.iml" filepath="$PROJECT_DIR$/yizhi/yizhi.iml" />
     </modules>
   </component>

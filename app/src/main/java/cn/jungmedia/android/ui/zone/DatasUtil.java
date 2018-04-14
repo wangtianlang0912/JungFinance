@@ -1,7 +1,7 @@
-package com.jung.android.ui.zone;
+package cn.jungmedia.android.ui.zone;
 
 import com.alibaba.fastjson.JSON;
-import com.jung.android.bean.Result;
+import cn.jungmedia.android.bean.Result;
 
 import java.util.Random;
 

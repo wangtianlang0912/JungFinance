@@ -1,4 +1,4 @@
-package com.jung.android.ui.news.adapter;
+package cn.jungmedia.android.ui.news.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -7,9 +7,9 @@ import android.view.View;
 import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemRecycleViewAdapter;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemTypeSupport;
-import com.jung.android.bean.ArticleModel;
-import com.jung.finance.R;
-import com.jung.android.app.AppIntent;
+import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppIntent;
 
 import java.util.List;
 

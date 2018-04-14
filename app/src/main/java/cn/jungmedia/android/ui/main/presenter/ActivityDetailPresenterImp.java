@@ -1,8 +1,8 @@
-package com.jung.android.ui.main.presenter;
+package cn.jungmedia.android.ui.main.presenter;
 
-import com.jung.finance.R;
-import com.jung.android.bean.ActivityFavModel;
-import com.jung.android.ui.main.contract.ActivityDetailContract;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.ActivityFavModel;
+import cn.jungmedia.android.ui.main.contract.ActivityDetailContract;
 import com.leon.common.baserx.RxSubscriber;
 
 

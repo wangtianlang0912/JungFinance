@@ -1,4 +1,4 @@
-package com.jung.android.ui.main.bean;
+package cn.jungmedia.android.ui.main.bean;
 
 
 import java.io.Serializable;

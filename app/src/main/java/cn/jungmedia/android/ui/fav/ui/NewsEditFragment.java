@@ -1,8 +1,8 @@
-package com.jung.android.ui.fav.ui;
+package cn.jungmedia.android.ui.fav.ui;
 
-import com.jung.android.ui.fav.presenter.NewsEditPresenter;
-import com.jung.android.ui.fav.contract.NewsEditContract;
-import com.jung.android.ui.fav.model.NewsEditModelImp;
+import cn.jungmedia.android.ui.fav.presenter.NewsEditPresenter;
+import cn.jungmedia.android.ui.fav.contract.NewsEditContract;
+import cn.jungmedia.android.ui.fav.model.NewsEditModelImp;
 import com.leon.common.base.BaseFragment;
 
 

@@ -1,12 +1,12 @@
-package com.jung.android.ui.news.model;
+package cn.jungmedia.android.ui.news.model;
 
-import com.jung.android.api.Api;
-import com.jung.android.api.ApiConstants;
-import com.jung.android.api.HostType;
-import com.jung.android.bean.ArticleModel;
-import com.jung.android.bean.BannerModel;
-import com.jung.android.bean.LinkModel;
-import com.jung.android.ui.news.contract.NewsListContract;
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.api.ApiConstants;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.bean.BannerModel;
+import cn.jungmedia.android.bean.LinkModel;
+import cn.jungmedia.android.ui.news.contract.NewsListContract;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 import com.leon.common.commonutils.TimeUtil;

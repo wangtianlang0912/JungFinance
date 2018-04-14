@@ -1,4 +1,4 @@
-package com.jung.android.ui.main.fragment;
+package cn.jungmedia.android.ui.main.fragment;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,13 +11,13 @@ import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
-import com.jung.android.bean.Counter;
-import com.jung.android.bean.FastModel;
-import com.jung.android.ui.main.adapter.FastListAdapter;
-import com.jung.android.ui.main.presenter.FastListPresenterImp;
-import com.jung.finance.R;
-import com.jung.android.ui.main.model.FastModelImp;
-import com.jung.android.ui.news.contract.FastListContract;
+import cn.jungmedia.android.bean.Counter;
+import cn.jungmedia.android.bean.FastModel;
+import cn.jungmedia.android.ui.main.adapter.FastListAdapter;
+import cn.jungmedia.android.ui.main.presenter.FastListPresenterImp;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.ui.main.model.FastModelImp;
+import cn.jungmedia.android.ui.news.contract.FastListContract;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonwidget.LoadingTip;
 import com.leon.common.commonwidget.NormalTitleBar;

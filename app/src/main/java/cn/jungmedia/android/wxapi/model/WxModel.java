@@ -1,13 +1,13 @@
-package com.jung.android.wxapi.model;
+package cn.jungmedia.android.wxapi.model;
 
 
-import com.jung.android.api.HostType;
-import com.jung.android.api.Api;
-import com.jung.android.ui.user.bean.UserInfo;
-import com.jung.android.wxapi.contract.WXContract;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.wxapi.contract.WXContract;
 import rx.Observable;
 import rx.functions.Func1;
 

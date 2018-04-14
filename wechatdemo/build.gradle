@@ -5,7 +5,7 @@ android {
     buildToolsVersion '25.0.0'
 
     defaultConfig {
-        applicationId "net.sourceforge.simcpux"
+        applicationId "cn.jungmedia.android"
         minSdkVersion 4
         targetSdkVersion 4
     }
@@ -19,7 +19,7 @@ android {
 
     signingConfigs {
         debug {
-            storeFile file("debug.keystore")
+            storeFile file("../jungmedia_debug.jks")
         }
     }
 }

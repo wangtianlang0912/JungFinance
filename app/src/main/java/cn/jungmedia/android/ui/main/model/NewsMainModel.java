@@ -1,10 +1,10 @@
-package com.jung.android.ui.main.model;
+package cn.jungmedia.android.ui.main.model;
 
-import com.jung.android.app.AppApplication;
-import com.jung.android.app.AppConstant;
-import com.jung.android.bean.NewsChannelTable;
-import com.jung.android.db.NewsChannelTableManager;
-import com.jung.android.ui.main.contract.NewsMainContract;
+import cn.jungmedia.android.app.AppApplication;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.bean.NewsChannelTable;
+import cn.jungmedia.android.db.NewsChannelTableManager;
+import cn.jungmedia.android.ui.main.contract.NewsMainContract;
 import com.leon.common.baserx.RxSchedulers;
 import com.leon.common.commonutils.ACache;
 

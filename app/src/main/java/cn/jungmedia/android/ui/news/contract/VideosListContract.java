@@ -1,6 +1,6 @@
-package com.jung.android.ui.news.contract;
+package cn.jungmedia.android.ui.news.contract;
 
-import com.jung.android.bean.VideoData;
+import cn.jungmedia.android.bean.VideoData;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;

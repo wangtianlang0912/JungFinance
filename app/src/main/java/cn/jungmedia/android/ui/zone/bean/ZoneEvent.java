@@ -1,4 +1,4 @@
-package com.jung.android.ui.zone.bean;
+package cn.jungmedia.android.ui.zone.bean;
 
 /**
  * des:动态eventbus传递对象

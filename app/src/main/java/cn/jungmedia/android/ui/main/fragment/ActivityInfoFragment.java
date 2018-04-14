@@ -1,4 +1,4 @@
-package com.jung.android.ui.main.fragment;
+package cn.jungmedia.android.ui.main.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,17 +13,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.jung.android.app.AppConstant;
-import com.jung.android.app.AppIntent;
-import com.jung.android.bean.ActivityFavModel;
-import com.jung.android.bean.ActivityModel;
-import com.jung.android.ui.common.CommonActivity;
-import com.jung.android.ui.main.contract.ActivityDetailContract;
-import com.jung.android.ui.main.model.ActivityDetailModelImp;
-import com.jung.android.ui.main.presenter.ActivityDetailPresenterImp;
-import com.jung.android.ui.news.fragment.ArticleDetailFragment;
-import com.jung.finance.R;
-import com.jung.android.utils.MyUtils;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.app.AppIntent;
+import cn.jungmedia.android.bean.ActivityFavModel;
+import cn.jungmedia.android.bean.ActivityModel;
+import cn.jungmedia.android.ui.common.CommonActivity;
+import cn.jungmedia.android.ui.main.contract.ActivityDetailContract;
+import cn.jungmedia.android.ui.main.model.ActivityDetailModelImp;
+import cn.jungmedia.android.ui.main.presenter.ActivityDetailPresenterImp;
+import cn.jungmedia.android.ui.news.fragment.ArticleDetailFragment;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.utils.MyUtils;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.browser.InjectedChromeClient;
 import com.leon.common.browser.InnerWebViewClient;

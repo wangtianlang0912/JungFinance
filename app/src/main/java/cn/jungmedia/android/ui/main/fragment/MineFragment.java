@@ -1,4 +1,4 @@
-package com.jung.android.ui.main.fragment;
+package cn.jungmedia.android.ui.main.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,19 +10,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.jung.android.ui.main.contract.MineContract;
-import com.jung.android.ui.main.model.MineModelImp;
-import com.jung.finance.R;
-import com.jung.android.app.AppIntent;
-import com.jung.android.ui.main.presenter.MinePresenterImp;
-import com.jung.android.ui.user.bean.UserInfo;
-import com.jung.android.utils.MyUtils;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonutils.ImageLoaderUtils;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppIntent;
+import cn.jungmedia.android.ui.main.contract.MineContract;
+import cn.jungmedia.android.ui.main.model.MineModelImp;
+import cn.jungmedia.android.ui.main.presenter.MinePresenterImp;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.utils.MyUtils;
 
 /**
  * des:我的主页
@@ -85,7 +85,19 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
 
         if (MyUtils.isLogin()) {
             mPresenter.getUserInfo();
+        } else {
+            resetViews();
         }
+    }
+
+    private void resetViews() {
+
+        nickView.setText(null);
+        imgLogo.setImageResource(R.drawable.blant_logo);
+        despView.setText(null);
+        subscribeNum.setText("0");
+        fansNum.setText("0");
+        scoreNum.setText("0");
     }
 
     @Override
@@ -102,6 +114,8 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
                     scoreNum.setText(userInfo.getUser().getMember().getScore() + "");
                 }
             }
+        } else {
+            resetViews();
         }
     }
 
@@ -134,25 +148,59 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
                 }
                 break;
             case R.id.subscribe_layout:
+                if(!MyUtils.isLogin()) {
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
+
                 break;
             case R.id.fans_layout:
+                if(!MyUtils.isLogin()) {
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
                 break;
             case R.id.score_layout:
+                if(!MyUtils.isLogin()) {
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
                 break;
             case R.id.media_account_btn:
+                if(!MyUtils.isLogin()) {
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
+
                 break;
             case R.id.refer_view:
                 break;
             case R.id.info_layout:
+                if(!MyUtils.isLogin()) {
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
                 AppIntent.intentToNewsEdit(getActivity());
                 break;
             case R.id.analyze_layout:
+                if(!MyUtils.isLogin()) {
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
                 AppIntent.intentToHqEdit(getActivity());
                 break;
             case R.id.fast_layout:
+                if(!MyUtils.isLogin()) {
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
                 AppIntent.intentToFastEdit(getActivity());
                 break;
             case R.id.activity_layout:
+                if(!MyUtils.isLogin()) {
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
                 AppIntent.intentToActivityEdit(getActivity());
                 break;
         }
