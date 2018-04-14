@@ -134,7 +134,7 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.setting, R.id.img_logo_layout, R.id.subscribe_layout, R.id.fans_layout, R.id.score_layout, R.id.media_account_btn, R.id.refer_view, R.id.info_layout, R.id.analyze_layout, R.id.activity_layout})
+    @OnClick({R.id.setting, R.id.img_logo_layout, R.id.subscribe_layout, R.id.fans_layout, R.id.score_layout, R.id.media_account_btn, R.id.refer_view, R.id.info_layout, R.id.analyze_layout,R.id.fast_layout, R.id.activity_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting:

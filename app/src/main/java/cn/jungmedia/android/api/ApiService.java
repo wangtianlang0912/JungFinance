@@ -23,6 +23,8 @@ import cn.jungmedia.android.bean.NewsSummary;
 import cn.jungmedia.android.bean.TopicModel;
 import cn.jungmedia.android.bean.VideoData;
 import cn.jungmedia.android.ui.blogger.bean.BloggerBean;
+import cn.jungmedia.android.ui.fav.bean.ActiveFavBean;
+import cn.jungmedia.android.ui.fav.bean.NewsFavBean;
 import cn.jungmedia.android.ui.main.bean.ScoreInfo;
 import cn.jungmedia.android.ui.user.bean.UserInfo;
 import okhttp3.ResponseBody;
@@ -217,9 +219,7 @@ public interface ApiService {
 
     // 获取我收藏的活动
     @GET("app/me/activity/fav/query")
-    Observable<BaseRespose<ActivityModel>> getActivityFavList(@Query("token") String token, @Query("id") String activeId,
-                                                              @Query("type") String type, @Query("orderBy") String orderBy,
-                                                              @Query("p") int p, @Query("size") int size);
+    Observable<BaseRespose<ActiveFavBean>> getActivityFavList(@Query("token") String token, @Query("p") int p);
 
 
     // 收藏媒体
@@ -243,5 +243,10 @@ public interface ApiService {
     // 微信登录
     @GET("app/user/weixin/login")
     Observable<BaseRespose<UserInfo>> weixinLogin(@Query("openid") String openid, @Query("nick") String nick,
-                                                          @Query("logo") String logo);
+                                                  @Query("logo") String logo);
+
+    // 资讯收藏列表
+    @GET("app/me/article/fav/query")
+    Observable<BaseRespose<NewsFavBean>> getArtileFavList(@Query("token") String token, @Query("type") int type, @Query("p") int page);
+
 }

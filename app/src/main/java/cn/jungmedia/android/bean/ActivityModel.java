@@ -68,33 +68,84 @@ public class ActivityModel {
         public final static int STATUS_END = 3;
 
 
-        private int stime;
-
-        private int etime;
-
-        private String address;
-
-        private int status;
-
-        private String name;
-
-        private int gznum;
-
-        private int ctime;
-
-        private int ptime;
-
-        private String cost;
-
-        private String coverImage;
-
-        private String url;
-
         private String startTime;
 
         private String endTime;
 
+
+        private int stime;
+
+        private int status;
+
+        private int mtime;
+
+        private int gznum;
+
+        private int type;
+
+        private int ctime;
+
+        private String cost;
+
+        private String url;
+
+        private String content;
+
+        private int parentId;
+
+        private int indexId;
+
+        private String address;
+
+        private int etime;
+
         private int objectId;
+
+        private String name;
+
+        private int ptime;
+
+        private String coverImage;
+
+        public int getMtime() {
+            return mtime;
+        }
+
+        public void setMtime(int mtime) {
+            this.mtime = mtime;
+        }
+
+        public int getType() {
+            return type;
+        }
+
+        public void setType(int type) {
+            this.type = type;
+        }
+
+        public String getContent() {
+            return content;
+        }
+
+        public void setContent(String content) {
+            this.content = content;
+        }
+
+        public int getParentId() {
+            return parentId;
+        }
+
+        public void setParentId(int parentId) {
+            this.parentId = parentId;
+        }
+
+        public int getIndexId() {
+            return indexId;
+        }
+
+        public void setIndexId(int indexId) {
+            this.indexId = indexId;
+        }
 
         public void setStime(int stime) {
             this.stime = stime;

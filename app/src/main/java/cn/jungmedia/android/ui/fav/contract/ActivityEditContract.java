@@ -5,6 +5,11 @@ import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;
 
+import java.util.Map;
+
+import cn.jungmedia.android.ui.fav.bean.ActiveFavBean;
+import rx.Observable;
+
 /***
  *
  * @Copyright 2018
@@ -22,20 +27,21 @@ public class ActivityEditContract {
 
     public interface Model extends BaseModel {
 
-        public void loadData(int startPage);
+        public Observable<ActiveFavBean> loadData(int startPage);
 
-        public void unFavAction(int objectId);
+        public Observable<Map<Integer, Boolean>> unFavAction(int objectId);
 
     }
 
     public interface View extends BaseView {
 
-        public void returnListData();
+        public void returnListData(ActiveFavBean activeFavBean);
 
-        public void returnUnFavAction();
+        public void returnUnFavAction(Map<Integer, Boolean> result);
+
     }
 
-    public static abstract class Presenter extends BasePresenter<Model, View> {
+    public static abstract class Presenter extends BasePresenter<View, Model> {
 
         public abstract void loadDataList(int startPage);
 

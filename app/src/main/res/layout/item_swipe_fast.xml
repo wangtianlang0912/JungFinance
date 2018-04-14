@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.aspsine.irecyclerview.swipe.SwipeItemLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <include
+        layout="@layout/item_fast"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical">
+
+        <Button
+            android:id="@+id/delete"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:background="@color/red"
+            android:text="取消收藏"
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
+    </LinearLayout>
+</com.aspsine.irecyclerview.swipe.SwipeItemLayout>
