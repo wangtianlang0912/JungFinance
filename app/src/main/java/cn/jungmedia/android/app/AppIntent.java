@@ -176,7 +176,7 @@ public class AppIntent {
 
         Bundle bundle = new Bundle();
         bundle.putInt(AppConstant.FLAG_DATA, activeId);
-        intentToAct(context, context.getString(R.string.activity), ActivitySignupFragment.class, bundle);
+        intentToAct(context, context.getString(R.string.activity_signup), ActivitySignupFragment.class, bundle);
     }
 
     public static void intentToCommonWeb(Context context, int resTitle, String url) {
