@@ -1,14 +1,14 @@
 package cn.jungmedia.android.ui.main.model;
 
-import cn.jungmedia.android.api.ApiConstants;
-import cn.jungmedia.android.api.HostType;
-import cn.jungmedia.android.api.Api;
-import cn.jungmedia.android.bean.ActivityModel;
-import cn.jungmedia.android.ui.main.contract.ActivityContract;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 import com.leon.common.commonutils.TimeUtil;
 
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.api.ApiConstants;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.bean.ActivityModel;
+import cn.jungmedia.android.ui.main.contract.ActivityContract;
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -29,7 +29,7 @@ import rx.functions.Func1;
 public class ActivityModelImp implements ActivityContract.Model {
     @Override
     public Observable<ActivityModel> lodeActivityList(int startPage) {
-        return Api.getDefault(HostType.Jung_FINANCE).getActivityList(Api.getCacheControl(), startPage)
+        return Api.getDefault(HostType.Jung_FINANCE).getActivityList(Api.getCacheControl(), startPage, "desc")
                 .map(new Func1<BaseRespose<ActivityModel>, ActivityModel>() {
                     @Override
                     public ActivityModel call(BaseRespose<ActivityModel> baseRespose) {

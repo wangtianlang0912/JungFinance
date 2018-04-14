@@ -1,11 +1,11 @@
 package cn.jungmedia.android.ui.main.contract;
 
 
-import cn.jungmedia.android.bean.ActivityFavModel;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;
 
+import cn.jungmedia.android.bean.ActivityFavModel;
 import rx.Observable;
 
 /***

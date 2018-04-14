@@ -13,6 +13,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.leon.common.base.BaseFragment;
+import com.leon.common.browser.InjectedChromeClient;
+import com.leon.common.browser.InnerWebViewClient;
+import com.leon.common.browser.ProgressWebView;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import cn.jungmedia.android.R;
 import cn.jungmedia.android.app.AppConstant;
 import cn.jungmedia.android.app.AppIntent;
 import cn.jungmedia.android.bean.ActivityFavModel;
@@ -22,16 +31,7 @@ import cn.jungmedia.android.ui.main.contract.ActivityDetailContract;
 import cn.jungmedia.android.ui.main.model.ActivityDetailModelImp;
 import cn.jungmedia.android.ui.main.presenter.ActivityDetailPresenterImp;
 import cn.jungmedia.android.ui.news.fragment.ArticleDetailFragment;
-import cn.jungmedia.android.R;
 import cn.jungmedia.android.utils.MyUtils;
-import com.leon.common.base.BaseFragment;
-import com.leon.common.browser.InjectedChromeClient;
-import com.leon.common.browser.InnerWebViewClient;
-import com.leon.common.browser.ProgressWebView;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 
 /***
@@ -214,7 +214,7 @@ public class ActivityInfoFragment extends BaseFragment<ActivityDetailPresenterIm
             actionView.setBackgroundColor(getResources().getColor(R.color._86C789));
             actionView.setOnClickListener(null);
         } else if (activity.getStatus() == ActivityModel.Status.SIGNUP) {
-            actionView.setText("报名中");
+            actionView.setText("报名");
             actionView.setBackgroundColor(getResources().getColor(R.color._86C711));
             actionView.setOnClickListener(getOnSignUpListener(activity));
         } else if (activity.getStatus() == ActivityModel.Status.START) {
@@ -228,13 +228,13 @@ public class ActivityInfoFragment extends BaseFragment<ActivityDetailPresenterIm
         }
     }
 
-    private View.OnClickListener getOnSignUpListener(ActivityModel.Activity activity) {
+    private View.OnClickListener getOnSignUpListener(final ActivityModel.Activity activity) {
 
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
+                AppIntent.intentToActivitySignup(getActivity(), activity.getObjectId());
             }
         };
     }

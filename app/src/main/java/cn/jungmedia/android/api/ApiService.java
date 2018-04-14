@@ -25,6 +25,7 @@ import cn.jungmedia.android.bean.VideoData;
 import cn.jungmedia.android.ui.blogger.bean.BloggerBean;
 import cn.jungmedia.android.ui.fav.bean.ActiveFavBean;
 import cn.jungmedia.android.ui.fav.bean.NewsFavBean;
+import cn.jungmedia.android.ui.main.bean.CrewBean;
 import cn.jungmedia.android.ui.main.bean.ScoreInfo;
 import cn.jungmedia.android.ui.user.bean.UserInfo;
 import okhttp3.ResponseBody;
@@ -176,7 +177,7 @@ public interface ApiService {
     Observable<BaseRespose<FastModel>> getFastCommentList(@Header("Cache-Control") String cacheControl, @Query("p") int page, @Query("size") int pageSize);
 
     @GET("app/activity/query")
-    Observable<BaseRespose<ActivityModel>> getActivityList(@Header("Cache-Control") String cacheControl, @Query("p") int page);
+    Observable<BaseRespose<ActivityModel>> getActivityList(@Header("Cache-Control") String cacheControl, @Query("p") int page, @Query("orderBy") String orderBy);
 
     // 获取自媒体
     @GET("app/media/get")
@@ -201,9 +202,13 @@ public interface ApiService {
 
     // 参加活动
     @POST("app/me/activity/join")
-    Observable<BaseRespose<Boolean>> joinActivity(@Query("token") String token, @Query("id") String activeId,
-                                                  @Query("name") String name, @Query("phone") String phone,
-                                                  @Query("number") int number, @Query("company") String company);
+    Observable<BaseRespose<CrewBean>> joinActivity(@Query("token") String token, @Query("id") String activeId,
+                                                   @Query("name") String name, @Query("phone") String phone,
+                                                   @Query("number") int number, @Query("company") String company);
+
+    // 查询我参加的活动
+    @GET("app/me/activity/query")
+    Observable<BaseRespose<CrewBean>> queryActivity(@Query("token") String token);
 
     // 收藏活动
     @POST("app/me/activity/fav/create")

@@ -13,6 +13,7 @@ import cn.jungmedia.android.ui.common.CommonWebFragment;
 import cn.jungmedia.android.ui.fav.ui.FastEditFragment;
 import cn.jungmedia.android.ui.fav.ui.HqEditFragment;
 import cn.jungmedia.android.ui.fav.ui.NewsEditFragment;
+import cn.jungmedia.android.ui.main.fragment.ActivitySignupFragment;
 import cn.jungmedia.android.ui.news.fragment.ArticleDetailFragment;
 import cn.jungmedia.android.ui.user.fragment.ForgetPwdFragment;
 import cn.jungmedia.android.ui.user.fragment.RegisterFragment;
@@ -171,6 +172,12 @@ public class AppIntent {
         intentToAct(context, context.getString(R.string.activity), ActivityEditFragment.class, bundle);
     }
 
+    public static void intentToActivitySignup(Context context, int activeId) {
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(AppConstant.FLAG_DATA, activeId);
+        intentToAct(context, context.getString(R.string.activity), ActivitySignupFragment.class, bundle);
+    }
 
     public static void intentToCommonWeb(Context context, int resTitle, String url) {
         intentToCommonWeb(context, context.getString(resTitle), url);
