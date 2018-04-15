@@ -1,8 +1,9 @@
 package cn.jungmedia.android.ui.fav.adapter;
 
 import android.content.Context;
-import android.text.TextUtils;
+import android.text.Html;
 import android.view.View;
+import android.widget.TextView;
 
 import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemRecycleViewAdapter;
@@ -29,7 +30,7 @@ public class FastEditListAdapter extends MultiItemRecycleViewAdapter<NewsFavBean
 
             @Override
             public int getLayoutId(int type) {
-                return R.layout.item_swipe_news;
+                return R.layout.item_swipe_fast;
             }
 
             @Override
@@ -45,7 +46,7 @@ public class FastEditListAdapter extends MultiItemRecycleViewAdapter<NewsFavBean
     @Override
     public void convert(ViewHolderHelper holder, NewsFavBean.Favorite article) {
         switch (holder.getLayoutId()) {
-            case R.layout.item_swipe_news:
+            case R.layout.item_swipe_fast:
                 setItemValues(holder, article, getPosition(holder));
                 break;
         }
@@ -62,10 +63,7 @@ public class FastEditListAdapter extends MultiItemRecycleViewAdapter<NewsFavBean
 
         final ArticleModel.Article article = favorite.getArticle();
         holder.setText(R.id.news_summary_title_tv, article.getTitle());
-        holder.setText(R.id.source_view, TextUtils.isEmpty(article.getSource()) ?
-                mContext.getString(R.string.app_name) : article.getSource());
-        holder.setText(R.id.see_view, article.getPv() + "");
-        holder.setImageUrl(R.id.news_summary_photo_iv, article.getImage());
+        ((TextView) holder.getView(R.id.news_summary)).setText(Html.fromHtml(article.getContent()));
         holder.setOnClickListener(R.id.rl_root, new View.OnClickListener() {
             @Override
             public void onClick(View view) {

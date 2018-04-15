@@ -254,4 +254,8 @@ public interface ApiService {
     @GET("app/me/article/fav/query")
     Observable<BaseRespose<NewsFavBean>> getArtileFavList(@Query("token") String token, @Query("type") int type, @Query("p") int page);
 
+    // 上传图片
+    @GET("app/image/u/create")
+    Observable<String> uploadImage(@Query("image") String image);
+
 }

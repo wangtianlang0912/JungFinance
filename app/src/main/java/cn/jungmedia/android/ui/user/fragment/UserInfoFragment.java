@@ -1,6 +1,11 @@
 package cn.jungmedia.android.ui.user.fragment;
 
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +17,11 @@ import android.widget.TextView;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonutils.ImageLoaderUtils;
 import com.leon.common.commonutils.ToastUitl;
+import com.yuyh.library.imgsel.ImageLoader;
+import com.yuyh.library.imgsel.ImgSelActivity;
+import com.yuyh.library.imgsel.ImgSelConfig;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -22,6 +32,8 @@ import cn.jungmedia.android.ui.user.model.UserInfoModelImp;
 import cn.jungmedia.android.ui.user.presenter.UserContract;
 import cn.jungmedia.android.ui.user.presenter.UserInfoPresenterImp;
 import cn.jungmedia.android.utils.MyUtils;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /***
@@ -54,6 +66,7 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresenterImp, UserInf
     Button submitBtn;
 
     private UserInfo userInfo;
+    private int REQUEST_CODE = 120;
 
     @Override
     protected int getLayoutResource() {
@@ -90,17 +103,6 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresenterImp, UserInf
         ButterKnife.unbind(this);
     }
 
-    @OnClick(R.id.submit_btn)
-    public void onViewClicked() {
-
-        String nick = nickEdit.getText().toString().trim();
-        String desp = despEdit.getText().toString().trim();
-
-        if (userInfo != null && userInfo.getUser() != null) {
-            mPresenter.submit(nick, desp, userInfo.getUser().getPhone(), userInfo.getUser().getLogo());
-        }
-    }
-
     @Override
     public void showLoading(String title) {
         showProgressBar();
@@ -121,6 +123,87 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresenterImp, UserInf
         if (response != null) {
             MyUtils.saveUserInfo(getActivity(), response);
             getActivity().finish();
+        }
+    }
+
+    @Override
+    public void returnUploadImage(String url) {
+
+        String nick = nickEdit.getText().toString().trim();
+        String desp = despEdit.getText().toString().trim();
+        if (userInfo != null && userInfo.getUser() != null) {
+            mPresenter.submit(nick, desp, userInfo.getUser().getPhone(), url);
+        }
+    }
+
+    @OnClick({R.id.logo_view, R.id.submit_btn})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.logo_view:
+                choosePhoto();
+                break;
+            case R.id.submit_btn:
+
+                if (logoView.getTag() != null) {
+                    String imagePath = (String) logoView.getTag();
+                    if (imagePath != null) {
+                        mPresenter.uploadImage(imagePath);
+                    }
+                } else {
+
+                    String nick = nickEdit.getText().toString().trim();
+                    String desp = despEdit.getText().toString().trim();
+                    if (userInfo != null && userInfo.getUser() != null) {
+                        mPresenter.submit(nick, desp, userInfo.getUser().getPhone(), userInfo.getUser().getLogo());
+                    }
+                }
+                break;
+        }
+    }
+
+
+    /**
+     * 开启图片选择器
+     */
+    private void choosePhoto() {
+        ImgSelConfig config = new ImgSelConfig.Builder(loader)
+                // 是否多选
+                .multiSelect(false)
+                // 确定按钮背景色
+                .btnBgColor(Color.TRANSPARENT)
+                .titleBgColor(ContextCompat.getColor(getContext(), R.color.main_color))
+                // 使用沉浸式状态栏
+                .statusBarColor(ContextCompat.getColor(getContext(), R.color.main_color))
+                // 返回图标ResId
+                .backResId(R.drawable.ic_arrow_back)
+                .title("图片")
+                // 第一个是否显示相机
+                .needCamera(true)
+                // 最大选择图片数量
+                .maxNum(1)
+                .build();
+        ImgSelActivity.startActivity(this, config, REQUEST_CODE);
+    }
+
+
+    private ImageLoader loader = new ImageLoader() {
+        @Override
+        public void displayImage(Context context, String path, ImageView imageView) {
+            ImageLoaderUtils.display(context, imageView, path);
+        }
+    };
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            List<String> pathList = data.getStringArrayListExtra(ImgSelActivity.INTENT_RESULT);
+            if (pathList != null && !pathList.isEmpty()) {
+
+                Log.d("UserInfoFragment", "pathList.get(0):::" + pathList.get(0));
+                ImageLoaderUtils.displayRound(getContext(), logoView, pathList.get(0));
+                logoView.setTag(pathList.get(0));
+            }
         }
     }
 }

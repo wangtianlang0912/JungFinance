@@ -1,11 +1,11 @@
 package cn.jungmedia.android.ui.user.presenter;
 
-import cn.jungmedia.android.ui.user.bean.UserInfo;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;
 import com.leon.common.basebean.BaseRespose;
 
+import cn.jungmedia.android.ui.user.bean.UserInfo;
 import rx.Observable;
 
 public interface UserContract {
@@ -109,15 +109,21 @@ public interface UserContract {
 
     interface IUserInfoModel extends BaseModel {
         Observable<UserInfo> submit(String nick, String desp, String phone, String logo);
+
+        Observable<String> uploadImage(String image);
     }
 
 
     interface IUserInfoView extends BaseView {
 
         void returnSubmitResponse(UserInfo response);
+
+        void returnUploadImage(String url);
     }
 
     abstract class UserInfoPresenter extends BasePresenter<IUserInfoView, IUserInfoModel> {
         public abstract void submit(String nick, String desp, String phone, String logo);
+
+        public abstract void uploadImage(String image);
     }
 }

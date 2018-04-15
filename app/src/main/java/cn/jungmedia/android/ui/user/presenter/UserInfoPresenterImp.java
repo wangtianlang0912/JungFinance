@@ -41,4 +41,26 @@ public class UserInfoPresenterImp extends UserContract.UserInfoPresenter {
             }
         }));
     }
+
+    @Override
+    public void uploadImage(String image) {
+        mRxManage.add(mModel.uploadImage(image).subscribe(new RxSubscriber<String>(mContext, false) {
+            @Override
+            public void onStart() {
+                super.onStart();
+                mView.showLoading(mContext.getString(R.string.loading));
+            }
+
+            @Override
+            protected void _onNext(String data) {
+                mView.returnUploadImage(data);
+                mView.stopLoading();
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.showErrorTip(message);
+            }
+        }));
+    }
 }

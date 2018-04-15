@@ -94,6 +94,8 @@ public class SettingFragment extends BaseFragment<SettingPresenter, SettingModel
         } else {
             logoutBtn.setVisibility(View.GONE);
         }
+
+        currVersionText.setText(MyUtils.getAppVersionName(getActivity()));
     }
 
     @Override

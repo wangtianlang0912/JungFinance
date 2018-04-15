@@ -41,4 +41,9 @@ public class UserInfoModelImp implements UserContract.IUserInfoModel {
                     }
                 }).compose(RxSchedulers.<UserInfo>io_main());
     }
+
+    @Override
+    public Observable<String> uploadImage(String image) {
+        return Api.getDefault(HostType.Jung_FINANCE).uploadImage(image).compose(RxSchedulers.<String>io_main());
+    }
 }
