@@ -24,10 +24,12 @@ import cn.jungmedia.android.bean.TopicModel;
 import cn.jungmedia.android.bean.VideoData;
 import cn.jungmedia.android.ui.blogger.bean.BloggerBean;
 import cn.jungmedia.android.ui.blogger.bean.BloggerFavBean;
+import cn.jungmedia.android.ui.blogger.bean.FansBean;
 import cn.jungmedia.android.ui.fav.bean.ActiveFavBean;
 import cn.jungmedia.android.ui.fav.bean.NewsFavBean;
 import cn.jungmedia.android.ui.main.bean.CrewBean;
 import cn.jungmedia.android.ui.main.bean.ScoreInfo;
+import cn.jungmedia.android.ui.score.bean.ScoreBean;
 import cn.jungmedia.android.ui.user.bean.UserInfo;
 import okhttp3.ResponseBody;
 import retrofit2.http.GET;
@@ -263,4 +265,11 @@ public interface ApiService {
     @GET("app/me/media/fav/query")
     Observable<BaseRespose<BloggerFavBean>> getMediaFavList(@Query("token") String token, @Query("p") int page);
 
+    // 粉丝
+    @GET("app/me/media/fav/user")
+    Observable<BaseRespose<FansBean>> getFansList(@Query("token") String token, @Query("p") int page);
+
+    // 积分
+    @GET("app/me/score/query")
+    Observable<BaseRespose<ScoreBean>> getScoreInfo(@Query("token") String token, @Query("p") int page, @Query("orderBy") String orderBy);
 }

@@ -159,14 +159,14 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
                     AppIntent.intentToLogin(getContext());
                     return;
                 }
-
-
+                AppIntent.intentToFans(getContext());
                 break;
             case R.id.score_layout:
                 if (!MyUtils.isLogin()) {
                     AppIntent.intentToLogin(getContext());
                     return;
                 }
+                AppIntent.intentToScoreList(getContext());
                 break;
             case R.id.media_account_btn:
                 if (!MyUtils.isLogin()) {

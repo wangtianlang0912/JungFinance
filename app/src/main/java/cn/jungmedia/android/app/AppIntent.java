@@ -7,9 +7,11 @@ import android.os.Bundle;
 
 import cn.jungmedia.android.R;
 import cn.jungmedia.android.api.ApiConstants;
+import cn.jungmedia.android.api.HostType;
 import cn.jungmedia.android.bean.ActivityModel;
 import cn.jungmedia.android.ui.blogger.fragment.BloggerFavFragment;
 import cn.jungmedia.android.ui.blogger.fragment.BloggerFragment;
+import cn.jungmedia.android.ui.blogger.fragment.FansListFragment;
 import cn.jungmedia.android.ui.common.CommonActivity;
 import cn.jungmedia.android.ui.common.CommonWebFragment;
 import cn.jungmedia.android.ui.fav.ui.ActivityEditFragment;
@@ -20,6 +22,7 @@ import cn.jungmedia.android.ui.main.fragment.ActivityInfoFragment;
 import cn.jungmedia.android.ui.main.fragment.ActivitySignupFragment;
 import cn.jungmedia.android.ui.news.fragment.ArticleDetailFragment;
 import cn.jungmedia.android.ui.news.fragment.CommentListFragment;
+import cn.jungmedia.android.ui.score.ui.ScoreListFragment;
 import cn.jungmedia.android.ui.setting.fragment.SettingFragment;
 import cn.jungmedia.android.ui.user.fragment.AccountSafeFragment;
 import cn.jungmedia.android.ui.user.fragment.BindMobileFragment;
@@ -98,6 +101,20 @@ public class AppIntent {
 
     }
 
+
+    public static void intentToFans(Context context) {
+
+        Bundle bundle = new Bundle();
+        intentToAct(context, context.getString(R.string.fans), FansListFragment.class, bundle);
+    }
+
+    public static void intentToScoreList(Context context) {
+
+        Bundle bundle = new Bundle();
+        intentToAct(context, context.getString(R.string.score), ScoreListFragment.class, bundle);
+    }
+
+
     /***
      * 博主文章详情
      * @param context
@@ -155,6 +172,11 @@ public class AppIntent {
 
     }
 
+
+    public static void intentToScoreRole(Context context) {
+        String url = ApiConstants.getHost(HostType.Jung_FINANCE) + "me/points/guize";
+        intentToCommonWeb(context, "积分规则", url);
+    }
 
     public static void intentToNewsEdit(Context context) {
 
