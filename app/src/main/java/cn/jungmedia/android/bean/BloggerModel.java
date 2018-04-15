@@ -62,11 +62,21 @@ public class BloggerModel {
 
         private int status;
 
+        private Favorite favorite;
+
         public Role getRole() {
             if (role == null) {
                 role = new Role();
             }
             return role;
+        }
+
+        public Favorite getFavorite() {
+            return favorite;
+        }
+
+        public void setFavorite(Favorite favorite) {
+            this.favorite = favorite;
         }
 
         public void setRole(Role role) {
@@ -151,6 +161,28 @@ public class BloggerModel {
 
         public void setStatus(int status) {
             this.status = status;
+        }
+    }
+
+    public class Favorite {
+
+        int uid;
+        int objectId;
+
+        public int getUid() {
+            return uid;
+        }
+
+        public void setUid(int uid) {
+            this.uid = uid;
+        }
+
+        public int getObjectId() {
+            return objectId;
+        }
+
+        public void setObjectId(int objectId) {
+            this.objectId = objectId;
         }
     }
 

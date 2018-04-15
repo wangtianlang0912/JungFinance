@@ -5,28 +5,28 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import cn.jungmedia.android.R;
 import cn.jungmedia.android.api.ApiConstants;
-import cn.jungmedia.android.ui.blogger.fragment.BloggerArticleDetailFragment;
+import cn.jungmedia.android.bean.ActivityModel;
+import cn.jungmedia.android.ui.blogger.fragment.BloggerFavFragment;
 import cn.jungmedia.android.ui.blogger.fragment.BloggerFragment;
 import cn.jungmedia.android.ui.common.CommonActivity;
 import cn.jungmedia.android.ui.common.CommonWebFragment;
+import cn.jungmedia.android.ui.fav.ui.ActivityEditFragment;
 import cn.jungmedia.android.ui.fav.ui.FastEditFragment;
 import cn.jungmedia.android.ui.fav.ui.HqEditFragment;
 import cn.jungmedia.android.ui.fav.ui.NewsEditFragment;
+import cn.jungmedia.android.ui.main.fragment.ActivityInfoFragment;
 import cn.jungmedia.android.ui.main.fragment.ActivitySignupFragment;
 import cn.jungmedia.android.ui.news.fragment.ArticleDetailFragment;
-import cn.jungmedia.android.ui.user.fragment.ForgetPwdFragment;
-import cn.jungmedia.android.ui.user.fragment.RegisterFragment;
-import cn.jungmedia.android.ui.user.fragment.UpdatePwdFragment;
-import cn.jungmedia.android.R;
-import cn.jungmedia.android.bean.ActivityModel;
-import cn.jungmedia.android.ui.fav.ui.ActivityEditFragment;
-import cn.jungmedia.android.ui.main.fragment.ActivityInfoFragment;
 import cn.jungmedia.android.ui.news.fragment.CommentListFragment;
 import cn.jungmedia.android.ui.setting.fragment.SettingFragment;
 import cn.jungmedia.android.ui.user.fragment.AccountSafeFragment;
 import cn.jungmedia.android.ui.user.fragment.BindMobileFragment;
+import cn.jungmedia.android.ui.user.fragment.ForgetPwdFragment;
 import cn.jungmedia.android.ui.user.fragment.LoginFragment;
+import cn.jungmedia.android.ui.user.fragment.RegisterFragment;
+import cn.jungmedia.android.ui.user.fragment.UpdatePwdFragment;
 import cn.jungmedia.android.ui.user.fragment.UserInfoFragment;
 
 /***
@@ -84,11 +84,18 @@ public class AppIntent {
         intentToAct(context, R.string.bind_phone, BindMobileFragment.class);
     }
 
-    public static void intentToBloggerInfo(Context context, int uid) {
+    public static void intentToBloggerInfo(Context context, int uid, boolean status) {
 
         Bundle bundle = new Bundle();
         bundle.putInt(AppConstant.FLAG_DATA, uid);
+        bundle.putBoolean(AppConstant.FLAG_DATA2, status);
         intentToAct(context, "", BloggerFragment.class, bundle);
+    }
+
+    public static void intentToBloggerFav(Context context) {
+        Bundle bundle = new Bundle();
+        intentToAct(context, context.getString(R.string.subscribe), BloggerFavFragment.class, bundle);
+
     }
 
     /***
@@ -103,7 +110,7 @@ public class AppIntent {
         bundle.putString(AppConstant.FLAG_DATA, articleUrl);
         bundle.putInt(AppConstant.FLAG_DATA2, objectId);
         bundle.putInt(AppConstant.FLAG_DATA3, bloggerUid);
-        intentToAct(context, context.getString(R.string.article_detail), BloggerArticleDetailFragment.class, bundle);
+        intentToAct(context, context.getString(R.string.article_detail), ArticleDetailFragment.class, bundle);
     }
 
 

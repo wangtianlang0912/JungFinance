@@ -23,6 +23,7 @@ import cn.jungmedia.android.bean.NewsSummary;
 import cn.jungmedia.android.bean.TopicModel;
 import cn.jungmedia.android.bean.VideoData;
 import cn.jungmedia.android.ui.blogger.bean.BloggerBean;
+import cn.jungmedia.android.ui.blogger.bean.BloggerFavBean;
 import cn.jungmedia.android.ui.fav.bean.ActiveFavBean;
 import cn.jungmedia.android.ui.fav.bean.NewsFavBean;
 import cn.jungmedia.android.ui.main.bean.CrewBean;
@@ -255,7 +256,11 @@ public interface ApiService {
     Observable<BaseRespose<NewsFavBean>> getArtileFavList(@Query("token") String token, @Query("type") int type, @Query("p") int page);
 
     // 上传图片
-    @GET("app/image/u/create")
+    @POST("app/image/u/create")
     Observable<String> uploadImage(@Query("image") String image);
+
+    // 订阅的博主列表
+    @GET("app/me/media/fav/query")
+    Observable<BaseRespose<BloggerFavBean>> getMediaFavList(@Query("token") String token, @Query("p") int page);
 
 }

@@ -20,7 +20,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import cn.jungmedia.android.R;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.browser.HostJsScope;
 import com.leon.common.browser.InjectedChromeClient;
@@ -31,6 +30,7 @@ import com.leon.common.ui.DuAlertDialog;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jungmedia.android.R;
 import cn.jungmedia.android.app.AppConstant;
 import cn.jungmedia.android.app.AppIntent;
 import cn.jungmedia.android.bean.ArticleDetail;
@@ -304,10 +304,10 @@ public class ArticleDetailFragment extends BaseFragment<ArticleDetailPresenter, 
             AppIntent.intentToLogin(webView.getContext());
         }
 
-        public static void intentToBloggerInfo(WebView webView, String bloggerId) {
+        public static void intentToBloggerInfo(WebView webView, String bloggerId, boolean status) {
 
             if (!TextUtils.isEmpty(bloggerId)) {
-                AppIntent.intentToBloggerInfo(webView.getContext(), Integer.valueOf(bloggerId));
+                AppIntent.intentToBloggerInfo(webView.getContext(), Integer.valueOf(bloggerId), status);
             }
         }
 

@@ -1,10 +1,14 @@
 package cn.jungmedia.android.ui.news.presenter;
 
 
+import com.leon.common.baserx.RxSubscriber;
+
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppApplication;
 import cn.jungmedia.android.bean.BloggerModel;
 import cn.jungmedia.android.ui.news.contract.BloggerListContract;
-import cn.jungmedia.android.R;
-import com.leon.common.baserx.RxSubscriber;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.utils.MyUtils;
 
 /***
  *
@@ -21,8 +25,13 @@ import com.leon.common.baserx.RxSubscriber;
  */
 public class BloggerListPresenter extends BloggerListContract.Presenter {
     @Override
-    public void getBloggerListDataRequest(String uid, int startPage) {
-        mRxManage.add(mModel.getListData(uid, startPage).subscribe(new RxSubscriber<BloggerModel>(mContext, false) {
+    public void getBloggerListDataRequest(int startPage) {
+        int uid = 0;
+        UserInfo userInfo = MyUtils.getUserInfoFromPreference(AppApplication.getAppContext());
+        if (userInfo != null) {
+            uid = userInfo.getUser().getUid();
+        }
+        mRxManage.add(mModel.getListData(String.valueOf(uid), startPage).subscribe(new RxSubscriber<BloggerModel>(mContext, false) {
             @Override
             protected void _onNext(BloggerModel data) {
                 mView.returnListData(data);

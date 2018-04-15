@@ -60,4 +60,28 @@ public class BloggerPresenterImp extends BloggerContract.Presenter {
             }
         }));
     }
+
+    @Override
+    public void focusAction(int bloggerId, boolean status) {
+        mRxManage.add(mModel.focusAction(bloggerId, status).subscribe(new RxSubscriber<Boolean>(mContext, false) {
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                mView.showLoading("");
+            }
+
+            @Override
+            protected void _onNext(Boolean result) {
+                mView.stopLoading();
+                mView.returnFocusBloggerState(result);
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.stopLoading();
+                mView.showErrorTip(message);
+            }
+        }));
+    }
 }

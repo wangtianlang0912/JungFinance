@@ -7,14 +7,6 @@ import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
-import cn.jungmedia.android.app.AppConstant;
-import cn.jungmedia.android.bean.Counter;
-import cn.jungmedia.android.ui.news.contract.BloggerListContract;
-import cn.jungmedia.android.ui.news.model.BloggerListModel;
-import cn.jungmedia.android.R;
-import cn.jungmedia.android.bean.BloggerModel;
-import cn.jungmedia.android.ui.news.adapter.BloggerListAdapter;
-import cn.jungmedia.android.ui.news.presenter.BloggerListPresenter;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonwidget.LoadingTip;
 
@@ -22,6 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.BloggerModel;
+import cn.jungmedia.android.bean.Counter;
+import cn.jungmedia.android.ui.news.adapter.BloggerListAdapter;
+import cn.jungmedia.android.ui.news.contract.BloggerListContract;
+import cn.jungmedia.android.ui.news.model.BloggerListModel;
+import cn.jungmedia.android.ui.news.presenter.BloggerListPresenter;
 
 /**
  * des:博客
@@ -36,7 +35,6 @@ public class BloggerListFragment extends BaseFragment<BloggerListPresenter, Blog
     private BloggerListAdapter bloggerListAdapter;
     private List<BloggerModel.Media> datas = new ArrayList<>();
 
-    private String mUid;
     private int mStartPage = 1;
 
     @Override
@@ -51,9 +49,6 @@ public class BloggerListFragment extends BaseFragment<BloggerListPresenter, Blog
 
     @Override
     protected void initView() {
-        if (getArguments() != null) {
-            mUid = getArguments().getString(AppConstant.NEWS_ID);
-        }
         irc.setLayoutManager(new LinearLayoutManager(getContext()));
         datas.clear();
         bloggerListAdapter = new BloggerListAdapter(getContext(), datas);
@@ -64,7 +59,7 @@ public class BloggerListFragment extends BaseFragment<BloggerListPresenter, Blog
         //数据为空才重新发起请求
         if (bloggerListAdapter.getSize() <= 0) {
             mStartPage = 1;
-            mPresenter.getBloggerListDataRequest(mUid, mStartPage);
+            mPresenter.getBloggerListDataRequest(mStartPage);
         }
     }
 
@@ -74,7 +69,7 @@ public class BloggerListFragment extends BaseFragment<BloggerListPresenter, Blog
         mStartPage = 0;
         //发起请求
         irc.setRefreshing(true);
-        mPresenter.getBloggerListDataRequest(mUid, mStartPage);
+        mPresenter.getBloggerListDataRequest(mStartPage);
     }
 
     @Override
@@ -85,7 +80,7 @@ public class BloggerListFragment extends BaseFragment<BloggerListPresenter, Blog
         bloggerListAdapter.getPageBean().setRefresh(false);
         //发起请求
         irc.setLoadMoreStatus(LoadMoreFooterView.Status.LOADING);
-        mPresenter.getBloggerListDataRequest(mUid, mStartPage);
+        mPresenter.getBloggerListDataRequest(mStartPage);
     }
 
     @Override

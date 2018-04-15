@@ -13,16 +13,6 @@ import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
-import cn.jungmedia.android.app.AppConstant;
-import cn.jungmedia.android.bean.ArticleModel;
-import cn.jungmedia.android.ui.blogger.model.BloggerModelImp;
-import cn.jungmedia.android.ui.blogger.presenter.BloggerPresenterImp;
-import cn.jungmedia.android.R;
-import cn.jungmedia.android.bean.BloggerModel;
-import cn.jungmedia.android.bean.Counter;
-import cn.jungmedia.android.ui.blogger.bean.BloggerBean;
-import cn.jungmedia.android.ui.blogger.contract.BloggerContract;
-import cn.jungmedia.android.ui.news.adapter.NewListAdapter;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonutils.ImageLoaderUtils;
 import com.leon.common.commonwidget.LoadingTip;
@@ -33,6 +23,16 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.bean.BloggerModel;
+import cn.jungmedia.android.bean.Counter;
+import cn.jungmedia.android.ui.blogger.bean.BloggerBean;
+import cn.jungmedia.android.ui.blogger.contract.BloggerContract;
+import cn.jungmedia.android.ui.blogger.model.BloggerModelImp;
+import cn.jungmedia.android.ui.blogger.presenter.BloggerPresenterImp;
+import cn.jungmedia.android.ui.news.adapter.NewListAdapter;
 
 
 /***
@@ -73,6 +73,7 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
     NewListAdapter newListAdapter;
     int mStartPage;
     int mUid;
+    boolean hasSubscribed;
     private List<ArticleModel.Article> datas = new ArrayList<>();
 
     @Override
@@ -90,6 +91,7 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
         Bundle bundle = getActivity().getIntent().getBundleExtra(AppConstant.FLAG_BUNDLE);
         if (bundle != null) {
             mUid = bundle.getInt(AppConstant.FLAG_DATA);
+            hasSubscribed = bundle.getBoolean(AppConstant.FLAG_DATA2);
             mPresenter.getBloggerInfo(mUid);
         }
 
@@ -178,6 +180,13 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
     }
 
     @Override
+    public void returnFocusBloggerState(boolean result) {
+        subscribeBtn.setText(result ? "+订阅" : "已订阅");
+        hasSubscribed = result;
+        subscribeBtn.setTag(hasSubscribed);
+    }
+
+    @Override
     public void returnBloggerInfo(BloggerBean bloggerBean) {
         if (bloggerBean == null || bloggerBean.getMedia() == null) {
             return;
@@ -188,7 +197,8 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
         summaryView.setText(blogger.getRemark());
         subscribeNum.setText(blogger.getRole().getmCount() + "");
         fansNum.setText(blogger.getGznum() + "");
-        subscribeBtn.setText(blogger.getRole().getRole() == 1 ? "+订阅" : "已订阅");
+        subscribeBtn.setText(!hasSubscribed ? "+订阅" : "已订阅");
+        subscribeBtn.setTag(hasSubscribed);
         numShowView.setText(blogger.getArticleNum() + "");
     }
 
@@ -213,7 +223,18 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
             case R.id.logo_view:
                 break;
             case R.id.subscribe_btn:
+                Object tag = subscribeBtn.getTag();
+                if (tag != null) {
+                    focusBtnClicked(mUid, (Boolean) tag);
+                }
                 break;
         }
     }
+
+
+    private void focusBtnClicked(int bloggerId, boolean status) {
+
+        mPresenter.focusAction(bloggerId, status);
+    }
+
 }

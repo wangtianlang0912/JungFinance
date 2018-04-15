@@ -134,7 +134,7 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.setting, R.id.img_logo_layout, R.id.subscribe_layout, R.id.fans_layout, R.id.score_layout, R.id.media_account_btn, R.id.refer_view, R.id.info_layout, R.id.analyze_layout,R.id.fast_layout, R.id.activity_layout})
+    @OnClick({R.id.setting, R.id.img_logo_layout, R.id.subscribe_layout, R.id.fans_layout, R.id.score_layout, R.id.media_account_btn, R.id.refer_view, R.id.info_layout, R.id.analyze_layout, R.id.fast_layout, R.id.activity_layout})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.setting:
@@ -148,26 +148,28 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
                 }
                 break;
             case R.id.subscribe_layout:
-                if(!MyUtils.isLogin()) {
+                if (!MyUtils.isLogin()) {
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
+                AppIntent.intentToBloggerFav(getContext());
+                break;
+            case R.id.fans_layout:
+                if (!MyUtils.isLogin()) {
                     AppIntent.intentToLogin(getContext());
                     return;
                 }
 
-                break;
-            case R.id.fans_layout:
-                if(!MyUtils.isLogin()) {
-                    AppIntent.intentToLogin(getContext());
-                    return;
-                }
+
                 break;
             case R.id.score_layout:
-                if(!MyUtils.isLogin()) {
+                if (!MyUtils.isLogin()) {
                     AppIntent.intentToLogin(getContext());
                     return;
                 }
                 break;
             case R.id.media_account_btn:
-                if(!MyUtils.isLogin()) {
+                if (!MyUtils.isLogin()) {
                     AppIntent.intentToLogin(getContext());
                     return;
                 }
@@ -176,28 +178,28 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
             case R.id.refer_view:
                 break;
             case R.id.info_layout:
-                if(!MyUtils.isLogin()) {
+                if (!MyUtils.isLogin()) {
                     AppIntent.intentToLogin(getContext());
                     return;
                 }
                 AppIntent.intentToNewsEdit(getActivity());
                 break;
             case R.id.analyze_layout:
-                if(!MyUtils.isLogin()) {
+                if (!MyUtils.isLogin()) {
                     AppIntent.intentToLogin(getContext());
                     return;
                 }
                 AppIntent.intentToHqEdit(getActivity());
                 break;
             case R.id.fast_layout:
-                if(!MyUtils.isLogin()) {
+                if (!MyUtils.isLogin()) {
                     AppIntent.intentToLogin(getContext());
                     return;
                 }
                 AppIntent.intentToFastEdit(getActivity());
                 break;
             case R.id.activity_layout:
-                if(!MyUtils.isLogin()) {
+                if (!MyUtils.isLogin()) {
                     AppIntent.intentToLogin(getContext());
                     return;
                 }

@@ -7,11 +7,12 @@ import android.view.View;
 
 import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.CommonRecycleViewAdapter;
+
+import java.util.List;
+
 import cn.jungmedia.android.R;
 import cn.jungmedia.android.app.AppIntent;
 import cn.jungmedia.android.bean.BloggerModel;
-
-import java.util.List;
 
 /***
  *
@@ -47,6 +48,9 @@ public class BloggerListAdapter extends CommonRecycleViewAdapter<BloggerModel.Me
 
         holder.setText(R.id.title_view, media.getName());
         holder.setText(R.id.sub_num, media.getGznum() + "");
+
+        holder.setImageResource(R.id.subscribe_btn, media.getFavorite() == null ? R.drawable.btn_pre_subscribe :
+                R.drawable.btn_subscribed);
         holder.setText(R.id.content_view, TextUtils.isEmpty(media.getRemark()) ? "暂无简介" : media.getRemark());
         holder.setImageRoundUrl(R.id.logo_view, media.getCoverImage());
         holder.setText(R.id.public_view, String.format("他共发表%d篇文章", media.getArticleNum()));
@@ -55,7 +59,7 @@ public class BloggerListAdapter extends CommonRecycleViewAdapter<BloggerModel.Me
             @Override
             public void onClick(View view) {
 
-                AppIntent.intentToBloggerInfo(mContext, media.getObjectId());
+                AppIntent.intentToBloggerInfo(mContext, media.getObjectId(), media.getFavorite() != null);
             }
         });
         holder.setOnClickListener(R.id.rl_root, new View.OnClickListener() {

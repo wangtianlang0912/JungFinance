@@ -30,6 +30,8 @@ public class BloggerContract {
 
         Observable<BloggerBean> getBloggerInfo(int uid);
 
+        Observable<Boolean> focusAction(int bloggerId, boolean status);
+
     }
 
     public interface View extends BaseView {
@@ -37,11 +39,17 @@ public class BloggerContract {
         void returnBloggerInfo(BloggerBean blogger);
 
         void returnListData(ArticleModel data);
+
+        void returnFocusBloggerState(boolean result);
+
     }
 
     public abstract static class Presenter extends BasePresenter<BloggerContract.View, BloggerContract.Model> {
         public abstract void getBloggerArticleList(final int uid, int startPage);
 
         public abstract void getBloggerInfo(int uid);
+
+        // 关注
+        public abstract void focusAction(int bloggerId, boolean status);
     }
 }
