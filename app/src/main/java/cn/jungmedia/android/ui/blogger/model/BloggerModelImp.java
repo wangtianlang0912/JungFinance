@@ -84,7 +84,7 @@ public class BloggerModelImp implements BloggerContract.Model {
     }
 
     @Override
-    public Observable<Boolean> focusAction(int bloggerId, final boolean status) {
+    public Observable<BaseRespose<FavActionModel>> focusAction(int bloggerId, final boolean status) {
         String token = MyUtils.getToken();
         Observable<BaseRespose<FavActionModel>> observable = null;
         if (status) {
@@ -92,21 +92,8 @@ public class BloggerModelImp implements BloggerContract.Model {
         } else {
             observable = Api.getDefault(HostType.Jung_FINANCE).focusMedia(token, bloggerId);
         }
-        return observable.map(new Func1<BaseRespose<FavActionModel>, Boolean>() {
-            @Override
-            public Boolean call(BaseRespose<FavActionModel> baseRespose) {
-                if (status) {
-                    if (baseRespose.success()) {
-                        return false; // 返回的是当前收藏的状态
-                    }
-                    return status;
-                } else {
-                    FavActionModel activityModel = baseRespose.data;
-                    return activityModel != null && activityModel.getFavorite() != null; // 收藏成功返回fav对象
-                }
-            }
-        })
+        return observable
                 //声明线程调度
-                .compose(RxSchedulers.<Boolean>io_main());
+                .compose(RxSchedulers.<BaseRespose<FavActionModel>>io_main());
     }
 }

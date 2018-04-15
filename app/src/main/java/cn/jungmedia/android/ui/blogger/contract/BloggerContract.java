@@ -4,8 +4,10 @@ package cn.jungmedia.android.ui.blogger.contract;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;
+import com.leon.common.basebean.BaseRespose;
 
 import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.bean.FavActionModel;
 import cn.jungmedia.android.ui.blogger.bean.BloggerBean;
 import rx.Observable;
 
@@ -30,7 +32,7 @@ public class BloggerContract {
 
         Observable<BloggerBean> getBloggerInfo(int uid);
 
-        Observable<Boolean> focusAction(int bloggerId, boolean status);
+        Observable<BaseRespose<FavActionModel>> focusAction(int bloggerId, boolean status);
 
     }
 
@@ -40,7 +42,7 @@ public class BloggerContract {
 
         void returnListData(ArticleModel data);
 
-        void returnFocusBloggerState(boolean result);
+        void returnFocusBloggerState(BaseRespose<FavActionModel> respose);
 
     }
 

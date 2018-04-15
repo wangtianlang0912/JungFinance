@@ -1,9 +1,11 @@
 package cn.jungmedia.android.ui.blogger.presenter;
 
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
 
 import cn.jungmedia.android.R;
 import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.bean.FavActionModel;
 import cn.jungmedia.android.ui.blogger.bean.BloggerBean;
 import cn.jungmedia.android.ui.blogger.contract.BloggerContract;
 
@@ -63,7 +65,7 @@ public class BloggerPresenterImp extends BloggerContract.Presenter {
 
     @Override
     public void focusAction(int bloggerId, boolean status) {
-        mRxManage.add(mModel.focusAction(bloggerId, status).subscribe(new RxSubscriber<Boolean>(mContext, false) {
+        mRxManage.add(mModel.focusAction(bloggerId, status).subscribe(new RxSubscriber<BaseRespose<FavActionModel>>(mContext, false) {
 
             @Override
             public void onStart() {
@@ -72,7 +74,7 @@ public class BloggerPresenterImp extends BloggerContract.Presenter {
             }
 
             @Override
-            protected void _onNext(Boolean result) {
+            protected void _onNext(BaseRespose<FavActionModel> result) {
                 mView.stopLoading();
                 mView.returnFocusBloggerState(result);
             }

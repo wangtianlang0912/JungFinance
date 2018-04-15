@@ -14,6 +14,7 @@ import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.leon.common.base.BaseFragment;
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonutils.ImageLoaderUtils;
 import com.leon.common.commonwidget.LoadingTip;
 
@@ -28,6 +29,7 @@ import cn.jungmedia.android.app.AppConstant;
 import cn.jungmedia.android.bean.ArticleModel;
 import cn.jungmedia.android.bean.BloggerModel;
 import cn.jungmedia.android.bean.Counter;
+import cn.jungmedia.android.bean.FavActionModel;
 import cn.jungmedia.android.ui.blogger.bean.BloggerBean;
 import cn.jungmedia.android.ui.blogger.contract.BloggerContract;
 import cn.jungmedia.android.ui.blogger.model.BloggerModelImp;
@@ -180,10 +182,21 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
     }
 
     @Override
-    public void returnFocusBloggerState(boolean result) {
-        subscribeBtn.setText(result ? "+订阅" : "已订阅");
-        hasSubscribed = result;
-        subscribeBtn.setTag(hasSubscribed);
+    public void returnFocusBloggerState(BaseRespose<FavActionModel> respose) {
+        if (respose.success()) {
+            FavActionModel activityModel = respose.data;
+            if (activityModel.getFavorite() != null) {
+                hasSubscribed = true;
+                subscribeBtn.setText("已订阅");
+
+            } else {
+                hasSubscribed = false;
+                subscribeBtn.setText("+订阅");
+            }
+            subscribeBtn.setTag(hasSubscribed);
+        } else {
+            showErrorTip(respose.msg);
+        }
     }
 
     @Override
