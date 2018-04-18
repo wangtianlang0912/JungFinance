@@ -141,17 +141,21 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                 @Override
                 public void run() {
 
-                    final Spannable summarySpan = htmlSpanner.fromHtml(article.getSummary());
-                    final Spannable contentSpan = htmlSpanner.fromHtml(article.getContent());
-
+                    final Spannable summarySpan = htmlSpanner.fromHtml("摘要：" + article.getSummary());
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             summaryView.setText(summarySpan);
-                            contentView.setText(contentSpan);
                         }
                     });
 
+                    final Spannable contentSpan = htmlSpanner.fromHtml(article.getContent());
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            contentView.setText(contentSpan);
+                        }
+                    });
                 }
             }.start();
 
