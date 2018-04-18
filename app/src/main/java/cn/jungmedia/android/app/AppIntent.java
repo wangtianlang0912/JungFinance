@@ -12,6 +12,7 @@ import cn.jungmedia.android.bean.ActivityModel;
 import cn.jungmedia.android.ui.blogger.fragment.BloggerFavFragment;
 import cn.jungmedia.android.ui.blogger.fragment.BloggerFragment;
 import cn.jungmedia.android.ui.blogger.fragment.FansListFragment;
+import cn.jungmedia.android.ui.blogger.fragment.MediaDiffShowFragment;
 import cn.jungmedia.android.ui.common.CommonActivity;
 import cn.jungmedia.android.ui.common.CommonWebFragment;
 import cn.jungmedia.android.ui.fav.ui.ActivityEditFragment;
@@ -20,7 +21,7 @@ import cn.jungmedia.android.ui.fav.ui.HqEditFragment;
 import cn.jungmedia.android.ui.fav.ui.NewsEditFragment;
 import cn.jungmedia.android.ui.main.fragment.ActivityInfoFragment;
 import cn.jungmedia.android.ui.main.fragment.ActivitySignupFragment;
-import cn.jungmedia.android.ui.news.fragment.ArticleDetailFragment;
+import cn.jungmedia.android.ui.news.fragment.ArticleDetailFragment2;
 import cn.jungmedia.android.ui.news.fragment.CommentListFragment;
 import cn.jungmedia.android.ui.score.ui.ScoreListFragment;
 import cn.jungmedia.android.ui.setting.fragment.SettingFragment;
@@ -127,7 +128,7 @@ public class AppIntent {
         bundle.putString(AppConstant.FLAG_DATA, articleUrl);
         bundle.putInt(AppConstant.FLAG_DATA2, objectId);
         bundle.putInt(AppConstant.FLAG_DATA3, bloggerUid);
-        intentToAct(context, context.getString(R.string.article_detail), ArticleDetailFragment.class, bundle);
+        intentToAct(context, context.getString(R.string.article_detail), ArticleDetailFragment2.class, bundle);
     }
 
 
@@ -142,7 +143,7 @@ public class AppIntent {
         String articleUrl = String.format(ApiConstants.URL + "news/i-%d.html", objectId);
         bundle.putString(AppConstant.FLAG_DATA, articleUrl);
         bundle.putInt(AppConstant.FLAG_DATA2, objectId);
-        intentToAct(context, context.getString(R.string.article_detail), ArticleDetailFragment.class, bundle);
+        intentToAct(context, context.getString(R.string.article_detail), ArticleDetailFragment2.class, bundle);
     }
 
     /**
@@ -178,6 +179,13 @@ public class AppIntent {
         intentToCommonWeb(context, "积分规则", url);
     }
 
+
+    public static void intentToMediaDiff(Context context) {
+
+        Bundle bundle = new Bundle();
+        intentToAct(context, context.getString(R.string.refer), MediaDiffShowFragment.class, bundle);
+
+    }
     public static void intentToNewsEdit(Context context) {
 
         Bundle bundle = new Bundle();

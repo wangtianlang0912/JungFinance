@@ -19,6 +19,7 @@ import com.leon.common.commonutils.ToastUitl;
 import com.leon.common.commonwidget.LoadingDialog;
 import com.leon.common.commonwidget.StatusBarCompat;
 import com.leon.common.daynightmodeutils.ChangeModeController;
+import com.umeng.analytics.MobclickAgent;
 
 import butterknife.ButterKnife;
 
@@ -257,7 +258,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         //debug版本不统计crash
         if (!BuildConfig.LOG_DEBUG) {
             //友盟统计
-//            MobclickAgent.onResume(this);
+            MobclickAgent.onResume(this);
         }
     }
 
@@ -267,7 +268,7 @@ public abstract class BaseActivity<T extends BasePresenter, E extends BaseModel>
         //debug版本不统计crash
         if (!BuildConfig.LOG_DEBUG) {
             //友盟统计
-//            MobclickAgent.onPause(this);
+            MobclickAgent.onPause(this);
         }
     }
 

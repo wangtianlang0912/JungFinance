@@ -258,7 +258,7 @@ public interface ApiService {
     Observable<BaseRespose<NewsFavBean>> getArtileFavList(@Query("token") String token, @Query("type") int type, @Query("p") int page);
 
     // 上传图片
-    @POST("app/image/u/create")
+    @POST("app/image/create")
     Observable<String> uploadImage(@Query("image") String image);
 
     // 订阅的博主列表

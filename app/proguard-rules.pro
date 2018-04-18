@@ -256,3 +256,17 @@
 #----------------------------------------------------------------------------
 #忽略警告
 -dontwarn com.parse.**
+
+#umeng
+#----------------------------------------------------------------------------
+-keep class com.umeng.** {*;}
+-keepclassmembers class * {
+   public <init> (org.json.JSONObject);
+}
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+-keep public class cn.jungmedia.android.R$*{
+public static final int *;
+}

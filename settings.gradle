@@ -1,2 +1,2 @@
-include ':yizhi', ':sdk'
-include ':library:common', ':library:selectordialog', ':library:jcvideoplayer', ':app', ':library:oneKeyShareSDK', ':library:irecyclerview', ':library:photoPicker'
+include  ':push',':umlib',':HtmlSpanner'
+include ':library:common', ':library:selectordialog', ':library:jcvideoplayer', ':app', ':library:irecyclerview', ':library:photoPicker'

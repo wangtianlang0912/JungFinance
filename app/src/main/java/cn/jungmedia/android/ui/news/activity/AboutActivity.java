@@ -11,10 +11,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import cn.jungmedia.android.R;
 import com.leon.common.base.BaseActivity;
 
 import butterknife.Bind;
+import cn.jungmedia.android.R;
 
 import static cn.jungmedia.android.R.layout.act_about;
 
@@ -78,20 +78,6 @@ public class AboutActivity extends BaseActivity {
         });
         toolbar.setTitle(getString(R.string.app_name));
         toolbarLayout.setTitle(getString(R.string.app_name));
-        //分享
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mShareLink == null) {
-                    mShareLink = "";
-                }
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.setType("text/plain");
-                intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share));
-                intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_contents, getString(R.string.app_name), mShareLink));
-                startActivity(Intent.createChooser(intent, getTitle()));
-            }
-        });
 
     }
 }

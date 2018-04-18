@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonutils.ImageLoaderUtils;
 import com.leon.common.commonutils.ToastUitl;
@@ -21,17 +24,29 @@ import com.yuyh.library.imgsel.ImageLoader;
 import com.yuyh.library.imgsel.ImgSelActivity;
 import com.yuyh.library.imgsel.ImgSelConfig;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jungmedia.android.R;
+import cn.jungmedia.android.api.ApiConstants;
+import cn.jungmedia.android.api.HostType;
 import cn.jungmedia.android.ui.user.bean.UserInfo;
 import cn.jungmedia.android.ui.user.model.UserInfoModelImp;
 import cn.jungmedia.android.ui.user.presenter.UserContract;
 import cn.jungmedia.android.ui.user.presenter.UserInfoPresenterImp;
 import cn.jungmedia.android.utils.MyUtils;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -147,7 +162,8 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresenterImp, UserInf
                 if (logoView.getTag() != null) {
                     String imagePath = (String) logoView.getTag();
                     if (imagePath != null) {
-                        mPresenter.uploadImage(imagePath);
+//                        mPresenter.uploadImage(imagePath);
+                        updateImage(imagePath);
                     }
                 } else {
 
@@ -205,5 +221,71 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresenterImp, UserInf
                 logoView.setTag(pathList.get(0));
             }
         }
+    }
+
+
+    private void updateImage(String urlPath) {
+
+        OkHttpClient mOkHttpClent = new OkHttpClient();
+        File file = new File(urlPath);
+        if (!file.exists()) {
+            ToastUitl.showShort("未找到图片");
+            return;
+        }
+        MultipartBody.Builder builder = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("image", file.getName(),
+                        RequestBody.create(MediaType.parse("image/jpeg"), file));
+
+        RequestBody requestBody = builder.build();
+
+        Request request = new Request.Builder()
+                .url(ApiConstants.getHost(HostType.Jung_FINANCE) + "app/image/create")
+                .post(requestBody)
+                .build();
+        Call call = mOkHttpClent.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("UserInfoFragment", "onFailure: " + e);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        showErrorTip("图片上传失败");
+                    }
+                });
+            }
+
+            @Override
+            public void onResponse(Call call, final Response response) throws IOException {
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        try {
+                            String data = response.body().string();
+                            if (!TextUtils.isEmpty(data)) {
+
+                                JSONObject jsonObject = JSON.parseObject(data);
+                                if (jsonObject.containsKey("uri")) {
+                                    String url = jsonObject.get("uri").toString();
+
+                                    String nick = nickEdit.getText().toString().trim();
+                                    String desp = despEdit.getText().toString().trim();
+                                    if (userInfo != null && userInfo.getUser() != null) {
+                                        mPresenter.submit(nick, desp, userInfo.getUser().getPhone(), url);
+                                    }
+                                }
+                            }
+
+                        } catch (IOException e) {
+                            ToastUitl.showShort("解析错误");
+                        }
+
+
+                    }
+                });
+            }
+        });
     }
 }

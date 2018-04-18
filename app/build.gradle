@@ -14,6 +14,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        // Enabling multidex support.
+        multiDexEnabled true
     }
 
 
@@ -86,9 +88,12 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile project(':library:photoPicker')//图片选择
     compile project(':library:irecyclerview')//万能适配器和recyclerview
-//    compile project(':library:oneKeyShareSDK')//分享
     compile project(':library:jcvideoplayer')//视频播放
     compile project(':library:selectordialog')//常用提示框
-
+    compile project(':umlib')
+    compile project(':push')
+    compile project(':HtmlSpanner')
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.1.6'
+
+
 }

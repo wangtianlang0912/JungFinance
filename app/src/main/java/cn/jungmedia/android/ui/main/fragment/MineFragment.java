@@ -176,6 +176,8 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
 
                 break;
             case R.id.refer_view:
+
+                AppIntent.intentToMediaDiff(getContext());
                 break;
             case R.id.info_layout:
                 if (!MyUtils.isLogin()) {
