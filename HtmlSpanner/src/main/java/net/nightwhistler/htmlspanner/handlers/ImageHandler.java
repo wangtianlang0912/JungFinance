@@ -20,6 +20,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.text.style.ImageSpan;
 
 import net.nightwhistler.htmlspanner.SpanStack;
@@ -60,24 +61,37 @@ public class ImageHandler extends TagNodeHandler {
             Drawable drawable = new BitmapDrawable(bitmap);
 
             String width = node.getAttributeByName("width");
-            if (width.endsWith("%")) {
-                float scanVal = Float.valueOf(width.substring(0, width.length() - 1)) / 100;
-                drawable.setBounds(0, 0, (int) (viewWidth * scanVal - 1),
-                        (int) (viewWidth * scanVal / (float) bitmap.getWidth() * bitmap.getHeight() - 1));
-            } else {
-                int widthVal = 0;
-                try {
-                    widthVal = Integer.parseInt(width);
-                } catch (Exception e) {
 
-                }
-                if (widthVal != 0) {
-                    drawable.setBounds(0, 0, (widthVal - 1),
-                            widthVal / bitmap.getWidth() * bitmap.getHeight() - 1);
+            if (!TextUtils.isEmpty(width)) {
+                if (width.endsWith("%")) {
+                    float scanVal = 0;
+                    try {
+                        scanVal = Float.valueOf(width.substring(0, width.length() - 1)) / 100;
+                    } catch (Exception e) {
+                    }
+                    if (scanVal != 0) {
+                        drawable.setBounds(0, 0, (int) (viewWidth * scanVal - 1),
+                                (int) (viewWidth * scanVal / (float) bitmap.getWidth() * bitmap.getHeight() - 1));
+                    } else {
+                        drawable.setBounds(0, 0, bitmap.getWidth() - 1,  bitmap.getHeight() - 1);
+                    }
+
                 } else {
-                    drawable.setBounds(0, 0, bitmap.getWidth() - 1,
-                            bitmap.getHeight() - 1);
+                    int widthVal = 0;
+                    try {
+                        widthVal = Integer.parseInt(width);
+                    } catch (Exception e) {
+
+                    }
+                    if (widthVal != 0) {
+                        drawable.setBounds(0, 0, (widthVal - 1),
+                                widthVal / bitmap.getWidth() * bitmap.getHeight() - 1);
+                    } else {
+                        drawable.setBounds(0, 0, bitmap.getWidth() - 1, bitmap.getHeight() - 1);
+                    }
                 }
+            } else {
+                drawable.setBounds(0, 0, bitmap.getWidth() - 1, bitmap.getHeight() - 1);
             }
             stack.pushSpan(new ImageSpan(drawable), start, builder.length());
         }
