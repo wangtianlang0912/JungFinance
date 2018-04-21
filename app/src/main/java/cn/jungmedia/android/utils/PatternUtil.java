@@ -323,24 +323,31 @@ public class PatternUtil {
      * @return
      */
     public static String repairContent(String content, String replaceHttp) {
-        String patternStr = "<img\\s*([^>]*)\\s*src=\\\"(.*?)\\\"\\s*([^>]*)>";
-        Pattern pattern = Pattern.compile(patternStr, Pattern.CASE_INSENSITIVE);
-        Matcher matcher = pattern.matcher(content);
-        String result = content;
-        while (matcher.find()) {
-            String src = matcher.group(2);
-            Log.d("PatternUtil", "pattern string:" + src);
-            String replaceSrc = "";
-            if (src.lastIndexOf(".") > 0) {
-                replaceSrc = src.substring(0, src.lastIndexOf(".")) + src.substring(src.lastIndexOf("."));
+
+        Pattern p = Pattern.compile("<img\\s*([^>]*)\\s*([^>]*)>");
+        Matcher m = p.matcher(content);
+        while (m.find()) {
+            String imgLable = m.group(0);
+            String newImgLable = imgLable.replaceAll("<img", "<img width=100% height=100%  ");
+
+            String patternStr = "<img\\s*([^>]*)\\s*src=\\\"(.*?)\\\"\\s*([^>]*)>";
+            Pattern pattern = Pattern.compile(patternStr, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(newImgLable);
+            while (matcher.find()) {
+                String src = matcher.group(2);
+                Log.d("PatternUtil", "pattern string:" + src);
+                String replaceSrc = "";
+                if (src.lastIndexOf(".") > 0) {
+                    replaceSrc = src.substring(0, src.lastIndexOf(".")) + src.substring(src.lastIndexOf("."));
+                }
+                if (!src.startsWith("http://") && !src.startsWith("https://")) {
+                    replaceSrc = replaceHttp + replaceSrc;
+                }
+                newImgLable = newImgLable.replaceAll(src, replaceSrc);
             }
-            if (!src.startsWith("http://") && !src.startsWith("https://")) {
-                replaceSrc = replaceHttp + replaceSrc;
-            }
-            result = result.replaceAll(src, replaceSrc);
+            content = content.replaceAll(imgLable, newImgLable);
         }
-        Log.d("PatternUtil", " content == " + content);
-        Log.d("PatternUtil", " result == " + result);
-        return result;
+
+        return content;
     }
 }

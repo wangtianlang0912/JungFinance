@@ -72,6 +72,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
             }
         });
 
+        mPresenter.deviceRegister();
     }
 
     @OnClick(R.id.add_channel_iv)

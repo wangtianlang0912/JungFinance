@@ -1,12 +1,13 @@
 package cn.jungmedia.android.ui.main.presenter;
 
-import cn.jungmedia.android.app.AppConstant;
-import cn.jungmedia.android.bean.NewsChannelTable;
-import cn.jungmedia.android.ui.main.contract.NewsMainContract;
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
 
 import java.util.List;
 
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.bean.NewsChannelTable;
+import cn.jungmedia.android.ui.main.contract.NewsMainContract;
 import rx.functions.Action1;
 
 /**
@@ -24,7 +25,7 @@ public class NewsMainPresenter extends NewsMainContract.Presenter {
 
             @Override
             public void call(List<NewsChannelTable> newsChannelTables) {
-                if(newsChannelTables!=null){
+                if (newsChannelTables != null) {
                     mView.returnMineNewsChannels(newsChannelTables);
                 }
             }
@@ -33,7 +34,7 @@ public class NewsMainPresenter extends NewsMainContract.Presenter {
 
     @Override
     public void lodeMineChannelsRequest() {
-        mRxManage.add(mModel.lodeMineNewsChannels().subscribe(new RxSubscriber<List<NewsChannelTable>>(mContext,false) {
+        mRxManage.add(mModel.lodeMineNewsChannels().subscribe(new RxSubscriber<List<NewsChannelTable>>(mContext, false) {
             @Override
             protected void _onNext(List<NewsChannelTable> newsChannelTables) {
                 mView.returnMineNewsChannels(newsChannelTables);
@@ -42,6 +43,21 @@ public class NewsMainPresenter extends NewsMainContract.Presenter {
             @Override
             protected void _onError(String message) {
 
+            }
+        }));
+    }
+
+    @Override
+    public void deviceRegister() {
+        mRxManage.add(mModel.deviceRegister().subscribe(new RxSubscriber<BaseRespose>(mContext, false) {
+            @Override
+            protected void _onNext(BaseRespose baseRespose) {
+                mView.returnDeviceRegister();
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.showErrorTip(message);
             }
         }));
     }

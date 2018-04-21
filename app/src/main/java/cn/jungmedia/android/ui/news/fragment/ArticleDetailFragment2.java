@@ -167,7 +167,9 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            summaryView.setText(summarySpan);
+                            if (summaryView != null) {
+                                summaryView.setText(summarySpan);
+                            }
                         }
                     });
 
@@ -175,7 +177,9 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            contentView.setText(contentSpan);
+                            if (contentView != null) {
+                                contentView.setText(contentSpan);
+                            }
                         }
                     });
                 }
@@ -316,7 +320,7 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
 
     @Override
     public void returnShare(BaseRespose response) {
-    
+
     }
 
     @Override
