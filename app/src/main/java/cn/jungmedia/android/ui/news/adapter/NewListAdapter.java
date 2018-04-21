@@ -7,11 +7,12 @@ import android.view.View;
 import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemRecycleViewAdapter;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.MultiItemTypeSupport;
-import cn.jungmedia.android.bean.ArticleModel;
-import cn.jungmedia.android.R;
-import cn.jungmedia.android.app.AppIntent;
 
 import java.util.List;
+
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppIntent;
+import cn.jungmedia.android.bean.ArticleModel;
 
 /**
  * des:新闻列表适配器
@@ -95,14 +96,9 @@ public class NewListAdapter extends MultiItemRecycleViewAdapter<ArticleModel.Art
             @Override
             public void onClick(View view) {
 
-                if (article.getMedia() != null) {
-                    AppIntent.intentToBloggerArticleDetail(mContext,
-                            article.getObjectId(),
-                            article.getMedia().getObjectId());
-                } else {
-                    AppIntent.intentToArticleDetail(mContext,
-                            article.getObjectId());
-                }
+
+                AppIntent.intentToArticleDetail(mContext,
+                        article.getObjectId());
             }
         });
     }

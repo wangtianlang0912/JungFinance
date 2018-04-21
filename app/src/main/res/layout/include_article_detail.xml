@@ -15,9 +15,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#f5f5f5"
-            android:paddingTop="15dp"
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
+            android:paddingTop="15dp"
             android:visibility="gone">
 
             <ImageView
@@ -93,9 +93,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
             android:orientation="vertical"
             android:paddingLeft="15dp"
-            android:layout_marginTop="15dp"
             android:paddingRight="15dp">
             <!--标题内容模块-->
             <LinearLayout
@@ -241,6 +241,7 @@
                         <ImageView
                             android:id="@+id/cai_imageview"
                             android:layout_width="15dp"
+                            android:layout_marginLeft="5dp"
                             android:layout_height="15dp"
                             android:src="@drawable/logo_cai_n" />
 
@@ -262,12 +263,13 @@
                     android:id="@+id/comment_item_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:orientation="vertical"
                     android:visibility="gone" />
 
 
                 <TextView
-                    android:id="@+id/comment_btn"
+                    android:id="@+id/comment_inner_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="25dp"
                     android:layout_gravity="center"

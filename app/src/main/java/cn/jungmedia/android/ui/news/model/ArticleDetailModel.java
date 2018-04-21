@@ -1,21 +1,22 @@
 package cn.jungmedia.android.ui.news.model;
 
-import cn.jungmedia.android.api.HostType;
-import cn.jungmedia.android.bean.CommentCreateModel;
-import cn.jungmedia.android.api.Api;
-import cn.jungmedia.android.api.ApiConstants;
-import cn.jungmedia.android.bean.ArticleDetail;
-import cn.jungmedia.android.bean.ArticleModel;
-import cn.jungmedia.android.bean.BloggerModel;
-import cn.jungmedia.android.bean.CommentListModel;
-import cn.jungmedia.android.bean.FavActionModel;
-import cn.jungmedia.android.ui.news.contract.ArticleDetaiContract;
-import cn.jungmedia.android.utils.MyUtils;
-import cn.jungmedia.android.utils.PatternUtil;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 import com.leon.common.commonutils.TimeUtil;
 
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.api.ApiConstants;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.bean.ArticleDetail;
+import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.bean.BloggerModel;
+import cn.jungmedia.android.bean.CommentCreateModel;
+import cn.jungmedia.android.bean.CommentListModel;
+import cn.jungmedia.android.bean.FavActionModel;
+import cn.jungmedia.android.bean.VoteModel;
+import cn.jungmedia.android.ui.news.contract.ArticleDetaiContract;
+import cn.jungmedia.android.utils.MyUtils;
+import cn.jungmedia.android.utils.PatternUtil;
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -86,7 +87,7 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
     }
 
     @Override
-    public Observable<FavActionModel.Favorite> favActionArticle(int objectId, final boolean status) {
+    public Observable<BaseRespose<FavActionModel>> favActionArticle(int objectId, final boolean status) {
         String token = MyUtils.getToken();
         Observable<BaseRespose<FavActionModel>> observable = null;
         if (status) {
@@ -94,18 +95,12 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
         } else {
             observable = Api.getDefault(HostType.Jung_FINANCE).favArticle(token, objectId);
         }
-        return observable.map(new Func1<BaseRespose<FavActionModel>, FavActionModel.Favorite>() {
-            @Override
-            public FavActionModel.Favorite call(BaseRespose<FavActionModel> baseRespose) {
-                return baseRespose.data.getFavorite();
-            }
-        })
-                //声明线程调度
-                .compose(RxSchedulers.<FavActionModel.Favorite>io_main());
+        //声明线程调度
+        return observable.compose(RxSchedulers.<BaseRespose<FavActionModel>>io_main());
     }
 
     @Override
-    public Observable<Boolean> focusAction(int bloggerId, final boolean status) {
+    public Observable<BaseRespose<FavActionModel>> focusAction(int bloggerId, final boolean status) {
         String token = MyUtils.getToken();
         Observable<BaseRespose<FavActionModel>> observable = null;
         if (status) {
@@ -113,37 +108,17 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
         } else {
             observable = Api.getDefault(HostType.Jung_FINANCE).focusMedia(token, bloggerId);
         }
-        return observable.map(new Func1<BaseRespose<FavActionModel>, Boolean>() {
-            @Override
-            public Boolean call(BaseRespose<FavActionModel> baseRespose) {
-                if (status) {
-                    if (baseRespose.success()) {
-                        return false; // 返回的是当前收藏的状态
-                    }
-                    return status;
-                } else {
-                    FavActionModel activityModel = baseRespose.data;
-                    return activityModel != null && activityModel.getFavorite() != null; // 收藏成功返回fav对象
-                }
-            }
-        })
+        return observable
                 //声明线程调度
-                .compose(RxSchedulers.<Boolean>io_main());
+                .compose(RxSchedulers.<BaseRespose<FavActionModel>>io_main());
     }
 
     @Override
-    public Observable<FavActionModel.Favorite> getArticleFavState(int articleId) {
+    public Observable<BaseRespose<FavActionModel>> getArticleFavState(int articleId) {
         String token = MyUtils.getToken();
         return Api.getDefault(HostType.Jung_FINANCE).getArticleFavState(token, articleId)
-                .map(new Func1<BaseRespose<FavActionModel>, FavActionModel.Favorite>() {
-                    @Override
-                    public FavActionModel.Favorite call(BaseRespose<FavActionModel> baseRespose) {
-                        FavActionModel activityModel = baseRespose.data;
-                        return activityModel.getFavorite();
-                    }
-                })
                 //声明线程调度
-                .compose(RxSchedulers.<FavActionModel.Favorite>io_main());
+                .compose(RxSchedulers.<BaseRespose<FavActionModel>>io_main());
     }
 
     @Override
@@ -181,5 +156,23 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
                 })
                 //声明线程调度
                 .compose(RxSchedulers.<CommentListModel>io_main());
+    }
+
+    @Override
+    public Observable<BaseRespose<VoteModel>> support(int articleId) {
+        String token = MyUtils.getToken();
+        return Api.getDefault(HostType.Jung_FINANCE).support(token, articleId)
+
+                //声明线程调度
+                .compose(RxSchedulers.<BaseRespose<VoteModel>>io_main());
+    }
+
+    @Override
+    public Observable<BaseRespose<VoteModel>> oppose(int articleId) {
+        String token = MyUtils.getToken();
+        return Api.getDefault(HostType.Jung_FINANCE).oppose(token, articleId)
+
+                //声明线程调度
+                .compose(RxSchedulers.<BaseRespose<VoteModel>>io_main());
     }
 }

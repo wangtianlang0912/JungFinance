@@ -22,6 +22,7 @@ import cn.jungmedia.android.bean.NewsDetail;
 import cn.jungmedia.android.bean.NewsSummary;
 import cn.jungmedia.android.bean.TopicModel;
 import cn.jungmedia.android.bean.VideoData;
+import cn.jungmedia.android.bean.VoteModel;
 import cn.jungmedia.android.ui.blogger.bean.BloggerBean;
 import cn.jungmedia.android.ui.blogger.bean.BloggerFavBean;
 import cn.jungmedia.android.ui.blogger.bean.FansBean;
@@ -154,8 +155,8 @@ public interface ApiService {
     Observable<BaseRespose<ArticleDetail>> getArticleDetail(@Query("id") String id);
 
     // 获取推荐文章
-    @GET("app/article/relevant")
-    Observable<BaseRespose<ArticleModel>> getRelateList(String id);
+    @GET("api/article/relevant")
+    Observable<BaseRespose<ArticleModel>> getRelateList(@Query("id") String id);
 
     //首页banner
     @GET("app/banner/query")
@@ -272,4 +273,14 @@ public interface ApiService {
     // 积分
     @GET("app/me/score/query")
     Observable<BaseRespose<ScoreBean>> getScoreInfo(@Query("token") String token, @Query("p") int page, @Query("orderBy") String orderBy);
+
+    // 反对文章
+    @POST("app/vote/oppose")
+    Observable<BaseRespose<VoteModel>> oppose(@Query("token") String token, @Query("id") int id);
+
+    // 支持文章
+    @POST("app/vote/oppose")
+    Observable<BaseRespose<VoteModel>> support(@Query("token") String token, @Query("id") int id);
+
+
 }

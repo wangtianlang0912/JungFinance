@@ -27,10 +27,10 @@ import cn.jungmedia.android.app.AppIntent;
 import cn.jungmedia.android.bean.ActivityFavModel;
 import cn.jungmedia.android.bean.ActivityModel;
 import cn.jungmedia.android.ui.common.CommonActivity;
+import cn.jungmedia.android.ui.common.CommonWebFragment;
 import cn.jungmedia.android.ui.main.contract.ActivityDetailContract;
 import cn.jungmedia.android.ui.main.model.ActivityDetailModelImp;
 import cn.jungmedia.android.ui.main.presenter.ActivityDetailPresenterImp;
-import cn.jungmedia.android.ui.news.fragment.ArticleDetailFragment;
 import cn.jungmedia.android.utils.MyUtils;
 
 
@@ -119,7 +119,7 @@ public class ActivityInfoFragment extends BaseFragment<ActivityDetailPresenterIm
         detailwebview.requestFocus();
         detailwebview.getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
         detailwebview.setWebViewClient(new InnerWebViewClient(getActivity()));
-        detailwebview.setWebChromeClient(new InjectedChromeClient(progressWebView.getProgressbar(), "JsCallBack", ArticleDetailFragment.InnerHostJsScope.class));
+        detailwebview.setWebChromeClient(new InjectedChromeClient(progressWebView.getProgressbar(), "JsCallBack", CommonWebFragment.InnerHostJsScope.class));
         detailwebview.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

@@ -114,4 +114,5 @@
     <string name="activity_signup">活动报名</string>
     <string name="refer">提示</string>
     <string name="share_contents">分享自荣格财经</string>
+    <string name="submit_failure">提交失败</string>
 </resources>

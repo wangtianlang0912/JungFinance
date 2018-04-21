@@ -115,23 +115,6 @@ public class AppIntent {
         intentToAct(context, context.getString(R.string.score), ScoreListFragment.class, bundle);
     }
 
-
-    /***
-     * 博主文章详情
-     * @param context
-     * @param objectId
-     */
-    public static void intentToBloggerArticleDetail(Context context, int objectId, int bloggerUid) {
-
-        Bundle bundle = new Bundle();
-        String articleUrl = String.format(ApiConstants.URL + "media/i-%d.html", objectId);
-        bundle.putString(AppConstant.FLAG_DATA, articleUrl);
-        bundle.putInt(AppConstant.FLAG_DATA2, objectId);
-        bundle.putInt(AppConstant.FLAG_DATA3, bloggerUid);
-        intentToAct(context, context.getString(R.string.article_detail), ArticleDetailFragment2.class, bundle);
-    }
-
-
     /***
      * 普通文章详情
      * @param context
@@ -140,8 +123,6 @@ public class AppIntent {
     public static void intentToArticleDetail(Context context, int objectId) {
 
         Bundle bundle = new Bundle();
-        String articleUrl = String.format(ApiConstants.URL + "news/i-%d.html", objectId);
-        bundle.putString(AppConstant.FLAG_DATA, articleUrl);
         bundle.putInt(AppConstant.FLAG_DATA2, objectId);
         intentToAct(context, context.getString(R.string.article_detail), ArticleDetailFragment2.class, bundle);
     }
@@ -186,6 +167,7 @@ public class AppIntent {
         intentToAct(context, context.getString(R.string.refer), MediaDiffShowFragment.class, bundle);
 
     }
+
     public static void intentToNewsEdit(Context context) {
 
         Bundle bundle = new Bundle();

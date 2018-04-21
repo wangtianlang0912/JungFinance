@@ -1,15 +1,17 @@
 package cn.jungmedia.android.ui.news.contract;
 
 
+import com.leon.common.base.BaseModel;
+import com.leon.common.base.BasePresenter;
+import com.leon.common.base.BaseView;
+import com.leon.common.basebean.BaseRespose;
+
 import cn.jungmedia.android.bean.ArticleDetail;
 import cn.jungmedia.android.bean.ArticleModel;
 import cn.jungmedia.android.bean.CommentCreateModel;
 import cn.jungmedia.android.bean.CommentListModel;
 import cn.jungmedia.android.bean.FavActionModel;
-import com.leon.common.base.BaseModel;
-import com.leon.common.base.BasePresenter;
-import com.leon.common.base.BaseView;
-
+import cn.jungmedia.android.bean.VoteModel;
 import rx.Observable;
 
 /***
@@ -34,15 +36,19 @@ public class ArticleDetaiContract {
 
         Observable<ArticleModel> getArticleReleateList(String id);
 
-        Observable<FavActionModel.Favorite> favActionArticle(int articleId, boolean status);
+        Observable<BaseRespose<FavActionModel>> favActionArticle(int articleId, boolean status);
 
-        Observable<Boolean> focusAction(int bloggerId, boolean status);
+        Observable<BaseRespose<FavActionModel>> focusAction(int bloggerId, boolean status);
 
-        Observable<FavActionModel.Favorite> getArticleFavState(int articleId);
+        Observable<BaseRespose<FavActionModel>> getArticleFavState(int articleId);
 
         Observable<CommentCreateModel> createComment(int articleId, String body);
 
         Observable<CommentListModel> getCommentList(int articleId);
+
+        Observable<BaseRespose<VoteModel>> support(int articleId);
+
+        Observable<BaseRespose<VoteModel>> oppose(int articleId);
     }
 
     public interface View extends BaseView {
@@ -50,16 +56,19 @@ public class ArticleDetaiContract {
 
         void returnRelateList(ArticleModel articleModel);
 
-        void returnFavArticleState(FavActionModel.Favorite result);
+        void returnFavArticleState(BaseRespose<FavActionModel> result);
 
-        void returnFocusBloggerState(boolean result);
+        void returnFocusBloggerState(BaseRespose<FavActionModel> result);
 
         void returnCreateComment(CommentCreateModel model);
 
         void returnCommentList(CommentListModel model);
+
+        void returnVoteData(BaseRespose<VoteModel> response);
     }
 
     public abstract static class Presenter extends BasePresenter<View, Model> {
+
         public abstract void getArticleDetail(String id);
 
         //相关新闻
@@ -78,5 +87,9 @@ public class ArticleDetaiContract {
 
         //获取3条评论展示在文章详情中
         public abstract void getCommentList(int articleId);
+
+        public abstract void support(int articleId);
+
+        public abstract void oppose(int articleId);
     }
 }

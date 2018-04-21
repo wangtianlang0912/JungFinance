@@ -68,14 +68,9 @@ public class FastEditListAdapter extends MultiItemRecycleViewAdapter<NewsFavBean
             @Override
             public void onClick(View view) {
 
-                if (article.getMedia() != null) {
-                    AppIntent.intentToBloggerArticleDetail(mContext,
-                            article.getObjectId(),
-                            article.getMedia().getObjectId());
-                } else {
-                    AppIntent.intentToArticleDetail(mContext,
-                            article.getObjectId());
-                }
+                AppIntent.intentToArticleDetail(mContext,
+                        article.getObjectId());
+
             }
         });
         holder.setOnClickListener(R.id.delete, new View.OnClickListener() {

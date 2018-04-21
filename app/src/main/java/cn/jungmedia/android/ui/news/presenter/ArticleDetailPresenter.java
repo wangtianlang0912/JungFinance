@@ -1,12 +1,15 @@
 package cn.jungmedia.android.ui.news.presenter;
 
+import com.leon.common.basebean.BaseRespose;
+import com.leon.common.baserx.RxSubscriber;
+
 import cn.jungmedia.android.bean.ArticleDetail;
 import cn.jungmedia.android.bean.ArticleModel;
 import cn.jungmedia.android.bean.CommentCreateModel;
 import cn.jungmedia.android.bean.CommentListModel;
 import cn.jungmedia.android.bean.FavActionModel;
+import cn.jungmedia.android.bean.VoteModel;
 import cn.jungmedia.android.ui.news.contract.ArticleDetaiContract;
-import com.leon.common.baserx.RxSubscriber;
 
 
 /***
@@ -66,7 +69,7 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
     @Override
     public void favActionArticle(int objectId, boolean status) {
 
-        mRxManage.add(mModel.favActionArticle(objectId, status).subscribe(new RxSubscriber<FavActionModel.Favorite>(mContext, false) {
+        mRxManage.add(mModel.favActionArticle(objectId, status).subscribe(new RxSubscriber<BaseRespose<FavActionModel>>(mContext, false) {
 
             @Override
             public void onStart() {
@@ -75,7 +78,7 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
             }
 
             @Override
-            protected void _onNext(FavActionModel.Favorite result) {
+            protected void _onNext(BaseRespose<FavActionModel> result) {
                 mView.stopLoading();
                 mView.returnFavArticleState(result);
             }
@@ -91,7 +94,7 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
 
     @Override
     public void focusAction(int bloggerId, boolean status) {
-        mRxManage.add(mModel.focusAction(bloggerId, status).subscribe(new RxSubscriber<Boolean>(mContext, false) {
+        mRxManage.add(mModel.focusAction(bloggerId, status).subscribe(new RxSubscriber<BaseRespose<FavActionModel>>(mContext, false) {
 
             @Override
             public void onStart() {
@@ -100,9 +103,9 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
             }
 
             @Override
-            protected void _onNext(Boolean result) {
+            protected void _onNext(BaseRespose<FavActionModel> respose) {
                 mView.stopLoading();
-                mView.returnFocusBloggerState(result);
+                mView.returnFocusBloggerState(respose);
             }
 
             @Override
@@ -115,9 +118,9 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
 
     @Override
     public void getArticleFavState(int articleId) {
-        mRxManage.add(mModel.getArticleFavState(articleId).subscribe(new RxSubscriber<FavActionModel.Favorite>(mContext, false) {
+        mRxManage.add(mModel.getArticleFavState(articleId).subscribe(new RxSubscriber<BaseRespose<FavActionModel>>(mContext, false) {
             @Override
-            protected void _onNext(FavActionModel.Favorite result) {
+            protected void _onNext(BaseRespose<FavActionModel> result) {
                 mView.returnFavArticleState(result);
             }
 
@@ -162,6 +165,54 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
 
             @Override
             protected void _onError(String message) {
+                mView.showErrorTip(message);
+            }
+        }));
+    }
+
+    @Override
+    public void support(int articleId) {
+        mRxManage.add(mModel.support(articleId).subscribe(new RxSubscriber<BaseRespose<VoteModel>>(mContext, false) {
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                mView.showLoading("");
+            }
+
+            @Override
+            protected void _onNext(BaseRespose<VoteModel> result) {
+                mView.returnVoteData(result);
+                mView.stopLoading();
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.stopLoading();
+                mView.showErrorTip(message);
+            }
+        }));
+    }
+
+    @Override
+    public void oppose(int articleId) {
+        mRxManage.add(mModel.oppose(articleId).subscribe(new RxSubscriber<BaseRespose<VoteModel>>(mContext, false) {
+
+            @Override
+            public void onStart() {
+                super.onStart();
+                mView.showLoading("");
+            }
+
+            @Override
+            protected void _onNext(BaseRespose<VoteModel> result) {
+                mView.returnVoteData(result);
+                mView.stopLoading();
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.stopLoading();
                 mView.showErrorTip(message);
             }
         }));
