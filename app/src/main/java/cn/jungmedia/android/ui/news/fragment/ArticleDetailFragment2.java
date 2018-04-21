@@ -42,6 +42,7 @@ import cn.jungmedia.android.ui.news.contract.ArticleDetaiContract;
 import cn.jungmedia.android.ui.news.model.ArticleDetailModel;
 import cn.jungmedia.android.ui.news.presenter.ArticleDetailPresenter;
 import cn.jungmedia.android.utils.MyUtils;
+import cn.jungmedia.android.utils.ShareHelper;
 
 
 /***
@@ -141,7 +142,8 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
             htmlSpanner.setAllowStyling(true);
             htmlSpanner.setStripExtraWhiteSpace(true);
             final ArticleModel.Article article = data.getArticle();
-
+            article.setUrl(data.getUrl());
+            shareBtn.setTag(article);
             titleView.setText(article.getTitle());
             timeView.setText(article.getPtime());
             sourceView.setText(article.getSource());
@@ -233,11 +235,13 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
         if (respose.success()) {
             FavActionModel activityModel = respose.data;
             if (activityModel.getFavorite() != null) {
-                favBtn.setImageResource(R.drawable.icon_fav_s);
-                favBtn.setTag(activityModel.getFavorite().getObjectId());
-            } else {
-                favBtn.setImageResource(R.drawable.icon_fav_n);
-                favBtn.setTag(null);
+                if (activityModel.getFavorite().getStatus() == 0) {
+                    favBtn.setImageResource(R.drawable.icon_fav_s);
+                    favBtn.setTag(activityModel.getFavorite().getObjectId());
+                } else {
+                    favBtn.setImageResource(R.drawable.icon_fav_n);
+                    favBtn.setTag(null);
+                }
             }
         } else {
             showErrorTip(respose.msg);
@@ -311,6 +315,11 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
     }
 
     @Override
+    public void returnShare(BaseRespose response) {
+    
+    }
+
+    @Override
     protected int getLayoutResource() {
         return R.layout.article_layout2;
     }
@@ -375,8 +384,17 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                 }
                 break;
             case R.id.share_btn:
+                Object articleObj = shareBtn.getTag();
+                if (articleObj != null) {
+                    final ArticleModel.Article article = (ArticleModel.Article) articleObj;
+                    new ShareHelper().share(getActivity(), article.getTitle(), article.getSummary(), article.getImage(), article.getUrl(), new ShareHelper.OnSharedListener() {
+                        @Override
+                        public void onSharedCompleted() {
 
-//                new ShareHelper().share(getActivity(),);
+                            mPresenter.share(article.getObjectId());
+                        }
+                    });
+                }
                 break;
 
             case R.id.focus_btn:

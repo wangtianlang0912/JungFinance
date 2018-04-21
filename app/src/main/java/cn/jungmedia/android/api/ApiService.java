@@ -14,6 +14,7 @@ import cn.jungmedia.android.bean.BloggerModel;
 import cn.jungmedia.android.bean.ColumnModel;
 import cn.jungmedia.android.bean.CommentCreateModel;
 import cn.jungmedia.android.bean.CommentListModel;
+import cn.jungmedia.android.bean.Counter;
 import cn.jungmedia.android.bean.FastModel;
 import cn.jungmedia.android.bean.FavActionModel;
 import cn.jungmedia.android.bean.GirlData;
@@ -282,5 +283,7 @@ public interface ApiService {
     @POST("app/vote/oppose")
     Observable<BaseRespose<VoteModel>> support(@Query("token") String token, @Query("id") int id);
 
-
+    // 分享
+    @POST("app/me/article/share")
+    Observable<BaseRespose<Counter>> share(@Query("token") String token, @Query("id") int id);
 }

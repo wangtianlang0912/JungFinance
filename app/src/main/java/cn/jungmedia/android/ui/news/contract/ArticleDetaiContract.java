@@ -49,6 +49,9 @@ public class ArticleDetaiContract {
         Observable<BaseRespose<VoteModel>> support(int articleId);
 
         Observable<BaseRespose<VoteModel>> oppose(int articleId);
+
+        Observable<BaseRespose> share(int articleId);
+
     }
 
     public interface View extends BaseView {
@@ -65,6 +68,8 @@ public class ArticleDetaiContract {
         void returnCommentList(CommentListModel model);
 
         void returnVoteData(BaseRespose<VoteModel> response);
+
+        void returnShare(BaseRespose response);
     }
 
     public abstract static class Presenter extends BasePresenter<View, Model> {
@@ -91,5 +96,7 @@ public class ArticleDetaiContract {
         public abstract void support(int articleId);
 
         public abstract void oppose(int articleId);
+
+        public abstract void share(int objectId);
     }
 }

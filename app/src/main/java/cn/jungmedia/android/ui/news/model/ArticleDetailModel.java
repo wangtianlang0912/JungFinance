@@ -184,4 +184,13 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
                 //声明线程调度
                 .compose(RxSchedulers.<BaseRespose<VoteModel>>io_main());
     }
+
+    @Override
+    public Observable<BaseRespose> share(int articleId) {
+        String token = MyUtils.getToken();
+        return Api.getDefault(HostType.Jung_FINANCE).share(token, articleId)
+
+                //声明线程调度
+                .compose(RxSchedulers.<BaseRespose>io_main());
+    }
 }

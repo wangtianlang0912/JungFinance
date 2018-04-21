@@ -118,6 +118,8 @@ public class ArticleModel {
 
         private String content;
 
+        private String url;
+
         private ContentType type = ContentType.DEFAULT;
 
         public BloggerModel.Media getMedia() {
@@ -286,6 +288,14 @@ public class ArticleModel {
 
         public void setContent(String content) {
             this.content = content;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
         }
     }
 }

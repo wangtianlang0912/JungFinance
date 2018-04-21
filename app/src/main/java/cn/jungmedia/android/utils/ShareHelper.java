@@ -2,6 +2,7 @@ package cn.jungmedia.android.utils;
 
 
 import android.app.Activity;
+import android.text.TextUtils;
 import android.widget.Toast;
 
 import com.umeng.socialize.ShareAction;
@@ -35,9 +36,13 @@ public class ShareHelper {
     private UMShareListener mShareListener;
     private ShareAction mShareAction;
 
-    public void share(final Activity activity, final String title, final String content, final String url) {
+    public void share(Activity activity, String title, String content, String url) {
+        share(activity, title, content, null, url, null);
+    }
 
-        mShareListener = new CustomShareListener(activity);
+    public void share(final Activity activity, final String title, final String content, final String imageUrl, final String url, OnSharedListener sharedListener) {
+
+        mShareListener = new CustomShareListener(activity, sharedListener);
         /*增加自定义按钮的分享面板*/
         mShareAction = new ShareAction(activity).setDisplayList(
                 SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE,
@@ -49,7 +54,11 @@ public class ShareHelper {
                         UMWeb web = new UMWeb(url);
                         web.setTitle(title);
                         web.setDescription(content);
-                        web.setThumb(new UMImage(activity, R.mipmap.ic_launcher));
+                        if (TextUtils.isEmpty(imageUrl)) {
+                            web.setThumb(new UMImage(activity, R.mipmap.ic_launcher));
+                        } else {
+                            web.setThumb(new UMImage(activity, imageUrl));
+                        }
                         new ShareAction(activity).withMedia(web)
                                 .setPlatform(share_media)
                                 .setCallback(mShareListener)
@@ -67,9 +76,11 @@ public class ShareHelper {
     private static class CustomShareListener implements UMShareListener {
 
         private WeakReference<Activity> mActivity;
+        private OnSharedListener onSharedListener;
 
-        private CustomShareListener(Activity activity) {
+        private CustomShareListener(Activity activity, OnSharedListener listener) {
             mActivity = new WeakReference(activity);
+            this.onSharedListener = listener;
         }
 
         @Override
@@ -97,7 +108,9 @@ public class ShareHelper {
                         && platform != SHARE_MEDIA.EVERNOTE) {
                     Toast.makeText(mActivity.get(), platform + " 分享成功啦", Toast.LENGTH_SHORT).show();
                 }
-
+            }
+            if (onSharedListener != null) {
+                onSharedListener.onSharedCompleted();
             }
         }
 
@@ -128,5 +141,9 @@ public class ShareHelper {
         }
     }
 
+    public interface OnSharedListener {
+
+        void onSharedCompleted();
+    }
 
 }

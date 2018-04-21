@@ -190,7 +190,7 @@ public class AppApplication extends BaseApplication {
         {
             PlatformConfig.setWeixin("wx5164f014ada66b19", "683f8e90479652077c509b74aa4b3bae");
             //豆瓣RENREN平台目前只能在服务器端配置
-            PlatformConfig.setSinaWeibo("****", "****", "http://sns.whalecloud.com");
+            PlatformConfig.setSinaWeibo("2577649559", "9788b92a8cab54675ad65b55eb437b4b", "http://sns.whalecloud.com");
             PlatformConfig.setQQZone("****", "*****");
         }
     }

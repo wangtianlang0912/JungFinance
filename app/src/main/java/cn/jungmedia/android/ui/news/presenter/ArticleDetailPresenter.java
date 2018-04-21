@@ -218,5 +218,21 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
         }));
     }
 
+    @Override
+    public void share(int objectId) {
+        mRxManage.add(mModel.share(objectId).subscribe(new RxSubscriber<BaseRespose>(mContext, false) {
+
+            @Override
+            protected void _onNext(BaseRespose result) {
+                mView.returnShare(result);
+            }
+
+            @Override
+            protected void _onError(String message) {
+                mView.stopLoading();
+            }
+        }));
+    }
+
 
 }
