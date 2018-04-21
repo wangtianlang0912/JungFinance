@@ -8,17 +8,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import cn.jungmedia.android.app.AppConstant;
-import cn.jungmedia.android.bean.NewsChannelTable;
-import cn.jungmedia.android.ui.news.activity.NewsChannelActivity;
-import cn.jungmedia.android.R;
-import cn.jungmedia.android.ui.main.contract.NewsMainContract;
-import cn.jungmedia.android.ui.main.model.NewsMainModel;
-import cn.jungmedia.android.ui.main.presenter.NewsMainPresenter;
-import cn.jungmedia.android.ui.news.fragment.BloggerListFragment;
-import cn.jungmedia.android.ui.news.fragment.NewsFrament;
-import cn.jungmedia.android.ui.news.fragment.TopicListFragment;
-import cn.jungmedia.android.utils.MyUtils;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.base.BaseFragmentAdapter;
 import com.leon.common.commonutils.ToastUitl;
@@ -29,6 +18,17 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.bean.NewsChannelTable;
+import cn.jungmedia.android.ui.main.contract.NewsMainContract;
+import cn.jungmedia.android.ui.main.model.NewsMainModel;
+import cn.jungmedia.android.ui.main.presenter.NewsMainPresenter;
+import cn.jungmedia.android.ui.news.activity.NewsChannelActivity;
+import cn.jungmedia.android.ui.news.fragment.BloggerListFragment;
+import cn.jungmedia.android.ui.news.fragment.NewsFrament;
+import cn.jungmedia.android.ui.news.fragment.TopicListFragment;
+import cn.jungmedia.android.utils.MyUtils;
 
 /**
  * des:新闻首页首页
@@ -101,6 +101,11 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
             MyUtils.dynamicSetTabLayoutMode(tabs);
             setPageChangeListener();
         }
+    }
+
+    @Override
+    public void returnDeviceRegister() {
+
     }
 
     private void setPageChangeListener() {

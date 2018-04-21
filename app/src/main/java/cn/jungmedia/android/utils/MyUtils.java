@@ -16,6 +16,7 @@
  */
 package cn.jungmedia.android.utils;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -24,6 +25,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Environment;
 import android.support.design.widget.TabLayout;
 import android.telephony.TelephonyManager;
@@ -41,7 +44,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
 import java.security.cert.X509Certificate;
+import java.util.Enumeration;
 
 import javax.net.ssl.X509TrustManager;
 
@@ -49,6 +55,7 @@ import cn.jungmedia.android.app.AppApplication;
 import cn.jungmedia.android.app.AppConstant;
 import cn.jungmedia.android.ui.user.bean.UserInfo;
 import cn.jungmedia.android.utils.encrypt.Base64;
+import cn.jungmedia.android.utils.encrypt.MD5;
 
 /**
  * @author 咖枯
@@ -223,11 +230,6 @@ public class MyUtils {
         return versioncode;
     }
 
-    public static String getIMEI(Context context) {
-        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context
-                .TELEPHONY_SERVICE);
-        return tm.getDeviceId();
-    }
 
     /**
      * 显示软键盘
@@ -298,4 +300,116 @@ public class MyUtils {
         }
         return null;
     }
+
+
+    // 取得用户及设备标识
+    // 标识设备 android=md5(imei+mac+manufacturer+model)；ios=openUDID（Unique Device
+    // IDentifier）】
+    /**
+     * 由于在2013.12.19日新闻将行为日志的格式升级为3.0.1在2013.12.25日对行为日志设备id进行了调整，
+     * 如果取md5之后是16位的不变，不低于32位的，则取中间的16位，对于目前的用户量完全满足而且可以节约存储
+     */
+    public static String getDeviceId(Context context) {
+        String str = String.format("%s_%s_%s_%s", getIMEI(context),
+                getMacAddress(context), android.os.Build.MANUFACTURER,
+                android.os.Build.MODEL);
+
+        /**
+         * MD5的全称是 Message-Digest Algorithm 5 (信息摘要算法)
+         * 通过手工就可以实现32位到16位之间的转换，只需要去掉32位密码格式的前八位以及最后八位，经过这样删减位数即可得到16位的加密格式。
+         * 即：21232f297a57a5a743894a0e4a801fc3 -》7a57a5a743894a0e
+         * 同样也会遇到40位的MD5，40位的计算公式 40位MD5 = 16 位MD5 + 《32位MD5后8位》 + 《32位MD5后16位》
+         * 7a57a5a743894a0e4a801fc343894a0e4a801fc3
+         */
+        str = MD5.EncoderByMD5(str); // 取中间16位比较节省空间
+        if (str.length() >= 32) {
+            str = str.substring(8, 24);
+        }
+        return str;
+    }
+
+    /**
+     * 获取手机串号
+     *
+     * @return
+     */
+    public static String getIMEI(Context context) {
+        String deviceId = null;
+        try {
+            // 获取手机号、手机串号信息 当获取不到设备号时，系统会提供一个自动的deviceId
+            TelephonyManager tm = (TelephonyManager) context
+                    .getSystemService(Context.TELEPHONY_SERVICE);
+            deviceId = tm.getDeviceId();
+        } catch (Exception e) {
+            e.getStackTrace();
+            deviceId = "999999999999999";
+        }
+        return deviceId;
+    }
+
+    public static String getMacAddress(Context context) {
+        WifiManager wifi = (WifiManager) context
+                .getSystemService(Context.WIFI_SERVICE);
+        WifiInfo info = wifi.getConnectionInfo();
+        if (info != null) {
+            return info.getMacAddress();
+        } else {
+            //from API level 9, 2.3
+            if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD) {
+                return getMacAddressL9();
+            }
+        }
+        return null;
+    }
+    //根据IP获取本地Mac
+    @SuppressLint("NewApi")
+    public static String getMacAddressL9() {
+        String mac_s= "";
+        try {
+            byte[] mac;
+            String ip_s = getLocalIpAddress();
+            NetworkInterface ne = NetworkInterface.getByInetAddress(InetAddress.getByName(ip_s));
+            mac = ne.getHardwareAddress();
+            mac_s = byte2hex(mac);
+        } catch (Exception e) {
+        }
+
+        return mac_s;
+    }
+
+    //获取本地IP
+    public static String getLocalIpAddress() {
+        try {
+            NetworkInterface intf = null;
+            InetAddress inetAddress = null;
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+                intf = en.nextElement();
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                    inetAddress = enumIpAddr.nextElement();
+                    if (!inetAddress.isLoopbackAddress()) {
+                        return inetAddress.getHostAddress().toString();
+                    }
+                }
+            }
+        } catch (Exception ex) {
+        }
+
+        return null;
+    }
+
+    public static String byte2hex(byte[] b) {
+        StringBuffer hs = new StringBuffer(b.length);
+        String stmp = "";
+        int len = b.length;
+        for (int n = 0; n < len; n++) {
+            stmp = Integer.toHexString(b[n] & 0xFF);
+            if (stmp.length() == 1) {
+                hs = hs.append("0").append(stmp);
+            } else {
+                hs = hs.append(stmp);
+            }
+        }
+        return String.valueOf(hs);
+    }
+
 }

@@ -286,4 +286,11 @@ public interface ApiService {
     // 分享
     @POST("app/me/article/share")
     Observable<BaseRespose<Counter>> share(@Query("token") String token, @Query("id") int id);
+
+    @POST("app/device/join")
+    Observable<BaseRespose> deviceRegister(@Query("token") String token, @Query("id") String deviceId,
+                                           @Query("uuid") String uuid, @Query("platform") String platform,
+                                           @Query("name") String name, @Query("model") String model,
+                                           @Query("systemName") String systemName, @Query("systemVersion") String systemVersion);
+
 }

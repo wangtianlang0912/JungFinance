@@ -32,6 +32,8 @@ public class AppApplication extends BaseApplication {
     private static final String TAG = AppApplication.class.getName();
     public static final String UPDATE_STATUS_ACTION = "com.umeng.message.example.action.UPDATE_STATUS";
     private Handler handler;
+    public static final String UMENG_APPID = "5ad4b8878f4a9d4c88000282";
+    public static final String UMENG_PUSH_TOKEN = "c1e99a0ffc42f542ab55850ccf1b6492";
 
     @Override
     public void onCreate() {
@@ -46,8 +48,8 @@ public class AppApplication extends BaseApplication {
         //设置LOG开关，默认为false
         UMConfigure.setLogEnabled(BuildConfig.LOG_DEBUG);
         //初始化组件化基础库, 统计SDK/推送SDK/分享SDK都必须调用此初始化接口
-        UMConfigure.init(this, "5ad4b8878f4a9d4c88000282", "Umeng", UMConfigure.DEVICE_TYPE_PHONE,
-                "c1e99a0ffc42f542ab55850ccf1b6492");
+        UMConfigure.init(this, UMENG_APPID, "Umeng", UMConfigure.DEVICE_TYPE_PHONE,
+                UMENG_PUSH_TOKEN);
         //PushSDK初始化(如使用推送SDK，必须调用此方法)
         initUpush();
     }
