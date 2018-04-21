@@ -138,9 +138,7 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
     public void returnArticleData(ArticleDetail data) {
 
         if (data != null && data.getArticle() != null) {
-            final HtmlSpanner htmlSpanner = new HtmlSpanner();
-            htmlSpanner.setAllowStyling(true);
-            htmlSpanner.setStripExtraWhiteSpace(true);
+
             final ArticleModel.Article article = data.getArticle();
             article.setUrl(data.getUrl());
             shareBtn.setTag(article);
@@ -163,7 +161,7 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                 @Override
                 public void run() {
 
-                    final Spannable summarySpan = htmlSpanner.fromHtml("摘要：" + article.getSummary());
+                    final Spannable summarySpan = new HtmlSpanner().fromHtml("摘要：" + article.getSummary());
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -172,7 +170,10 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                             }
                         }
                     });
-
+                    final HtmlSpanner htmlSpanner = new HtmlSpanner(contentView.getWidth());
+                    htmlSpanner.setStripExtraWhiteSpace(true);
+                    htmlSpanner.setAllowStyling(true);
+                    htmlSpanner.setUseColoursFromStyle(true);
                     final Spannable contentSpan = htmlSpanner.fromHtml(article.getContent());
                     getActivity().runOnUiThread(new Runnable() {
                         @Override

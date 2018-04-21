@@ -328,7 +328,7 @@ public class PatternUtil {
         Matcher m = p.matcher(content);
         while (m.find()) {
             String imgLable = m.group(0);
-            String newImgLable = imgLable.replaceAll("<img", "<img width=100% height=100%  ");
+            String newImgLable = imgLable.replaceAll("<img", "<img width=100% height=100% ");
 
             String patternStr = "<img\\s*([^>]*)\\s*src=\\\"(.*?)\\\"\\s*([^>]*)>";
             Pattern pattern = Pattern.compile(patternStr, Pattern.CASE_INSENSITIVE);

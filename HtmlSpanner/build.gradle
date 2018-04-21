@@ -16,5 +16,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile files('libs/jdom2-2.0.5.jar')
+    compile project(':library:common')
     compile group: 'org.apache.ant', name: 'ant', version: '1.8.2'
 }

@@ -15,62 +15,85 @@
  */
 package net.nightwhistler.htmlspanner.handlers;
 
-import java.io.IOException;
-import java.net.URL;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ImageSpan;
 
 import net.nightwhistler.htmlspanner.SpanStack;
 import net.nightwhistler.htmlspanner.TagNodeHandler;
 
 import org.htmlcleaner.TagNode;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.text.Spannable;
-import android.text.SpannableStringBuilder;
-import android.text.style.ImageSpan;
+import java.io.IOException;
+import java.net.URL;
 
 /**
  * Handles image tags.
- * 
+ * <p>
  * The default implementation tries to load images through a URL.openStream(),
  * override loadBitmap() to implement your own loading.
- * 
+ *
  * @author Alex Kuiper
- * 
  */
 public class ImageHandler extends TagNodeHandler {
 
-	@Override
-	public void handleTagNode(TagNode node, SpannableStringBuilder builder,
-			int start, int end, SpanStack stack) {
-		String src = node.getAttributeByName("src");
+    int viewWidth = 0;
 
-		builder.append("\uFFFC");
+    public ImageHandler(int viewWidth) {
+        super();
+        this.viewWidth = viewWidth;
+    }
 
-		Bitmap bitmap = loadBitmap(src);
+    @Override
+    public void handleTagNode(TagNode node, SpannableStringBuilder builder,
+                              int start, int end, SpanStack stack) {
+        String src = node.getAttributeByName("src");
 
-		if (bitmap != null) {
-			Drawable drawable = new BitmapDrawable(bitmap);
-			drawable.setBounds(0, 0, bitmap.getWidth() - 1,
-					bitmap.getHeight() - 1);
+        builder.append("\uFFFC");
 
-            stack.pushSpan( new ImageSpan(drawable), start, builder.length() );
-		}
-	}
+        Bitmap bitmap = loadBitmap(src);
 
-	/**
-	 * Loads a Bitmap from the given url.
-	 * 
-	 * @param url
-	 * @return a Bitmap, or null if it could not be loaded.
-	 */
-	protected Bitmap loadBitmap(String url) {
-		try {
-			return BitmapFactory.decodeStream(new URL(url).openStream());
-		} catch (IOException io) {
-			return null;
-		}
-	}
+        if (bitmap != null) {
+            Drawable drawable = new BitmapDrawable(bitmap);
+
+            String width = node.getAttributeByName("width");
+            if (width.endsWith("%")) {
+                float scanVal = Float.valueOf(width.substring(0, width.length() - 1)) / 100;
+                drawable.setBounds(0, 0, (int) (viewWidth * scanVal - 1),
+                        (int) (viewWidth * scanVal / (float) bitmap.getWidth() * bitmap.getHeight() - 1));
+            } else {
+                int widthVal = 0;
+                try {
+                    widthVal = Integer.parseInt(width);
+                } catch (Exception e) {
+
+                }
+                if (widthVal != 0) {
+                    drawable.setBounds(0, 0, (widthVal - 1),
+                            widthVal / bitmap.getWidth() * bitmap.getHeight() - 1);
+                } else {
+                    drawable.setBounds(0, 0, bitmap.getWidth() - 1,
+                            bitmap.getHeight() - 1);
+                }
+            }
+            stack.pushSpan(new ImageSpan(drawable), start, builder.length());
+        }
+    }
+
+    /**
+     * Loads a Bitmap from the given url.
+     *
+     * @param url
+     * @return a Bitmap, or null if it could not be loaded.
+     */
+    protected Bitmap loadBitmap(String url) {
+        try {
+            return BitmapFactory.decodeStream(new URL(url).openStream());
+        } catch (IOException io) {
+            return null;
+        }
+    }
 }

@@ -51,14 +51,14 @@ import java.util.Map;
 /**
  * HtmlSpanner provides an alternative to Html.fromHtml() from the Android
  * libraries.
- *
+ * <p>
  * In its simplest form, just call new HtmlSpanner().fromHtml() to get a similar
  * result. The real strength is in being able to register custom NodeHandlers.
  *
  * @author work
- *
  */
 public class HtmlSpanner {
+
 
     /**
      * Temporary constant for the width of 1 horizontal em
@@ -90,33 +90,37 @@ public class HtmlSpanner {
      * Creates a new HtmlSpanner using a default HtmlCleaner instance.
      */
     public HtmlSpanner() {
-        this(createHtmlCleaner(), new SystemFontResolver());
+        this(createHtmlCleaner(), new SystemFontResolver(),0);
+    }
+
+    public HtmlSpanner(int viewWidth) {
+        this(createHtmlCleaner(), new SystemFontResolver(), viewWidth);
     }
 
     /**
      * Creates a new HtmlSpanner using the given HtmlCleaner instance.
-     *
+     * <p>
      * This allows for a custom-configured HtmlCleaner.
      *
      * @param cleaner
      */
-    public HtmlSpanner(HtmlCleaner cleaner, FontResolver fontResolver) {
+    public HtmlSpanner(HtmlCleaner cleaner, FontResolver fontResolver, int viewWidth) {
         this.htmlCleaner = cleaner;
         this.fontResolver = fontResolver;
         this.handlers = new HashMap<String, TagNodeHandler>();
 
-        registerBuiltInHandlers();
+        registerBuiltInHandlers(viewWidth);
     }
 
     public FontResolver getFontResolver() {
         return this.fontResolver;
     }
 
-    public void setFontResolver( FontResolver fontResolver ) {
+    public void setFontResolver(FontResolver fontResolver) {
         this.fontResolver = fontResolver;
     }
 
-    public FontFamily getFont( String name ) {
+    public FontFamily getFont(String name) {
         return this.fontResolver.getFont(name);
     }
 
@@ -141,7 +145,7 @@ public class HtmlSpanner {
 
     /**
      * Indicates whether the text style may be updated.
-     *
+     * <p>
      * If this is set to false, all CSS is ignored
      * and the basic built-in style is used.
      *
@@ -156,7 +160,7 @@ public class HtmlSpanner {
      *
      * @param value
      */
-    public void setAllowStyling( boolean value ) {
+    public void setAllowStyling(boolean value) {
         this.allowStyling = value;
     }
 
@@ -166,7 +170,7 @@ public class HtmlSpanner {
      *
      * @param value
      */
-    public void setUseColoursFromStyle( boolean value ) {
+    public void setUseColoursFromStyle(boolean value) {
         this.useColoursFromStyle = value;
     }
 
@@ -177,7 +181,7 @@ public class HtmlSpanner {
 
     /**
      * Registers a new custom TagNodeHandler.
-     *
+     * <p>
      * If a TagNodeHandler was already registered for the specified tagName it
      * will be overwritten.
      *
@@ -202,7 +206,6 @@ public class HtmlSpanner {
      * Parses the text in the given String.
      *
      * @param html
-     *
      * @return a Spanned version of the text.
      */
     public Spannable fromHtml(String html) {
@@ -245,7 +248,7 @@ public class HtmlSpanner {
 
     /**
      * Gets the currently registered handler for this tag.
-     *
+     * <p>
      * Used so it can be wrapped.
      *
      * @param tagName
@@ -265,13 +268,12 @@ public class HtmlSpanner {
         SpannableStringBuilder result = new SpannableStringBuilder();
         SpanStack stack = new SpanStack();
 
-        applySpan( result, node, stack, cancellationCallback );
+        applySpan(result, node, stack, cancellationCallback);
 
         stack.applySpans(this, result);
 
         return result;
     }
-
 
 
     private static HtmlCleaner createHtmlCleaner() {
@@ -295,14 +297,14 @@ public class HtmlSpanner {
         return result;
     }
 
-    private void checkForCancellation( CancellationCallback cancellationCallback ) {
-        if ( cancellationCallback != null && cancellationCallback.isCancelled() ) {
+    private void checkForCancellation(CancellationCallback cancellationCallback) {
+        if (cancellationCallback != null && cancellationCallback.isCancelled()) {
             throw new ParsingCancelledException();
         }
     }
 
     private void handleContent(SpannableStringBuilder builder, Object node,
-                               SpanStack stack, CancellationCallback cancellationCallback ) {
+                               SpanStack stack, CancellationCallback cancellationCallback) {
 
         checkForCancellation(cancellationCallback);
 
@@ -311,12 +313,12 @@ public class HtmlSpanner {
         String text = TextUtil.replaceHtmlEntities(
                 contentNode.getContent().toString(), false);
 
-        if ( isStripExtraWhiteSpace() ) {
+        if (isStripExtraWhiteSpace()) {
             //Replace unicode non-breaking space with normal space.
-            text = text.replace( '\u00A0', ' ' );
+            text = text.replace('\u00A0', ' ');
         }
 
-        if ( text.trim().length() > 0 ) {
+        if (text.trim().length() > 0) {
             builder.append(text);
         }
     }
@@ -328,7 +330,7 @@ public class HtmlSpanner {
 
         TagNodeHandler handler = this.handlers.get(node.getName());
 
-        if ( handler == null ) {
+        if (handler == null) {
             handler = new StyledTextHandler();
             handler.setSpanner(this);
         }
@@ -337,14 +339,14 @@ public class HtmlSpanner {
 
         handler.beforeChildren(node, builder, stack);
 
-        if ( !handler.rendersContent() ) {
+        if (!handler.rendersContent()) {
 
             for (Object childNode : node.getAllChildren()) {
 
-                if ( childNode instanceof ContentNode ) {
-                    handleContent( builder, childNode, stack, cancellationCallback );
-                } else if ( childNode instanceof TagNode ) {
-                    applySpan( builder, (TagNode) childNode, stack, cancellationCallback );
+                if (childNode instanceof ContentNode) {
+                    handleContent(builder, childNode, stack, cancellationCallback);
+                } else if (childNode instanceof TagNode) {
+                    applySpan(builder, (TagNode) childNode, stack, cancellationCallback);
                 }
             }
         }
@@ -354,11 +356,11 @@ public class HtmlSpanner {
     }
 
 
-    private static StyledTextHandler wrap( StyledTextHandler handler ) {
+    private static StyledTextHandler wrap(StyledTextHandler handler) {
         return new StyleAttributeHandler(new AlignmentAttributeHandler(handler));
     }
 
-    private void registerBuiltInHandlers() {
+    private void registerBuiltInHandlers(int viewWidth) {
 
         TagNodeHandler italicHandler = new StyledTextHandler(
                 new Style().setFontStyle(Style.FontStyle.ITALIC));
@@ -386,7 +388,7 @@ public class HtmlSpanner {
         registerHandler("tt", monSpaceHandler);
         registerHandler("code", monSpaceHandler);
 
-        registerHandler("style", new StyleNodeHandler() );
+        registerHandler("style", new StyleNodeHandler());
 
         //We wrap an alignment-handler to support
         //align attributes
@@ -441,9 +443,9 @@ public class HtmlSpanner {
         registerHandler("li", new ListItemHandler());
 
         registerHandler("a", new LinkHandler());
-        registerHandler("img", new ImageHandler());
+        registerHandler("img", new ImageHandler(viewWidth));
 
-        registerHandler("font", new FontHandler() );
+        registerHandler("font", new FontHandler());
 
     }
 
