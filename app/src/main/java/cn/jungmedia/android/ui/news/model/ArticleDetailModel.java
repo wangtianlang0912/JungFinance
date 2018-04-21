@@ -7,6 +7,7 @@ import com.leon.common.commonutils.TimeUtil;
 import cn.jungmedia.android.api.Api;
 import cn.jungmedia.android.api.ApiConstants;
 import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.app.AppApplication;
 import cn.jungmedia.android.bean.ArticleDetail;
 import cn.jungmedia.android.bean.ArticleModel;
 import cn.jungmedia.android.bean.BloggerModel;
@@ -15,6 +16,7 @@ import cn.jungmedia.android.bean.CommentListModel;
 import cn.jungmedia.android.bean.FavActionModel;
 import cn.jungmedia.android.bean.VoteModel;
 import cn.jungmedia.android.ui.news.contract.ArticleDetaiContract;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
 import cn.jungmedia.android.utils.MyUtils;
 import cn.jungmedia.android.utils.PatternUtil;
 import rx.Observable;
@@ -37,7 +39,14 @@ import rx.functions.Func1;
 public class ArticleDetailModel implements ArticleDetaiContract.Model {
     @Override
     public Observable<ArticleDetail> getArticleDetail(String id) {
-        return Api.getDefault(HostType.Jung_FINANCE).getArticleDetail(id)
+        int uid = 0;
+        if (MyUtils.isLogin()) {
+            UserInfo userInfo = MyUtils.getUserInfoFromPreference(AppApplication.getAppContext());
+            if (userInfo != null && userInfo.getUser() != null) {
+                uid = userInfo.getUser().getUid();
+            }
+        }
+        return Api.getDefault(HostType.Jung_FINANCE).getArticleDetail(id, uid)
                 .map(new Func1<BaseRespose<ArticleDetail>, ArticleDetail>() {
                     @Override
                     public ArticleDetail call(BaseRespose<ArticleDetail> respose) {
@@ -51,7 +60,7 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
                                 String content = PatternUtil.repairContent(article.getContent(), ApiConstants.URL);
                                 article.setContent(content);
                             }
-                            String ptime = TimeUtil.formatTimeStampStr2Desc(article.getVtime() * 1000);
+                            String ptime = TimeUtil.formatData(TimeUtil.dateFormatYMDHM, article.getVtime());
                             article.setPtime(ptime);
                             BloggerModel.Media media = articleDetail.getArticle().getMedia();
                             if (media != null) {

@@ -106,9 +106,11 @@ public class ArticleModel {
 
         private int pv;
 
-        private int fav;
+        private int support;
 
-//        private List<Attributes> attributes ;
+        private int oppose;
+
+        private FavActionModel.Favorite favorite;
 
         private int isRecommend;
 
@@ -229,20 +231,29 @@ public class ArticleModel {
         public int getPv() {
             return this.pv;
         }
-//        public void setAttributes(List<Attributes> attributes){
-//            this.attributes = attributes;
-//        }
-//        public List<Attributes> getAttributes(){
-//            return this.attributes;
-//        }
 
-
-        public boolean hasFaved() {
-            return fav == 1;
+        public FavActionModel.Favorite getFavorite() {
+            return favorite;
         }
 
-        public void setFav(int fav) {
-            this.fav = fav;
+        public void setFavorite(FavActionModel.Favorite favorite) {
+            this.favorite = favorite;
+        }
+
+        public int getSupport() {
+            return support;
+        }
+
+        public void setSupport(int support) {
+            this.support = support;
+        }
+
+        public int getOppose() {
+            return oppose;
+        }
+
+        public void setOppose(int oppose) {
+            this.oppose = oppose;
         }
 
         public ContentType getType() {

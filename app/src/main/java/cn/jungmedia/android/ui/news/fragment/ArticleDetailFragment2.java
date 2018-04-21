@@ -84,6 +84,8 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
     ImageView commentBtn;
     @Bind(R.id.comment_inner_btn)
     TextView commentInnerBtn;
+    @Bind(R.id.relate_layout)
+    LinearLayout relateLayout;
     @Bind(R.id.relate_item_layout)
     LinearLayout relateItemLayout;
     @Bind(R.id.write_comment_view)
@@ -136,12 +138,24 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
 
         if (data != null && data.getArticle() != null) {
             final HtmlSpanner htmlSpanner = new HtmlSpanner();
+            htmlSpanner.setAllowStyling(true);
+            htmlSpanner.setStripExtraWhiteSpace(true);
             final ArticleModel.Article article = data.getArticle();
 
             titleView.setText(article.getTitle());
             timeView.setText(article.getPtime());
             sourceView.setText(article.getSource());
             scanView.setText(article.getPv() + "");
+            zanView.setText(article.getSupport() + "");
+            caiView.setText(article.getOppose() + "");
+
+            if (article.getFavorite() != null) {
+                favBtn.setImageResource(R.drawable.icon_fav_s);
+                favBtn.setTag(article.getFavorite().getObjectId());
+            } else {
+                favBtn.setImageResource(R.drawable.icon_fav_n);
+                favBtn.setTag(null);
+            }
 
             new Thread() {
                 @Override
@@ -187,6 +201,8 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
         if (articleModel == null || articleModel.getArticles().isEmpty()) {
             return;
         }
+        relateLayout.setVisibility(View.VISIBLE);
+        relateItemLayout.setVisibility(View.VISIBLE);
         List<ArticleModel.Article> articleList = articleModel.getArticles();
         for (final ArticleModel.Article article : articleList) {
             View itemLayout = LayoutInflater.from(getActivity()).inflate(R.layout.item_news, null);
@@ -276,7 +292,10 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                 ImageView logoView = (ImageView) itemLayout.findViewById(R.id.logo_view);
                 ImageLoaderUtils.displayRound(getActivity(), logoView, comment.getUser().getLogo());
             }
+
+            commentInnerBtn.setText("查看全部(" + model.getCounter().getTotal() + ")");
         }
+
     }
 
     @Override

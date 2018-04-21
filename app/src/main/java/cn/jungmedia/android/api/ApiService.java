@@ -152,7 +152,7 @@ public interface ApiService {
 
     // 获取文章详情
     @GET("app/media/article/get")
-    Observable<BaseRespose<ArticleDetail>> getArticleDetail(@Query("id") String id);
+    Observable<BaseRespose<ArticleDetail>> getArticleDetail(@Query("id") String id, @Query("uid") int uid);
 
     // 获取推荐文章
     @GET("api/article/relevant")
