@@ -68,6 +68,7 @@
     <string name="fans">粉丝</string>
     <string name="score">积分</string>
     <string name="upgrade_media_account">升级为媒体账户</string>
+    <string name="media_account">媒体账户</string>
     <string name="my_fav">我的收藏</string>
     <string name="media_publish">媒体发布</string>
     <string name="info">资讯</string>
@@ -115,4 +116,5 @@
     <string name="refer">提示</string>
     <string name="share_contents">分享自荣格财经</string>
     <string name="submit_failure">提交失败</string>
+
 </resources>

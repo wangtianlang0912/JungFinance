@@ -13,12 +13,14 @@ import cn.jungmedia.android.ui.blogger.fragment.BloggerFavFragment;
 import cn.jungmedia.android.ui.blogger.fragment.BloggerFragment;
 import cn.jungmedia.android.ui.blogger.fragment.FansListFragment;
 import cn.jungmedia.android.ui.blogger.fragment.MediaDiffShowFragment;
+import cn.jungmedia.android.ui.blogger.fragment.MediaUpdateFragment;
 import cn.jungmedia.android.ui.common.CommonActivity;
 import cn.jungmedia.android.ui.common.CommonWebFragment;
 import cn.jungmedia.android.ui.fav.ui.ActivityEditFragment;
 import cn.jungmedia.android.ui.fav.ui.FastEditFragment;
 import cn.jungmedia.android.ui.fav.ui.HqEditFragment;
 import cn.jungmedia.android.ui.fav.ui.NewsEditFragment;
+import cn.jungmedia.android.ui.main.bean.MediaInfo;
 import cn.jungmedia.android.ui.main.fragment.ActivityInfoFragment;
 import cn.jungmedia.android.ui.main.fragment.ActivitySignupFragment;
 import cn.jungmedia.android.ui.news.fragment.ArticleDetailFragment2;
@@ -225,4 +227,9 @@ public class AppIntent {
         context.startActivity(intent);
     }
 
+    public static void intentToMediaUpdate(Context context, MediaInfo media) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(AppConstant.FLAG_DATA, media);
+        intentToAct(context, context.getString(R.string.media_account), MediaUpdateFragment.class, bundle);
+    }
 }

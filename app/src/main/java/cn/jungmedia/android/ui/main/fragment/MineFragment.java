@@ -113,6 +113,12 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
                 if (userInfo.getUser().getMember() != null) {
                     scoreNum.setText(userInfo.getUser().getMember().getScore() + "");
                 }
+                if (userInfo.getUser().getMedia() != null) {
+                    mediaAccountBtn.setText(R.string.media_account);
+                } else {
+                    mediaAccountBtn.setText(R.string.upgrade_media_account);
+                }
+
             }
         } else {
             resetViews();
@@ -173,7 +179,11 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
                     AppIntent.intentToLogin(getContext());
                     return;
                 }
+                UserInfo userInfo = MyUtils.getUserInfoFromPreference(getActivity());
+                if (userInfo != null && userInfo.getUser() != null) {
 
+                    AppIntent.intentToMediaUpdate(getActivity(), userInfo.getUser().getMedia());
+                }
                 break;
             case R.id.refer_view:
 

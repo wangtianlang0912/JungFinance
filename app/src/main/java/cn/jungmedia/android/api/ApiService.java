@@ -27,6 +27,7 @@ import cn.jungmedia.android.bean.VoteModel;
 import cn.jungmedia.android.ui.blogger.bean.BloggerBean;
 import cn.jungmedia.android.ui.blogger.bean.BloggerFavBean;
 import cn.jungmedia.android.ui.blogger.bean.FansBean;
+import cn.jungmedia.android.ui.blogger.bean.MediaInfoBean;
 import cn.jungmedia.android.ui.fav.bean.ActiveFavBean;
 import cn.jungmedia.android.ui.fav.bean.NewsFavBean;
 import cn.jungmedia.android.ui.main.bean.CrewBean;
@@ -293,4 +294,16 @@ public interface ApiService {
                                            @Query("name") String name, @Query("model") String model,
                                            @Query("systemName") String systemName, @Query("systemVersion") String systemVersion);
 
+
+    @POST("app/me/media/set")
+    Observable<BaseRespose<MediaInfoBean>> setMediaInfo(@Query("token") String token,@Query("id") int id, @Query("applicant") String applicant,
+                                                        @Query("coverImage") String coverImage, @Query("name") String name,
+                                                        @Query("qrImage") String qrImage, @Query("role") int role,
+                                                        @Query("wechatNo") String wechatNo);
+
+    @POST("app/me/media/create")
+    Observable<BaseRespose<MediaInfoBean>> createMediaInfo(@Query("token") String token, @Query("applicant") String applicant,
+                                                        @Query("coverImage") String coverImage, @Query("name") String name,
+                                                        @Query("qrImage") String qrImage, @Query("role") int role,
+                                                        @Query("wechatNo") String wechatNo);
 }

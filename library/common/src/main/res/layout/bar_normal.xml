@@ -20,7 +20,7 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:background="@android:color/transparent"
-            android:drawableLeft="@drawable/back1"
+            android:drawableLeft="@drawable/arrow_back"
             android:gravity="center"
             android:padding="8dp"
             android:textColor="@color/white"
