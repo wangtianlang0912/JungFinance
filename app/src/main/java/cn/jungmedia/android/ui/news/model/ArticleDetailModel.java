@@ -81,12 +81,14 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
                     @Override
                     public ArticleModel call(BaseRespose<ArticleModel> baseRespose) {
                         ArticleModel articleModel = baseRespose.data;
-                        for (ArticleModel.Article article : articleModel.getArticles()) {
-                            String coverImage = ApiConstants.getHost(HostType.Jung_FINANCE) + article.getImage();
-                            article.setImage(coverImage);
+                        if (articleModel != null) {
+                            for (ArticleModel.Article article : articleModel.getArticles()) {
+                                String coverImage = ApiConstants.getHost(HostType.Jung_FINANCE) + article.getImage();
+                                article.setImage(coverImage);
 
-                            String ptime = TimeUtil.formatTimeStampStr2Desc(article.getVtime() * 1000);
-                            article.setPtime(ptime);
+                                String ptime = TimeUtil.formatTimeStampStr2Desc(article.getVtime() * 1000);
+                                article.setPtime(ptime);
+                            }
                         }
                         return articleModel;
                     }

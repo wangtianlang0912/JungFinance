@@ -156,20 +156,27 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                 favBtn.setImageResource(R.drawable.icon_fav_n);
                 favBtn.setTag(null);
             }
-
+            if (TextUtils.isEmpty(article.getSummary())) {
+                if (summaryView != null) {
+                    summaryView.setVisibility(View.GONE);
+                }
+            }
             new Thread() {
                 @Override
                 public void run() {
+                    if (!TextUtils.isEmpty(article.getSummary())) {
+                        final Spannable summarySpan = new HtmlSpanner().fromHtml("摘要：" + article.getSummary());
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
 
-                    final Spannable summarySpan = new HtmlSpanner().fromHtml("摘要：" + article.getSummary());
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (summaryView != null) {
-                                summaryView.setText(summarySpan);
+                                if (summaryView != null) {
+                                    summaryView.setVisibility(View.VISIBLE);
+                                    summaryView.setText(summarySpan);
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                     final HtmlSpanner htmlSpanner = new HtmlSpanner(contentView.getWidth());
                     htmlSpanner.setStripExtraWhiteSpace(true);
                     htmlSpanner.setAllowStyling(true);
