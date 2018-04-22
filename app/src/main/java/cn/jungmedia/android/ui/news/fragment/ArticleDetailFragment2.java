@@ -212,7 +212,7 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
     @Override
     public void returnRelateList(ArticleModel articleModel) {
 
-        if (articleModel == null || articleModel.getArticles().isEmpty()) {
+        if (articleModel == null || articleModel.getArticles() == null || articleModel.getArticles().isEmpty()) {
             return;
         }
         relateLayout.setVisibility(View.VISIBLE);

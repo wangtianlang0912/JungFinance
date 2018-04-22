@@ -81,7 +81,7 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
                     @Override
                     public ArticleModel call(BaseRespose<ArticleModel> baseRespose) {
                         ArticleModel articleModel = baseRespose.data;
-                        if (articleModel != null) {
+                        if (articleModel != null && articleModel.getArticles() != null) {
                             for (ArticleModel.Article article : articleModel.getArticles()) {
                                 String coverImage = ApiConstants.getHost(HostType.Jung_FINANCE) + article.getImage();
                                 article.setImage(coverImage);
