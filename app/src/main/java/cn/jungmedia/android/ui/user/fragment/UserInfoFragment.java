@@ -162,7 +162,6 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresenterImp, UserInf
                 if (logoView.getTag() != null) {
                     String imagePath = (String) logoView.getTag();
                     if (imagePath != null) {
-//                        mPresenter.uploadImage(imagePath);
                         updateImage(imagePath);
                     }
                 } else {
@@ -232,6 +231,7 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresenterImp, UserInf
             ToastUitl.showShort("未找到图片");
             return;
         }
+        showLoading("");
         MultipartBody.Builder builder = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("image", file.getName(),
@@ -252,6 +252,7 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresenterImp, UserInf
                     @Override
                     public void run() {
                         showErrorTip("图片上传失败");
+                        stopLoading();
                     }
                 });
             }
@@ -263,6 +264,7 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresenterImp, UserInf
                     public void run() {
 
                         try {
+                            stopLoading();
                             String data = response.body().string();
                             if (!TextUtils.isEmpty(data)) {
 

@@ -108,15 +108,11 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
 
             String host = ApiConstants.getHost(HostType.Jung_FINANCE);
 
-            ImageLoaderUtils.display(getActivity(), logoView, media.getCoverImage());
-            if (media.getCoverImage() != null && media.getCoverImage().startsWith(host)) {
-                logoView.setTag(R.id.flag_url, media.getCoverImage().substring(host.length()));
-            }
+            ImageLoaderUtils.display(getActivity(), logoView, host + media.getCoverImage());
+            logoView.setTag(R.id.flag_url, media.getCoverImage());
 
-            ImageLoaderUtils.display(getActivity(), wxQrView, media.getQrImage());
-            if (media.getQrImage() != null && media.getQrImage().startsWith(host)) {
-                wxQrView.setTag(R.id.flag_url, media.getQrImage().substring(host.length()));
-            }
+            ImageLoaderUtils.display(getActivity(), wxQrView, host + media.getQrImage());
+            wxQrView.setTag(R.id.flag_url, media.getQrImage());
         }
 
     }
@@ -262,6 +258,7 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        stopLoading();
                         JSONObject jsonObject = JSON.parseObject(data);
                         if (!jsonObject.containsKey("uri")) {
                             showErrorTip("图片上传失败");
@@ -296,6 +293,7 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        stopLoading();
                         JSONObject jsonObject = JSON.parseObject(data);
                         if (!jsonObject.containsKey("uri")) {
                             showErrorTip("头像图片上传失败");
@@ -309,6 +307,7 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        stopLoading();
                                         JSONObject jsonObject = JSON.parseObject(data);
                                         if (!jsonObject.containsKey("uri")) {
                                             showErrorTip("微信图片上传失败");
@@ -332,6 +331,7 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
 
     private void updateImage(File file, final UploadImageCallback callback) {
 
+        showLoading("");
         OkHttpClient mOkHttpClent = new OkHttpClient();
 
         MultipartBody.Builder builder = new MultipartBody.Builder()
@@ -354,6 +354,7 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
                     @Override
                     public void run() {
                         showErrorTip("图片上传失败");
+                        stopLoading();
                     }
                 });
             }
