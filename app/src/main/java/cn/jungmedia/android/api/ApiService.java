@@ -152,6 +152,9 @@ public interface ApiService {
     @GET("app/article/query")
     Observable<BaseRespose<ArticleModel>> getArtileList(@Header("Cache-Control") String cacheControl, @Query("isHead") int isHead, @Query("columnId") String columnId, @Query("p") int page);
 
+    @GET("app/article/query")
+    Observable<BaseRespose<ArticleModel>> searchKey(@Query("keyword") String keyword, @Query("p") int page);
+
     // 获取文章详情
     @GET("app/media/article/get")
     Observable<BaseRespose<ArticleDetail>> getArticleDetail(@Query("id") String id, @Query("uid") int uid);
@@ -296,14 +299,14 @@ public interface ApiService {
 
 
     @POST("app/me/media/set")
-    Observable<BaseRespose<MediaInfoBean>> setMediaInfo(@Query("token") String token,@Query("id") int id, @Query("applicant") String applicant,
+    Observable<BaseRespose<MediaInfoBean>> setMediaInfo(@Query("token") String token, @Query("id") int id, @Query("applicant") String applicant,
                                                         @Query("coverImage") String coverImage, @Query("name") String name,
                                                         @Query("qrImage") String qrImage, @Query("role") int role,
                                                         @Query("wechatNo") String wechatNo);
 
     @POST("app/me/media/create")
     Observable<BaseRespose<MediaInfoBean>> createMediaInfo(@Query("token") String token, @Query("applicant") String applicant,
-                                                        @Query("coverImage") String coverImage, @Query("name") String name,
-                                                        @Query("qrImage") String qrImage, @Query("role") int role,
-                                                        @Query("wechatNo") String wechatNo);
+                                                           @Query("coverImage") String coverImage, @Query("name") String name,
+                                                           @Query("qrImage") String qrImage, @Query("role") int role,
+                                                           @Query("wechatNo") String wechatNo);
 }

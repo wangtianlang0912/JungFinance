@@ -1,2 +1,2 @@
-include  ':push',':umlib',':HtmlSpanner'
+include ':push', ':umlib', ':HtmlSpanner', ':searchview'
 include ':library:common', ':library:selectordialog', ':library:jcvideoplayer', ':app', ':library:irecyclerview', ':library:photoPicker'

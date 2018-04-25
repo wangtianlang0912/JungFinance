@@ -6,11 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.leon.common.base.BaseFragment;
 import com.leon.common.base.BaseFragmentAdapter;
-import com.leon.common.commonutils.ToastUitl;
 import com.leon.common.commonwidget.NormalTitleBar;
 
 import java.util.ArrayList;
@@ -20,6 +18,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import cn.jungmedia.android.R;
 import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.app.AppIntent;
 import cn.jungmedia.android.bean.NewsChannelTable;
 import cn.jungmedia.android.ui.main.contract.NewsMainContract;
 import cn.jungmedia.android.ui.main.model.NewsMainModel;
@@ -68,7 +67,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
         ntb.getRightImage().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUitl.show("Search", Toast.LENGTH_SHORT);
+                AppIntent.intentToSearch(getActivity());
             }
         });
 

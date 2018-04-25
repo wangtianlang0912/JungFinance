@@ -23,6 +23,7 @@ import cn.jungmedia.android.ui.fav.ui.NewsEditFragment;
 import cn.jungmedia.android.ui.main.bean.MediaInfo;
 import cn.jungmedia.android.ui.main.fragment.ActivityInfoFragment;
 import cn.jungmedia.android.ui.main.fragment.ActivitySignupFragment;
+import cn.jungmedia.android.ui.main.fragment.SearchFragment;
 import cn.jungmedia.android.ui.news.fragment.ArticleDetailFragment2;
 import cn.jungmedia.android.ui.news.fragment.CommentListFragment;
 import cn.jungmedia.android.ui.score.ui.ScoreListFragment;
@@ -186,6 +187,13 @@ public class AppIntent {
         Bundle bundle = new Bundle();
         intentToAct(context, context.getString(R.string.main_tab_fast), FastEditFragment.class, bundle);
     }
+
+    public static void intentToSearch(Context context) {
+        Bundle bundle = new Bundle();
+        intentToAct(context, "", SearchFragment.class, bundle);
+    }
+
+
 
     public static void intentToActivityEdit(Context context) {
 

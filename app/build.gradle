@@ -93,6 +93,7 @@ dependencies {
     compile project(':umlib')
     compile project(':push')
     compile project(':HtmlSpanner')
+    compile project(':searchview')
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:1.1.6'
 
 
