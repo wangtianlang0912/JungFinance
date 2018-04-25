@@ -90,6 +90,7 @@ public class SearchFragment extends BaseFragment<SearchPresenter, SearchListMode
             @Override
             public void SearchAciton(String key) {
 
+                searchView.setHistoryViewVisible(false);
                 mKeyword = key;
                 datas.clear();
                 newListAdapter.notifyDataSetChanged();
