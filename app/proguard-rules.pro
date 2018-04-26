@@ -1,8 +1,13 @@
 
 #-------------------------------------------定制化区域----------------------------------------------
 #---------------------------------1.实体类---------------------------------
-
-
+-keep class cn.jungmedia.android.bean.** { *; }
+-keep class cn.jungmedia.android.ui.blogger.bean.** { *; }
+-keep class cn.jungmedia.android.ui.fav.bean.** { *; }
+-keep class cn.jungmedia.android.ui.main.bean.** { *; }
+-keep class cn.jungmedia.android.ui.score.bean.** { *; }
+-keep class cn.jungmedia.android.ui.user.bean.** { *; }
+-keep class cn.jungmedia.android.ui.zone.bean.** { *; }
 #-------------------------------------------------------------------------
 
 #---------------------------------2.第三方包-------------------------------

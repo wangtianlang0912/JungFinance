@@ -26,6 +26,7 @@ import cn.jungmedia.android.ui.main.presenter.NewsMainPresenter;
 import cn.jungmedia.android.ui.news.activity.NewsChannelActivity;
 import cn.jungmedia.android.ui.news.fragment.BloggerListFragment;
 import cn.jungmedia.android.ui.news.fragment.NewsFrament;
+import cn.jungmedia.android.ui.news.fragment.NewsTopFragment;
 import cn.jungmedia.android.ui.news.fragment.TopicListFragment;
 import cn.jungmedia.android.utils.MyUtils;
 
@@ -129,7 +130,7 @@ public class NewsMainFragment extends BaseFragment<NewsMainPresenter, NewsMainMo
     private BaseFragment createListFragments(NewsChannelTable newsChannel) {
 
         if ("top".equals(newsChannel.getNewsChannelId())) {
-            NewsFrament fragment = new NewsFrament();
+            NewsTopFragment fragment = new NewsTopFragment();
             Bundle bundle = new Bundle();
             bundle.putString(AppConstant.NEWS_ID, "");
             bundle.putInt(AppConstant.CHANNEL_POSITION, newsChannel.getNewsChannelIndex());

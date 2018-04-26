@@ -1,12 +1,33 @@
 package cn.jungmedia.android.ui.news.fragment;
 
+
+/***
+ *
+ * @Copyright 2018
+ *
+ * @TODO
+ *
+ * @author niufei
+ *
+ *
+ * @date 2018/4/27. 上午12:10
+ *
+ *
+ */
+
+import android.graphics.Color;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.RelativeLayout;
 
 import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
+import com.aspsine.irecyclerview.banner.BannerAdapter;
+import com.aspsine.irecyclerview.banner.BannerBean;
+import com.aspsine.irecyclerview.banner.BannerGalleryView;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonwidget.LoadingTip;
@@ -17,6 +38,7 @@ import java.util.List;
 import butterknife.Bind;
 import cn.jungmedia.android.R;
 import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.app.AppIntent;
 import cn.jungmedia.android.bean.ArticleModel;
 import cn.jungmedia.android.bean.BannerModel;
 import cn.jungmedia.android.bean.Counter;
@@ -26,12 +48,13 @@ import cn.jungmedia.android.ui.news.contract.NewsListContract;
 import cn.jungmedia.android.ui.news.model.NewsListModel;
 import cn.jungmedia.android.ui.news.presenter.NewsListPresenter;
 
+
 /**
  * des:新闻fragment
  * Created by xsf
  * on 2016.09.17:30
  */
-public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> implements NewsListContract.View, OnRefreshListener, OnLoadMoreListener {
+public class NewsTopFragment extends BaseFragment<NewsListPresenter, NewsListModel> implements NewsListContract.View, OnRefreshListener, OnLoadMoreListener {
     @Bind(R.id.irc)
     IRecyclerView irc;
     @Bind(R.id.loadedTip)
@@ -47,6 +70,11 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
     private boolean isVisible;
 
     ArticleModel.Article mArticleAd;
+
+    private boolean hasAddHeader;
+    private BannerGalleryView bannerView;
+    private List<BannerBean> bannerList = new ArrayList<BannerBean>();
+    BannerAdapter bannerAdapter = null;
 
     @Override
     protected int getLayoutResource() {
@@ -64,6 +92,26 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
             mNewsId = getArguments().getString(AppConstant.NEWS_ID);
         }
 
+
+        if (!hasAddHeader) {
+            hasAddHeader = true;
+            bannerView = new BannerGalleryView(getActivity());
+            bannerView.getPagercontrol().setHighlightColor(Color.WHITE);
+            bannerView.getPagercontrol().setBarColor(Color.LTGRAY);
+            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams)
+                    bannerView.getPagercontrol().getLayoutParams();
+            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            layoutParams.addRule(RelativeLayout.CENTER_HORIZONTAL);
+            bannerView.getPagercontrol().setLayoutParams(layoutParams);
+            bannerView.setOnItemClicklistener(getOnItemClickListener());
+            bannerAdapter = new BannerAdapter(getActivity(), bannerList, null);
+            bannerAdapter.setDefaultLogoRes(R.drawable.logo_pic);
+            bannerView.setAdapter(bannerAdapter);
+            bannerView.notifyPagerControler();
+
+            irc.addHeaderView(bannerView);
+        }
+
         irc.setLayoutManager(new LinearLayoutManager(getContext()));
         datas.clear();
         newListAdapter = new NewListAdapter(getContext(), datas);
@@ -75,6 +123,11 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
         if (newListAdapter.getSize() <= 0) {
             mStartPage = 0;
             mPresenter.getNewsListDataRequest(mNewsId, mStartPage);
+
+            if (TextUtils.isEmpty(mNewsId)) {
+                mPresenter.getBannerList();
+                mPresenter.getAdList("article", "top");
+            }
         }
     }
 
@@ -109,7 +162,39 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
 
     @Override
     public void returnBannerList(List<BannerModel.Banner> list) {
+        if (bannerView == null) {
+            return;
+        }
+        if (list != null) {
 
+            bannerList.clear();
+            List<BannerBean> bannerBeans = new ArrayList<BannerBean>();
+            for (BannerModel.Banner data : list) {
+                BannerBean bannerBean = new BannerBean();
+                bannerBean.setId(Integer.valueOf(data.getObjectId()));
+                bannerBean.setImgUrl(data.getImage());
+                bannerBean.setUrl(data.getUrl());
+                bannerBean.setTitle(data.getTitle());
+                bannerBean.setObj(data);
+                bannerBeans.add(bannerBean);
+            }
+            bannerView.setNumPages(bannerBeans.size());
+            bannerList.addAll(bannerBeans);
+            bannerAdapter.notifyDataSetChanged();
+            bannerView.notifyPagerControler();
+//            bannerView.startAutoScroll();
+
+            bannerView.setOnItemClicklistener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                    BannerBean bannerBean = (BannerBean) adapterView.getItemAtPosition(i);
+                    if (bannerBean != null) {
+                        AppIntent.intentToCommonWeb(getActivity(), R.string.news, bannerBean.getUrl());
+                    }
+                }
+            });
+        }
     }
 
     @Override

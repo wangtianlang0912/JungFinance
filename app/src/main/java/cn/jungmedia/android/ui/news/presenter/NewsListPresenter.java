@@ -1,15 +1,15 @@
 package cn.jungmedia.android.ui.news.presenter;
 
-import cn.jungmedia.android.app.AppConstant;
-import cn.jungmedia.android.bean.ArticleModel;
-import cn.jungmedia.android.R;
-import cn.jungmedia.android.bean.BannerModel;
-import cn.jungmedia.android.bean.LinkModel;
-import cn.jungmedia.android.ui.news.contract.NewsListContract;
 import com.leon.common.baserx.RxSubscriber;
 
 import java.util.List;
 
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.bean.BannerModel;
+import cn.jungmedia.android.bean.LinkModel;
+import cn.jungmedia.android.ui.news.contract.NewsListContract;
 import rx.functions.Action1;
 
 /**
@@ -40,10 +40,6 @@ public class NewsListPresenter extends NewsListContract.Presenter {
     @Override
     public void getNewsListDataRequest(String id, int startPage) {
         boolean isTopColumn = "".equals(id);
-        if (isTopColumn && startPage == 0) {
-            getBannerList();
-            getAdList("article", "top");
-        }
         mRxManage.add(mModel.getNewsListData(isTopColumn, id, startPage).subscribe(new RxSubscriber<ArticleModel>(mContext, false) {
             @Override
             public void onStart() {
