@@ -34,7 +34,6 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="20dp"
-            android:layout_toLeftOf="@+id/btn_layout"
             android:background="@drawable/write_comment_bg"
             android:gravity="center_vertical"
             android:padding="8dp"

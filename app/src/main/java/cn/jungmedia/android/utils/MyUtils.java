@@ -348,7 +348,7 @@ public class MyUtils {
     }
 
     public static String getMacAddress(Context context) {
-        WifiManager wifi = (WifiManager) context
+        WifiManager wifi = (WifiManager) context.getApplicationContext()
                 .getSystemService(Context.WIFI_SERVICE);
         WifiInfo info = wifi.getConnectionInfo();
         if (info != null) {

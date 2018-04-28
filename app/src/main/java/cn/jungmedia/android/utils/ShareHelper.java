@@ -55,7 +55,7 @@ public class ShareHelper {
                         web.setTitle(title);
                         web.setDescription(content);
                         if (TextUtils.isEmpty(imageUrl)) {
-                            web.setThumb(new UMImage(activity, R.mipmap.ic_launcher));
+                            web.setThumb(new UMImage(activity, R.drawable.logo_login));
                         } else {
                             web.setThumb(new UMImage(activity, imageUrl));
                         }
