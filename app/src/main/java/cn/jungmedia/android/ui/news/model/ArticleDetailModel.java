@@ -133,9 +133,9 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
     }
 
     @Override
-    public Observable<CommentCreateModel> createComment(int articleId, String body) {
+    public Observable<CommentCreateModel> createComment(int articleId, String body, int touid) {
         String token = MyUtils.getToken();
-        return Api.getDefault(HostType.Jung_FINANCE).createComment(token, articleId, body, null)
+        return Api.getDefault(HostType.Jung_FINANCE).createComment(token, articleId, body, touid)
                 .map(new Func1<BaseRespose<CommentCreateModel>, CommentCreateModel>() {
                     @Override
                     public CommentCreateModel call(BaseRespose<CommentCreateModel> baseRespose) {
@@ -156,7 +156,7 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
                         if (listModel != null && listModel.getComments() != null) {
 
                             for (CommentCreateModel.Comment comment : listModel.getComments()) {
-                                String ptime = TimeUtil.formatTimeStampStr2Desc(comment.getCtime() * 1000);
+                                String ptime = TimeUtil.formatData(TimeUtil.dateFormatYMDHMS, comment.getCtime());
                                 comment.setcTimeStr(ptime);
                                 String logo = comment.getUser().getLogo();
                                 comment.getUser().setLogo(ApiConstants.URL + logo);

@@ -1,16 +1,16 @@
 package cn.jungmedia.android.ui.news.model;
 
-import cn.jungmedia.android.api.ApiConstants;
-import cn.jungmedia.android.api.HostType;
-import cn.jungmedia.android.bean.CommentCreateModel;
-import cn.jungmedia.android.api.Api;
-import cn.jungmedia.android.bean.CommentListModel;
-import cn.jungmedia.android.ui.news.contract.CommentListContract;
-import cn.jungmedia.android.utils.MyUtils;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 import com.leon.common.commonutils.TimeUtil;
 
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.api.ApiConstants;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.bean.CommentCreateModel;
+import cn.jungmedia.android.bean.CommentListModel;
+import cn.jungmedia.android.ui.news.contract.CommentListContract;
+import cn.jungmedia.android.utils.MyUtils;
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -31,9 +31,9 @@ import rx.functions.Func1;
 public class CommentListModelImp implements CommentListContract.Model {
 
     @Override
-    public Observable<CommentCreateModel> createComment(int articleId, String body) {
+    public Observable<CommentCreateModel> createComment(int articleId, String body, int touid) {
         String token = MyUtils.getToken();
-        return Api.getDefault(HostType.Jung_FINANCE).createComment(token, articleId, body, null)
+        return Api.getDefault(HostType.Jung_FINANCE).createComment(token, articleId, body, touid)
                 .map(new Func1<BaseRespose<CommentCreateModel>, CommentCreateModel>() {
                     @Override
                     public CommentCreateModel call(BaseRespose<CommentCreateModel> baseRespose) {

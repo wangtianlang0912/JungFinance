@@ -144,7 +144,7 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
             shareBtn.setTag(article);
             titleView.setText(article.getTitle());
             timeView.setText(article.getPtime());
-            sourceView.setText(article.getSource());
+            sourceView.setText(TextUtils.isEmpty(article.getSource()) ? "佚名" : article.getSource());
             scanView.setText(article.getPv() + "");
             zanView.setText(article.getSupport() + "");
             caiView.setText(article.getOppose() + "");
@@ -280,11 +280,16 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
 
     @Override
     public void returnCreateComment(CommentCreateModel model) {
+
+        mPresenter.getCommentList(articleId);
+
         if (model != null) {
             if (commentDialog != null && commentDialog.isShowing()) {
                 commentDialog.dismiss();
             }
+
             showShortToast(R.string.submit_success);
+
         } else {
             showShortToast(R.string.submit_failure);
         }
@@ -294,7 +299,8 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
     public void returnCommentList(CommentListModel model) {
         if (model != null && model.getComments() != null) {
             commentItemLayout.setVisibility(View.VISIBLE);
-            for (CommentCreateModel.Comment comment : model.getComments()) {
+            commentItemLayout.removeAllViews();
+            for (final CommentCreateModel.Comment comment : model.getComments()) {
                 View itemLayout = LayoutInflater.from(getActivity()).inflate(R.layout.item_comment, null);
                 commentItemLayout.addView(itemLayout);
                 TextView titleView = (TextView) itemLayout.findViewById(R.id.title_view);
@@ -303,10 +309,18 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                 pubTimeView.setText(comment.getcTimeStr());
                 TextView replayNumView = (TextView) itemLayout.findViewById(R.id.replay_num_view);
                 replayNumView.setText(comment.getrCount() + "");
+                ViewGroup replayLayout = (ViewGroup) itemLayout.findViewById(R.id.replay_layout);
                 TextView contentView = (TextView) itemLayout.findViewById(R.id.content_view);
                 contentView.setText(comment.getBody());
                 ImageView logoView = (ImageView) itemLayout.findViewById(R.id.logo_view);
                 ImageLoaderUtils.displayRound(getActivity(), logoView, comment.getUser().getLogo());
+
+                replayLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showCommentCreateDialog(comment.getObjectId());
+                    }
+                });
             }
 
             commentInnerBtn.setText("查看全部(" + model.getCounter().getTotal() + ")");
@@ -381,7 +395,7 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                 break;
             case R.id.write_comment_view:
 
-                showCommentCreateDialog();
+                showCommentCreateDialog(0);
                 break;
             case R.id.comment_btn:
             case R.id.comment_inner_btn:
@@ -425,7 +439,7 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
     }
 
 
-    private void showCommentCreateDialog() {
+    private void showCommentCreateDialog(final int touid) {
 
         DuAlertDialog.Builder builder = new DuAlertDialog().createBottomBuilder(getActivity());
         View commentView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_comment_publish, null);
@@ -445,7 +459,7 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                     return;
                 }
 
-                mPresenter.createComment(articleId, value);
+                mPresenter.createComment(articleId, value, touid);
             }
         });
 

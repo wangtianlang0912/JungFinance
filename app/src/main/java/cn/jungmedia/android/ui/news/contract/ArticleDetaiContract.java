@@ -42,7 +42,7 @@ public class ArticleDetaiContract {
 
         Observable<BaseRespose<FavActionModel>> getArticleFavState(int articleId);
 
-        Observable<CommentCreateModel> createComment(int articleId, String body);
+        Observable<CommentCreateModel> createComment(int articleId, String body, int touid);
 
         Observable<CommentListModel> getCommentList(int articleId);
 
@@ -88,7 +88,7 @@ public class ArticleDetaiContract {
         public abstract void getArticleFavState(int articleId);
 
         // 创建评论
-        public abstract void createComment(int articleId, String value);
+        public abstract void createComment(int articleId, String value, int touid);
 
         //获取3条评论展示在文章详情中
         public abstract void getCommentList(int articleId);

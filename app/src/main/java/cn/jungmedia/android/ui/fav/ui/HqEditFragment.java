@@ -1,7 +1,11 @@
 package cn.jungmedia.android.ui.fav.ui;
 
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
@@ -17,6 +21,7 @@ import java.util.Map;
 import java.util.Set;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.jungmedia.android.R;
 import cn.jungmedia.android.app.AppConstant;
 import cn.jungmedia.android.bean.Counter;
@@ -45,6 +50,8 @@ public class HqEditFragment extends BaseFragment<HqEditPresenter, HqEditModelImp
     IRecyclerView irc;
     @Bind(R.id.loadedTip)
     LoadingTip loadedTip;
+    @Bind(R.id.empty_layout)
+    LinearLayout emptyLayout;
     private HqEditListAdapter listAdapter;
     private List<NewsFavBean.Favorite> datas = new ArrayList<>();
 
@@ -77,6 +84,8 @@ public class HqEditFragment extends BaseFragment<HqEditPresenter, HqEditModelImp
         irc.setAdapter(listAdapter);
         irc.setOnRefreshListener(this);
         irc.setOnLoadMoreListener(this);
+
+        emptyLayout.setVisibility(View.GONE);
         //数据为空才重新发起请求
         if (listAdapter.getSize() <= 0) {
             mStartPage = 1;
@@ -86,6 +95,8 @@ public class HqEditFragment extends BaseFragment<HqEditPresenter, HqEditModelImp
 
     @Override
     public void onRefresh() {
+
+        emptyLayout.setVisibility(View.GONE);
         listAdapter.getPageBean().setRefresh(true);
         mStartPage = 0;
         //发起请求
@@ -149,7 +160,13 @@ public class HqEditFragment extends BaseFragment<HqEditPresenter, HqEditModelImp
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                 mStartPage++;
             } else {
-                irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
+                if (listAdapter.getSize() > 0) {
+                    irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
+                } else {
+                    irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+
+                    emptyLayout.setVisibility(View.VISIBLE);
+                }
             }
         }
     }
@@ -173,5 +190,19 @@ public class HqEditFragment extends BaseFragment<HqEditPresenter, HqEditModelImp
     @Override
     public void onBtnClicked(NewsFavBean.Favorite favorite) {
         mPresenter.unFavAction(favorite.getObjectId());
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
     }
 }

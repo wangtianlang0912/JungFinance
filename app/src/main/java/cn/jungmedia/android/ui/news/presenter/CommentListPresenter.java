@@ -1,9 +1,10 @@
 package cn.jungmedia.android.ui.news.presenter;
 
+import com.leon.common.baserx.RxSubscriber;
+
 import cn.jungmedia.android.bean.CommentCreateModel;
 import cn.jungmedia.android.bean.CommentListModel;
 import cn.jungmedia.android.ui.news.contract.CommentListContract;
-import com.leon.common.baserx.RxSubscriber;
 
 
 /***
@@ -21,8 +22,8 @@ import com.leon.common.baserx.RxSubscriber;
  */
 public class CommentListPresenter extends CommentListContract.Presenter {
     @Override
-    public void createComment(int articleId, String value) {
-        mRxManage.add(mModel.createComment(articleId, value).subscribe(new RxSubscriber<CommentCreateModel>(mContext, false) {
+    public void createComment(int articleId, String value, int touid) {
+        mRxManage.add(mModel.createComment(articleId, value, touid).subscribe(new RxSubscriber<CommentCreateModel>(mContext, false) {
 
             @Override
             public void onStart() {

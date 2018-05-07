@@ -247,7 +247,7 @@ public interface ApiService {
     // 创建评论
     @POST("app/comment/create")
     Observable<BaseRespose<CommentCreateModel>> createComment(@Query("token") String token, @Query("id") int id,
-                                                              @Query("body") String body, @Query("touid") String touid);
+                                                              @Query("body") String body, @Query("touid") int touid);
 
     // 评论列表
     @GET("app/comment/query")
@@ -284,7 +284,7 @@ public interface ApiService {
     Observable<BaseRespose<VoteModel>> oppose(@Query("token") String token, @Query("id") int id);
 
     // 支持文章
-    @POST("app/vote/oppose")
+    @POST("app/vote/support")
     Observable<BaseRespose<VoteModel>> support(@Query("token") String token, @Query("id") int id);
 
     // 分享

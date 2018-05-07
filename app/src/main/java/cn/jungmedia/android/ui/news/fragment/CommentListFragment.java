@@ -17,15 +17,6 @@ import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
-import cn.jungmedia.android.app.AppConstant;
-import cn.jungmedia.android.bean.CommentCreateModel;
-import cn.jungmedia.android.bean.CommentListModel;
-import cn.jungmedia.android.bean.Counter;
-import cn.jungmedia.android.ui.news.adapter.CommentListAdapter;
-import cn.jungmedia.android.ui.news.model.CommentListModelImp;
-import cn.jungmedia.android.R;
-import cn.jungmedia.android.ui.news.contract.CommentListContract;
-import cn.jungmedia.android.ui.news.presenter.CommentListPresenter;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonwidget.LoadingTip;
 import com.leon.common.ui.DuAlertDialog;
@@ -36,6 +27,15 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.bean.CommentCreateModel;
+import cn.jungmedia.android.bean.CommentListModel;
+import cn.jungmedia.android.bean.Counter;
+import cn.jungmedia.android.ui.news.adapter.CommentListAdapter;
+import cn.jungmedia.android.ui.news.contract.CommentListContract;
+import cn.jungmedia.android.ui.news.model.CommentListModelImp;
+import cn.jungmedia.android.ui.news.presenter.CommentListPresenter;
 
 
 /***
@@ -51,7 +51,7 @@ import butterknife.OnClick;
  *
  *
  */
-public class CommentListFragment extends BaseFragment<CommentListPresenter, CommentListModelImp> implements CommentListContract.View, OnRefreshListener, OnLoadMoreListener {
+public class CommentListFragment extends BaseFragment<CommentListPresenter, CommentListModelImp> implements CommentListContract.View, OnRefreshListener, OnLoadMoreListener, CommentListAdapter.OnItemReplayBtnClickListener {
     @Bind(R.id.irc)
     IRecyclerView irc;
     @Bind(R.id.loadedTip)
@@ -78,7 +78,7 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
     protected void initView() {
         irc.setLayoutManager(new LinearLayoutManager(getContext()));
         datas.clear();
-        commentListAdapter = new CommentListAdapter(getContext(), datas);
+        commentListAdapter = new CommentListAdapter(getContext(), datas, this);
 //        commentListAdapter.openLoadAnimation(new ScaleInAnimation());
         irc.setAdapter(commentListAdapter);
         irc.setOnRefreshListener(this);
@@ -149,7 +149,7 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
 
     @OnClick(R.id.bottom_layout)
     public void onViewClicked() {
-        showCommentCreateDialog();
+        showCommentCreateDialog(0);
     }
 
     @Override
@@ -199,7 +199,7 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
         }
     }
 
-    private void showCommentCreateDialog() {
+    private void showCommentCreateDialog(final int touid) {
 
         DuAlertDialog.Builder builder = new DuAlertDialog().createBottomBuilder(getActivity());
         View commentView = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_comment_publish, null);
@@ -219,10 +219,14 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
                     return;
                 }
 
-                mPresenter.createComment(articleId, value);
+                mPresenter.createComment(articleId, value, touid);
             }
         });
 
     }
 
+    @Override
+    public void onClick(int objectd) {
+        showCommentCreateDialog(objectd);
+    }
 }

@@ -2,13 +2,15 @@ package cn.jungmedia.android.ui.news.adapter;
 
 
 import android.content.Context;
+import android.view.View;
 
 import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
 import com.aspsine.irecyclerview.universaladapter.recyclerview.CommonRecycleViewAdapter;
-import cn.jungmedia.android.R;
-import cn.jungmedia.android.bean.CommentCreateModel;
 
 import java.util.List;
+
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.CommentCreateModel;
 
 /***
  *
@@ -26,8 +28,12 @@ import java.util.List;
 public class CommentListAdapter extends CommonRecycleViewAdapter<CommentCreateModel.Comment> {
 
 
-    public CommentListAdapter(Context context, List<CommentCreateModel.Comment> datas) {
+    private OnItemReplayBtnClickListener mClickListener;
+
+
+    public CommentListAdapter(Context context, List<CommentCreateModel.Comment> datas, OnItemReplayBtnClickListener listener) {
         super(context, R.layout.item_comment, datas);
+        this.mClickListener = listener;
     }
 
     @Override
@@ -44,9 +50,23 @@ public class CommentListAdapter extends CommonRecycleViewAdapter<CommentCreateMo
         if (comment.getUser() != null) {
             holder.setText(R.id.title_view, comment.getUser().getNick());
             holder.setText(R.id.pubtime_view, comment.getcTimeStr());
-            holder.setText(R.id.replay_num_view, comment.getrCount() +"");
+            holder.setText(R.id.replay_num_view, comment.getrCount() + "");
             holder.setText(R.id.content_view, comment.getBody());
             holder.setImageRoundUrl(R.id.logo_view, comment.getUser().getLogo());
+            holder.setOnClickListener(R.id.replay_layout, new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mClickListener != null) {
+                        mClickListener.onClick(comment.getObjectId());
+                    }
+                }
+            });
         }
+    }
+
+
+    public interface OnItemReplayBtnClickListener {
+
+        public void onClick(int objectd);
     }
 }

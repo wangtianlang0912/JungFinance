@@ -132,8 +132,8 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
     }
 
     @Override
-    public void createComment(int articleId, String value) {
-        mRxManage.add(mModel.createComment(articleId, value).subscribe(new RxSubscriber<CommentCreateModel>(mContext, false) {
+    public void createComment(int articleId, String value, int touid) {
+        mRxManage.add(mModel.createComment(articleId, value, touid).subscribe(new RxSubscriber<CommentCreateModel>(mContext, false) {
 
             @Override
             public void onStart() {
