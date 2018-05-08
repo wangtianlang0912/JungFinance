@@ -35,7 +35,7 @@ public class ActivityDetailContract {
     public interface View extends BaseView {
         void returnAttentActivity(boolean result);
 
-        void returnFavActivityState(ActivityFavModel.Favorite result);
+        void returnFavActivityState(ActivityFavModel.Favorite result,boolean hasFav);
 
     }
 

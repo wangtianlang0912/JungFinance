@@ -1,9 +1,10 @@
 package cn.jungmedia.android.ui.main.presenter;
 
+import com.leon.common.baserx.RxSubscriber;
+
 import cn.jungmedia.android.R;
 import cn.jungmedia.android.bean.ActivityFavModel;
 import cn.jungmedia.android.ui.main.contract.ActivityDetailContract;
-import com.leon.common.baserx.RxSubscriber;
 
 
 /***
@@ -36,7 +37,7 @@ public class ActivityDetailPresenterImp extends ActivityDetailContract.Presenter
 
             @Override
             protected void _onNext(ActivityFavModel.Favorite result) {
-                mView.returnFavActivityState(result);
+                mView.returnFavActivityState(result, result != null);
                 mView.stopLoading();
             }
 
@@ -48,9 +49,9 @@ public class ActivityDetailPresenterImp extends ActivityDetailContract.Presenter
     }
 
     @Override
-    public void favActionActivity(int activityId, boolean hasFav) {
+    public void favActionActivity(int activityId, final boolean hasFav) {
 
-        mRxManage.add(mModel.favActionActivity(activityId,hasFav).subscribe(new RxSubscriber<ActivityFavModel.Favorite>(mContext, false) {
+        mRxManage.add(mModel.favActionActivity(activityId, hasFav).subscribe(new RxSubscriber<ActivityFavModel.Favorite>(mContext, false) {
             @Override
             public void onStart() {
                 super.onStart();
@@ -59,7 +60,7 @@ public class ActivityDetailPresenterImp extends ActivityDetailContract.Presenter
 
             @Override
             protected void _onNext(ActivityFavModel.Favorite result) {
-                mView.returnFavActivityState(result);
+                mView.returnFavActivityState(result, !hasFav);
                 mView.stopLoading();
             }
 

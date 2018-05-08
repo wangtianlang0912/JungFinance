@@ -83,9 +83,9 @@ public class ActivityInfoFragment extends BaseFragment<ActivityDetailPresenterIm
     }
 
     @Override
-    public void returnFavActivityState(ActivityFavModel.Favorite result) {
+    public void returnFavActivityState(ActivityFavModel.Favorite result, boolean hasFav) {
 
-        if (result != null) {
+        if (hasFav) {
             favView.setTag(result.getObjectId());
             favView.setImageResource(R.drawable.icon_fav_s);
         } else {
