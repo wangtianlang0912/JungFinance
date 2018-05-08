@@ -174,7 +174,11 @@ public class ScoreListFragment extends BaseFragment<ScorePresenterImp, ScoreMode
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                 mStartPage++;
             } else {
-                irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
+                if(listAdapter.getSize()>0) {
+                    irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
+                }else {
+                    irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+                }
             }
         }
     }

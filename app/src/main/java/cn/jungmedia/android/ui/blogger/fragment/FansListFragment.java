@@ -2,6 +2,7 @@ package cn.jungmedia.android.ui.blogger.fragment;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
@@ -42,6 +43,8 @@ public class FansListFragment extends BaseFragment<FansPresenterImp, FansModelIm
     IRecyclerView irc;
     @Bind(R.id.loadedTip)
     LoadingTip loadedTip;
+    @Bind(R.id.empty_layout)
+    LinearLayout emptyLayout;
     private FansAdapter listAdapter;
     private List<FansBean.Favorite> datas = new ArrayList<>();
 
@@ -66,6 +69,8 @@ public class FansListFragment extends BaseFragment<FansPresenterImp, FansModelIm
         irc.setAdapter(listAdapter);
         irc.setOnRefreshListener(this);
         irc.setOnLoadMoreListener(this);
+
+        emptyLayout.setVisibility(View.GONE);
         //数据为空才重新发起请求
         if (listAdapter.getSize() <= 0) {
             mStartPage = 1;
@@ -75,6 +80,8 @@ public class FansListFragment extends BaseFragment<FansPresenterImp, FansModelIm
 
     @Override
     public void onRefresh() {
+
+        emptyLayout.setVisibility(View.GONE);
         listAdapter.getPageBean().setRefresh(true);
         mStartPage = 0;
         //发起请求
@@ -140,7 +147,12 @@ public class FansListFragment extends BaseFragment<FansPresenterImp, FansModelIm
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                 mStartPage++;
             } else {
-                irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
+                if(listAdapter.getSize()>0) {
+                    irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
+                }else {
+                    irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
+                }
             }
         }
     }
