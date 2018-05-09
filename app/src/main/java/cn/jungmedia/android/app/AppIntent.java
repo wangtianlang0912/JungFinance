@@ -24,6 +24,7 @@ import cn.jungmedia.android.ui.main.bean.MediaInfo;
 import cn.jungmedia.android.ui.main.fragment.ActivityInfoFragment;
 import cn.jungmedia.android.ui.main.fragment.ActivitySignupFragment;
 import cn.jungmedia.android.ui.main.fragment.SearchFragment;
+import cn.jungmedia.android.ui.main.fragment.WechatQrPageFragment;
 import cn.jungmedia.android.ui.news.fragment.ArticleDetailFragment2;
 import cn.jungmedia.android.ui.news.fragment.CommentListFragment;
 import cn.jungmedia.android.ui.score.ui.ScoreListFragment;
@@ -239,5 +240,11 @@ public class AppIntent {
         Bundle bundle = new Bundle();
         bundle.putSerializable(AppConstant.FLAG_DATA, media);
         intentToAct(context, context.getString(R.string.media_account), MediaUpdateFragment.class, bundle);
+    }
+
+    public static void intentToWechatQrPage(Context context) {
+
+        Bundle bundle = new Bundle();
+        intentToAct(context, "", WechatQrPageFragment.class, bundle);
     }
 }

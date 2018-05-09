@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jungmedia.android.R;
 import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.app.AppIntent;
 import cn.jungmedia.android.ui.main.bean.CrewBean;
 import cn.jungmedia.android.ui.main.contract.ActivitySignupContract;
 import cn.jungmedia.android.ui.main.model.ActivitySignupModelImp;
@@ -71,6 +72,9 @@ public class ActivitySignupFragment extends BaseFragment<ActivitySignupPresenter
         if (baseRespose.success()) {
             ToastUitl.showShort("报名成功");
             getActivity().finish();
+
+            AppIntent.intentToWechatQrPage(getActivity());
+
         } else {
             ToastUitl.showShort("报名失败");
         }

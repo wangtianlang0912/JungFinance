@@ -59,7 +59,8 @@ public class BloggerListAdapter extends CommonRecycleViewAdapter<BloggerModel.Me
             @Override
             public void onClick(View view) {
 
-                AppIntent.intentToBloggerInfo(mContext, media.getObjectId(), media.getFavorite() != null);
+//                AppIntent.intentToBloggerInfo(mContext, media.getObjectId(), media.getFavorite() != null);
+                AppIntent.intentToArticleDetail(mContext, media.getObjectId());
             }
         });
         holder.setOnClickListener(R.id.rl_root, new View.OnClickListener() {
