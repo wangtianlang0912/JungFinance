@@ -139,6 +139,6 @@ public class ActivitySignupFragment extends BaseFragment<ActivitySignupPresenter
             return;
         }
 
-        mPresenter.signup(mActiveId, phone, name, Integer.valueOf(mumberNum), company);
+        mPresenter.signup(mActiveId, name,phone, Integer.valueOf(mumberNum), company);
     }
 }

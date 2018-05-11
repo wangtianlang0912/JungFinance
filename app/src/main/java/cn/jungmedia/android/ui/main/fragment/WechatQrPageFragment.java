@@ -21,7 +21,6 @@ import java.io.IOException;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.OnLongClick;
 import cn.jungmedia.android.R;
 
 import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
@@ -56,6 +55,16 @@ public class WechatQrPageFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+
+        imageView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+
+                saveRes2Gallery(R.drawable.wechat_qr, "JungFinance_wechat.png");
+
+                return true;
+            }
+        });
     }
 
     @Override
@@ -72,10 +81,6 @@ public class WechatQrPageFragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    @OnLongClick(R.id.imageView)
-    public void onViewClicked() {
-        saveRes2Gallery(R.drawable.wechat_qr, "JungFinance_wechat.png");
-    }
 
     /**
      * @param resId   获取的bitmap数据

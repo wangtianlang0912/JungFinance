@@ -45,8 +45,14 @@ public class ShareHelper {
         mShareListener = new CustomShareListener(activity, sharedListener);
         /*增加自定义按钮的分享面板*/
         mShareAction = new ShareAction(activity).setDisplayList(
-                SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.WEIXIN_FAVORITE,
-                SHARE_MEDIA.SINA, SHARE_MEDIA.QQ, SHARE_MEDIA.QZONE)
+
+                SHARE_MEDIA.SINA,
+                SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,
+                SHARE_MEDIA.MORE
+//                ,
+//                SHARE_MEDIA.QQ,
+//                SHARE_MEDIA.QZONE
+        )
                 .setShareboardclickCallback(new ShareBoardlistener() {
                     @Override
                     public void onclick(SnsPlatform snsPlatform, SHARE_MEDIA share_media) {
