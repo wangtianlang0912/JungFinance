@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="3dp">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/fileName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/imageView"
+        android:gravity="center_vertical"
+        android:text="apk download"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/rate"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/fileName"
+        android:layout_toRightOf="@id/imageView"
+        android:text="0%"
+        android:textColor="#bbbbbb"
+        android:textSize="12sp" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/fileName"
+        android:layout_below="@id/rate"
+        android:max="100"
+        android:progress="0" />
+
+</RelativeLayout>

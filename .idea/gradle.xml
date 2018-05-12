@@ -21,6 +21,7 @@
             <option value="$PROJECT_DIR$/push" />
             <option value="$PROJECT_DIR$/searchview" />
             <option value="$PROJECT_DIR$/umlib" />
+            <option value="$PROJECT_DIR$/versionupdatelib" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

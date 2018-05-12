@@ -78,6 +78,8 @@
             android:theme="@style/Theme_In_From_Right" />
 
 
+        <service android:name="com.baidu.cn.vm.service.DownloadService" />
+
         <!-- 友盟统计 -->
         <meta-data
             android:name="UMENG_APPKEY"

@@ -1,5 +1,6 @@
 package cn.jungmedia.android.ui.setting.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,9 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.baidu.cn.vm.version.VCCallback;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonutils.ImageLoaderUtils;
 import com.leon.common.commonutils.ToastUitl;
+import com.leon.common.ui.DuAlertDialog;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -24,6 +27,7 @@ import cn.jungmedia.android.ui.setting.contract.SettingContract;
 import cn.jungmedia.android.ui.setting.model.SettingModel;
 import cn.jungmedia.android.ui.setting.presenter.SettingPresenter;
 import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.update.CheckVersionUtil;
 import cn.jungmedia.android.utils.MyUtils;
 
 
@@ -132,6 +136,25 @@ public class SettingFragment extends BaseFragment<SettingPresenter, SettingModel
             case R.id.clear_cache_layout:
                 break;
             case R.id.version_layout:
+
+                CheckVersionUtil checkVersionUtil = new CheckVersionUtil();
+                checkVersionUtil.checkUpdate(getActivity(), new VCCallback() {
+                    @Override
+                    public void hasUpdate(boolean needUpdate) {
+                        if (!needUpdate) {
+                            DuAlertDialog.Builder dialog = new DuAlertDialog().createBuilder(getActivity());
+                            dialog.create();
+                            dialog.setTitle(R.string.remind_alertdialog_title);
+                            dialog.setMessage(R.string.latest_alertdialog_message);
+                            dialog.setPositiveButton(R.string.alertdialog_positive_btn, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+                            dialog.show();
+                        }
+                    }
+                });
                 break;
             case R.id.about_us_layout:
                 AppIntent.intentToCommonWeb(getActivity(), R.string.about_us, ApiConstants.URL_ABOUT);

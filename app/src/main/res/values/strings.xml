@@ -117,4 +117,11 @@
     <string name="share_contents">分享自荣格财经</string>
     <string name="submit_failure">提交失败</string>
 
+    <string name="latest_alertdialog_message">已经是最新版本</string>
+    <string name="remind_alertdialog_title">提示</string>
+    <string name="same_wifi_alertdialog_message">为保证正常使用，请确保手机和连接的设备处于相同的WIFI网络</string>
+    <string name="alertdialog_positive_btn">确 定</string>
+    <string name="alertdialog_negative_btn">退 出</string>
+    <string name="alertdialog_negative_btn_cancel">取 消</string>
+    <string name="notification_error_ssl_cert_invalid">SSL证书验证失败</string>
 </resources>

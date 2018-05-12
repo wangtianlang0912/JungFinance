@@ -25,4 +25,9 @@
         <item name="@android:activityCloseExitAnimation">@anim/out_to_right</item>
     </style>
 
+
+
+    <style name="Theme.Transparent.Background.Dialog" parent="@style/Theme.Custom.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

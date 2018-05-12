@@ -20,7 +20,8 @@ public class ApiConstants {
     public static final String NETEAST_HOST = "http://c.m.163.com/";
     public static final String URL = "http://jungmedia.cn/";
 
-
+    public static final String URL_UPDATE = URL + "app/update";
+    ;
     /**
      * 新浪图片新闻
      * http://gank.io/api/data/福利/{size}/{page}
@@ -28,9 +29,9 @@ public class ApiConstants {
     public static final String SINA_PHOTO_HOST = "http://gank.io/api/";
 
 
-    public static final String URL_ABOUT =URL + "about/";
+    public static final String URL_ABOUT = URL + "about/";
 
-    public static final String URL_CONTACT =URL + "contact/";
+    public static final String URL_CONTACT = URL + "contact/";
 
     /**
      * 获取对应的host
