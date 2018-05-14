@@ -39,7 +39,7 @@ public class BloggerModel {
     }
 
 
-    public class Media {
+    public static class Media {
         private int uid;
 
         private Article article;
@@ -162,9 +162,25 @@ public class BloggerModel {
         public void setStatus(int status) {
             this.status = status;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof Media)) return false;
+
+            Media media = (Media) o;
+
+            return getObjectId() == media.getObjectId();
+
+        }
+
+        @Override
+        public int hashCode() {
+            return getObjectId();
+        }
     }
 
-    public class Favorite {
+    public static class Favorite {
 
         int uid;
         int objectId;
@@ -186,7 +202,7 @@ public class BloggerModel {
         }
     }
 
-    public class Role {
+    public static class Role {
 
         int mCount;
         int role;

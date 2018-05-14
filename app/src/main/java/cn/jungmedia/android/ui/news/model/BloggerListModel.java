@@ -1,13 +1,15 @@
 package cn.jungmedia.android.ui.news.model;
 
-import cn.jungmedia.android.api.ApiConstants;
-import cn.jungmedia.android.api.HostType;
-import cn.jungmedia.android.api.Api;
-import cn.jungmedia.android.bean.BloggerModel;
-import cn.jungmedia.android.ui.news.contract.BloggerListContract;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.api.ApiConstants;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.bean.BloggerModel;
+import cn.jungmedia.android.bean.FavActionModel;
+import cn.jungmedia.android.ui.news.contract.BloggerListContract;
+import cn.jungmedia.android.utils.MyUtils;
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -45,5 +47,19 @@ public class BloggerListModel implements BloggerListContract.Model {
                 })
                 //声明线程调度
                 .compose(RxSchedulers.<BloggerModel>io_main());
+    }
+
+    @Override
+    public Observable<BaseRespose<FavActionModel>> focusAction(int objectId, boolean status) {
+        String token = MyUtils.getToken();
+        Observable<BaseRespose<FavActionModel>> observable = null;
+        if (status) {
+            observable = Api.getDefault(HostType.Jung_FINANCE).unFocusMedia(token, objectId);
+        } else {
+            observable = Api.getDefault(HostType.Jung_FINANCE).focusMedia(token, objectId);
+        }
+        return observable
+                //声明线程调度
+                .compose(RxSchedulers.<BaseRespose<FavActionModel>>io_main());
     }
 }

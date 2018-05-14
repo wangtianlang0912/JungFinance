@@ -20,7 +20,7 @@ public class ApiConstants {
     public static final String NETEAST_HOST = "http://c.m.163.com/";
     public static final String URL = "http://jungmedia.cn/";
 
-    public static final String URL_UPDATE = URL + "app/update";
+    public static final String URL_UPDATE = URL + "app/device/update";
     ;
     /**
      * 新浪图片新闻

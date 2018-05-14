@@ -8,6 +8,7 @@ import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.leon.common.base.BaseFragment;
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonwidget.LoadingTip;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import butterknife.Bind;
 import cn.jungmedia.android.R;
 import cn.jungmedia.android.bean.BloggerModel;
 import cn.jungmedia.android.bean.Counter;
+import cn.jungmedia.android.bean.FavActionModel;
 import cn.jungmedia.android.ui.news.adapter.BloggerListAdapter;
 import cn.jungmedia.android.ui.news.contract.BloggerListContract;
 import cn.jungmedia.android.ui.news.model.BloggerListModel;
@@ -27,7 +29,7 @@ import cn.jungmedia.android.ui.news.presenter.BloggerListPresenter;
  * Created by xsf
  * on 2016.09.17:30
  */
-public class BloggerListFragment extends BaseFragment<BloggerListPresenter, BloggerListModel> implements BloggerListContract.View, OnRefreshListener, OnLoadMoreListener {
+public class BloggerListFragment extends BaseFragment<BloggerListPresenter, BloggerListModel> implements BloggerListContract.View, OnRefreshListener, OnLoadMoreListener, BloggerListAdapter.OnSubscribeBtnClickListener {
     @Bind(R.id.irc)
     IRecyclerView irc;
     @Bind(R.id.loadedTip)
@@ -51,7 +53,7 @@ public class BloggerListFragment extends BaseFragment<BloggerListPresenter, Blog
     protected void initView() {
         irc.setLayoutManager(new LinearLayoutManager(getContext()));
         datas.clear();
-        bloggerListAdapter = new BloggerListAdapter(getContext(), datas);
+        bloggerListAdapter = new BloggerListAdapter(getContext(), datas, this);
 //        bloggerListAdapter.openLoadAnimation(new ScaleInAnimation());
         irc.setAdapter(bloggerListAdapter);
         irc.setOnRefreshListener(this);
@@ -133,5 +135,38 @@ public class BloggerListFragment extends BaseFragment<BloggerListPresenter, Blog
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
             }
         }
+    }
+
+    @Override
+    public void returnFocusBloggerState(BaseRespose<FavActionModel> respose, boolean status) {
+        if (respose.success()) {
+            FavActionModel activityModel = respose.data;
+            if (activityModel != null && activityModel.getFavorite() != null) {
+                BloggerModel.Media media = new BloggerModel.Media();
+                media.setObjectId(activityModel.getFavorite().getEntityId());
+                int index = bloggerListAdapter.indexOf(media);
+                if (index >= 0) {
+                    if (status) {
+                        BloggerModel.Favorite favorite = new BloggerModel.Favorite();
+                        favorite.setUid(activityModel.getFavorite().getUid());
+                        favorite.setObjectId(activityModel.getFavorite().getObjectId());
+                        bloggerListAdapter.get(index).setFavorite(favorite);
+                    } else {
+                        bloggerListAdapter.get(index).setFavorite(null);
+                    }
+                }
+                bloggerListAdapter.notifyDataSetChanged();
+            }
+        } else {
+            showShortToast(respose.msg);
+        }
+    }
+
+    @Override
+    public void onSubscribeChanged(BloggerModel.Media blogger) {
+
+        mPresenter.focusAction(blogger.getFavorite() != null ? blogger.getFavorite().getObjectId() : blogger.getObjectId()
+                , blogger.getFavorite() != null);
+
     }
 }

@@ -29,9 +29,11 @@ import cn.jungmedia.android.bean.BloggerModel;
  */
 public class BloggerListAdapter extends CommonRecycleViewAdapter<BloggerModel.Media> {
 
+    private OnSubscribeBtnClickListener mClickListener;
 
-    public BloggerListAdapter(Context context, List<BloggerModel.Media> datas) {
+    public BloggerListAdapter(Context context, List<BloggerModel.Media> datas, OnSubscribeBtnClickListener listener) {
         super(context, R.layout.item_blogger, datas);
+        this.mClickListener = listener;
     }
 
     @Override
@@ -51,25 +53,39 @@ public class BloggerListAdapter extends CommonRecycleViewAdapter<BloggerModel.Me
 
         holder.setImageResource(R.id.subscribe_btn, media.getFavorite() == null ? R.drawable.btn_pre_subscribe :
                 R.drawable.btn_subscribed);
+        holder.setTag(R.id.subscribe_btn, media.getFavorite() != null);
+        holder.setTag(R.id.subscribe_btn, media.getFavorite() != null ? media.getFavorite().getObjectId() : media.getObjectId());
+        holder.setTag(R.id.subscribe_btn, R.id.tag_first, media.getFavorite() != null);
         holder.setText(R.id.content_view, TextUtils.isEmpty(media.getRemark()) ? "暂无简介" : media.getRemark());
-        holder.setImageRoundUrl(R.id.logo_view, media.getCoverImage());
+        if(!TextUtils.isEmpty(media.getCoverImage())){
+            holder.setImageRoundUrl(R.id.logo_view, media.getCoverImage());
+        }else {
+            holder.setImageResource(R.id.logo_view, R.drawable.blant_logo);
+        }
         holder.setText(R.id.public_view, String.format("他共发表%d篇文章", media.getArticleNum()));
 
-        holder.setOnClickListener(R.id.logo_view, new View.OnClickListener() {
+        holder.setOnClickListener(R.id.subscribe_btn, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-//                AppIntent.intentToBloggerInfo(mContext, media.getObjectId(), media.getFavorite() != null);
-                AppIntent.intentToArticleDetail(mContext, media.getObjectId());
+                if (mClickListener != null) {
+                    mClickListener.onSubscribeChanged(media);
+                }
             }
         });
+
         holder.setOnClickListener(R.id.rl_root, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                AppIntent.intentToArticleDetail(mContext, media.getObjectId());
+                AppIntent.intentToBloggerInfo(mContext, media.getObjectId(), media.getFavorite() != null);
+//                AppIntent.intentToArticleDetail(mContext, media.getObjectId());
             }
         });
     }
 
+
+    public interface OnSubscribeBtnClickListener {
+
+        public void onSubscribeChanged(BloggerModel.Media media);
+    }
 }

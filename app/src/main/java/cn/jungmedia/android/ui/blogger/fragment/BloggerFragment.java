@@ -74,8 +74,7 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
     TextView numShowView;
     NewListAdapter newListAdapter;
     int mStartPage;
-    int mUid;
-    boolean hasSubscribed;
+    int mObjectId;
     private List<ArticleModel.Article> datas = new ArrayList<>();
 
     @Override
@@ -92,9 +91,8 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
     protected void initView() {
         Bundle bundle = getActivity().getIntent().getBundleExtra(AppConstant.FLAG_BUNDLE);
         if (bundle != null) {
-            mUid = bundle.getInt(AppConstant.FLAG_DATA);
-            hasSubscribed = bundle.getBoolean(AppConstant.FLAG_DATA2);
-            mPresenter.getBloggerInfo(mUid);
+            mObjectId = bundle.getInt(AppConstant.FLAG_DATA);
+            mPresenter.getBloggerInfo(mObjectId);
         }
 
         irc.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -107,7 +105,7 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
         //数据为空才重新发起请求
         if (newListAdapter.getSize() <= 0) {
             mStartPage = 1;
-            mPresenter.getBloggerArticleList(mUid, mStartPage);
+            mPresenter.getBloggerArticleList(mObjectId, mStartPage);
         }
     }
 
@@ -117,7 +115,7 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
         mStartPage = 0;
         //发起请求
         irc.setRefreshing(true);
-        mPresenter.getBloggerArticleList(mUid, mStartPage);
+        mPresenter.getBloggerArticleList(mObjectId, mStartPage);
     }
 
     @Override
@@ -128,7 +126,7 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
         newListAdapter.getPageBean().setRefresh(false);
         //发起请求
         irc.setLoadMoreStatus(LoadMoreFooterView.Status.LOADING);
-        mPresenter.getBloggerArticleList(mUid, mStartPage);
+        mPresenter.getBloggerArticleList(mObjectId, mStartPage);
     }
 
     @Override
@@ -182,18 +180,19 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
     }
 
     @Override
-    public void returnFocusBloggerState(BaseRespose<FavActionModel> respose) {
+    public void returnFocusBloggerState(BaseRespose<FavActionModel> respose, boolean status) {
         if (respose.success()) {
-            FavActionModel activityModel = respose.data;
-            if (activityModel.getFavorite() != null) {
-                hasSubscribed = true;
+            if (status) {
                 subscribeBtn.setText("已订阅");
 
             } else {
-                hasSubscribed = false;
                 subscribeBtn.setText("+订阅");
             }
-            subscribeBtn.setTag(hasSubscribed);
+            FavActionModel activityModel = respose.data;
+            if (activityModel != null && activityModel.getFavorite() != null) {
+                subscribeBtn.setTag(R.id.tag_first, status);
+                subscribeBtn.setTag(status ? activityModel.getFavorite().getObjectId() : activityModel.getFavorite().getEntityId());
+            }
         } else {
             showErrorTip(respose.msg);
         }
@@ -210,8 +209,9 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
         summaryView.setText(blogger.getRemark());
         subscribeNum.setText(blogger.getRole().getmCount() + "");
         fansNum.setText(blogger.getGznum() + "");
-        subscribeBtn.setText(!hasSubscribed ? "+订阅" : "已订阅");
-        subscribeBtn.setTag(hasSubscribed);
+        subscribeBtn.setText(blogger.getFavorite() == null ? "+订阅" : "已订阅");
+        subscribeBtn.setTag(blogger.getFavorite() != null ? blogger.getFavorite().getObjectId() : blogger.getObjectId());
+        subscribeBtn.setTag(R.id.tag_first, blogger.getFavorite() != null);
         numShowView.setText(blogger.getArticleNum() + "");
     }
 
@@ -236,18 +236,13 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
             case R.id.logo_view:
                 break;
             case R.id.subscribe_btn:
+                boolean hasFav = (boolean) subscribeBtn.getTag(R.id.tag_first);
                 Object tag = subscribeBtn.getTag();
                 if (tag != null) {
-                    focusBtnClicked(mUid, (Boolean) tag);
+                    mPresenter.focusAction((Integer) tag, hasFav);
                 }
                 break;
         }
-    }
-
-
-    private void focusBtnClicked(int bloggerId, boolean status) {
-
-        mPresenter.focusAction(bloggerId, status);
     }
 
 }

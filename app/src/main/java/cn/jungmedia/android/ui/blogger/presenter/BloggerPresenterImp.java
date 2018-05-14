@@ -64,8 +64,8 @@ public class BloggerPresenterImp extends BloggerContract.Presenter {
     }
 
     @Override
-    public void focusAction(int bloggerId, boolean status) {
-        mRxManage.add(mModel.focusAction(bloggerId, status).subscribe(new RxSubscriber<BaseRespose<FavActionModel>>(mContext, false) {
+    public void focusAction(int objectId, final boolean status) {
+        mRxManage.add(mModel.focusAction(objectId, status).subscribe(new RxSubscriber<BaseRespose<FavActionModel>>(mContext, false) {
 
             @Override
             public void onStart() {
@@ -76,7 +76,7 @@ public class BloggerPresenterImp extends BloggerContract.Presenter {
             @Override
             protected void _onNext(BaseRespose<FavActionModel> result) {
                 mView.stopLoading();
-                mView.returnFocusBloggerState(result);
+                mView.returnFocusBloggerState(result, !status);
             }
 
             @Override

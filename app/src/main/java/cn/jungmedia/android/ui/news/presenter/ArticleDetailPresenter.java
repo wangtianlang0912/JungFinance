@@ -93,7 +93,7 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
     }
 
     @Override
-    public void focusAction(int bloggerId, boolean status) {
+    public void focusAction(int bloggerId, final boolean status) {
         mRxManage.add(mModel.focusAction(bloggerId, status).subscribe(new RxSubscriber<BaseRespose<FavActionModel>>(mContext, false) {
 
             @Override
@@ -105,7 +105,7 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
             @Override
             protected void _onNext(BaseRespose<FavActionModel> respose) {
                 mView.stopLoading();
-                mView.returnFocusBloggerState(respose);
+                mView.returnFocusBloggerState(respose,!status);
             }
 
             @Override

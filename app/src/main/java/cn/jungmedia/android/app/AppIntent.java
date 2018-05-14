@@ -92,10 +92,10 @@ public class AppIntent {
         intentToAct(context, R.string.bind_phone, BindMobileFragment.class);
     }
 
-    public static void intentToBloggerInfo(Context context, int uid, boolean status) {
+    public static void intentToBloggerInfo(Context context, int objectId, boolean status) {
 
         Bundle bundle = new Bundle();
-        bundle.putInt(AppConstant.FLAG_DATA, uid);
+        bundle.putInt(AppConstant.FLAG_DATA, objectId);
         bundle.putBoolean(AppConstant.FLAG_DATA2, status);
         intentToAct(context, "", BloggerFragment.class, bundle);
     }

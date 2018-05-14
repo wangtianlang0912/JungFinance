@@ -201,7 +201,8 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                 pubNumView.setText(media.getArticleNum() + "");
                 ImageLoaderUtils.displayRound(getContext(), logoView, media.getCoverImage());
                 focusBtn.setText(media.getStatus() == 1 ? "+订阅" : "已订阅");
-                focusBtn.setTag(media.getStatus() == 1);
+                focusBtn.setTag(media.getFavorite() != null ? media.getFavorite().getObjectId() : media.getObjectId());
+                focusBtn.setTag(R.id.tag_first, media.getFavorite() != null);
                 bloggerLayout.setTag(media.getObjectId());
                 bloggerLayout.setVisibility(View.VISIBLE);
             }
@@ -261,17 +262,18 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
     }
 
     @Override
-    public void returnFocusBloggerState(BaseRespose<FavActionModel> response) {
+    public void returnFocusBloggerState(BaseRespose<FavActionModel> response, boolean status) {
         if (response.success()) {
-            FavActionModel activityModel = response.data;
-            if (activityModel.getFavorite() != null) {
+            if (status) {
                 focusBtn.setText("已订阅");
-                focusBtn.setTag(true);
-
 
             } else {
                 focusBtn.setText("+订阅");
-                focusBtn.setTag(false);
+            }
+            FavActionModel activityModel = response.data;
+            if (activityModel != null && activityModel.getFavorite() != null) {
+                focusBtn.setTag(R.id.tag_first, status);
+                focusBtn.setTag(status ? activityModel.getFavorite().getObjectId() : activityModel.getFavorite().getEntityId());
             }
         } else {
             showErrorTip(response.msg);
@@ -381,7 +383,7 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.zan_imageview, R.id.cai_imageview, R.id.comment_btn, R.id.comment_inner_btn, R.id.write_comment_view, R.id.fav_btn, R.id.share_btn, R.id.focus_btn})
+    @OnClick({R.id.zan_imageview, R.id.cai_imageview, R.id.comment_btn, R.id.comment_inner_btn, R.id.write_comment_view, R.id.fav_btn, R.id.share_btn, R.id.focus_btn, R.id.blogger_layout})
     public void onViewClicked(View view) {
         if (articleId <= 0) {
             return;
@@ -425,14 +427,18 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
 
             case R.id.focus_btn:
 
-                Object bloggerId = bloggerLayout.getTag();
-                if (bloggerId == null) {
-                    return;
-                }
+                boolean hasFav = (boolean) focusBtn.getTag(R.id.tag_first);
                 Object tag2 = focusBtn.getTag();
                 if (tag2 != null) {
+                    mPresenter.focusAction((Integer) tag2, hasFav);
+                }
+                break;
 
-                    focusBtnClicked((Integer) bloggerId, (Boolean) tag2);
+            case R.id.blogger_layout:
+                boolean hasFav2 = (boolean) focusBtn.getTag(R.id.tag_first);
+                Object bloggerId = bloggerLayout.getTag();
+                if (bloggerId != null) {
+                    AppIntent.intentToBloggerInfo(getActivity(), (Integer) bloggerId, hasFav2);
                 }
                 break;
         }

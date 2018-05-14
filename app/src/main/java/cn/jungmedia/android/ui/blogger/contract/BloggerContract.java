@@ -32,7 +32,7 @@ public class BloggerContract {
 
         Observable<BloggerBean> getBloggerInfo(int uid);
 
-        Observable<BaseRespose<FavActionModel>> focusAction(int bloggerId, boolean status);
+        Observable<BaseRespose<FavActionModel>> focusAction(int objectId, boolean status);
 
     }
 
@@ -42,7 +42,7 @@ public class BloggerContract {
 
         void returnListData(ArticleModel data);
 
-        void returnFocusBloggerState(BaseRespose<FavActionModel> respose);
+        void returnFocusBloggerState(BaseRespose<FavActionModel> respose, boolean status);
 
     }
 

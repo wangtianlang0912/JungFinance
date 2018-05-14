@@ -14,6 +14,8 @@ public interface DataIO<T> {
 
     void remove(T elem);
 
+    int indexOf(T elem);
+
     void removeAll(List<T> elements);
 
     void removeAt(int index);

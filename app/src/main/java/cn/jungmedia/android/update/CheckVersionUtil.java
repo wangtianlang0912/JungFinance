@@ -13,6 +13,7 @@ import com.baidu.cn.vm.version.VCCallback;
 import com.baidu.cn.vm.version.VersionHelper;
 import com.baidu.cn.vm.version.VersionManager;
 import com.google.gson.Gson;
+import com.leon.common.commonutils.LogUtils;
 
 import cn.jungmedia.android.R;
 import cn.jungmedia.android.api.ApiConstants;
@@ -33,11 +34,15 @@ public class CheckVersionUtil {
         VersionHelper.update(url, new BuilderImpl() {
             @Override
             public VersionManager.Builder builder(String json) {
-                //解析数据
-                Gson gson = new Gson();
-                OnlineVersion.VersionModel versionModel = gson.fromJson(json, OnlineVersion.VersionModel.class);
-                OnlineVersion onLineVersion1 = versionModel.data;
-
+                OnlineVersion onLineVersion1 = null;
+                try {
+                    //解析数据
+                    Gson gson = new Gson();
+                    OnlineVersion.VersionModel versionModel = gson.fromJson(json, OnlineVersion.VersionModel.class);
+                    onLineVersion1 = versionModel.data;
+                } catch (Exception e) {
+                    LogUtils.loge(e, "checkUpdate");
+                }
                 if (onLineVersion1 == null) {
                     if (callback != null) {
                         callback.hasUpdate(false);

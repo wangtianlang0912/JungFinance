@@ -4,7 +4,6 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,14 +12,12 @@ import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.baidu.cn.vm.version.VCCallback;
 import com.flyco.tablayout.CommonTabLayout;
 import com.flyco.tablayout.listener.CustomTabEntity;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.leon.common.base.BaseActivity;
 import com.leon.common.commonutils.LogUtils;
 import com.leon.common.daynightmodeutils.ChangeModeController;
-import com.leon.common.ui.DuAlertDialog;
 
 import java.util.ArrayList;
 
@@ -117,23 +114,7 @@ public class MainActivity extends BaseActivity {
 
 
         CheckVersionUtil checkVersionUtil = new CheckVersionUtil();
-        checkVersionUtil.checkUpdate(this, new VCCallback() {
-            @Override
-            public void hasUpdate(boolean needUpdate) {
-                if (!needUpdate) {
-                    DuAlertDialog.Builder dialog = new DuAlertDialog().createBuilder(MainActivity.this);
-                    dialog.create();
-                    dialog.setTitle(R.string.remind_alertdialog_title);
-                    dialog.setMessage(R.string.latest_alertdialog_message);
-                    dialog.setPositiveButton(R.string.alertdialog_positive_btn, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    });
-                    dialog.show();
-                }
-            }
-        });
+        checkVersionUtil.checkUpdate(this, null);
     }
 
     /**

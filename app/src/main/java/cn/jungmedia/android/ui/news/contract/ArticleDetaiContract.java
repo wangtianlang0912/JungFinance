@@ -61,7 +61,7 @@ public class ArticleDetaiContract {
 
         void returnFavArticleState(BaseRespose<FavActionModel> result);
 
-        void returnFocusBloggerState(BaseRespose<FavActionModel> result);
+        void returnFocusBloggerState(BaseRespose<FavActionModel> result, boolean b);
 
         void returnCreateComment(CommentCreateModel model);
 

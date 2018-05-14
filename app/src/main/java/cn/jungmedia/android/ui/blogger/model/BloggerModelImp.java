@@ -84,13 +84,13 @@ public class BloggerModelImp implements BloggerContract.Model {
     }
 
     @Override
-    public Observable<BaseRespose<FavActionModel>> focusAction(int bloggerId, final boolean status) {
+    public Observable<BaseRespose<FavActionModel>> focusAction(int objectId, boolean status) {
         String token = MyUtils.getToken();
         Observable<BaseRespose<FavActionModel>> observable = null;
         if (status) {
-            observable = Api.getDefault(HostType.Jung_FINANCE).unFocusMedia(token, bloggerId);
+            observable = Api.getDefault(HostType.Jung_FINANCE).unFocusMedia(token, objectId);
         } else {
-            observable = Api.getDefault(HostType.Jung_FINANCE).focusMedia(token, bloggerId);
+            observable = Api.getDefault(HostType.Jung_FINANCE).focusMedia(token, objectId);
         }
         return observable
                 //声明线程调度
