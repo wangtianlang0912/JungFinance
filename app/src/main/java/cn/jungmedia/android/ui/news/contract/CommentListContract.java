@@ -26,7 +26,7 @@ public class CommentListContract {
 
     public interface Model extends BaseModel {
 
-        Observable<CommentListModel> getListData(int articleId, int startPage);
+        Observable<CommentListModel> getListData(int articleId, int startPage, int touid);
 
         Observable<CommentCreateModel> createComment(int articleId, String body, int touid);
     }
@@ -42,7 +42,7 @@ public class CommentListContract {
         public abstract void createComment(int articleId, String value, int touid);
 
         //获取列表
-        public abstract void getCommentList(int articleId, int p);
+        public abstract void getCommentList(int articleId, int p, int touid);
     }
 
 }

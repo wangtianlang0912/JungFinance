@@ -10,6 +10,7 @@ import cn.jungmedia.android.api.HostType;
 import cn.jungmedia.android.app.AppApplication;
 import cn.jungmedia.android.bean.ArticleDetail;
 import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.bean.ArticleRelevant;
 import cn.jungmedia.android.bean.BloggerModel;
 import cn.jungmedia.android.bean.CommentCreateModel;
 import cn.jungmedia.android.bean.CommentListModel;
@@ -75,26 +76,27 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
     }
 
     @Override
-    public Observable<ArticleModel> getArticleReleateList(String id) {
-        return Api.getDefault(HostType.Jung_FINANCE).getRelateList(id)
-                .map(new Func1<BaseRespose<ArticleModel>, ArticleModel>() {
+    public Observable<ArticleRelevant> getArticleReleateList(String id) {
+        return Api.getDefault(HostType.Jung_FINANCE).getRelateList(id, 3)
+                .map(new Func1<BaseRespose<ArticleRelevant>, ArticleRelevant>() {
                     @Override
-                    public ArticleModel call(BaseRespose<ArticleModel> baseRespose) {
-                        ArticleModel articleModel = baseRespose.data;
+                    public ArticleRelevant call(BaseRespose<ArticleRelevant> baseRespose) {
+                        ArticleRelevant articleModel = baseRespose.data;
                         if (articleModel != null && articleModel.getArticles() != null) {
-                            for (ArticleModel.Article article : articleModel.getArticles()) {
-                                String coverImage = ApiConstants.getHost(HostType.Jung_FINANCE) + article.getImage();
-                                article.setImage(coverImage);
+                            for (ArticleRelevant.Articles article : articleModel.getArticles()) {
+                                ArticleRelevant.Detail detail = article.getDetail();
+                                String coverImage = ApiConstants.getHost(HostType.Jung_FINANCE) + detail.getImage();
+                                detail.setImage(coverImage);
 
-                                String ptime = TimeUtil.formatTimeStampStr2Desc(article.getVtime() * 1000);
-                                article.setPtime(ptime);
+                                String ptime = TimeUtil.formatTimeStampStr2Desc(detail.getVtime() * 1000);
+                                detail.setPtime(ptime);
                             }
                         }
                         return articleModel;
                     }
                 })
                 //声明线程调度
-                .compose(RxSchedulers.<ArticleModel>io_main());
+                .compose(RxSchedulers.<ArticleRelevant>io_main());
     }
 
     @Override
@@ -135,20 +137,20 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
     @Override
     public Observable<CommentCreateModel> createComment(int articleId, String body, int touid) {
         String token = MyUtils.getToken();
-        return Api.getDefault(HostType.Jung_FINANCE).createComment(token, articleId, body, touid)
-                .map(new Func1<BaseRespose<CommentCreateModel>, CommentCreateModel>() {
-                    @Override
-                    public CommentCreateModel call(BaseRespose<CommentCreateModel> baseRespose) {
-                        return baseRespose.data;
-                    }
-                })
+        Observable observable = Api.getDefault(HostType.Jung_FINANCE).createComment(token, articleId, body, touid == 0 ? null : String.valueOf(touid));
+        return observable.map(new Func1<BaseRespose<CommentCreateModel>, CommentCreateModel>() {
+            @Override
+            public CommentCreateModel call(BaseRespose<CommentCreateModel> baseRespose) {
+                return baseRespose.data;
+            }
+        })
                 //声明线程调度
                 .compose(RxSchedulers.<CommentCreateModel>io_main());
     }
 
     @Override
     public Observable<CommentListModel> getCommentList(int articleId) {
-        return Api.getDefault(HostType.Jung_FINANCE).getCommentList(articleId, 0, 0, 3)
+        return Api.getDefault(HostType.Jung_FINANCE).getCommentList(articleId, 0, 3, String.valueOf(0))
                 .map(new Func1<BaseRespose<CommentListModel>, CommentListModel>() {
                     @Override
                     public CommentListModel call(BaseRespose<CommentListModel> baseRespose) {

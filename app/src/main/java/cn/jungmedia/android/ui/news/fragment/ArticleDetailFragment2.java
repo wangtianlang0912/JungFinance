@@ -33,6 +33,7 @@ import cn.jungmedia.android.app.AppConstant;
 import cn.jungmedia.android.app.AppIntent;
 import cn.jungmedia.android.bean.ArticleDetail;
 import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.bean.ArticleRelevant;
 import cn.jungmedia.android.bean.BloggerModel;
 import cn.jungmedia.android.bean.CommentCreateModel;
 import cn.jungmedia.android.bean.CommentListModel;
@@ -211,32 +212,33 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
 
 
     @Override
-    public void returnRelateList(ArticleModel articleModel) {
+    public void returnRelateList(ArticleRelevant articleModel) {
 
         if (articleModel == null || articleModel.getArticles() == null || articleModel.getArticles().isEmpty()) {
             return;
         }
         relateLayout.setVisibility(View.VISIBLE);
         relateItemLayout.setVisibility(View.VISIBLE);
-        List<ArticleModel.Article> articleList = articleModel.getArticles();
-        for (final ArticleModel.Article article : articleList) {
+        List<ArticleRelevant.Articles> articleList = articleModel.getArticles();
+        for (ArticleRelevant.Articles article : articleList) {
+            final ArticleRelevant.Detail detail = article.getDetail();
             View itemLayout = LayoutInflater.from(getActivity()).inflate(R.layout.item_news, null);
             relateItemLayout.addView(itemLayout);
             TextView titleView = (TextView) itemLayout.findViewById(R.id.news_summary_title_tv);
-            titleView.setText(article.getTitle());
+            titleView.setText(detail.getTitle());
             TextView sourceView = (TextView) itemLayout.findViewById(R.id.source_view);
-            sourceView.setText(TextUtils.isEmpty(article.getSource()) ?
-                    getActivity().getString(R.string.app_name) : article.getSource());
+            sourceView.setText(TextUtils.isEmpty(detail.getSource()) ?
+                    getActivity().getString(R.string.app_name) : detail.getSource());
             TextView scanView = (TextView) itemLayout.findViewById(R.id.see_view);
-            scanView.setText(article.getPv() + "");
+            scanView.setText(detail.getPv() + "");
             ImageView logoView = (ImageView) itemLayout.findViewById(R.id.news_summary_photo_iv);
-            ImageLoaderUtils.display(getActivity(), logoView, article.getImage());
+            ImageLoaderUtils.display(getActivity(), logoView, detail.getImage());
             itemLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
 
                     AppIntent.intentToArticleDetail(getActivity(),
-                            article.getObjectId());
+                            detail.getObjectId());
                 }
             });
         }
@@ -366,7 +368,9 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
         mPresenter.getArticleDetail(String.valueOf(articleId));
         mPresenter.getCommentList(articleId);
         mPresenter.getArticleRelateList(String.valueOf(articleId));
-        mPresenter.getArticleFavState(articleId);
+        if (MyUtils.isLogin()) {
+            mPresenter.getArticleFavState(articleId);
+        }
     }
 
     @Override
@@ -496,12 +500,5 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
         }
         mPresenter.favActionArticle(favItemId, true);
     }
-
-
-    private void focusBtnClicked(int bloggerId, boolean status) {
-
-        mPresenter.focusAction(bloggerId, status);
-    }
-
 
 }

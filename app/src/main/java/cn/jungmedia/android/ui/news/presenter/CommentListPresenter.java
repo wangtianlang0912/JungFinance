@@ -46,8 +46,8 @@ public class CommentListPresenter extends CommentListContract.Presenter {
     }
 
     @Override
-    public void getCommentList(int articleId, int p) {
-        mRxManage.add(mModel.getListData(articleId, p).subscribe(new RxSubscriber<CommentListModel>(mContext, false) {
+    public void getCommentList(int articleId, int p, int touid) {
+        mRxManage.add(mModel.getListData(articleId, p, touid).subscribe(new RxSubscriber<CommentListModel>(mContext, false) {
             @Override
             protected void _onNext(CommentListModel result) {
                 mView.returnCommentList(result);

@@ -4,7 +4,7 @@ import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
 
 import cn.jungmedia.android.bean.ArticleDetail;
-import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.bean.ArticleRelevant;
 import cn.jungmedia.android.bean.CommentCreateModel;
 import cn.jungmedia.android.bean.CommentListModel;
 import cn.jungmedia.android.bean.FavActionModel;
@@ -53,9 +53,9 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
 
     @Override
     public void getArticleRelateList(String id) {
-        mRxManage.add(mModel.getArticleReleateList(id).subscribe(new RxSubscriber<ArticleModel>(mContext, false) {
+        mRxManage.add(mModel.getArticleReleateList(id).subscribe(new RxSubscriber<ArticleRelevant>(mContext, false) {
             @Override
-            protected void _onNext(ArticleModel articleModel) {
+            protected void _onNext(ArticleRelevant articleModel) {
                 mView.returnRelateList(articleModel);
             }
 

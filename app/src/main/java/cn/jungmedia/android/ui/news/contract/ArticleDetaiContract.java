@@ -7,7 +7,7 @@ import com.leon.common.base.BaseView;
 import com.leon.common.basebean.BaseRespose;
 
 import cn.jungmedia.android.bean.ArticleDetail;
-import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.bean.ArticleRelevant;
 import cn.jungmedia.android.bean.CommentCreateModel;
 import cn.jungmedia.android.bean.CommentListModel;
 import cn.jungmedia.android.bean.FavActionModel;
@@ -34,7 +34,7 @@ public class ArticleDetaiContract {
         //请求获取新闻
         Observable<ArticleDetail> getArticleDetail(String id);
 
-        Observable<ArticleModel> getArticleReleateList(String id);
+        Observable<ArticleRelevant> getArticleReleateList(String id);
 
         Observable<BaseRespose<FavActionModel>> favActionArticle(int articleId, boolean status);
 
@@ -57,7 +57,7 @@ public class ArticleDetaiContract {
     public interface View extends BaseView {
         void returnArticleData(ArticleDetail data);
 
-        void returnRelateList(ArticleModel articleModel);
+        void returnRelateList(ArticleRelevant articleModel);
 
         void returnFavArticleState(BaseRespose<FavActionModel> result);
 

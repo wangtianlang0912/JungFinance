@@ -2,6 +2,7 @@ package cn.jungmedia.android.ui.news.adapter;
 
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.aspsine.irecyclerview.universaladapter.ViewHolderHelper;
@@ -51,6 +52,13 @@ public class CommentListAdapter extends CommonRecycleViewAdapter<CommentCreateMo
             holder.setText(R.id.title_view, comment.getUser().getNick());
             holder.setText(R.id.pubtime_view, comment.getcTimeStr());
             holder.setText(R.id.replay_num_view, comment.getrCount() + "");
+            if (comment.getTouid() != 0 && !TextUtils.isEmpty(comment.getParentTitle())) {
+                holder.setVisible(R.id.replay_content_layout, true);
+                holder.setText(R.id.original_title_view, comment.getParentTitle());
+                holder.setText(R.id.original_content_view, comment.getParentContent());
+            } else {
+                holder.setVisible(R.id.replay_content_layout, false);
+            }
             holder.setText(R.id.content_view, comment.getBody());
             holder.setImageRoundUrl(R.id.logo_view, comment.getUser().getLogo());
             holder.setOnClickListener(R.id.replay_layout, new View.OnClickListener() {

@@ -9,6 +9,7 @@ import cn.jungmedia.android.bean.ActivityFavModel;
 import cn.jungmedia.android.bean.ActivityModel;
 import cn.jungmedia.android.bean.ArticleDetail;
 import cn.jungmedia.android.bean.ArticleModel;
+import cn.jungmedia.android.bean.ArticleRelevant;
 import cn.jungmedia.android.bean.BannerModel;
 import cn.jungmedia.android.bean.BloggerModel;
 import cn.jungmedia.android.bean.ColumnModel;
@@ -43,7 +44,8 @@ import retrofit2.http.Query;
 import retrofit2.http.Url;
 import rx.Observable;
 
-/**A
+/**
+ * A
  * des:ApiService
  * Created by xsf
  * on 2016.06.15:47
@@ -161,7 +163,7 @@ public interface ApiService {
 
     // 获取推荐文章
     @GET("api/article/relevant")
-    Observable<BaseRespose<ArticleModel>> getRelateList(@Query("id") String id);
+    Observable<BaseRespose<ArticleRelevant>> getRelateList(@Query("id") String id, @Query("count") int count);
 
     //首页banner
     @GET("app/banner/query")
@@ -247,12 +249,12 @@ public interface ApiService {
     // 创建评论
     @POST("app/comment/create")
     Observable<BaseRespose<CommentCreateModel>> createComment(@Query("token") String token, @Query("id") int id,
-                                                              @Query("body") String body, @Query("touid") int touid);
+                                                              @Query("body") String body, @Query("touid") String touid);
 
     // 评论列表
     @GET("app/comment/query")
-    Observable<BaseRespose<CommentListModel>> getCommentList(@Query("id") int id, @Query("touid") int touid,
-                                                             @Query("p") int page, @Query("size") int size);
+    Observable<BaseRespose<CommentListModel>> getCommentList(@Query("id") int id,
+                                                             @Query("p") int page, @Query("size") int size, @Query("touid") String touid);
 
     // 微信登录
     @GET("app/user/weixin/login")

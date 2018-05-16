@@ -91,7 +91,7 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
         //数据为空才重新发起请求
         if (commentListAdapter.getSize() <= 0) {
             mStartPage = 0;
-            mPresenter.getCommentList(articleId, mStartPage);
+            mPresenter.getCommentList(articleId, mStartPage, 0);
         }
     }
 
@@ -158,7 +158,7 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
         mStartPage = 0;
         //发起请求
         irc.setRefreshing(true);
-        mPresenter.getCommentList(articleId, mStartPage);
+        mPresenter.getCommentList(articleId, mStartPage,0);
     }
 
     @Override
@@ -169,7 +169,7 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
         commentListAdapter.getPageBean().setRefresh(false);
         //发起请求
         irc.setLoadMoreStatus(LoadMoreFooterView.Status.LOADING);
-        mPresenter.getCommentList(articleId, mStartPage);
+        mPresenter.getCommentList(articleId, mStartPage,0);
     }
 
     @Override

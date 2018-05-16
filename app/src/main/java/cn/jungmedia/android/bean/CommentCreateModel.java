@@ -48,7 +48,7 @@ public class CommentCreateModel {
         this.mcomment = mcomment;
     }
 
-    public class Comment {
+    public static class Comment {
 
 
         private UserInfo.User user;
@@ -83,6 +83,42 @@ public class CommentCreateModel {
         private int ctime;
 
         private String cTimeStr;
+
+
+        private String parentTitle;
+        private String parentContent;
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (!(o instanceof Comment)) return false;
+
+            Comment comment = (Comment) o;
+
+            return getObjectId() == comment.getObjectId();
+
+        }
+
+        @Override
+        public int hashCode() {
+            return getObjectId();
+        }
+
+        public String getParentTitle() {
+            return parentTitle;
+        }
+
+        public void setParentTitle(String parentTitle) {
+            this.parentTitle = parentTitle;
+        }
+
+        public String getParentContent() {
+            return parentContent;
+        }
+
+        public void setParentContent(String parentContent) {
+            this.parentContent = parentContent;
+        }
 
         public UserInfo.User getUser() {
             return user;

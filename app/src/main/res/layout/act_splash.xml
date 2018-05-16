@@ -9,7 +9,8 @@
         android:id="@+id/iv_logo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
         android:layout_gravity="center"
         android:src="@mipmap/ic_launcher" />
 
@@ -19,9 +20,28 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/iv_logo"
         android:layout_centerInParent="true"
-        android:padding="10dp"
         android:layout_marginTop="20dp"
+        android:padding="10dp"
         android:text="@string/app_name"
-        android:textSize="20sp"
-        android:textColor="@color/gray_deep" />
+        android:textColor="@color/gray_deep"
+        android:textSize="20sp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/splash_bottom_bg"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:text="全 球 区 块 链 经 济 人 社 区"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
+
 </RelativeLayout>

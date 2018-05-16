@@ -33,7 +33,7 @@ public class CommentListModelImp implements CommentListContract.Model {
     @Override
     public Observable<CommentCreateModel> createComment(int articleId, String body, int touid) {
         String token = MyUtils.getToken();
-        return Api.getDefault(HostType.Jung_FINANCE).createComment(token, articleId, body, touid)
+        return Api.getDefault(HostType.Jung_FINANCE).createComment(token, articleId, body, touid == 0 ? null : String.valueOf(touid))
                 .map(new Func1<BaseRespose<CommentCreateModel>, CommentCreateModel>() {
                     @Override
                     public CommentCreateModel call(BaseRespose<CommentCreateModel> baseRespose) {
@@ -45,8 +45,8 @@ public class CommentListModelImp implements CommentListContract.Model {
     }
 
     @Override
-    public Observable<CommentListModel> getListData(int articleId, int p) {
-        return Api.getDefault(HostType.Jung_FINANCE).getCommentList(articleId, 0, p, 20)
+    public Observable<CommentListModel> getListData(int articleId, int p, int touid) {
+        return Api.getDefault(HostType.Jung_FINANCE).getCommentList(articleId, p, 40, touid == 0 ? null : String.valueOf(touid))
                 .map(new Func1<BaseRespose<CommentListModel>, CommentListModel>() {
                     @Override
                     public CommentListModel call(BaseRespose<CommentListModel> baseRespose) {
@@ -58,6 +58,20 @@ public class CommentListModelImp implements CommentListContract.Model {
                                 comment.setcTimeStr(ptime);
                                 String logo = comment.getUser().getLogo();
                                 comment.getUser().setLogo(ApiConstants.URL + logo);
+
+                                if (comment.getTouid() > 0) {
+                                    CommentCreateModel.Comment temp = new CommentCreateModel.Comment();
+                                    temp.setObjectId(comment.getTouid());
+
+                                    int index = listModel.getComments().indexOf(temp);
+                                    if (index != -1) {
+                                        CommentCreateModel.Comment parent = listModel.getComments().get(index);
+                                        if (parent.getUser() != null) {
+                                            comment.setParentTitle(parent.getUser().getNick());
+                                        }
+                                        comment.setParentContent(parent.getBody());
+                                    }
+                                }
                             }
                         }
                         return listModel;
