@@ -29,6 +29,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jungmedia.android.R;
 import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.app.AppIntent;
 import cn.jungmedia.android.bean.CommentCreateModel;
 import cn.jungmedia.android.bean.CommentListModel;
 import cn.jungmedia.android.bean.Counter;
@@ -36,6 +37,7 @@ import cn.jungmedia.android.ui.news.adapter.CommentListAdapter;
 import cn.jungmedia.android.ui.news.contract.CommentListContract;
 import cn.jungmedia.android.ui.news.model.CommentListModelImp;
 import cn.jungmedia.android.ui.news.presenter.CommentListPresenter;
+import cn.jungmedia.android.utils.MyUtils;
 
 
 /***
@@ -218,7 +220,10 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
                 if (TextUtils.isEmpty(value)) {
                     return;
                 }
-
+                if (!MyUtils.isLogin()) {
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
                 mPresenter.createComment(articleId, value, touid);
             }
         });
