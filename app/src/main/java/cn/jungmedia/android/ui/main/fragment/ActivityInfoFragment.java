@@ -233,7 +233,10 @@ public class ActivityInfoFragment extends BaseFragment<ActivityDetailPresenterIm
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (!MyUtils.isLogin()) {
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
                 AppIntent.intentToActivitySignup(getActivity(), activity.getObjectId());
             }
         };
