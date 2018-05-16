@@ -322,6 +322,10 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                 replayLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        if (!MyUtils.isLogin()) {
+                            AppIntent.intentToLogin(getContext());
+                            return;
+                        }
                         showCommentCreateDialog(comment.getObjectId());
                     }
                 });
@@ -394,13 +398,26 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
         }
         switch (view.getId()) {
             case R.id.zan_imageview:
+                if (!MyUtils.isLogin()) {
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
                 mPresenter.support(articleId);
                 break;
             case R.id.cai_imageview:
+                if (!MyUtils.isLogin()) {
+
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
                 mPresenter.oppose(articleId);
                 break;
             case R.id.write_comment_view:
+                if (!MyUtils.isLogin()) {
 
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
                 showCommentCreateDialog(0);
                 break;
             case R.id.comment_btn:
@@ -408,6 +425,11 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                 AppIntent.intentToCommentList(getActivity(), articleId);
                 break;
             case R.id.fav_btn:
+                if (!MyUtils.isLogin()) {
+
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
                 Object tag = favBtn.getTag();
                 if (tag == null) {
                     favBtnClicked(articleId);
@@ -422,15 +444,20 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                     new ShareHelper().share(getActivity(), article.getTitle(), article.getSummary(), article.getImage(), article.getUrl(), new ShareHelper.OnSharedListener() {
                         @Override
                         public void onSharedCompleted() {
-
-                            mPresenter.share(article.getObjectId());
+                            if (MyUtils.isLogin()) {
+                                mPresenter.share(article.getObjectId());
+                            }
                         }
                     });
                 }
                 break;
 
             case R.id.focus_btn:
+                if (!MyUtils.isLogin()) {
 
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
                 boolean hasFav = (boolean) focusBtn.getTag(R.id.tag_first);
                 Object tag2 = focusBtn.getTag();
                 if (tag2 != null) {
@@ -481,10 +508,7 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
         if (articleId <= 0) {
             return;
         }
-        if (!MyUtils.isLogin()) {
-            AppIntent.intentToLogin(getContext());
-            return;
-        }
+
         mPresenter.favActionArticle(articleId, false);
     }
 
@@ -494,10 +518,7 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
         if (favItemId <= 0) {
             return;
         }
-        if (!MyUtils.isLogin()) {
-            AppIntent.intentToLogin(getContext());
-            return;
-        }
+
         mPresenter.favActionArticle(favItemId, true);
     }
 
