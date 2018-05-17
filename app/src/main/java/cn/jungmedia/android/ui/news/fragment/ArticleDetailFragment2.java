@@ -201,7 +201,7 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                 bloggerNameView.setText(media.getName());
                 pubNumView.setText(media.getArticleNum() + "");
                 ImageLoaderUtils.displayRound(getContext(), logoView, media.getCoverImage());
-                focusBtn.setText(media.getStatus() == 1 ? "+订阅" : "已订阅");
+                focusBtn.setText(media.getFavorite() != null ? "已订阅" : "+订阅");
                 focusBtn.setTag(media.getFavorite() != null ? media.getFavorite().getObjectId() : media.getObjectId());
                 focusBtn.setTag(R.id.tag_first, media.getFavorite() != null);
                 bloggerLayout.setTag(media.getObjectId());
