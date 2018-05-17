@@ -54,7 +54,7 @@ public class CommentListModelImp implements CommentListContract.Model {
                         if (listModel != null && listModel.getComments() != null) {
 
                             for (CommentCreateModel.Comment comment : listModel.getComments()) {
-                                String ptime = TimeUtil.formatTimeStampStr2Desc(comment.getCtime());
+                                String ptime = TimeUtil.formatData(TimeUtil.dateFormatYMDHMS, comment.getCtime());
                                 comment.setcTimeStr(ptime);
                                 String logo = comment.getUser().getLogo();
                                 comment.getUser().setLogo(ApiConstants.URL + logo);
