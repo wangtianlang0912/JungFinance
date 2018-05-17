@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.leon.common.base.BaseFragment;
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonutils.ImageLoaderUtils;
 import com.leon.common.commonutils.ToastUitl;
 import com.yuyh.library.imgsel.ImageLoader;
@@ -134,10 +135,12 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresenterImp, UserInf
     }
 
     @Override
-    public void returnSubmitResponse(UserInfo response) {
-        if (response != null) {
-            MyUtils.saveUserInfo(getActivity(), response);
+    public void returnSubmitResponse(BaseRespose<UserInfo> response) {
+        if (response != null && response.success()) {
+            MyUtils.saveUserInfo(getActivity(), response.data);
             getActivity().finish();
+        } else {
+            showShortToast(response != null ? response.msg : "请求失败");
         }
     }
 
@@ -159,10 +162,10 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresenterImp, UserInf
                 break;
             case R.id.submit_btn:
 
-                if (logoView.getTag() != null) {
-                    String imagePath = (String) logoView.getTag();
+                if (logoView.getTag(R.id.tag_first) != null) {
+                    Object imagePath = logoView.getTag(R.id.tag_first);
                     if (imagePath != null) {
-                        updateImage(imagePath);
+                        updateImage((String) imagePath);
                     }
                 } else {
 
@@ -217,7 +220,7 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresenterImp, UserInf
 
                 Log.d("UserInfoFragment", "pathList.get(0):::" + pathList.get(0));
                 ImageLoaderUtils.displayRound(getContext(), logoView, pathList.get(0));
-                logoView.setTag(pathList.get(0));
+                logoView.setTag(R.id.tag_first, pathList.get(0));
             }
         }
     }

@@ -1,6 +1,7 @@
 package cn.jungmedia.android.ui.user.presenter;
 
 
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
 
 import cn.jungmedia.android.R;
@@ -22,7 +23,7 @@ import cn.jungmedia.android.ui.user.bean.UserInfo;
 public class UserInfoPresenterImp extends UserContract.UserInfoPresenter {
     @Override
     public void submit(String nick, String desp, String phone, String logo) {
-        mRxManage.add(mModel.submit(nick, desp, phone, logo).subscribe(new RxSubscriber<UserInfo>(mContext, false) {
+        mRxManage.add(mModel.submit(nick, desp, phone, logo).subscribe(new RxSubscriber<BaseRespose<UserInfo>>(mContext, false) {
             @Override
             public void onStart() {
                 super.onStart();
@@ -30,7 +31,7 @@ public class UserInfoPresenterImp extends UserContract.UserInfoPresenter {
             }
 
             @Override
-            protected void _onNext(UserInfo data) {
+            protected void _onNext(BaseRespose<UserInfo> data) {
                 mView.returnSubmitResponse(data);
                 mView.stopLoading();
             }

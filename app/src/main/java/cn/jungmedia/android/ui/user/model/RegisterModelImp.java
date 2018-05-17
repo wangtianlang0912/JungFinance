@@ -1,13 +1,13 @@
 package cn.jungmedia.android.ui.user.model;
 
 
-import cn.jungmedia.android.api.HostType;
-import cn.jungmedia.android.ui.user.bean.UserInfo;
-import cn.jungmedia.android.api.Api;
-import cn.jungmedia.android.ui.user.presenter.UserContract;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.ui.user.presenter.UserContract;
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -39,13 +39,8 @@ public class RegisterModelImp implements UserContract.IRegisterModel {
     }
 
     @Override
-    public Observable<UserInfo> register(String phone, String code, String pwd) {
+    public Observable<BaseRespose<UserInfo>> register(String phone, String code, String pwd) {
         return Api.getDefault(HostType.Jung_FINANCE)
-                .register(phone, code, pwd).map(new Func1<BaseRespose<UserInfo>, UserInfo>() {
-                    @Override
-                    public UserInfo call(BaseRespose<UserInfo> respose) {
-                        return respose.data;
-                    }
-                }).compose(RxSchedulers.<UserInfo>io_main());
+                .register(phone, code, pwd).compose(RxSchedulers.<BaseRespose<UserInfo>>io_main());
     }
 }

@@ -45,7 +45,7 @@ public class LoginPresenterImp extends LoginPresenter {
 
     @Override
     public void accountLogin(String phone, String pwd) {
-        mRxManage.add(mModel.accountLogin(phone, pwd).subscribe(new RxSubscriber<UserInfo>(mContext, false) {
+        mRxManage.add(mModel.accountLogin(phone, pwd).subscribe(new RxSubscriber<BaseRespose<UserInfo>>(mContext, false) {
             @Override
             public void onStart() {
                 super.onStart();
@@ -53,7 +53,7 @@ public class LoginPresenterImp extends LoginPresenter {
             }
 
             @Override
-            protected void _onNext(UserInfo data) {
+            protected void _onNext(BaseRespose<UserInfo> data) {
                 mView.returnLoginResponse(data);
                 mView.stopLoading();
             }
@@ -67,7 +67,7 @@ public class LoginPresenterImp extends LoginPresenter {
 
     @Override
     public void mobileLogin(String phone, String code) {
-        mRxManage.add(mModel.mobileLogin(phone, code).subscribe(new RxSubscriber<UserInfo>(mContext, false) {
+        mRxManage.add(mModel.mobileLogin(phone, code).subscribe(new RxSubscriber<BaseRespose<UserInfo>>(mContext, false) {
             @Override
             public void onStart() {
                 super.onStart();
@@ -75,7 +75,7 @@ public class LoginPresenterImp extends LoginPresenter {
             }
 
             @Override
-            protected void _onNext(UserInfo data) {
+            protected void _onNext(BaseRespose<UserInfo> data) {
                 mView.returnLoginResponse(data);
                 mView.stopLoading();
             }

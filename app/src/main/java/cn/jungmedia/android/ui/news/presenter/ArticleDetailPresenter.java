@@ -80,7 +80,7 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
             @Override
             protected void _onNext(BaseRespose<FavActionModel> result) {
                 mView.stopLoading();
-                mView.returnFavArticleState(result);
+                mView.returnFavArticleState(result,true);
             }
 
             @Override
@@ -121,7 +121,7 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
         mRxManage.add(mModel.getArticleFavState(articleId).subscribe(new RxSubscriber<BaseRespose<FavActionModel>>(mContext, false) {
             @Override
             protected void _onNext(BaseRespose<FavActionModel> result) {
-                mView.returnFavArticleState(result);
+                mView.returnFavArticleState(result,false);
             }
 
             @Override

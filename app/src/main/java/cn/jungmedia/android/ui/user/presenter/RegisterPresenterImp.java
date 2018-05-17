@@ -1,9 +1,10 @@
 package cn.jungmedia.android.ui.user.presenter;
 
-import cn.jungmedia.android.R;
-import cn.jungmedia.android.ui.user.bean.UserInfo;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
+
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
 
 public class RegisterPresenterImp extends UserContract.RegisterPresenter {
 
@@ -32,7 +33,7 @@ public class RegisterPresenterImp extends UserContract.RegisterPresenter {
     @Override
     public void register(String phone, String code, String pwd) {
 
-        mRxManage.add(mModel.register(phone, code, pwd).subscribe(new RxSubscriber<UserInfo>(mContext, false) {
+        mRxManage.add(mModel.register(phone, code, pwd).subscribe(new RxSubscriber<BaseRespose<UserInfo>>(mContext, false) {
             @Override
             public void onStart() {
                 super.onStart();
@@ -40,7 +41,7 @@ public class RegisterPresenterImp extends UserContract.RegisterPresenter {
             }
 
             @Override
-            protected void _onNext(UserInfo data) {
+            protected void _onNext(BaseRespose<UserInfo> data) {
                 mView.returnRegisterResponse(data);
                 mView.stopLoading();
             }

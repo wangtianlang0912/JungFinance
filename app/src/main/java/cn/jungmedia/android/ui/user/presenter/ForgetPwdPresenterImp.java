@@ -1,10 +1,11 @@
 package cn.jungmedia.android.ui.user.presenter;
 
 
-import cn.jungmedia.android.ui.user.bean.UserInfo;
-import cn.jungmedia.android.R;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
+
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
 
 /***
  *
@@ -44,7 +45,7 @@ public class ForgetPwdPresenterImp extends UserContract.ForgetPwdPresenter {
 
     @Override
     public void submit(String phone, String code, String pwd) {
-        mRxManage.add(mModel.submit(phone, code, pwd).subscribe(new RxSubscriber<UserInfo>(mContext, false) {
+        mRxManage.add(mModel.submit(phone, code, pwd).subscribe(new RxSubscriber<BaseRespose<UserInfo>>(mContext, false) {
             @Override
             public void onStart() {
                 super.onStart();
@@ -52,7 +53,7 @@ public class ForgetPwdPresenterImp extends UserContract.ForgetPwdPresenter {
             }
 
             @Override
-            protected void _onNext(UserInfo data) {
+            protected void _onNext(BaseRespose<UserInfo> data) {
                 mView.returnSubmitResponse(data);
                 mView.stopLoading();
             }

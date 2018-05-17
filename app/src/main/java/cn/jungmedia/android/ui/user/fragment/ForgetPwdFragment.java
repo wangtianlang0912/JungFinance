@@ -9,13 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
-import cn.jungmedia.android.utils.PatternUtil;
-import cn.jungmedia.android.R;
-import cn.jungmedia.android.ui.user.bean.UserInfo;
-import cn.jungmedia.android.ui.user.model.ForgetPwdModelImp;
-import cn.jungmedia.android.ui.user.presenter.ForgetPwdPresenterImp;
-import cn.jungmedia.android.ui.user.presenter.UserContract;
-import cn.jungmedia.android.ui.user.utils.MulitEditUtils;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonutils.ToastUitl;
@@ -25,6 +18,13 @@ import com.leon.common.ui.counterButton.VerificationInfo;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.ui.user.model.ForgetPwdModelImp;
+import cn.jungmedia.android.ui.user.presenter.ForgetPwdPresenterImp;
+import cn.jungmedia.android.ui.user.presenter.UserContract;
+import cn.jungmedia.android.ui.user.utils.MulitEditUtils;
+import cn.jungmedia.android.utils.PatternUtil;
 
 
 /***
@@ -144,7 +144,7 @@ public class ForgetPwdFragment extends BaseFragment<ForgetPwdPresenterImp, Forge
 
     @Override
     public void returnVerifyCode(BaseRespose<String> result) {
-        if (result.success()) {
+        if (result != null && result.success()) {
             sendsmsTv.startTimer();
         } else {
             ToastUitl.showShort("验证码发送失败");
@@ -153,10 +153,18 @@ public class ForgetPwdFragment extends BaseFragment<ForgetPwdPresenterImp, Forge
     }
 
     @Override
-    public void returnSubmitResponse(UserInfo response) {
+    public void returnSubmitResponse(BaseRespose<UserInfo> response) {
         if (sendsmsTv != null) {
             sendsmsTv.stopTimerCount();
         }
+        if (response != null) {
+            if (!response.success()) {
+                showShortToast(response.msg);
+            }
+        } else {
+            showShortToast("请求失败");
+        }
+
     }
 
     private void sendVerifyCode() {

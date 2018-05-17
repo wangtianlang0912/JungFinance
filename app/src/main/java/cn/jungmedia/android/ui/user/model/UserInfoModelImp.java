@@ -28,18 +28,18 @@ import rx.functions.Func1;
  */
 public class UserInfoModelImp implements UserContract.IUserInfoModel {
     @Override
-    public Observable<UserInfo> submit(String nick, String desp, String phone, String logo) {
+    public Observable<BaseRespose<UserInfo>> submit(String nick, String desp, String phone, String logo) {
         return Api.getDefault(HostType.Jung_FINANCE)
-                .updateUserInfo(MyUtils.getToken(), nick, phone, logo, desp).map(new Func1<BaseRespose<UserInfo>, UserInfo>() {
+                .updateUserInfo(MyUtils.getToken(), nick, phone, logo, desp).map(new Func1<BaseRespose<UserInfo>, BaseRespose<UserInfo>>() {
                     @Override
-                    public UserInfo call(BaseRespose<UserInfo> respose) {
+                    public BaseRespose<UserInfo> call(BaseRespose<UserInfo> respose) {
                         UserInfo userInfo = respose.data;
                         if (userInfo != null && userInfo.getUser() != null) {
                             userInfo.getUser().setLogo(ApiConstants.getHost(HostType.Jung_FINANCE) + userInfo.getUser().getLogo());
                         }
-                        return respose.data;
+                        return respose;
                     }
-                }).compose(RxSchedulers.<UserInfo>io_main());
+                }).compose(RxSchedulers.<BaseRespose<UserInfo>>io_main());
     }
 
     @Override

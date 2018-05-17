@@ -1,12 +1,12 @@
 package cn.jungmedia.android.ui.user.model;
 
-import cn.jungmedia.android.api.HostType;
-import cn.jungmedia.android.api.Api;
-import cn.jungmedia.android.ui.user.bean.UserInfo;
-import cn.jungmedia.android.ui.user.presenter.UserContract;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 
+import cn.jungmedia.android.api.Api;
+import cn.jungmedia.android.api.HostType;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.ui.user.presenter.UserContract;
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -38,27 +38,17 @@ public class LoginModelImp implements UserContract.ILoginModel {
     }
 
     @Override
-    public Observable<UserInfo> accountLogin(String phone, String pwd) {
+    public Observable<BaseRespose<UserInfo>> accountLogin(String phone, String pwd) {
         return Api.getDefault(HostType.Jung_FINANCE)
                 .login(phone,pwd)
-                .map(new Func1<BaseRespose<UserInfo>, UserInfo>() {
-                    @Override
-                    public UserInfo call(BaseRespose<UserInfo> respose) {
-                        return respose.data;
-                    }
-                }).compose(RxSchedulers.<UserInfo>io_main());
+              .compose(RxSchedulers.<BaseRespose<UserInfo>>io_main());
     }
 
     @Override
-    public Observable<UserInfo> mobileLogin(String phone, String code) {
+    public Observable<BaseRespose<UserInfo>> mobileLogin(String phone, String code) {
         return Api.getDefault(HostType.Jung_FINANCE)
                 .loginByMobile(phone,code)
-                .map(new Func1<BaseRespose<UserInfo>, UserInfo>() {
-                    @Override
-                    public UserInfo call(BaseRespose<UserInfo> respose) {
-                        return respose.data;
-                    }
-                }).compose(RxSchedulers.<UserInfo>io_main());
+                .compose(RxSchedulers.<BaseRespose<UserInfo>>io_main());
 
     }
 }

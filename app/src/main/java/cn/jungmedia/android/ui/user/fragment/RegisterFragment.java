@@ -10,15 +10,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import cn.jungmedia.android.R;
-import cn.jungmedia.android.app.AppIntent;
-import cn.jungmedia.android.ui.user.bean.UserInfo;
-import cn.jungmedia.android.ui.user.model.RegisterModelImp;
-import cn.jungmedia.android.ui.user.presenter.RegisterPresenterImp;
-import cn.jungmedia.android.ui.user.presenter.UserContract;
-import cn.jungmedia.android.ui.user.utils.MulitEditUtils;
-import cn.jungmedia.android.utils.MyUtils;
-import cn.jungmedia.android.utils.PatternUtil;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonutils.ToastUitl;
@@ -28,6 +19,15 @@ import com.leon.common.ui.counterButton.VerificationInfo;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppIntent;
+import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.ui.user.model.RegisterModelImp;
+import cn.jungmedia.android.ui.user.presenter.RegisterPresenterImp;
+import cn.jungmedia.android.ui.user.presenter.UserContract;
+import cn.jungmedia.android.ui.user.utils.MulitEditUtils;
+import cn.jungmedia.android.utils.MyUtils;
+import cn.jungmedia.android.utils.PatternUtil;
 
 
 /***
@@ -167,16 +167,19 @@ public class RegisterFragment extends BaseFragment<RegisterPresenterImp, Registe
     }
 
     @Override
-    public void returnRegisterResponse(UserInfo response) {
+    public void returnRegisterResponse(BaseRespose<UserInfo> response) {
         if (sendsmsTv != null) {
             sendsmsTv.stopTimerCount();
         }
-        if (response != null && response.getToken() != null) {
-            MyUtils.saveUserInfo(getActivity(), response);
-            MyUtils.saveToken(getActivity(), response.getToken());
+        if (response != null && response.data.getToken() != null) {
+            MyUtils.saveUserInfo(getActivity(), response.data);
+            MyUtils.saveToken(getActivity(), response.data.getToken());
+            showShortToast(getString(R.string.register_success));
+            getActivity().finish();
+        } else {
+            showShortToast(response != null ? response.msg : "注册失败");
         }
-        showShortToast(getString(R.string.register_success));
-        getActivity().finish();
+
     }
 
     private void sendVerifyCode() {

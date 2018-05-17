@@ -269,15 +269,18 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
     }
 
     @Override
-    public void returnLoginResponse(UserInfo response) {
+    public void returnLoginResponse(BaseRespose<UserInfo> response) {
         if (sendsmsTv != null) {
             sendsmsTv.stopTimerCount();
         }
-        if (response != null && response.getToken() != null) {
-            MyUtils.saveUserInfo(getActivity(), response);
-            MyUtils.saveToken(getActivity(), response.getToken());
+        if (response != null && response.data != null && response.data.getToken() != null) {
+            MyUtils.saveUserInfo(getActivity(), response.data);
+            MyUtils.saveToken(getActivity(), response.data.getToken());
+            getActivity().finish();
+        } else {
+            showShortToast(response.msg);
         }
-        getActivity().finish();
+
     }
 
     @Override

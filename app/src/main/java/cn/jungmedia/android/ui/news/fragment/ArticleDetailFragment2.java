@@ -246,16 +246,22 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
     }
 
     @Override
-    public void returnFavArticleState(BaseRespose<FavActionModel> respose) {
+    public void returnFavArticleState(BaseRespose<FavActionModel> respose, boolean toastRefer) {
         if (respose.success()) {
             FavActionModel activityModel = respose.data;
             if (activityModel.getFavorite() != null) {
                 if (activityModel.getFavorite().getStatus() == 0) {
                     favBtn.setImageResource(R.drawable.icon_fav_s);
                     favBtn.setTag(activityModel.getFavorite().getObjectId());
+                    if (toastRefer) {
+                        showShortToast("收藏成功");
+                    }
                 } else {
                     favBtn.setImageResource(R.drawable.icon_fav_n);
                     favBtn.setTag(null);
+                    if (toastRefer) {
+                        showShortToast("取消收藏");
+                    }
                 }
             }
         } else {

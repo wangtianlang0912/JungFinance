@@ -59,7 +59,7 @@ public class ArticleDetaiContract {
 
         void returnRelateList(ArticleRelevant articleModel);
 
-        void returnFavArticleState(BaseRespose<FavActionModel> result);
+        void returnFavArticleState(BaseRespose<FavActionModel> result, boolean toastRefer);
 
         void returnFocusBloggerState(BaseRespose<FavActionModel> result, boolean b);
 

@@ -13,13 +13,13 @@ public interface UserContract {
         //请求验证码
         Observable<BaseRespose<String>> getVerifyCode(String phone);
 
-        Observable<UserInfo> register(String phone, String code, String pwd);
+        Observable<BaseRespose<UserInfo>> register(String phone, String code, String pwd);
     }
 
     interface IRegisterView extends BaseView {
         void returnVerifyCode(BaseRespose<String> result);
 
-        void returnRegisterResponse(UserInfo response);
+        void returnRegisterResponse(BaseRespose<UserInfo> response);
     }
 
     abstract class RegisterPresenter extends BasePresenter<IRegisterView, IRegisterModel> {
@@ -32,16 +32,16 @@ public interface UserContract {
     interface ILoginModel extends BaseModel {
         Observable<BaseRespose<String>> getVerifyCode(String phone);
 
-        Observable<UserInfo> accountLogin(String phone, String pwd);
+        Observable<BaseRespose<UserInfo>> accountLogin(String phone, String pwd);
 
-        Observable<UserInfo> mobileLogin(String phone, String code);
+        Observable<BaseRespose<UserInfo>> mobileLogin(String phone, String code);
     }
 
 
     interface ILoginView extends BaseView {
         void returnVerifyCode(BaseRespose<String> result);
 
-        void returnLoginResponse(UserInfo response);
+        void returnLoginResponse(BaseRespose<UserInfo> response);
     }
 
     abstract class LoginPresenter extends BasePresenter<ILoginView, ILoginModel> {
@@ -56,14 +56,14 @@ public interface UserContract {
     interface IForgetPwdModel extends BaseModel {
         Observable<BaseRespose<String>> getVerifyCode(String phone);
 
-        Observable<UserInfo> submit(String phone, String code, String pwd);
+        Observable<BaseRespose<UserInfo>> submit(String phone, String code, String pwd);
     }
 
 
     interface IForgetPwdView extends BaseView {
         void returnVerifyCode(BaseRespose<String> result);
 
-        void returnSubmitResponse(UserInfo response);
+        void returnSubmitResponse(BaseRespose<UserInfo> response);
     }
 
     abstract class ForgetPwdPresenter extends BasePresenter<IForgetPwdView, IForgetPwdModel> {
@@ -108,7 +108,7 @@ public interface UserContract {
     }
 
     interface IUserInfoModel extends BaseModel {
-        Observable<UserInfo> submit(String nick, String desp, String phone, String logo);
+        Observable<BaseRespose<UserInfo>> submit(String nick, String desp, String phone, String logo);
 
         Observable<String> uploadImage(String image);
     }
@@ -116,7 +116,7 @@ public interface UserContract {
 
     interface IUserInfoView extends BaseView {
 
-        void returnSubmitResponse(UserInfo response);
+        void returnSubmitResponse(BaseRespose<UserInfo> response);
 
         void returnUploadImage(String url);
     }
