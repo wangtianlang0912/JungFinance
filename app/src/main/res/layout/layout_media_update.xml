@@ -222,7 +222,8 @@
             android:gravity="center_horizontal"
             android:text="若修改认证身份请联系平台："
             android:textColor="@color/_666666"
-            android:textSize="11sp" />
+            android:textSize="11sp"
+            android:visibility="gone" />
 
         <TextView
             android:layout_width="match_parent"
@@ -231,6 +232,7 @@
             android:gravity="center_horizontal"
             android:text="400-089-4896"
             android:textColor="@color/_f2a924"
-            android:textSize="10sp" />
+            android:textSize="10sp"
+            android:visibility="gone" />
     </LinearLayout>
 </ScrollView>

@@ -160,6 +160,9 @@ public class ForgetPwdFragment extends BaseFragment<ForgetPwdPresenterImp, Forge
         if (response != null) {
             if (!response.success()) {
                 showShortToast(response.msg);
+            } else {
+                showShortToast("密码修改成功，请重新登录");
+                getActivity().finish();
             }
         } else {
             showShortToast("请求失败");

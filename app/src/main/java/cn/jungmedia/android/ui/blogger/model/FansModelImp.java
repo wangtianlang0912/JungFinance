@@ -37,10 +37,11 @@ public class FansModelImp implements FansContract.Model {
                     public FansBean call(BaseRespose<FansBean> respose) {
 
                         FansBean bean = respose.data;
-
-                        for (FansBean.Favorite favorite : bean.getFavorites()) {
-                            String cooverImage = ApiConstants.getHost(HostType.Jung_FINANCE) + favorite.getUser().getUser().getLogo();
-                            favorite.getUser().getUser().setLogo(cooverImage);
+                        if (bean.getFavorites() != null) {
+                            for (FansBean.Favorite favorite : bean.getFavorites()) {
+                                String cooverImage = ApiConstants.getHost(HostType.Jung_FINANCE) + favorite.getUser().getUser().getLogo();
+                                favorite.getUser().getUser().setLogo(cooverImage);
+                            }
                         }
                         return bean;
                     }

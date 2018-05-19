@@ -138,10 +138,11 @@ public class FastEditFragment extends BaseFragment<FastEditPresenter, FastEditMo
 
     @Override
     public void returnListData(NewsFavBean data) {
+
+        irc.setRefreshing(false);
         List<NewsFavBean.Favorite> list = data.getFavorites();
         if (list != null) {
             if (listAdapter.getPageBean().isRefresh()) {
-                irc.setRefreshing(false);
                 listAdapter.replaceAll(list);
             } else {
                 listAdapter.addAll(list);

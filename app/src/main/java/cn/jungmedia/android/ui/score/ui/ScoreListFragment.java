@@ -148,18 +148,18 @@ public class ScoreListFragment extends BaseFragment<ScorePresenterImp, ScoreMode
             ImageLoaderUtils.displayRound(getActivity(), logoView, data.getUser().getLogo());
             nickText.setText(data.getUser().getNick());
         }
-        scoreText.setText(data.getMember().getScore() + "");
+        scoreText.setText("共" + data.getMember().getScore() + "积分");
         roleView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AppIntent.intentToScoreRole(getActivity());
             }
         });
-
+        irc.setRefreshing(false);
         List<ScoreBean.Score> list = data.getScores();
         if (list != null) {
             if (listAdapter.getPageBean().isRefresh()) {
-                irc.setRefreshing(false);
+
                 listAdapter.replaceAll(list);
             } else {
                 listAdapter.addAll(list);
@@ -174,9 +174,9 @@ public class ScoreListFragment extends BaseFragment<ScorePresenterImp, ScoreMode
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                 mStartPage++;
             } else {
-                if(listAdapter.getSize()>0) {
+                if (listAdapter.getSize() > 0) {
                     irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
-                }else {
+                } else {
                     irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                 }
             }

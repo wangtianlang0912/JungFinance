@@ -12,6 +12,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.app.AppIntent;
+import cn.jungmedia.android.ui.main.bean.MediaInfo;
 
 
 /***
@@ -30,6 +33,7 @@ import cn.jungmedia.android.R;
 public class MediaDiffShowFragment extends BaseFragment {
     @Bind(R.id.update_btn)
     Button updateBtn;
+    MediaInfo media = null;
 
     @Override
     protected int getLayoutResource() {
@@ -44,6 +48,15 @@ public class MediaDiffShowFragment extends BaseFragment {
     @Override
     protected void initView() {
 
+        Bundle bundle = getActivity().getIntent().getBundleExtra(AppConstant.FLAG_BUNDLE);
+        if (bundle != null) {
+            media = (MediaInfo) bundle.getSerializable(AppConstant.FLAG_DATA);
+            if (media == null) {
+                updateBtn.setVisibility(View.GONE);
+            } else {
+                updateBtn.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     @Override
@@ -62,8 +75,8 @@ public class MediaDiffShowFragment extends BaseFragment {
 
     @OnClick(R.id.update_btn)
     public void onViewClicked() {
-
-
-
+        if (media != null) {
+            AppIntent.intentToMediaUpdate(getActivity(), media);
+        }
     }
 }

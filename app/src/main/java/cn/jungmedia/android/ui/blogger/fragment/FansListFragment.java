@@ -129,10 +129,11 @@ public class FansListFragment extends BaseFragment<FansPresenterImp, FansModelIm
 
     @Override
     public void returnListData(FansBean data) {
+
+        irc.setRefreshing(false);
         List<FansBean.Favorite> list = data.getFavorites();
         if (list != null) {
             if (listAdapter.getPageBean().isRefresh()) {
-                irc.setRefreshing(false);
                 listAdapter.replaceAll(list);
             } else {
                 listAdapter.addAll(list);
@@ -147,14 +148,21 @@ public class FansListFragment extends BaseFragment<FansPresenterImp, FansModelIm
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                 mStartPage++;
             } else {
-                if(listAdapter.getSize()>0) {
+                if (listAdapter.getSize() > 0) {
                     irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
-                }else {
+                } else {
                     irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
                 }
             }
+        } else {
+            if (listAdapter.getSize() == 0) {
+                irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+                emptyLayout.setVisibility(View.VISIBLE);
+            }
         }
+
+
     }
 }
 

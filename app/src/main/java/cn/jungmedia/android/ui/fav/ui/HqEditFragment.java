@@ -144,10 +144,10 @@ public class HqEditFragment extends BaseFragment<HqEditPresenter, HqEditModelImp
 
     @Override
     public void returnListData(NewsFavBean data) {
+        irc.setRefreshing(false);
         List<NewsFavBean.Favorite> list = data.getFavorites();
         if (list != null) {
             if (listAdapter.getPageBean().isRefresh()) {
-                irc.setRefreshing(false);
                 listAdapter.replaceAll(list);
             } else {
                 listAdapter.addAll(list);
@@ -167,6 +167,11 @@ public class HqEditFragment extends BaseFragment<HqEditPresenter, HqEditModelImp
 
                     emptyLayout.setVisibility(View.VISIBLE);
                 }
+            }
+        } else {
+            if (listAdapter.getSize() == 0) {
+                irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+                emptyLayout.setVisibility(View.VISIBLE);
             }
         }
     }

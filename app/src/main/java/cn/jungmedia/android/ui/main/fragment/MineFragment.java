@@ -91,7 +91,7 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
     }
 
     private void resetViews() {
-
+        vView.setVisibility(View.GONE);
         nickView.setText(null);
         imgLogo.setImageResource(R.drawable.blant_logo);
         despView.setText(null);
@@ -115,8 +115,10 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
                 }
                 if (userInfo.getUser().getMedia() != null) {
                     mediaAccountBtn.setText(R.string.media_account);
+                    vView.setVisibility(View.VISIBLE);
                 } else {
                     mediaAccountBtn.setText(R.string.upgrade_media_account);
+                    vView.setVisibility(View.GONE);
                 }
 
             }
@@ -186,8 +188,12 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
                 }
                 break;
             case R.id.refer_view:
-
-                AppIntent.intentToMediaDiff(getContext());
+                UserInfo userInfo1 = MyUtils.getUserInfoFromPreference(getActivity());
+                if (userInfo1 != null && userInfo1.getUser() != null) {
+                    AppIntent.intentToMediaDiff(getContext(), userInfo1.getUser().getMedia());
+                } else {
+                    AppIntent.intentToMediaDiff(getContext(), null);
+                }
                 break;
             case R.id.info_layout:
                 if (!MyUtils.isLogin()) {

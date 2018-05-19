@@ -163,10 +163,11 @@ public class ActivityEditFragment extends BaseFragment<ActivityEditPresenter, Ac
 
     @Override
     public void returnListData(ActiveFavBean data) {
+        irc.setRefreshing(false);
         List<ActiveFavBean.Favorite> list = data.getFavorites();
         if (list != null) {
             if (listAdapter.getPageBean().isRefresh()) {
-                irc.setRefreshing(false);
+
                 listAdapter.replaceAll(list);
             } else {
                 listAdapter.addAll(list);
@@ -185,6 +186,11 @@ public class ActivityEditFragment extends BaseFragment<ActivityEditPresenter, Ac
                     irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
                 }
+            }
+        } else {
+            if (listAdapter.getSize() == 0) {
+                irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+                emptyLayout.setVisibility(View.VISIBLE);
             }
         }
     }

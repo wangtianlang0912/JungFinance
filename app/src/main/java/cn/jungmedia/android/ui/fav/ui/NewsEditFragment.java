@@ -139,6 +139,8 @@ public class NewsEditFragment extends BaseFragment<NewsEditPresenter, NewsEditMo
 
     @Override
     public void returnListData(NewsFavBean data) {
+
+        irc.setRefreshing(false);
         List<NewsFavBean.Favorite> list = data.getFavorites();
         if (list != null) {
             if (listAdapter.getPageBean().isRefresh()) {
@@ -155,12 +157,17 @@ public class NewsEditFragment extends BaseFragment<NewsEditPresenter, NewsEditMo
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                 mStartPage++;
             } else {
-                if(listAdapter.getSize()>0) {
+                if (listAdapter.getSize() > 0) {
                     irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
-                }else {
+                } else {
                     irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
                 }
+            }
+        } else {
+            if (listAdapter.getSize() == 0) {
+                irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+                emptyLayout.setVisibility(View.VISIBLE);
             }
         }
     }

@@ -139,10 +139,11 @@ public class BloggerFavFragment extends BaseFragment<BloggerFavPresenterImp,Blog
 
     @Override
     public void returnListData(BloggerFavBean data) {
+        irc.setRefreshing(false);
+
         List<BloggerFavBean.Favorite> list = data.getFavorites();
         if (list != null) {
             if (listAdapter.getPageBean().isRefresh()) {
-                irc.setRefreshing(false);
                 listAdapter.replaceAll(list);
             } else {
                 listAdapter.addAll(list);

@@ -165,9 +165,10 @@ public class AppIntent {
     }
 
 
-    public static void intentToMediaDiff(Context context) {
+    public static void intentToMediaDiff(Context context, MediaInfo media) {
 
         Bundle bundle = new Bundle();
+        bundle.putSerializable(AppConstant.FLAG_DATA, media);
         intentToAct(context, context.getString(R.string.refer), MediaDiffShowFragment.class, bundle);
 
     }
