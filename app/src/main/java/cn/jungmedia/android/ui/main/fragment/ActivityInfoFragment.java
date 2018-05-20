@@ -83,15 +83,22 @@ public class ActivityInfoFragment extends BaseFragment<ActivityDetailPresenterIm
     }
 
     @Override
-    public void returnFavActivityState(ActivityFavModel.Favorite result, boolean hasFav) {
+    public void returnFavActivityState(ActivityFavModel.Favorite result, boolean fav, boolean toastRefer) {
 
-        if (hasFav) {
+        if (toastRefer) {
             favView.setTag(result.getObjectId());
             favView.setImageResource(R.drawable.icon_fav_s);
+            if (toastRefer) {
+                showShortToast("收藏成功");
+            }
+
         } else {
 
             favView.setImageResource(R.drawable.icon_fav_n);
             favView.setTag(null);
+            if (toastRefer) {
+                showShortToast("取消收藏");
+            }
         }
     }
 

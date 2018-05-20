@@ -37,7 +37,7 @@ public class ActivityDetailPresenterImp extends ActivityDetailContract.Presenter
 
             @Override
             protected void _onNext(ActivityFavModel.Favorite result) {
-                mView.returnFavActivityState(result, result != null);
+                mView.returnFavActivityState(result, result != null,false);
                 mView.stopLoading();
             }
 
@@ -60,7 +60,7 @@ public class ActivityDetailPresenterImp extends ActivityDetailContract.Presenter
 
             @Override
             protected void _onNext(ActivityFavModel.Favorite result) {
-                mView.returnFavActivityState(result, !hasFav);
+                mView.returnFavActivityState(result, !hasFav, true);
                 mView.stopLoading();
             }
 

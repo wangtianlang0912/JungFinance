@@ -26,6 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jungmedia.android.R;
 import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.app.AppIntent;
 import cn.jungmedia.android.bean.ArticleModel;
 import cn.jungmedia.android.bean.BloggerModel;
 import cn.jungmedia.android.bean.Counter;
@@ -35,6 +36,7 @@ import cn.jungmedia.android.ui.blogger.contract.BloggerContract;
 import cn.jungmedia.android.ui.blogger.model.BloggerModelImp;
 import cn.jungmedia.android.ui.blogger.presenter.BloggerPresenterImp;
 import cn.jungmedia.android.ui.news.adapter.NewListAdapter;
+import cn.jungmedia.android.utils.MyUtils;
 
 
 /***
@@ -236,6 +238,10 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
             case R.id.logo_view:
                 break;
             case R.id.subscribe_btn:
+                if (!MyUtils.isLogin()) {
+                    AppIntent.intentToLogin(getContext());
+                    return;
+                }
                 boolean hasFav = (boolean) subscribeBtn.getTag(R.id.tag_first);
                 Object tag = subscribeBtn.getTag();
                 if (tag != null) {

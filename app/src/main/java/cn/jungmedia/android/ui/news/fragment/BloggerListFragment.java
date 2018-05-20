@@ -16,6 +16,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppIntent;
 import cn.jungmedia.android.bean.BloggerModel;
 import cn.jungmedia.android.bean.Counter;
 import cn.jungmedia.android.bean.FavActionModel;
@@ -23,6 +24,7 @@ import cn.jungmedia.android.ui.news.adapter.BloggerListAdapter;
 import cn.jungmedia.android.ui.news.contract.BloggerListContract;
 import cn.jungmedia.android.ui.news.model.BloggerListModel;
 import cn.jungmedia.android.ui.news.presenter.BloggerListPresenter;
+import cn.jungmedia.android.utils.MyUtils;
 
 /**
  * des:博客
@@ -164,7 +166,10 @@ public class BloggerListFragment extends BaseFragment<BloggerListPresenter, Blog
 
     @Override
     public void onSubscribeChanged(BloggerModel.Media blogger) {
-
+        if (!MyUtils.isLogin()) {
+            AppIntent.intentToLogin(getContext());
+            return;
+        }
         mPresenter.focusAction(blogger.getFavorite() != null ? blogger.getFavorite().getObjectId() : blogger.getObjectId()
                 , blogger.getFavorite() != null);
 
