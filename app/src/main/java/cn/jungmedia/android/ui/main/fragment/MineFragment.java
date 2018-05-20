@@ -109,7 +109,9 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
                 nickView.setText(userInfo.getUser().getNick());
                 despView.setText(userInfo.getUser().getRemark());
                 subscribeNum.setText(userInfo.getUser().getMCount() + "");
-                fansNum.setText(userInfo.getUser().getRole() + "");
+                if (userInfo.getUser().getMedia() != null) {
+                    fansNum.setText(userInfo.getUser().getMedia().getGznum() + "");
+                }
                 if (userInfo.getUser().getMember() != null) {
                     scoreNum.setText(userInfo.getUser().getMember().getScore() + "");
                 }
@@ -249,7 +251,9 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
             nickView.setText(userInfo.getUser().getNick());
             despView.setText(userInfo.getUser().getRemark());
             subscribeNum.setText(userInfo.getUser().getMCount() + "");
-            fansNum.setText(userInfo.getUser().getRole() + "");
+            if (userInfo.getUser().getMedia() != null) {
+                fansNum.setText(userInfo.getUser().getMedia().getGznum() + "");
+            }
             if (userInfo.getUser().getMember() != null) {
                 scoreNum.setText(userInfo.getUser().getMember().getScore() + "");
             }

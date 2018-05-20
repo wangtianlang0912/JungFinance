@@ -44,7 +44,7 @@ public class FansBean {
     public class Favorite {
         private int uid;
 
-        private UserInfo user;
+        private UserInfo.User user;
 
         public void setUid(int uid) {
             this.uid = uid;
@@ -54,11 +54,11 @@ public class FansBean {
             return this.uid;
         }
 
-        public void setUser(UserInfo user) {
+        public void setUser(UserInfo.User user) {
             this.user = user;
         }
 
-        public UserInfo getUser() {
+        public UserInfo.User getUser() {
             return this.user;
         }
 

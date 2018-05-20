@@ -390,6 +390,7 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
         if (respose.success()) {
 
             showShortToast("媒体账号修改成功");
+            getActivity().finish();
         } else {
 
             showShortToast("媒体账号修改失败");

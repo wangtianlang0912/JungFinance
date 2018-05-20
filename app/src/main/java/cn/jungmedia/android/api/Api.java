@@ -140,7 +140,6 @@ public class Api {
                 return baseResponse;
             }
             if ("{}".equals(json.toString())) {
-                baseResponse.data = newInstance(typeOfT);
                 return baseResponse;
             }
             if (json.isJsonObject()) {
