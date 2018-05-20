@@ -10,7 +10,6 @@ import com.aspsine.irecyclerview.universaladapter.recyclerview.CommonRecycleView
 import java.util.List;
 
 import cn.jungmedia.android.R;
-import cn.jungmedia.android.app.AppIntent;
 import cn.jungmedia.android.ui.blogger.bean.FansBean;
 
 /***
@@ -47,12 +46,12 @@ public class FansAdapter extends CommonRecycleViewAdapter<FansBean.Favorite> {
 
         holder.setText(R.id.title_view, favorite.getUser().getNick());
         holder.setImageRoundUrl(R.id.logo_view, favorite.getUser().getLogo());
-
+        holder.setVisible(R.id.v_view, favorite.getUser().getRole() == 1);
         holder.setOnClickListener(R.id.rl_root, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int mediaUId = favorite.getUid();
-                AppIntent.intentToBloggerInfo(mContext, mediaUId, true);
+//                int mediaUId = favorite.getUid();
+//                AppIntent.intentToBloggerInfo(mContext, mediaUId, true);
             }
         });
     }

@@ -8,18 +8,36 @@
         android:id="@+id/rl_root"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp">
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp">
 
-        <ImageView
-            android:id="@+id/logo_view"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <RelativeLayout
+            android:id="@+id/img_logo_layout"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/blant_logo" />
+            android:layout_centerHorizontal="true">
+
+
+            <ImageView
+                android:id="@+id/logo_view"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/blant_logo" />
+
+            <ImageView
+                android:id="@+id/v_view"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:visibility="visible"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/logo_v" />
+        </RelativeLayout>
+
 
         <TextView
             android:id="@+id/show_view"
@@ -34,7 +52,8 @@
             android:paddingTop="2dp"
             android:text="查看"
             android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/title_view"
@@ -44,7 +63,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_toLeftOf="@+id/show_view"
-            android:layout_toRightOf="@+id/logo_view"
+            android:layout_toRightOf="@+id/img_logo_layout"
             android:ellipsize="end"
             android:lines="1"
             android:textColor="@color/_333333"
