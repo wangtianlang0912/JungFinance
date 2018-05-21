@@ -143,7 +143,7 @@ public interface ApiService {
 
     //修改用户信息
     @POST("app/me/set")
-    Observable<BaseRespose<UserInfo>> updateUserInfo(@Query("token") String token, @Query("nick") String nick, @Query("phone") String phone, @Query("logo") String logo, @Query("remark") String desp);
+    Observable<BaseRespose<UserInfo>> updateUserInfo(@Query("token") String token, @Query("nick") String nick, @Query("logo") String logo, @Query("remark") String desp);
 
 
     // 分类

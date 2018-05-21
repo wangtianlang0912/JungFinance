@@ -30,7 +30,7 @@ public class UserInfoModelImp implements UserContract.IUserInfoModel {
     @Override
     public Observable<BaseRespose<UserInfo>> submit(String nick, String desp, String phone, String logo) {
         return Api.getDefault(HostType.Jung_FINANCE)
-                .updateUserInfo(MyUtils.getToken(), nick, phone, logo, desp).map(new Func1<BaseRespose<UserInfo>, BaseRespose<UserInfo>>() {
+                .updateUserInfo(MyUtils.getToken(), nick, logo, desp).map(new Func1<BaseRespose<UserInfo>, BaseRespose<UserInfo>>() {
                     @Override
                     public BaseRespose<UserInfo> call(BaseRespose<UserInfo> respose) {
                         UserInfo userInfo = respose.data;

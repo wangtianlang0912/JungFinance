@@ -172,7 +172,7 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresenterImp, UserInf
                     String nick = nickEdit.getText().toString().trim();
                     String desp = despEdit.getText().toString().trim();
                     if (userInfo != null && userInfo.getUser() != null) {
-                        mPresenter.submit(nick, desp, userInfo.getUser().getPhone(), userInfo.getUser().getLogo());
+                        mPresenter.submit(nick, desp, null, userInfo.getUser().getLogo());
                     }
                 }
                 break;
