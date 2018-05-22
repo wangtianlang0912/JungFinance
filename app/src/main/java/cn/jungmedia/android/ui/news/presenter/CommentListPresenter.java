@@ -1,10 +1,13 @@
 package cn.jungmedia.android.ui.news.presenter;
 
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
 
+import cn.jungmedia.android.app.AppApplication;
 import cn.jungmedia.android.bean.CommentCreateModel;
 import cn.jungmedia.android.bean.CommentListModel;
 import cn.jungmedia.android.ui.news.contract.CommentListContract;
+import cn.jungmedia.android.utils.MyUtils;
 
 
 /***
@@ -23,7 +26,7 @@ import cn.jungmedia.android.ui.news.contract.CommentListContract;
 public class CommentListPresenter extends CommentListContract.Presenter {
     @Override
     public void createComment(int articleId, String value, int touid) {
-        mRxManage.add(mModel.createComment(articleId, value, touid).subscribe(new RxSubscriber<CommentCreateModel>(mContext, false) {
+        mRxManage.add(mModel.createComment(articleId, value, touid).subscribe(new RxSubscriber<BaseRespose<CommentCreateModel>>(mContext, false) {
 
             @Override
             public void onStart() {
@@ -32,8 +35,13 @@ public class CommentListPresenter extends CommentListContract.Presenter {
             }
 
             @Override
-            protected void _onNext(CommentCreateModel result) {
-                mView.returnCreateComment(result);
+            protected void _onNext(BaseRespose<CommentCreateModel> result) {
+                if (!MyUtils.verifyToken(result)) {
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                    return;
+                } else {
+                    mView.returnCreateComment(result.data);
+                }
                 mView.stopLoading();
             }
 
@@ -47,10 +55,10 @@ public class CommentListPresenter extends CommentListContract.Presenter {
 
     @Override
     public void getCommentList(int articleId, int p, int touid) {
-        mRxManage.add(mModel.getListData(articleId, p, touid).subscribe(new RxSubscriber<CommentListModel>(mContext, false) {
+        mRxManage.add(mModel.getListData(articleId, p, touid).subscribe(new RxSubscriber<BaseRespose<CommentListModel>>(mContext, false) {
             @Override
-            protected void _onNext(CommentListModel result) {
-                mView.returnCommentList(result);
+            protected void _onNext(BaseRespose<CommentListModel> result) {
+                mView.returnCommentList(result.data);
             }
 
             @Override

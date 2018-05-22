@@ -22,6 +22,7 @@ import com.umeng.socialize.PlatformConfig;
 
 import cn.jungmedia.android.BuildConfig;
 import cn.jungmedia.android.R;
+import cn.jungmedia.android.utils.MyUtils;
 import cn.jungmedia.android.utils.PerfrenceHelper;
 
 /**
@@ -31,9 +32,12 @@ public class AppApplication extends BaseApplication {
 
     private static final String TAG = AppApplication.class.getName();
     public static final String UPDATE_STATUS_ACTION = "com.umeng.message.example.action.UPDATE_STATUS";
+
     private Handler handler;
     public static final String UMENG_APPID = "5ad4b8878f4a9d4c88000282";
     public static final String UMENG_PUSH_TOKEN = "c1e99a0ffc42f542ab55850ccf1b6492";
+
+    public static boolean isLoginPage = false;
 
     @Override
     public void onCreate() {
@@ -197,5 +201,21 @@ public class AppApplication extends BaseApplication {
         }
     }
 
+    private static OnTokenInvalidCallback invalidCallback = new OnTokenInvalidCallback() {
+        @Override
+        public void onTokenInvalid() {
+            MyUtils.clearUser();
+            if (!isLoginPage) {
+                AppIntent.intentToLogin(getAppContext());
+            }
+        }
+    };
 
+    public static OnTokenInvalidCallback getInvalidCallback() {
+        return invalidCallback;
+    }
+
+    public static void setIsLoginPage(boolean isLoginPage) {
+        AppApplication.isLoginPage = isLoginPage;
+    }
 }

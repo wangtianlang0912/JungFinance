@@ -54,7 +54,7 @@ public class BloggerListPresenter extends BloggerListContract.Presenter {
     }
 
     @Override
-    public void focusAction(int objectId,final boolean status) {
+    public void focusAction(int objectId, final boolean status) {
         mRxManage.add(mModel.focusAction(objectId, status).subscribe(new RxSubscriber<BaseRespose<FavActionModel>>(mContext, false) {
 
             @Override
@@ -66,7 +66,12 @@ public class BloggerListPresenter extends BloggerListContract.Presenter {
             @Override
             protected void _onNext(BaseRespose<FavActionModel> result) {
                 mView.stopLoading();
-                mView.returnFocusBloggerState(result, !status);
+                if (!MyUtils.verifyToken(result)) {
+                    // error: "未找到授权凭证",
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                } else {
+                    mView.returnFocusBloggerState(result, !status);
+                }
             }
 
             @Override

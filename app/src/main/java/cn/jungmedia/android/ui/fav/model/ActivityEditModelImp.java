@@ -32,24 +32,25 @@ import rx.functions.Func1;
  */
 public class ActivityEditModelImp implements ActivityEditContract.Model {
     @Override
-    public Observable<ActiveFavBean> loadData(int startPage) {
+    public Observable<BaseRespose<ActiveFavBean>> loadData(int startPage) {
         String token = MyUtils.getToken();
         return Api.getDefault(HostType.Jung_FINANCE).getActivityFavList(token, startPage)
-                .map(new Func1<BaseRespose<ActiveFavBean>, ActiveFavBean>() {
+                .map(new Func1<BaseRespose<ActiveFavBean>, BaseRespose<ActiveFavBean>>() {
                     @Override
-                    public ActiveFavBean call(BaseRespose<ActiveFavBean> respose) {
+                    public BaseRespose<ActiveFavBean> call(BaseRespose<ActiveFavBean> respose) {
 
                         ActiveFavBean activeFavBean = respose.data;
-
-                        for (ActiveFavBean.Favorite favorite : activeFavBean.getFavorites()) {
-                            String cooverImage = ApiConstants.getHost(HostType.Jung_FINANCE) + favorite.getActivity().getCoverImage();
-                            favorite.getActivity().setCoverImage(cooverImage);
+                        if (activeFavBean != null) {
+                            for (ActiveFavBean.Favorite favorite : activeFavBean.getFavorites()) {
+                                String cooverImage = ApiConstants.getHost(HostType.Jung_FINANCE) + favorite.getActivity().getCoverImage();
+                                favorite.getActivity().setCoverImage(cooverImage);
+                            }
                         }
-                        return activeFavBean;
+                        return respose;
                     }
                 })
                 //声明线程调度
-                .compose(RxSchedulers.<ActiveFavBean>io_main());
+                .compose(RxSchedulers.<BaseRespose<ActiveFavBean>>io_main());
     }
 
     @Override

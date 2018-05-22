@@ -1,9 +1,12 @@
 package cn.jungmedia.android.ui.user.presenter;
 
 
-import cn.jungmedia.android.R;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
+
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppApplication;
+import cn.jungmedia.android.utils.MyUtils;
 
 /***
  *
@@ -30,7 +33,12 @@ public class BindMobilePresenterImp extends UserContract.BindMobilePresenter {
 
             @Override
             protected void _onNext(BaseRespose<String> data) {
-                mView.returnVerifyCode(data);
+                if (!MyUtils.verifyToken(data)) {
+                    // error: "未找到授权凭证",
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                } else {
+                    mView.returnVerifyCode(data);
+                }
                 mView.stopLoading();
             }
 
@@ -52,7 +60,12 @@ public class BindMobilePresenterImp extends UserContract.BindMobilePresenter {
 
             @Override
             protected void _onNext(BaseRespose data) {
-                mView.returnSubmitResponse(data);
+                if (!MyUtils.verifyToken(data)) {
+                    // error: "未找到授权凭证",
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                } else {
+                    mView.returnSubmitResponse(data);
+                }
                 mView.stopLoading();
             }
 

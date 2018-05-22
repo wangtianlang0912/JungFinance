@@ -32,26 +32,26 @@ import rx.functions.Func1;
  */
 public class BloggerFavModelImp implements BloggerFavContract.Model {
     @Override
-    public Observable<BloggerFavBean> getMediaFavList(int startPage) {
+    public Observable<BaseRespose<BloggerFavBean>> getMediaFavList(int startPage) {
         String token = MyUtils.getToken();
         return Api.getDefault(HostType.Jung_FINANCE).getMediaFavList(token, startPage)
 
-                .map(new Func1<BaseRespose<BloggerFavBean>, BloggerFavBean>() {
+                .map(new Func1<BaseRespose<BloggerFavBean>, BaseRespose<BloggerFavBean>>() {
                     @Override
-                    public BloggerFavBean call(BaseRespose<BloggerFavBean> respose) {
+                    public BaseRespose<BloggerFavBean> call(BaseRespose<BloggerFavBean> respose) {
 
                         BloggerFavBean bloggerFavBean = respose.data;
 
                         for (BloggerFavBean.Favorite favorite : bloggerFavBean.getFavorites()) {
-                            ;
+
                             String cooverImage = ApiConstants.getHost(HostType.Jung_FINANCE) + favorite.getImage();
                             favorite.setImage(cooverImage);
                         }
-                        return bloggerFavBean;
+                        return respose;
                     }
                 })
                 //声明线程调度
-                .compose(RxSchedulers.<BloggerFavBean>io_main());
+                .compose(RxSchedulers.<BaseRespose<BloggerFavBean>>io_main());
     }
 
     @Override

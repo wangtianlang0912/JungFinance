@@ -37,6 +37,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonutils.LogUtils;
 
 import java.io.ByteArrayInputStream;
@@ -412,4 +413,17 @@ public class MyUtils {
         return String.valueOf(hs);
     }
 
+
+    public static boolean verifyToken(BaseRespose respose) {
+
+        if (!respose.success()) {
+            if ("11".equals(respose.code) || "0".equals(respose.code)) {
+                // error: "未找到授权凭证",
+                AppApplication.getInvalidCallback().onTokenInvalid();
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

@@ -1,13 +1,16 @@
 package cn.jungmedia.android.ui.blogger.presenter;
 
 
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
 
 import java.util.Map;
 
 import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppApplication;
 import cn.jungmedia.android.ui.blogger.bean.BloggerFavBean;
 import cn.jungmedia.android.ui.blogger.contract.BloggerFavContract;
+import cn.jungmedia.android.utils.MyUtils;
 
 /***
  *
@@ -26,10 +29,15 @@ public class BloggerFavPresenterImp extends BloggerFavContract.Presenter {
 
     @Override
     public void getMediaFavList(int startPage) {
-        mRxManage.add(mModel.getMediaFavList(startPage).subscribe(new RxSubscriber<BloggerFavBean>(mContext, false) {
+        mRxManage.add(mModel.getMediaFavList(startPage).subscribe(new RxSubscriber<BaseRespose<BloggerFavBean>>(mContext, false) {
             @Override
-            protected void _onNext(BloggerFavBean data) {
-                mView.returnListData(data);
+            protected void _onNext(BaseRespose<BloggerFavBean> data) {
+                if (!MyUtils.verifyToken(data)) {
+                    // error: "未找到授权凭证",
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                } else {
+                    mView.returnListData(data);
+                }
                 mView.stopLoading();
             }
 

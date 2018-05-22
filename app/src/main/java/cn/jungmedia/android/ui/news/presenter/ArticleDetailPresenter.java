@@ -3,6 +3,7 @@ package cn.jungmedia.android.ui.news.presenter;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
 
+import cn.jungmedia.android.app.AppApplication;
 import cn.jungmedia.android.bean.ArticleDetail;
 import cn.jungmedia.android.bean.ArticleRelevant;
 import cn.jungmedia.android.bean.CommentCreateModel;
@@ -10,6 +11,7 @@ import cn.jungmedia.android.bean.CommentListModel;
 import cn.jungmedia.android.bean.FavActionModel;
 import cn.jungmedia.android.bean.VoteModel;
 import cn.jungmedia.android.ui.news.contract.ArticleDetaiContract;
+import cn.jungmedia.android.utils.MyUtils;
 
 
 /***
@@ -79,8 +81,14 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
 
             @Override
             protected void _onNext(BaseRespose<FavActionModel> result) {
+                if (!MyUtils.verifyToken(result)) {
+                    // error: "未找到授权凭证",
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                } else {
+                    mView.returnFavArticleState(result, true);
+                }
                 mView.stopLoading();
-                mView.returnFavArticleState(result,true);
+
             }
 
             @Override
@@ -105,7 +113,13 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
             @Override
             protected void _onNext(BaseRespose<FavActionModel> respose) {
                 mView.stopLoading();
-                mView.returnFocusBloggerState(respose,!status);
+                if (!MyUtils.verifyToken(respose)) {
+                    // error: "未找到授权凭证",
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                } else {
+                    mView.returnFocusBloggerState(respose, !status);
+                }
+
             }
 
             @Override
@@ -121,7 +135,13 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
         mRxManage.add(mModel.getArticleFavState(articleId).subscribe(new RxSubscriber<BaseRespose<FavActionModel>>(mContext, false) {
             @Override
             protected void _onNext(BaseRespose<FavActionModel> result) {
-                mView.returnFavArticleState(result,false);
+
+                if (!MyUtils.verifyToken(result)) {
+                    // error: "未找到授权凭证",
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                } else {
+                    mView.returnFavArticleState(result, false);
+                }
             }
 
             @Override
@@ -182,7 +202,12 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
 
             @Override
             protected void _onNext(BaseRespose<VoteModel> result) {
-                mView.returnVoteData(result);
+                if (!MyUtils.verifyToken(result)) {
+                    // error: "未找到授权凭证",
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                } else {
+                    mView.returnVoteData(result);
+                }
                 mView.stopLoading();
             }
 
@@ -206,7 +231,12 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
 
             @Override
             protected void _onNext(BaseRespose<VoteModel> result) {
-                mView.returnVoteData(result);
+                if (!MyUtils.verifyToken(result)) {
+                    // error: "未找到授权凭证",
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                } else {
+                    mView.returnVoteData(result);
+                }
                 mView.stopLoading();
             }
 

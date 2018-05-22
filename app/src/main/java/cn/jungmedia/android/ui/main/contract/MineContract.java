@@ -1,11 +1,12 @@
 package cn.jungmedia.android.ui.main.contract;
 
 
-import cn.jungmedia.android.ui.user.bean.UserInfo;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;
+import com.leon.common.basebean.BaseRespose;
 
+import cn.jungmedia.android.ui.user.bean.UserInfo;
 import rx.Observable;
 
 /***
@@ -24,7 +25,7 @@ import rx.Observable;
 public interface MineContract {
 
     interface IMineModel extends BaseModel {
-        Observable<UserInfo> getUserInfo();
+        Observable<BaseRespose<UserInfo>> getUserInfo();
     }
 
 

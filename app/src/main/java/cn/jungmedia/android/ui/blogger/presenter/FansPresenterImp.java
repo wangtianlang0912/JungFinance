@@ -1,10 +1,13 @@
 package cn.jungmedia.android.ui.blogger.presenter;
 
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
 
 import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppApplication;
 import cn.jungmedia.android.ui.blogger.bean.FansBean;
 import cn.jungmedia.android.ui.blogger.contract.FansContract;
+import cn.jungmedia.android.utils.MyUtils;
 
 
 /***
@@ -23,10 +26,16 @@ import cn.jungmedia.android.ui.blogger.contract.FansContract;
 public class FansPresenterImp extends FansContract.Presenter {
     @Override
     public void getFansList(int startPage) {
-        mRxManage.add(mModel.getFansList(startPage).subscribe(new RxSubscriber<FansBean>(mContext, false) {
+        mRxManage.add(mModel.getFansList(startPage).subscribe(new RxSubscriber<BaseRespose<FansBean>>(mContext, false) {
             @Override
-            protected void _onNext(FansBean data) {
-                mView.returnListData(data);
+            protected void _onNext(BaseRespose<FansBean> data) {
+                if (!MyUtils.verifyToken(data)) {
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                    return;
+                } else {
+                    mView.returnListData(data.data);
+                }
+
                 mView.stopLoading();
             }
 

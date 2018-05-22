@@ -5,7 +5,9 @@ import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
 
 import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppApplication;
 import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.utils.MyUtils;
 
 /***
  *
@@ -31,8 +33,14 @@ public class UserInfoPresenterImp extends UserContract.UserInfoPresenter {
             }
 
             @Override
-            protected void _onNext(BaseRespose<UserInfo> data) {
-                mView.returnSubmitResponse(data);
+            protected void _onNext(BaseRespose<UserInfo> respose) {
+
+                if (!MyUtils.verifyToken(respose)) {
+                    // error: "未找到授权凭证",
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                } else {
+                    mView.returnSubmitResponse(respose);
+                }
                 mView.stopLoading();
             }
 

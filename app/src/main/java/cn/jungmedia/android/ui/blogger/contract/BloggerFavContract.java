@@ -4,6 +4,7 @@ package cn.jungmedia.android.ui.blogger.contract;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;
+import com.leon.common.basebean.BaseRespose;
 
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public class BloggerFavContract {
 
     public interface Model extends BaseModel {
 
-        Observable<BloggerFavBean> getMediaFavList(int startPage);
+        Observable<BaseRespose<BloggerFavBean>> getMediaFavList(int startPage);
 
         Observable<Map<Integer, Boolean>> unFavAction(int uid);
 
@@ -36,7 +37,7 @@ public class BloggerFavContract {
     public interface View extends BaseView {
 
 
-        void returnListData(BloggerFavBean data);
+        void returnListData(BaseRespose<BloggerFavBean> data);
 
         void returnUnFavAction(Map<Integer, Boolean> map);
 

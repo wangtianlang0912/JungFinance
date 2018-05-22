@@ -1,12 +1,15 @@
 package cn.jungmedia.android.ui.fav.presenter;
 
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
 
 import java.util.Map;
 
 import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppApplication;
 import cn.jungmedia.android.ui.fav.bean.NewsFavBean;
 import cn.jungmedia.android.ui.fav.contract.NewsEditContract;
+import cn.jungmedia.android.utils.MyUtils;
 
 
 /***
@@ -25,10 +28,15 @@ import cn.jungmedia.android.ui.fav.contract.NewsEditContract;
 public class NewsEditPresenter extends NewsEditContract.Presenter {
     @Override
     public void loadDataList(int startPage) {
-        mRxManage.add(mModel.loadData(startPage).subscribe(new RxSubscriber<NewsFavBean>(mContext, false) {
+        mRxManage.add(mModel.loadData(startPage).subscribe(new RxSubscriber<BaseRespose<NewsFavBean>>(mContext, false) {
             @Override
-            protected void _onNext(NewsFavBean data) {
-                mView.returnListData(data);
+            protected void _onNext(BaseRespose<NewsFavBean> data) {
+                if (!MyUtils.verifyToken(data)) {
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                    return;
+                } else {
+                    mView.returnListData(data.data);
+                }
                 mView.stopLoading();
             }
 
@@ -47,7 +55,7 @@ public class NewsEditPresenter extends NewsEditContract.Presenter {
 
     @Override
     public void unFavAction(int objectId) {
-        mRxManage.add(mModel.unFavAction(objectId).subscribe(new RxSubscriber<Map<Integer,Boolean>>(mContext, false) {
+        mRxManage.add(mModel.unFavAction(objectId).subscribe(new RxSubscriber<Map<Integer, Boolean>>(mContext, false) {
 
             @Override
             public void onStart() {
@@ -56,7 +64,7 @@ public class NewsEditPresenter extends NewsEditContract.Presenter {
             }
 
             @Override
-            protected void _onNext(Map<Integer,Boolean> result) {
+            protected void _onNext(Map<Integer, Boolean> result) {
                 mView.stopLoading();
                 mView.returnUnFavAction(result);
             }

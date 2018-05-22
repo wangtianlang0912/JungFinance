@@ -28,13 +28,13 @@ import rx.functions.Func1;
  */
 public class FansModelImp implements FansContract.Model {
     @Override
-    public Observable<FansBean> getFansList(int startPage) {
+    public Observable<BaseRespose<FansBean>> getFansList(int startPage) {
         String token = MyUtils.getToken();
         return Api.getDefault(HostType.Jung_FINANCE).getFansList(token, startPage)
 
-                .map(new Func1<BaseRespose<FansBean>, FansBean>() {
+                .map(new Func1<BaseRespose<FansBean>, BaseRespose<FansBean>>() {
                     @Override
-                    public FansBean call(BaseRespose<FansBean> respose) {
+                    public BaseRespose<FansBean> call(BaseRespose<FansBean> respose) {
 
                         FansBean bean = respose.data;
                         if (bean.getFavorites() != null) {
@@ -45,10 +45,10 @@ public class FansModelImp implements FansContract.Model {
                                 }
                             }
                         }
-                        return bean;
+                        return respose;
                     }
                 })
                 //声明线程调度
-                .compose(RxSchedulers.<FansBean>io_main());
+                .compose(RxSchedulers.<BaseRespose<FansBean>>io_main());
     }
 }

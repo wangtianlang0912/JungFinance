@@ -23,6 +23,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppApplication;
 import cn.jungmedia.android.app.AppConstant;
 import cn.jungmedia.android.app.AppIntent;
 import cn.jungmedia.android.ui.user.bean.UserInfo;
@@ -95,6 +96,8 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
 
     @Override
     protected void initView() {
+        AppApplication.setIsLoginPage(true);
+
         MulitEditUtils.associate(mobileEdit, mobileClearIv);
         MulitEditUtils.associate(pwdEdit, pwdClearIv);
         MulitEditUtils.associate(verifycodeEdit, verifycodeClearIv);
@@ -286,6 +289,8 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
     @Override
     public void onDestroy() {
         super.onDestroy();
+        AppApplication.setIsLoginPage(false);
+
         if (sendsmsTv != null) {
             sendsmsTv.stopTimerCount();
         }

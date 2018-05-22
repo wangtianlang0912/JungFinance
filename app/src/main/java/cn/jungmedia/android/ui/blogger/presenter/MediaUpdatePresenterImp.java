@@ -4,8 +4,10 @@ import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
 
 import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppApplication;
 import cn.jungmedia.android.ui.blogger.bean.MediaInfoBean;
 import cn.jungmedia.android.ui.blogger.contract.MediaUpdateContract;
+import cn.jungmedia.android.utils.MyUtils;
 
 
 /***
@@ -27,7 +29,12 @@ public class MediaUpdatePresenterImp extends MediaUpdateContract.Presenter {
         mRxManage.add(mModel.submitMediaInfo(mediaName, realName, wxId, logoUrl, wxUrl).subscribe(new RxSubscriber<BaseRespose<MediaInfoBean>>(mContext, false) {
             @Override
             protected void _onNext(BaseRespose<MediaInfoBean> data) {
-                mView.returnData(data);
+                if (!MyUtils.verifyToken(data)) {
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                    return;
+                } else {
+                    mView.returnData(data);
+                }
                 mView.stopLoading();
             }
 

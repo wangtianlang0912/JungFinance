@@ -1,11 +1,14 @@
 package cn.jungmedia.android.ui.main.presenter;
 
 
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
 
 import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppApplication;
 import cn.jungmedia.android.ui.main.contract.MineContract;
 import cn.jungmedia.android.ui.user.bean.UserInfo;
+import cn.jungmedia.android.utils.MyUtils;
 
 /***
  *
@@ -23,7 +26,7 @@ import cn.jungmedia.android.ui.user.bean.UserInfo;
 public class MinePresenterImp extends MineContract.MinePresenter {
     @Override
     public void getUserInfo() {
-        mRxManage.add(mModel.getUserInfo().subscribe(new RxSubscriber<UserInfo>(mContext, false) {
+        mRxManage.add(mModel.getUserInfo().subscribe(new RxSubscriber<BaseRespose<UserInfo>>(mContext, false) {
             @Override
             public void onStart() {
                 super.onStart();
@@ -31,8 +34,14 @@ public class MinePresenterImp extends MineContract.MinePresenter {
             }
 
             @Override
-            protected void _onNext(UserInfo data) {
-                mView.returnUserInfoResponse(data);
+            protected void _onNext(BaseRespose<UserInfo> data) {
+
+                if (!MyUtils.verifyToken(data)) {
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                    return;
+                } else {
+                    mView.returnUserInfoResponse(data.data);
+                }
                 mView.stopLoading();
             }
 

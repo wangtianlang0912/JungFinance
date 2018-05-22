@@ -4,6 +4,7 @@ package cn.jungmedia.android.ui.blogger.contract;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;
+import com.leon.common.basebean.BaseRespose;
 
 import cn.jungmedia.android.ui.blogger.bean.FansBean;
 import rx.Observable;
@@ -25,7 +26,7 @@ public class FansContract {
 
     public interface Model extends BaseModel {
 
-        Observable<FansBean> getFansList(int startPage);
+        Observable<BaseRespose<FansBean>> getFansList(int startPage);
 
     }
 

@@ -4,6 +4,7 @@ package cn.jungmedia.android.ui.news.contract;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;
+import com.leon.common.basebean.BaseRespose;
 
 import cn.jungmedia.android.bean.CommentCreateModel;
 import cn.jungmedia.android.bean.CommentListModel;
@@ -26,9 +27,9 @@ public class CommentListContract {
 
     public interface Model extends BaseModel {
 
-        Observable<CommentListModel> getListData(int articleId, int startPage, int touid);
+        Observable<BaseRespose<CommentListModel>> getListData(int articleId, int startPage, int touid);
 
-        Observable<CommentCreateModel> createComment(int articleId, String body, int touid);
+        Observable<BaseRespose<CommentCreateModel>> createComment(int articleId, String body, int touid);
     }
 
     public interface View extends BaseView {

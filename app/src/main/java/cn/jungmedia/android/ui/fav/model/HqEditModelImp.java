@@ -32,12 +32,12 @@ import rx.functions.Func1;
  */
 public class HqEditModelImp implements HqEditContract.Model {
     @Override
-    public Observable<NewsFavBean> loadData(int startPage) {
+    public Observable<BaseRespose<NewsFavBean>> loadData(int startPage) {
         String token = MyUtils.getToken();
         return Api.getDefault(HostType.Jung_FINANCE).getArtileFavList(token, 2, startPage)
-                .map(new Func1<BaseRespose<NewsFavBean>, NewsFavBean>() {
+                .map(new Func1<BaseRespose<NewsFavBean>, BaseRespose<NewsFavBean>>() {
                     @Override
-                    public NewsFavBean call(BaseRespose<NewsFavBean> respose) {
+                    public BaseRespose<NewsFavBean> call(BaseRespose<NewsFavBean> respose) {
 
                         NewsFavBean newsFavBean = respose.data;
 
@@ -45,11 +45,11 @@ public class HqEditModelImp implements HqEditContract.Model {
                             String cooverImage = ApiConstants.getHost(HostType.Jung_FINANCE) + favorite.getArticle().getImage();
                             favorite.getArticle().setImage(cooverImage);
                         }
-                        return newsFavBean;
+                        return respose;
                     }
                 })
                 //声明线程调度
-                .compose(RxSchedulers.<NewsFavBean>io_main());
+                .compose(RxSchedulers.<BaseRespose<NewsFavBean>>io_main());
     }
 
     @Override

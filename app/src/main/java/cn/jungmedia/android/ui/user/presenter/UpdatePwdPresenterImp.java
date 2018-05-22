@@ -1,9 +1,12 @@
 package cn.jungmedia.android.ui.user.presenter;
 
 
-import cn.jungmedia.android.R;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
+
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppApplication;
+import cn.jungmedia.android.utils.MyUtils;
 
 /***
  *
@@ -30,7 +33,12 @@ public class UpdatePwdPresenterImp extends UserContract.UpdatePwdPresenter {
 
             @Override
             protected void _onNext(BaseRespose data) {
-                mView.returnSubmitResponse(data);
+                if (!MyUtils.verifyToken(data)) {
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                    return;
+                } else {
+                    mView.returnSubmitResponse(data);
+                }
                 mView.stopLoading();
             }
 

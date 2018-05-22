@@ -4,6 +4,7 @@ package cn.jungmedia.android.ui.fav.contract;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;
+import com.leon.common.basebean.BaseRespose;
 
 import java.util.Map;
 
@@ -27,7 +28,7 @@ public class FastEditContract {
 
     public interface Model extends BaseModel {
 
-        public Observable<NewsFavBean> loadData(int startPage);
+        public Observable<BaseRespose<NewsFavBean>> loadData(int startPage);
 
         public Observable<Map<Integer, Boolean>> unFavAction(int objectId);
 

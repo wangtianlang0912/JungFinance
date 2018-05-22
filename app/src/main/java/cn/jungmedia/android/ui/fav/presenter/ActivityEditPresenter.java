@@ -1,5 +1,6 @@
 package cn.jungmedia.android.ui.fav.presenter;
 
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
 
 import java.util.Map;
@@ -25,9 +26,9 @@ import cn.jungmedia.android.ui.fav.contract.ActivityEditContract;
 public class ActivityEditPresenter extends ActivityEditContract.Presenter {
     @Override
     public void loadDataList(int startPage) {
-        mRxManage.add(mModel.loadData(startPage).subscribe(new RxSubscriber<ActiveFavBean>(mContext, false) {
+        mRxManage.add(mModel.loadData(startPage).subscribe(new RxSubscriber<BaseRespose<ActiveFavBean>>(mContext, false) {
             @Override
-            protected void _onNext(ActiveFavBean data) {
+            protected void _onNext(BaseRespose<ActiveFavBean> data) {
                 mView.returnListData(data);
                 mView.stopLoading();
             }

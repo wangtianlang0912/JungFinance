@@ -196,7 +196,6 @@ public class AppIntent {
     }
 
 
-
     public static void intentToActivityEdit(Context context) {
 
         Bundle bundle = new Bundle();
@@ -233,6 +232,9 @@ public class AppIntent {
         intent.putExtra(AppConstant.FLAG_NAME, title);
         if (bundle != null) {
             intent.putExtra(AppConstant.FLAG_BUNDLE, bundle);
+        }
+        if (context instanceof AppApplication) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         }
         context.startActivity(intent);
     }

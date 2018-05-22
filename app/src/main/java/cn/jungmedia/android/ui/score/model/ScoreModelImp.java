@@ -29,13 +29,13 @@ import rx.functions.Func1;
  */
 public class ScoreModelImp implements ScoreContract.Model {
     @Override
-    public Observable<ScoreBean> getScoreInfo(int startPage) {
+    public Observable<BaseRespose<ScoreBean>> getScoreInfo(int startPage) {
         String token = MyUtils.getToken();
         return Api.getDefault(HostType.Jung_FINANCE).getScoreInfo(token, startPage, "desc")
 
-                .map(new Func1<BaseRespose<ScoreBean>, ScoreBean>() {
+                .map(new Func1<BaseRespose<ScoreBean>, BaseRespose<ScoreBean>>() {
                     @Override
-                    public ScoreBean call(BaseRespose<ScoreBean> respose) {
+                    public BaseRespose<ScoreBean> call(BaseRespose<ScoreBean> respose) {
 
                         ScoreBean bean = respose.data;
                         if (bean != null && bean.getUser() != null) {
@@ -47,10 +47,10 @@ public class ScoreModelImp implements ScoreContract.Model {
                             score.setShowTime(showTime);
                         }
 
-                        return bean;
+                        return respose;
                     }
                 })
                 //声明线程调度
-                .compose(RxSchedulers.<ScoreBean>io_main());
+                .compose(RxSchedulers.<BaseRespose<ScoreBean>>io_main());
     }
 }

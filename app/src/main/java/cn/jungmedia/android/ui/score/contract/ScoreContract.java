@@ -4,6 +4,7 @@ package cn.jungmedia.android.ui.score.contract;
 import com.leon.common.base.BaseModel;
 import com.leon.common.base.BasePresenter;
 import com.leon.common.base.BaseView;
+import com.leon.common.basebean.BaseRespose;
 
 import cn.jungmedia.android.ui.score.bean.ScoreBean;
 import rx.Observable;
@@ -25,7 +26,7 @@ public class ScoreContract {
 
     public interface Model extends BaseModel {
 
-        Observable<ScoreBean> getScoreInfo(int startPage);
+        Observable<BaseRespose<ScoreBean>> getScoreInfo(int startPage);
 
     }
 

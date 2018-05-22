@@ -189,13 +189,13 @@ public class SettingFragment extends BaseFragment<SettingPresenter, SettingModel
 
     @Override
     public void returnLogout(boolean result) {
-        if (result) {
+//        if (result) {
             MyUtils.clearUser();
             ToastUitl.showShort("注销成功");
             getActivity().finish();
-        } else {
-
-            ToastUitl.showShort("注销失败");
-        }
+//        } else {
+//
+//            ToastUitl.showShort("注销失败");
+//        }
     }
 }

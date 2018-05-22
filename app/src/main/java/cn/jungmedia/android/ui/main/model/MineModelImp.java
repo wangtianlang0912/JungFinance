@@ -28,19 +28,19 @@ import rx.functions.Func1;
  */
 public class MineModelImp implements MineContract.IMineModel {
     @Override
-    public Observable<UserInfo> getUserInfo() {
+    public Observable<BaseRespose<UserInfo>> getUserInfo() {
         return Api.getDefault(HostType.Jung_FINANCE)
                 .getUserInfo(MyUtils.getToken())
-                .map(new Func1<BaseRespose<UserInfo>, UserInfo>() {
+                .map(new Func1<BaseRespose<UserInfo>, BaseRespose<UserInfo>>() {
                     @Override
-                    public UserInfo call(BaseRespose<UserInfo> respose) {
+                    public BaseRespose<UserInfo> call(BaseRespose<UserInfo> respose) {
                         UserInfo userInfo = respose.data;
                         if (userInfo != null && userInfo.getUser() != null) {
                             userInfo.getUser().setLogo(ApiConstants.getHost(HostType.Jung_FINANCE) + userInfo.getUser().getLogo());
                         }
-                        return respose.data;
+                        return respose;
                     }
-                }).compose(RxSchedulers.<UserInfo>io_main());
+                }).compose(RxSchedulers.<BaseRespose<UserInfo>>io_main());
     }
 
 //    @Override

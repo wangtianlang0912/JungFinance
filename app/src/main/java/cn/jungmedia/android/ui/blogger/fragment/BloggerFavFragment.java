@@ -10,6 +10,7 @@ import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.swipe.SwipeItemLayout;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.leon.common.base.BaseFragment;
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonwidget.LoadingTip;
 
 import java.util.ArrayList;
@@ -41,7 +42,7 @@ import cn.jungmedia.android.ui.blogger.presenter.BloggerFavPresenterImp;
  *
  *
  */
-public class BloggerFavFragment extends BaseFragment<BloggerFavPresenterImp,BloggerFavModelImp> implements BloggerFavContract.View, OnRefreshListener, OnLoadMoreListener, BloggerFavAdapter.OnDeleteBtnClickListener {
+public class BloggerFavFragment extends BaseFragment<BloggerFavPresenterImp, BloggerFavModelImp> implements BloggerFavContract.View, OnRefreshListener, OnLoadMoreListener, BloggerFavAdapter.OnDeleteBtnClickListener {
 
     @Bind(R.id.irc)
     IRecyclerView irc;
@@ -138,10 +139,14 @@ public class BloggerFavFragment extends BaseFragment<BloggerFavPresenterImp,Blog
     }
 
     @Override
-    public void returnListData(BloggerFavBean data) {
+    public void returnListData(BaseRespose<BloggerFavBean> response) {
         irc.setRefreshing(false);
-
-        List<BloggerFavBean.Favorite> list = data.getFavorites();
+        if (response.data == null) {
+            listAdapter.clear();
+            listAdapter.notifyDataSetChanged();
+            return;
+        }
+        List<BloggerFavBean.Favorite> list = response.data.getFavorites();
         if (list != null) {
             if (listAdapter.getPageBean().isRefresh()) {
                 listAdapter.replaceAll(list);
@@ -150,15 +155,15 @@ public class BloggerFavFragment extends BaseFragment<BloggerFavPresenterImp,Blog
             }
         }
         listAdapter.notifyDataSetChanged();
-        Counter counter = data.getCounter();
+        Counter counter = response.data.getCounter();
         if (counter != null) {
             if (counter.getPageIndex() < counter.getPageCount()) {
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                 mStartPage++;
             } else {
-                if(listAdapter.getSize()>0) {
+                if (listAdapter.getSize() > 0) {
                     irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
-                }else {
+                } else {
                     irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
                 }

@@ -10,6 +10,7 @@ import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.swipe.SwipeItemLayout;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.leon.common.base.BaseFragment;
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonwidget.LoadingTip;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import java.util.Set;
 
 import butterknife.Bind;
 import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppApplication;
 import cn.jungmedia.android.app.AppConstant;
 import cn.jungmedia.android.bean.Counter;
 import cn.jungmedia.android.ui.fav.adapter.ActiveEditListAdapter;
@@ -26,6 +28,7 @@ import cn.jungmedia.android.ui.fav.bean.ActiveFavBean;
 import cn.jungmedia.android.ui.fav.contract.ActivityEditContract;
 import cn.jungmedia.android.ui.fav.model.ActivityEditModelImp;
 import cn.jungmedia.android.ui.fav.presenter.ActivityEditPresenter;
+import cn.jungmedia.android.utils.MyUtils;
 
 
 /***
@@ -162,9 +165,19 @@ public class ActivityEditFragment extends BaseFragment<ActivityEditPresenter, Ac
 
 
     @Override
-    public void returnListData(ActiveFavBean data) {
+    public void returnListData(BaseRespose<ActiveFavBean> response) {
         irc.setRefreshing(false);
-        List<ActiveFavBean.Favorite> list = data.getFavorites();
+        if (!MyUtils.verifyToken(response)) {
+            AppApplication.getInvalidCallback().onTokenInvalid();
+            return;
+        }
+        if (response.data == null) {
+            listAdapter.clear();
+            listAdapter.notifyDataSetChanged();
+
+            return;
+        }
+        List<ActiveFavBean.Favorite> list = response.data.getFavorites();
         if (list != null) {
             if (listAdapter.getPageBean().isRefresh()) {
 
@@ -174,7 +187,7 @@ public class ActivityEditFragment extends BaseFragment<ActivityEditPresenter, Ac
             }
         }
         listAdapter.notifyDataSetChanged();
-        Counter counter = data.getCounter();
+        Counter counter = response.data.getCounter();
         if (counter != null) {
             if (counter.getPageIndex() < counter.getPageCount()) {
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);

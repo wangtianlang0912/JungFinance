@@ -1,12 +1,15 @@
 package cn.jungmedia.android.ui.fav.presenter;
 
+import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSubscriber;
 
 import java.util.Map;
 
 import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppApplication;
 import cn.jungmedia.android.ui.fav.bean.NewsFavBean;
 import cn.jungmedia.android.ui.fav.contract.FastEditContract;
+import cn.jungmedia.android.utils.MyUtils;
 
 
 /***
@@ -25,10 +28,15 @@ import cn.jungmedia.android.ui.fav.contract.FastEditContract;
 public class FastEditPresenter extends FastEditContract.Presenter {
     @Override
     public void loadDataList(int startPage) {
-        mRxManage.add(mModel.loadData(startPage).subscribe(new RxSubscriber<NewsFavBean>(mContext, false) {
+        mRxManage.add(mModel.loadData(startPage).subscribe(new RxSubscriber<BaseRespose<NewsFavBean>>(mContext, false) {
             @Override
-            protected void _onNext(NewsFavBean data) {
-                mView.returnListData(data);
+            protected void _onNext(BaseRespose<NewsFavBean> data) {
+                if (!MyUtils.verifyToken(data)) {
+                    AppApplication.getInvalidCallback().onTokenInvalid();
+                    return;
+                } else {
+                    mView.returnListData(data.data);
+                }
                 mView.stopLoading();
             }
 
