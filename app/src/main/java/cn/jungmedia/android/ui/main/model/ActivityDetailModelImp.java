@@ -1,14 +1,14 @@
 package cn.jungmedia.android.ui.main.model;
 
 
+import com.leon.common.basebean.BaseRespose;
+import com.leon.common.baserx.RxSchedulers;
+
 import cn.jungmedia.android.api.Api;
 import cn.jungmedia.android.api.HostType;
 import cn.jungmedia.android.bean.ActivityFavModel;
 import cn.jungmedia.android.ui.main.contract.ActivityDetailContract;
 import cn.jungmedia.android.utils.MyUtils;
-import com.leon.common.basebean.BaseRespose;
-import com.leon.common.baserx.RxSchedulers;
-
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -39,7 +39,10 @@ public class ActivityDetailModelImp implements ActivityDetailContract.Model {
                     @Override
                     public ActivityFavModel.Favorite call(BaseRespose<ActivityFavModel> baseRespose) {
                         ActivityFavModel activityModel = baseRespose.data;
-                        return activityModel.getFavorite();
+                        if(activityModel!=null) {
+                            return activityModel.getFavorite();
+                        }
+                        return null;
                     }
                 })
                 //声明线程调度
@@ -58,8 +61,10 @@ public class ActivityDetailModelImp implements ActivityDetailContract.Model {
         return observable.map(new Func1<BaseRespose<ActivityFavModel>, ActivityFavModel.Favorite>() {
             @Override
             public ActivityFavModel.Favorite call(BaseRespose<ActivityFavModel> baseRespose) {
-
-                return baseRespose.data.getFavorite();
+                if (baseRespose.data != null) {
+                    return baseRespose.data.getFavorite();
+                }
+                return null;
             }
         })
                 //声明线程调度

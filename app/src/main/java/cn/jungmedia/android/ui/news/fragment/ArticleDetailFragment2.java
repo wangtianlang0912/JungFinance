@@ -249,7 +249,7 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
     public void returnFavArticleState(BaseRespose<FavActionModel> respose, boolean toastRefer) {
         if (respose.success()) {
             FavActionModel activityModel = respose.data;
-            if (activityModel.getFavorite() != null) {
+            if (activityModel != null && activityModel.getFavorite() != null) {
                 if (activityModel.getFavorite().getStatus() == 0) {
                     favBtn.setImageResource(R.drawable.icon_fav_s);
                     favBtn.setTag(activityModel.getFavorite().getObjectId());
