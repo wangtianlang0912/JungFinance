@@ -171,6 +171,12 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
             case R.id.forget_pwd_btn:
                 AppIntent.intentToForgetPwd(getActivity());
                 break;
+            case R.id.mobile_clear_iv:
+                mobileEdit.setText("");
+                break;
+            case R.id.pwd_clear_iv:
+                pwdEdit.setText("");
+                break;
         }
     }
 

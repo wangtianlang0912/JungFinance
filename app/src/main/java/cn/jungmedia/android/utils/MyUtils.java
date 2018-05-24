@@ -306,6 +306,7 @@ public class MyUtils {
     // 取得用户及设备标识
     // 标识设备 android=md5(imei+mac+manufacturer+model)；ios=openUDID（Unique Device
     // IDentifier）】
+
     /**
      * 由于在2013.12.19日新闻将行为日志的格式升级为3.0.1在2013.12.25日对行为日志设备id进行了调整，
      * 如果取md5之后是16位的不变，不低于32位的，则取中间的16位，对于目前的用户量完全满足而且可以节约存储
@@ -356,16 +357,17 @@ public class MyUtils {
             return info.getMacAddress();
         } else {
             //from API level 9, 2.3
-            if(android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD) {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.GINGERBREAD) {
                 return getMacAddressL9();
             }
         }
         return null;
     }
+
     //根据IP获取本地Mac
     @SuppressLint("NewApi")
     public static String getMacAddressL9() {
-        String mac_s= "";
+        String mac_s = "";
         try {
             byte[] mac;
             String ip_s = getLocalIpAddress();
@@ -383,9 +385,9 @@ public class MyUtils {
         try {
             NetworkInterface intf = null;
             InetAddress inetAddress = null;
-            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements();) {
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
                 intf = en.nextElement();
-                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements();) {
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
                     inetAddress = enumIpAddr.nextElement();
                     if (!inetAddress.isLoopbackAddress()) {
                         return inetAddress.getHostAddress().toString();
@@ -417,7 +419,7 @@ public class MyUtils {
     public static boolean verifyToken(BaseRespose respose) {
 
         if (!respose.success()) {
-            if ("11".equals(respose.code) || "0".equals(respose.code)) {
+            if ("11".equals(respose.code) || "未找到授权凭证".equals(respose.msg)) {
                 // error: "未找到授权凭证",
                 AppApplication.getInvalidCallback().onTokenInvalid();
                 return false;
