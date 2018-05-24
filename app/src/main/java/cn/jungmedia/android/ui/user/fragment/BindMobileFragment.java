@@ -8,11 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import cn.jungmedia.android.ui.user.model.BindMobileModelImp;
-import cn.jungmedia.android.ui.user.presenter.BindMobilePresenterImp;
-import cn.jungmedia.android.utils.PatternUtil;
-import cn.jungmedia.android.R;
-import cn.jungmedia.android.ui.user.presenter.UserContract;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonutils.ToastUitl;
@@ -22,6 +17,11 @@ import com.leon.common.ui.counterButton.VerificationInfo;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.ui.user.model.BindMobileModelImp;
+import cn.jungmedia.android.ui.user.presenter.BindMobilePresenterImp;
+import cn.jungmedia.android.ui.user.presenter.UserContract;
+import cn.jungmedia.android.utils.PatternUtil;
 
 
 /***
@@ -156,7 +156,7 @@ public class BindMobileFragment extends BaseFragment<BindMobilePresenterImp, Bin
         if (result.success()) {
             sendsmsTv.startTimer();
         } else {
-            ToastUitl.showShort("验证码发送失败");
+            ToastUitl.showShort(result.msg != null ? result.msg : "验证码发送失败");
         }
     }
 

@@ -267,7 +267,7 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
         if (result.success()) {
             sendsmsTv.startTimer();
         } else {
-            ToastUitl.showShort("验证码发送失败");
+            ToastUitl.showShort(result.msg != null ? result.msg : "验证码发送失败");
         }
     }
 
