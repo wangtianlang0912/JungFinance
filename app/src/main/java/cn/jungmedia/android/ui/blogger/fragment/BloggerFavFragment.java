@@ -94,7 +94,7 @@ public class BloggerFavFragment extends BaseFragment<BloggerFavPresenterImp, Blo
     public void onRefresh() {
         emptyLayout.setVisibility(View.GONE);
         listAdapter.getPageBean().setRefresh(true);
-        mStartPage = 0;
+        mStartPage = 1;
         //发起请求
         irc.setRefreshing(true);
         mPresenter.getMediaFavList(mStartPage);

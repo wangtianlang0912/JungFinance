@@ -40,7 +40,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
     private List<ArticleModel.Article> datas = new ArrayList<>();
 
     private String mNewsId;
-    private int mStartPage = 0;
+    private int mStartPage = 1;
 
     // 标志位，标志已经初始化完成。
     private boolean isPrepared;
@@ -73,7 +73,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
         irc.setOnLoadMoreListener(this);
         //数据为空才重新发起请求
         if (newListAdapter.getSize() <= 0) {
-            mStartPage = 0;
+            mStartPage = 1;
             mPresenter.getNewsListDataRequest(mNewsId, mStartPage);
         }
     }
@@ -141,7 +141,7 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
     @Override
     public void onRefresh() {
         newListAdapter.getPageBean().setRefresh(true);
-        mStartPage = 0;
+        mStartPage = 1;
         //发起请求
         irc.setRefreshing(true);
         mPresenter.getNewsListDataRequest(mNewsId, mStartPage);

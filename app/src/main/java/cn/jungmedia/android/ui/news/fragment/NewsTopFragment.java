@@ -63,7 +63,7 @@ public class NewsTopFragment extends BaseFragment<NewsListPresenter, NewsListMod
     private List<ArticleModel.Article> datas = new ArrayList<>();
 
     private String mNewsId;
-    private int mStartPage = 0;
+    private int mStartPage = 1;
 
     // 标志位，标志已经初始化完成。
     private boolean isPrepared;
@@ -105,7 +105,6 @@ public class NewsTopFragment extends BaseFragment<NewsListPresenter, NewsListMod
             bannerView.getPagercontrol().setLayoutParams(layoutParams);
             bannerView.setOnItemClicklistener(getOnItemClickListener());
             bannerAdapter = new BannerAdapter(getActivity(), bannerList, null);
-            bannerAdapter.setDefaultLogoRes(R.drawable.logo_pic);
             bannerView.setAdapter(bannerAdapter);
             bannerView.notifyPagerControler();
 
@@ -121,7 +120,7 @@ public class NewsTopFragment extends BaseFragment<NewsListPresenter, NewsListMod
         irc.setOnLoadMoreListener(this);
         //数据为空才重新发起请求
         if (newListAdapter.getSize() <= 0) {
-            mStartPage = 0;
+            mStartPage = 1;
             mPresenter.getNewsListDataRequest(mNewsId, mStartPage);
 
             if (TextUtils.isEmpty(mNewsId)) {
@@ -226,7 +225,7 @@ public class NewsTopFragment extends BaseFragment<NewsListPresenter, NewsListMod
     @Override
     public void onRefresh() {
         newListAdapter.getPageBean().setRefresh(true);
-        mStartPage = 0;
+        mStartPage = 1;
         //发起请求
         irc.setRefreshing(true);
         mPresenter.getNewsListDataRequest(mNewsId, mStartPage);

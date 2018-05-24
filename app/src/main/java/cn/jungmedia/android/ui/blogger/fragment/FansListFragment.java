@@ -83,7 +83,7 @@ public class FansListFragment extends BaseFragment<FansPresenterImp, FansModelIm
 
         emptyLayout.setVisibility(View.GONE);
         listAdapter.getPageBean().setRefresh(true);
-        mStartPage = 0;
+        mStartPage = 1;
         //发起请求
         irc.setRefreshing(true);
         mPresenter.getFansList(mStartPage);

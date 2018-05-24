@@ -96,7 +96,7 @@ public class ScoreListFragment extends BaseFragment<ScorePresenterImp, ScoreMode
     @Override
     public void onRefresh() {
         listAdapter.getPageBean().setRefresh(true);
-        mStartPage = 0;
+        mStartPage = 1;
         //发起请求
         irc.setRefreshing(true);
         mPresenter.getScoreInfo(mStartPage);

@@ -92,7 +92,7 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
         articleId = bundle.getInt(AppConstant.FLAG_DATA);
         //数据为空才重新发起请求
         if (commentListAdapter.getSize() <= 0) {
-            mStartPage = 0;
+            mStartPage = 1;
             mPresenter.getCommentList(articleId, mStartPage, 0);
         }
     }
@@ -157,7 +157,7 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
     @Override
     public void onRefresh() {
         commentListAdapter.getPageBean().setRefresh(true);
-        mStartPage = 0;
+        mStartPage = 1;
         //发起请求
         irc.setRefreshing(true);
         mPresenter.getCommentList(articleId, mStartPage,0);

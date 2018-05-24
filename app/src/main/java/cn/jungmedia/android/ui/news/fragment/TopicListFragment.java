@@ -7,14 +7,6 @@ import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
-import cn.jungmedia.android.app.AppConstant;
-import cn.jungmedia.android.bean.Counter;
-import cn.jungmedia.android.bean.TopicModel;
-import cn.jungmedia.android.ui.news.contract.TopicListContract;
-import cn.jungmedia.android.ui.news.presenter.TopicListPresenter;
-import cn.jungmedia.android.R;
-import cn.jungmedia.android.ui.news.adapter.TopicListAdapter;
-import cn.jungmedia.android.ui.news.model.TopicListModel;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonwidget.LoadingTip;
 
@@ -22,6 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.app.AppConstant;
+import cn.jungmedia.android.bean.Counter;
+import cn.jungmedia.android.bean.TopicModel;
+import cn.jungmedia.android.ui.news.adapter.TopicListAdapter;
+import cn.jungmedia.android.ui.news.contract.TopicListContract;
+import cn.jungmedia.android.ui.news.model.TopicListModel;
+import cn.jungmedia.android.ui.news.presenter.TopicListPresenter;
 
 /**
  * des:专栏
@@ -71,7 +71,7 @@ public class TopicListFragment extends BaseFragment<TopicListPresenter, TopicLis
     @Override
     public void onRefresh() {
         listAdapter.getPageBean().setRefresh(true);
-        mStartPage = 0;
+        mStartPage = 1;
         //发起请求
         irc.setRefreshing(true);
         mPresenter.getListDataRequest(mUid, mStartPage);

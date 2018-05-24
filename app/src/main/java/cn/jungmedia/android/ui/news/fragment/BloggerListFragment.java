@@ -70,7 +70,7 @@ public class BloggerListFragment extends BaseFragment<BloggerListPresenter, Blog
     @Override
     public void onRefresh() {
         bloggerListAdapter.getPageBean().setRefresh(true);
-        mStartPage = 0;
+        mStartPage = 1;
         //发起请求
         irc.setRefreshing(true);
         mPresenter.getBloggerListDataRequest(mStartPage);

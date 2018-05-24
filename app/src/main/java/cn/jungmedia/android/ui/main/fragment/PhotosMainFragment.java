@@ -12,12 +12,6 @@ import com.aspsine.irecyclerview.universaladapter.recyclerview.CommonRecycleView
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import cn.jungmedia.android.ui.news.activity.PhotosDetailActivity;
-import cn.jungmedia.android.ui.news.contract.PhotoListContract;
-import cn.jungmedia.android.ui.news.presenter.PhotosListPresenter;
-import cn.jungmedia.android.R;
-import cn.jungmedia.android.bean.PhotoGirl;
-import cn.jungmedia.android.ui.news.model.PhotosListModel;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonwidget.LoadingTip;
 import com.leon.common.commonwidget.NormalTitleBar;
@@ -25,6 +19,12 @@ import com.leon.common.commonwidget.NormalTitleBar;
 import java.util.List;
 
 import butterknife.Bind;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.PhotoGirl;
+import cn.jungmedia.android.ui.news.activity.PhotosDetailActivity;
+import cn.jungmedia.android.ui.news.contract.PhotoListContract;
+import cn.jungmedia.android.ui.news.model.PhotosListModel;
+import cn.jungmedia.android.ui.news.presenter.PhotosListPresenter;
 
 /**
  * des:图片首页
@@ -125,7 +125,7 @@ public class PhotosMainFragment extends BaseFragment<PhotosListPresenter,PhotosL
     @Override
     public void onRefresh() {
         adapter.getPageBean().setRefresh(true);
-        mStartPage = 0;
+        mStartPage = 1;
         //发起请求
         irc.setRefreshing(true);
         mPresenter.getPhotosListDataRequest(SIZE, mStartPage);

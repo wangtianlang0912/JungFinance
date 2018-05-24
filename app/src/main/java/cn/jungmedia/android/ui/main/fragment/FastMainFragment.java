@@ -11,13 +11,6 @@ import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
-import cn.jungmedia.android.bean.Counter;
-import cn.jungmedia.android.bean.FastModel;
-import cn.jungmedia.android.ui.main.adapter.FastListAdapter;
-import cn.jungmedia.android.ui.main.presenter.FastListPresenterImp;
-import cn.jungmedia.android.R;
-import cn.jungmedia.android.ui.main.model.FastModelImp;
-import cn.jungmedia.android.ui.news.contract.FastListContract;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonwidget.LoadingTip;
 import com.leon.common.commonwidget.NormalTitleBar;
@@ -27,6 +20,13 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.Counter;
+import cn.jungmedia.android.bean.FastModel;
+import cn.jungmedia.android.ui.main.adapter.FastListAdapter;
+import cn.jungmedia.android.ui.main.model.FastModelImp;
+import cn.jungmedia.android.ui.main.presenter.FastListPresenterImp;
+import cn.jungmedia.android.ui.news.contract.FastListContract;
 
 
 /***
@@ -52,7 +52,7 @@ public class FastMainFragment extends BaseFragment<FastListPresenterImp, FastMod
     private FastListAdapter newListAdapter;
     private List<FastModel.FastComment> datas = new ArrayList<>();
 
-    private int mStartPage = 0;
+    private int mStartPage = 1;
 
     // 标志位，标志已经初始化完成。
     private boolean isPrepared;
@@ -82,7 +82,7 @@ public class FastMainFragment extends BaseFragment<FastListPresenterImp, FastMod
         irc.setOnLoadMoreListener(this);
         //数据为空才重新发起请求
         if (newListAdapter.getSize() <= 0) {
-            mStartPage = 0;
+            mStartPage = 1;
             mPresenter.getNewsListDataRequest(mStartPage);
         }
     }
@@ -117,7 +117,7 @@ public class FastMainFragment extends BaseFragment<FastListPresenterImp, FastMod
     @Override
     public void onRefresh() {
         newListAdapter.getPageBean().setRefresh(true);
-        mStartPage = 0;
+        mStartPage = 1;
         //发起请求
         irc.setRefreshing(true);
         mPresenter.getNewsListDataRequest(mStartPage);
@@ -125,7 +125,7 @@ public class FastMainFragment extends BaseFragment<FastListPresenterImp, FastMod
 
     @Override
     public void onLoadMore(View loadMoreView) {
-        if (!irc.canLoadMore()){
+        if (!irc.canLoadMore()) {
             return;
         }
         newListAdapter.getPageBean().setRefresh(false);

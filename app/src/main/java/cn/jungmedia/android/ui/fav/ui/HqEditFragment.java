@@ -98,7 +98,7 @@ public class HqEditFragment extends BaseFragment<HqEditPresenter, HqEditModelImp
 
         emptyLayout.setVisibility(View.GONE);
         listAdapter.getPageBean().setRefresh(true);
-        mStartPage = 0;
+        mStartPage = 1;
         //发起请求
         irc.setRefreshing(true);
         mPresenter.loadDataList(mStartPage);

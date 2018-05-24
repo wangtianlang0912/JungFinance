@@ -11,13 +11,6 @@ import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
-import cn.jungmedia.android.bean.Counter;
-import cn.jungmedia.android.ui.main.model.ActivityModelImp;
-import cn.jungmedia.android.ui.main.presenter.ActivityPresenterImp;
-import cn.jungmedia.android.R;
-import cn.jungmedia.android.bean.ActivityModel;
-import cn.jungmedia.android.ui.main.adapter.ActivityListAdapter;
-import cn.jungmedia.android.ui.main.contract.ActivityContract;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonwidget.LoadingTip;
 import com.leon.common.commonwidget.NormalTitleBar;
@@ -27,6 +20,13 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import cn.jungmedia.android.R;
+import cn.jungmedia.android.bean.ActivityModel;
+import cn.jungmedia.android.bean.Counter;
+import cn.jungmedia.android.ui.main.adapter.ActivityListAdapter;
+import cn.jungmedia.android.ui.main.contract.ActivityContract;
+import cn.jungmedia.android.ui.main.model.ActivityModelImp;
+import cn.jungmedia.android.ui.main.presenter.ActivityPresenterImp;
 
 /***
  * 活动
@@ -48,7 +48,7 @@ public class ActivityMainFragment extends BaseFragment<ActivityPresenterImp, Act
     NormalTitleBar ntb;
     private ActivityListAdapter listAdapter;
     private List<ActivityModel.Activity> datas = new ArrayList<>();
-    int mStartPage;
+    int mStartPage = 1;
 
     @Override
     protected int getLayoutResource() {
@@ -73,7 +73,7 @@ public class ActivityMainFragment extends BaseFragment<ActivityPresenterImp, Act
         irc.setOnLoadMoreListener(this);
         //数据为空才重新发起请求
         if (listAdapter.getSize() <= 0) {
-            mStartPage = 0;
+            mStartPage = 1;
             mPresenter.loadActivityList(mStartPage);
         }
     }
@@ -81,7 +81,7 @@ public class ActivityMainFragment extends BaseFragment<ActivityPresenterImp, Act
     @Override
     public void onRefresh() {
         listAdapter.getPageBean().setRefresh(true);
-        mStartPage = 0;
+        mStartPage = 1;
         //发起请求
         irc.setRefreshing(true);
         mPresenter.loadActivityList(mStartPage);
@@ -89,7 +89,7 @@ public class ActivityMainFragment extends BaseFragment<ActivityPresenterImp, Act
 
     @Override
     public void onLoadMore(View loadMoreView) {
-        if (!irc.canLoadMore()){
+        if (!irc.canLoadMore()) {
             return;
         }
         listAdapter.getPageBean().setRefresh(false);

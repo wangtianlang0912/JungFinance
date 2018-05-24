@@ -114,7 +114,7 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
     @Override
     public void onRefresh() {
         newListAdapter.getPageBean().setRefresh(true);
-        mStartPage = 0;
+        mStartPage = 1;
         //发起请求
         irc.setRefreshing(true);
         mPresenter.getBloggerArticleList(mObjectId, mStartPage);
