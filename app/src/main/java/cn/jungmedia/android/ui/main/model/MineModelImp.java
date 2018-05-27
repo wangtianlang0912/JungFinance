@@ -4,7 +4,6 @@ import com.leon.common.basebean.BaseRespose;
 import com.leon.common.baserx.RxSchedulers;
 
 import cn.jungmedia.android.api.Api;
-import cn.jungmedia.android.api.ApiConstants;
 import cn.jungmedia.android.api.HostType;
 import cn.jungmedia.android.ui.main.contract.MineContract;
 import cn.jungmedia.android.ui.user.bean.UserInfo;
@@ -34,10 +33,6 @@ public class MineModelImp implements MineContract.IMineModel {
                 .map(new Func1<BaseRespose<UserInfo>, BaseRespose<UserInfo>>() {
                     @Override
                     public BaseRespose<UserInfo> call(BaseRespose<UserInfo> respose) {
-                        UserInfo userInfo = respose.data;
-                        if (userInfo != null && userInfo.getUser() != null) {
-                            userInfo.getUser().setLogo(ApiConstants.getHost(HostType.Jung_FINANCE) + userInfo.getUser().getLogo());
-                        }
                         return respose;
                     }
                 }).compose(RxSchedulers.<BaseRespose<UserInfo>>io_main());

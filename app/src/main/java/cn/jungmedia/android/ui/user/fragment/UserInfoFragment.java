@@ -99,7 +99,7 @@ public class UserInfoFragment extends BaseFragment<UserInfoPresenterImp, UserInf
         if (MyUtils.isLogin()) {
             userInfo = MyUtils.getUserInfoFromPreference(getActivity());
             if (userInfo != null && userInfo.getUser() != null) {
-                ImageLoaderUtils.displayRound(getContext(), logoView, userInfo.getUser().getLogo());
+                ImageLoaderUtils.displayRound(getContext(), logoView, ApiConstants.getHost(HostType.Jung_FINANCE) + userInfo.getUser().getLogo());
                 nickEdit.setText(userInfo.getUser().getNick());
                 despEdit.setText(userInfo.getUser().getRemark());
             }

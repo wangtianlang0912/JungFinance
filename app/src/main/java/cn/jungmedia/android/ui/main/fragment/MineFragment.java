@@ -17,6 +17,8 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jungmedia.android.R;
+import cn.jungmedia.android.api.ApiConstants;
+import cn.jungmedia.android.api.HostType;
 import cn.jungmedia.android.app.AppIntent;
 import cn.jungmedia.android.ui.main.contract.MineContract;
 import cn.jungmedia.android.ui.main.model.MineModelImp;
@@ -246,8 +248,7 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
         if (userInfo != null && userInfo.getUser() != null) {
 
             MyUtils.saveUserInfo(getActivity(), userInfo);
-
-            ImageLoaderUtils.displayRound(getContext(), imgLogo, userInfo.getUser().getLogo());
+            ImageLoaderUtils.displayRound(getContext(), imgLogo, ApiConstants.getHost(HostType.Jung_FINANCE) + userInfo.getUser().getLogo());
             nickView.setText(userInfo.getUser().getNick());
             despView.setText(userInfo.getUser().getRemark());
             subscribeNum.setText(userInfo.getUser().getMCount() + "");
