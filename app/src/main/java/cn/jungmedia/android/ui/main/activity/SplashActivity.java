@@ -23,6 +23,8 @@ public class SplashActivity extends BaseActivity {
     ImageView ivLogo;
     @Bind(R.id.tv_name)
     TextView tvName;
+    AnimatorSet animatorSet = new AnimatorSet();
+    boolean isDestroyed;
 
     @Override
     public int getLayoutId() {
@@ -43,7 +45,7 @@ public class SplashActivity extends BaseActivity {
         ObjectAnimator objectAnimator1 = ObjectAnimator.ofPropertyValuesHolder(tvName, alpha, scaleX, scaleY);
         ObjectAnimator objectAnimator2 = ObjectAnimator.ofPropertyValuesHolder(ivLogo, alpha, scaleX, scaleY);
 
-        AnimatorSet animatorSet = new AnimatorSet();
+
         animatorSet.playTogether(objectAnimator1, objectAnimator2);
         animatorSet.setInterpolator(new AccelerateInterpolator());
         animatorSet.setDuration(1000);
@@ -55,9 +57,12 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                MainActivity.startAction(SplashActivity.this);
+
+                if (!isDestroyed) {
+                    MainActivity.startAction(SplashActivity.this);
 //                AppIntent.intentToUpdatePwd(SplashActivity.this);
-                finish();
+                    finish();
+                }
             }
 
             @Override
@@ -71,6 +76,17 @@ public class SplashActivity extends BaseActivity {
             }
         });
         animatorSet.start();
+
+
     }
 
+
+    @Override
+    protected void onDestroy() {
+        if (animatorSet != null) {
+            animatorSet.cancel();
+        }
+        isDestroyed = true;
+        super.onDestroy();
+    }
 }
