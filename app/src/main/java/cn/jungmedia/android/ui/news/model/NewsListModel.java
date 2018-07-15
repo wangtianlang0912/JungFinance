@@ -1,5 +1,11 @@
 package cn.jungmedia.android.ui.news.model;
 
+import com.leon.common.basebean.BaseRespose;
+import com.leon.common.baserx.RxSchedulers;
+import com.leon.common.commonutils.TimeUtil;
+
+import java.util.List;
+
 import cn.jungmedia.android.api.Api;
 import cn.jungmedia.android.api.ApiConstants;
 import cn.jungmedia.android.api.HostType;
@@ -7,12 +13,6 @@ import cn.jungmedia.android.bean.ArticleModel;
 import cn.jungmedia.android.bean.BannerModel;
 import cn.jungmedia.android.bean.LinkModel;
 import cn.jungmedia.android.ui.news.contract.NewsListContract;
-import com.leon.common.basebean.BaseRespose;
-import com.leon.common.baserx.RxSchedulers;
-import com.leon.common.commonutils.TimeUtil;
-
-import java.util.List;
-
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -74,8 +74,8 @@ public class NewsListModel implements NewsListContract.Model {
             @Override
             public LinkModel call(BaseRespose<LinkModel> linkModelBaseRespose) {
                 LinkModel linkModel = linkModelBaseRespose.data;
-                LinkModel.Link link = linkModel.getLink();
-                if (link != null) {
+                if (linkModel != null && linkModel.getLink() != null) {
+                    LinkModel.Link link = linkModel.getLink();
                     link.setWapImage(ApiConstants.getHost(HostType.Jung_FINANCE) + link.getWapImage());
                 }
                 return linkModel;
