@@ -14,6 +14,7 @@ import com.tencent.mm.sdk.modelbase.BaseReq;
 import com.tencent.mm.sdk.modelbase.BaseResp;
 import com.tencent.mm.sdk.modelmsg.SendAuth;
 import com.tencent.mm.sdk.openapi.IWXAPIEventHandler;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import java.util.concurrent.TimeUnit;
 
@@ -74,6 +75,9 @@ public class WXEntryActivity extends BaseActivity<WxPresenter, WxModel> implemen
         };
 
         Log.d("WXEntryActivity", "onCreate");
+        if (AppConstant.wx_api == null) {
+            AppConstant.wx_api = WXAPIFactory.createWXAPI(this, AppConstant.APP_ID, false);
+        }
         AppConstant.wx_api.handleIntent(getIntent(), this);
     }
 
