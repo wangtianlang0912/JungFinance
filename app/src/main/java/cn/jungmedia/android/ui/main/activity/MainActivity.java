@@ -97,7 +97,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         //切换daynight模式要立即变色的页面
-        ChangeModeController.getInstance().init(this, R.attr.class);
+//        ChangeModeController.getInstance().init(this, R.attr.class);
         super.onCreate(savedInstanceState);
         //初始化frament
         initFragment(savedInstanceState);
