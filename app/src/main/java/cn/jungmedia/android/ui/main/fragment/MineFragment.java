@@ -259,6 +259,15 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
             if (userInfo.getUser().getMember() != null) {
                 scoreNum.setText(userInfo.getUser().getMember().getScore() + "");
             }
+
+            if (userInfo.getUser().getMedia() != null) {
+                mediaAccountBtn.setText(R.string.media_account);
+                vView.setVisibility(View.VISIBLE);
+            } else {
+                mediaAccountBtn.setText(R.string.upgrade_media_account);
+                vView.setVisibility(View.GONE);
+            }
+
         }
     }
 }
