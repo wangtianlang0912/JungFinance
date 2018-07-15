@@ -100,6 +100,7 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
         subscribeNum.setText("0");
         fansNum.setText("0");
         scoreNum.setText("0");
+        mediaAccountBtn.setText(R.string.upgrade_media_account);
     }
 
     @Override
