@@ -163,7 +163,7 @@ public class Api {
 //                List<type> resultList = new GsonResponsePasare<List<DataInfo>>() {
 //                }.deal("{\"status\":-4,\"data\":[{\"name\":\"xiaoxuan948\"},{\"name\":\"coca\"}]}");
 //                Type type = ((ParameterizedType) typeOfT).getActualTypeArguments()[0];
-                Type type = $Gson$Types.canonicalize(((ParameterizedType)typeOfT).getActualTypeArguments()[0]);
+                Type type = $Gson$Types.canonicalize(((ParameterizedType) typeOfT).getActualTypeArguments()[0]);
                 baseResponse.data = gsonBuilder.create().fromJson(json, type);
             }
 
@@ -172,13 +172,19 @@ public class Api {
 
         private T newInstance(Type typeOfT) {
 
-            Type type = ((ParameterizedType) typeOfT).getActualTypeArguments()[0];
-            Class<?> rawTypeOfSrc = $Gson$Types.getRawType(type);
-            try {
-                return (T) rawTypeOfSrc.newInstance();
-            } catch (Exception e) {
-                LogUtils.loge(e, " baseResponse.data = (T) rawTypeOfSrc.newInstance()");
+            if (typeOfT instanceof ParameterizedType) {
+                Type type = ((ParameterizedType) typeOfT).getActualTypeArguments()[0];
+                Class<?> rawTypeOfSrc = $Gson$Types.getRawType(type);
+                try {
+                    return (T) rawTypeOfSrc.newInstance();
+                } catch (Exception e) {
+                    LogUtils.loge(e, " baseResponse.data = (T) rawTypeOfSrc.newInstance()");
+                }
+            }else {
+
+                return (T) new Object();
             }
+
             return null;
         }
 
