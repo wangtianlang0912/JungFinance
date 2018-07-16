@@ -110,6 +110,12 @@ public class RegisterFragment extends BaseFragment<RegisterPresenterImp, Registe
                 AppIntent.intentToLogin(getActivity());
                 getActivity().finish();
                 break;
+            case R.id.pwd_clear_iv:
+                pwdEdit.setText("");
+                break;
+            case R.id.verifycode_clear_iv:
+                verifycodeEdit.setText("");
+                break;
         }
     }
 

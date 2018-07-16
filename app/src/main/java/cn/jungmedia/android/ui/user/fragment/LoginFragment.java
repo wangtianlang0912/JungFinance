@@ -177,6 +177,9 @@ public class LoginFragment extends BaseFragment<LoginPresenterImp, LoginModelImp
             case R.id.pwd_clear_iv:
                 pwdEdit.setText("");
                 break;
+            case R.id.verifycode_clear_iv:
+                verifycodeEdit.setText("");
+                break;
         }
     }
 
