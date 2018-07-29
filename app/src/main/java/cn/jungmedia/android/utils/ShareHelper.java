@@ -2,9 +2,13 @@ package cn.jungmedia.android.utils;
 
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.widget.Toast;
 
+import com.leon.common.commonutils.ToastUitl;
 import com.umeng.socialize.ShareAction;
 import com.umeng.socialize.UMShareListener;
 import com.umeng.socialize.bean.SHARE_MEDIA;
@@ -15,6 +19,7 @@ import com.umeng.socialize.shareboard.SnsPlatform;
 import com.umeng.socialize.utils.ShareBoardlistener;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 import cn.jungmedia.android.R;
 
@@ -65,6 +70,17 @@ public class ShareHelper {
                         } else {
                             web.setThumb(new UMImage(activity, imageUrl));
                         }
+
+                        if (SHARE_MEDIA.WEIXIN.equals(share_media)
+                                || SHARE_MEDIA.WEIXIN_CIRCLE.equals(share_media)
+                                || SHARE_MEDIA.WEIXIN_FAVORITE.equals(share_media)) {
+
+                            if (!isWeChatAppInstalled(activity)) {
+                                ToastUitl.showShort("请先安装微信客户端");
+                                return;
+                            }
+                        }
+
                         new ShareAction(activity).withMedia(web)
                                 .setPlatform(share_media)
                                 .setCallback(mShareListener)
@@ -78,6 +94,26 @@ public class ShareHelper {
         mShareAction.open(config);
     }
 
+
+    /**
+     * 判断微信客户端是否存在
+     *
+     * @return true安装, false未安装
+     */
+    public static boolean isWeChatAppInstalled(Context context) {
+
+        final PackageManager packageManager = context.getPackageManager();// 获取packagemanager
+        List<PackageInfo> pinfo = packageManager.getInstalledPackages(0);// 获取所有已安装程序的包信息
+        if (pinfo != null) {
+            for (int i = 0; i < pinfo.size(); i++) {
+                String pn = pinfo.get(i).packageName;
+                if (pn.equalsIgnoreCase("com.tencent.mm")) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
     private static class CustomShareListener implements UMShareListener {
 
