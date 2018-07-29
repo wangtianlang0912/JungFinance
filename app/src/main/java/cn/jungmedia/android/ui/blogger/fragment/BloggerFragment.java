@@ -195,6 +195,7 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
                 subscribeBtn.setTag(R.id.tag_first, status);
                 subscribeBtn.setTag(status ? activityModel.getFavorite().getObjectId() : activityModel.getFavorite().getEntityId());
             }
+            mPresenter.getBloggerInfo(mObjectId);
         } else {
             showErrorTip(respose.msg);
         }
