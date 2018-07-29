@@ -33,7 +33,7 @@ public class CommentListContract {
     }
 
     public interface View extends BaseView {
-        void returnCreateComment(CommentCreateModel model);
+        void returnCreateComment(BaseRespose<CommentCreateModel> baseRespose);
 
         void returnCommentList(CommentListModel model);
     }

@@ -289,16 +289,16 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
     }
 
     @Override
-    public void returnCreateComment(CommentCreateModel model) {
+    public void returnCreateComment(BaseRespose<CommentCreateModel> respose) {
 
-        mPresenter.getCommentList(articleId);
-
-        if (model != null) {
+        if (respose != null && respose.success()) {
             if (commentDialog != null && commentDialog.isShowing()) {
                 commentDialog.dismiss();
             }
 
             showShortToast(R.string.submit_success);
+
+            mPresenter.getCommentList(articleId);
 
         } else {
             showShortToast(R.string.submit_failure);

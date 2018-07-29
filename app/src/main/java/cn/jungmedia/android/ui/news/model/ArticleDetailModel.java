@@ -135,17 +135,17 @@ public class ArticleDetailModel implements ArticleDetaiContract.Model {
     }
 
     @Override
-    public Observable<CommentCreateModel> createComment(int articleId, String body, int touid) {
+    public Observable<BaseRespose<CommentCreateModel>> createComment(int articleId, String body, int touid) {
         String token = MyUtils.getToken();
         Observable observable = Api.getDefault(HostType.Jung_FINANCE).createComment(token, articleId, body, touid == 0 ? null : String.valueOf(touid));
-        return observable.map(new Func1<BaseRespose<CommentCreateModel>, CommentCreateModel>() {
+        return observable.map(new Func1<BaseRespose<CommentCreateModel>, BaseRespose<CommentCreateModel>>() {
             @Override
-            public CommentCreateModel call(BaseRespose<CommentCreateModel> baseRespose) {
-                return baseRespose.data;
+            public BaseRespose<CommentCreateModel> call(BaseRespose<CommentCreateModel> baseRespose) {
+                return baseRespose;
             }
         })
                 //声明线程调度
-                .compose(RxSchedulers.<CommentCreateModel>io_main());
+                .compose(RxSchedulers.<BaseRespose<CommentCreateModel>>io_main());
     }
 
     @Override

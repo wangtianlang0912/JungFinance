@@ -42,7 +42,7 @@ public class ArticleDetaiContract {
 
         Observable<BaseRespose<FavActionModel>> getArticleFavState(int articleId);
 
-        Observable<CommentCreateModel> createComment(int articleId, String body, int touid);
+        Observable<BaseRespose<CommentCreateModel>> createComment(int articleId, String body, int touid);
 
         Observable<CommentListModel> getCommentList(int articleId);
 
@@ -63,7 +63,7 @@ public class ArticleDetaiContract {
 
         void returnFocusBloggerState(BaseRespose<FavActionModel> result, boolean b);
 
-        void returnCreateComment(CommentCreateModel model);
+        void returnCreateComment(BaseRespose<CommentCreateModel> model);
 
         void returnCommentList(CommentListModel model);
 

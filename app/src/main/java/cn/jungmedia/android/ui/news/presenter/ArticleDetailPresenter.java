@@ -153,7 +153,7 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
 
     @Override
     public void createComment(int articleId, String value, int touid) {
-        mRxManage.add(mModel.createComment(articleId, value, touid).subscribe(new RxSubscriber<CommentCreateModel>(mContext, false) {
+        mRxManage.add(mModel.createComment(articleId, value, touid).subscribe(new RxSubscriber<BaseRespose<CommentCreateModel>>(mContext, false) {
 
             @Override
             public void onStart() {
@@ -162,7 +162,7 @@ public class ArticleDetailPresenter extends ArticleDetaiContract.Presenter {
             }
 
             @Override
-            protected void _onNext(CommentCreateModel result) {
+            protected void _onNext(BaseRespose<CommentCreateModel> result) {
                 mView.returnCreateComment(result);
                 mView.stopLoading();
             }

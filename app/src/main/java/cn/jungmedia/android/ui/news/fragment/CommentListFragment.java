@@ -19,6 +19,8 @@ import com.aspsine.irecyclerview.OnLoadMoreListener;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.leon.common.base.BaseFragment;
+import com.leon.common.basebean.BaseRespose;
+import com.leon.common.commonutils.ToastUitl;
 import com.leon.common.commonwidget.LoadingTip;
 import com.leon.common.ui.DuAlertDialog;
 
@@ -101,15 +103,18 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
     }
 
     @Override
-    public void returnCreateComment(CommentCreateModel model) {
+    public void returnCreateComment(BaseRespose<CommentCreateModel> respose) {
 
-        if (model != null) {
+        if (respose != null && respose.success()) {
             if (commentDialog != null && commentDialog.isShowing()) {
                 commentDialog.dismiss();
             }
             showShortToast(R.string.submit_success);
+
+            onRefresh();
+        } else {
+            ToastUitl.showShort("内容提交失败");
         }
-        onRefresh();
     }
 
     @Override
@@ -132,9 +137,9 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                 mStartPage++;
             } else {
-                if(commentListAdapter.getSize()>0) {
+                if (commentListAdapter.getSize() > 0) {
                     irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
-                }else {
+                } else {
                     irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
                 }
@@ -168,7 +173,7 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
         mStartPage = 1;
         //发起请求
         irc.setRefreshing(true);
-        mPresenter.getCommentList(articleId, mStartPage,0);
+        mPresenter.getCommentList(articleId, mStartPage, 0);
     }
 
     @Override
@@ -179,7 +184,7 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
         commentListAdapter.getPageBean().setRefresh(false);
         //发起请求
         irc.setLoadMoreStatus(LoadMoreFooterView.Status.LOADING);
-        mPresenter.getCommentList(articleId, mStartPage,0);
+        mPresenter.getCommentList(articleId, mStartPage, 0);
     }
 
     @Override

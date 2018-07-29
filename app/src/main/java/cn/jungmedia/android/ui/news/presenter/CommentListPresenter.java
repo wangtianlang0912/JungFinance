@@ -40,7 +40,7 @@ public class CommentListPresenter extends CommentListContract.Presenter {
                     AppApplication.getInvalidCallback().onTokenInvalid();
                     return;
                 } else {
-                    mView.returnCreateComment(result.data);
+                    mView.returnCreateComment(result);
                 }
                 mView.stopLoading();
             }
