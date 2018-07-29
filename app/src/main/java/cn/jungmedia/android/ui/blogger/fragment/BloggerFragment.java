@@ -242,6 +242,9 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
                     AppIntent.intentToLogin(getContext());
                     return;
                 }
+                if (subscribeBtn.getTag(R.id.tag_first) == null) {
+                    return;
+                }
                 boolean hasFav = (boolean) subscribeBtn.getTag(R.id.tag_first);
                 Object tag = subscribeBtn.getTag();
                 if (tag != null) {
