@@ -202,7 +202,7 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
             channelAdapterMarket.setOnItemClickListener(new ChannelAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    NewsChannelTable newsChannel = channelAdapterCollege.get(position);
+                    NewsChannelTable newsChannel = channelAdapterMarket.get(position);
                     channelAdapterMine.add(newsChannel);
                     channelAdapterMarket.removeAt(position);
                     mPresenter.onItemAddOrRemove((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(), group);
