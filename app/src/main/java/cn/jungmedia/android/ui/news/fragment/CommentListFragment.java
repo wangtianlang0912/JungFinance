@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.aspsine.irecyclerview.IRecyclerView;
@@ -60,6 +61,8 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
     LoadingTip loadedTip;
     @Bind(R.id.bottom_layout)
     RelativeLayout bottomLayout;
+    @Bind(R.id.empty_layout)
+    LinearLayout emptyLayout;
     private int mStartPage;
     private CommentListAdapter commentListAdapter;
     private List<CommentCreateModel.Comment> datas = new ArrayList<>();
@@ -86,7 +89,7 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
         irc.setOnRefreshListener(this);
         irc.setOnLoadMoreListener(this);
 
-
+        emptyLayout.setVisibility(View.GONE);
         Intent homeIntent = getActivity().getIntent();
         Bundle bundle = homeIntent.getBundleExtra(AppConstant.FLAG_BUNDLE);
         articleId = bundle.getInt(AppConstant.FLAG_DATA);
@@ -129,8 +132,12 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                 mStartPage++;
             } else {
-                irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
-
+                if(commentListAdapter.getSize()>0) {
+                    irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
+                }else {
+                    irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+                    emptyLayout.setVisibility(View.VISIBLE);
+                }
             }
         }
     }
@@ -156,6 +163,7 @@ public class CommentListFragment extends BaseFragment<CommentListPresenter, Comm
 
     @Override
     public void onRefresh() {
+        emptyLayout.setVisibility(View.GONE);
         commentListAdapter.getPageBean().setRefresh(true);
         mStartPage = 1;
         //发起请求
