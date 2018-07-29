@@ -87,6 +87,17 @@ public class SettingFragment extends BaseFragment<SettingPresenter, SettingModel
 
     @Override
     protected void initView() {
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        showUserInfo();
+    }
+
+    private void showUserInfo() {
         if (MyUtils.isLogin()) {
             UserInfo userInfo = MyUtils.getUserInfoFromPreference(getActivity());
             if (userInfo != null && userInfo.getUser() != null) {
@@ -191,9 +202,9 @@ public class SettingFragment extends BaseFragment<SettingPresenter, SettingModel
     @Override
     public void returnLogout(boolean result) {
 //        if (result) {
-            MyUtils.clearUser();
-            ToastUitl.showShort("注销成功");
-            getActivity().finish();
+        MyUtils.clearUser();
+        ToastUitl.showShort("注销成功");
+        getActivity().finish();
 //        } else {
 //
 //            ToastUitl.showShort("注销失败");
