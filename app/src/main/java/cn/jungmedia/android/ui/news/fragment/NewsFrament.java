@@ -143,7 +143,9 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
         newListAdapter.getPageBean().setRefresh(true);
         mStartPage = 1;
         //发起请求
-        irc.setRefreshing(true);
+        if (irc != null) {
+            irc.setRefreshing(true);
+        }
         mPresenter.getNewsListDataRequest(mNewsId, mStartPage);
     }
 
