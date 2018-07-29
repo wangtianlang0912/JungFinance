@@ -94,7 +94,7 @@ public class MineFragment extends BaseFragment<MinePresenterImp, MineModelImp> i
 
     private void resetViews() {
         vView.setVisibility(View.GONE);
-        nickView.setText(null);
+        nickView.setText("点击登录");
         imgLogo.setImageResource(R.drawable.blant_logo);
         despView.setText(null);
         subscribeNum.setText("0");
