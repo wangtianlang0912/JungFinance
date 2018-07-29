@@ -152,6 +152,9 @@ public class Api {
                     if (jsonObj.has("error-code")) {
                         baseResponse.code = jsonObj.get("error-code").getAsString();
                     }
+                    if (jsonObj.has("error-class")) {
+                        baseResponse.errorClass = jsonObj.get("error-class").getAsString();
+                    }
 
                     baseResponse.data = newInstance(typeOfT);
                     return baseResponse;
@@ -180,7 +183,7 @@ public class Api {
                 } catch (Exception e) {
                     LogUtils.loge(e, " baseResponse.data = (T) rawTypeOfSrc.newInstance()");
                 }
-            }else {
+            } else {
 
                 return (T) new Object();
             }

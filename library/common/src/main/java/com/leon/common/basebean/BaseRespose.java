@@ -15,10 +15,13 @@ public class BaseRespose<T> implements Serializable {
     @SerializedName("error")
     public String msg;
 
+    @SerializedName("error-class")
+    public String errorClass;
+
     public T data;
 
     public boolean success() {
-        return code == null;
+        return code == null && errorClass == null;
     }
 
     @Override
