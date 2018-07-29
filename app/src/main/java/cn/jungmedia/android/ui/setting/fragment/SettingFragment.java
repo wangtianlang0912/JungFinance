@@ -22,6 +22,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.jungmedia.android.R;
 import cn.jungmedia.android.api.ApiConstants;
+import cn.jungmedia.android.api.HostType;
 import cn.jungmedia.android.app.AppIntent;
 import cn.jungmedia.android.ui.setting.contract.SettingContract;
 import cn.jungmedia.android.ui.setting.model.SettingModel;
@@ -89,7 +90,7 @@ public class SettingFragment extends BaseFragment<SettingPresenter, SettingModel
         if (MyUtils.isLogin()) {
             UserInfo userInfo = MyUtils.getUserInfoFromPreference(getActivity());
             if (userInfo != null && userInfo.getUser() != null) {
-                ImageLoaderUtils.displayRound(getContext(), logoView, userInfo.getUser().getLogo());
+                ImageLoaderUtils.displayRound(getContext(), logoView, ApiConstants.getHost(HostType.Jung_FINANCE) + userInfo.getUser().getLogo());
                 nickView.setText(userInfo.getUser().getNick());
                 despView.setText(userInfo.getUser().getRemark());
             }
