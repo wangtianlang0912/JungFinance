@@ -24,6 +24,7 @@ import cn.jungmedia.android.ui.main.bean.CrewBean;
 import cn.jungmedia.android.ui.main.contract.ActivitySignupContract;
 import cn.jungmedia.android.ui.main.model.ActivitySignupModelImp;
 import cn.jungmedia.android.ui.main.presenter.ActivitySignupPresenter;
+import cn.jungmedia.android.utils.PatternUtil;
 
 
 /***
@@ -128,6 +129,10 @@ public class ActivitySignupFragment extends BaseFragment<ActivitySignupPresenter
 
         if (TextUtils.isEmpty(phone)) {
             ToastUitl.showShort("请输入联系电话");
+            return;
+        }
+        if (!PatternUtil.checkTelPhone(phone)) {
+            ToastUitl.showShort("手机号码格式不正确");
             return;
         }
 
