@@ -38,6 +38,7 @@ public class ForgetPwdPresenterImp extends UserContract.ForgetPwdPresenter {
 
             @Override
             protected void _onError(String message) {
+                mView.stopLoading();
                 mView.showErrorTip(message);
             }
         }));

@@ -71,6 +71,7 @@ public class BindMobilePresenterImp extends UserContract.BindMobilePresenter {
 
             @Override
             protected void _onError(String message) {
+                mView.stopLoading();
                 mView.showErrorTip(message);
             }
         }));

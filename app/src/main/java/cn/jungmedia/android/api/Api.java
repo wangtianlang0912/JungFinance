@@ -159,8 +159,12 @@ public class Api {
                     baseResponse.data = newInstance(typeOfT);
                     return baseResponse;
                 }
-                Type type = ((ParameterizedType) typeOfT).getActualTypeArguments()[0];
-                baseResponse.data = gsonBuilder.create().fromJson(json, type);
+                if (typeOfT instanceof ParameterizedType) {
+                    Type type = ((ParameterizedType) typeOfT).getActualTypeArguments()[0];
+                    baseResponse.data = gsonBuilder.create().fromJson(json, type);
+                } else {
+                    baseResponse.data = gsonBuilder.create().fromJson(json, typeOfT);
+                }
 
             } else {
 //                List<type> resultList = new GsonResponsePasare<List<DataInfo>>() {
