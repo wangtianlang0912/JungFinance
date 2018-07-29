@@ -12,6 +12,8 @@ import com.leon.common.base.BaseFragment;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonutils.ToastUitl;
 
+import net.nightwhistler.htmlspanner.TextUtil;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -76,7 +78,7 @@ public class ActivitySignupFragment extends BaseFragment<ActivitySignupPresenter
             AppIntent.intentToWechatQrPage(getActivity());
 
         } else {
-            ToastUitl.showShort("报名失败");
+            ToastUitl.showShort(TextUtils.isEmpty(baseRespose.msg) ? "报名失败" : baseRespose.msg);
         }
     }
 
@@ -139,6 +141,6 @@ public class ActivitySignupFragment extends BaseFragment<ActivitySignupPresenter
             return;
         }
 
-        mPresenter.signup(mActiveId, name,phone, Integer.valueOf(mumberNum), company);
+        mPresenter.signup(mActiveId, name, phone, Integer.valueOf(mumberNum), company);
     }
 }
