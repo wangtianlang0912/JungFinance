@@ -181,7 +181,7 @@ public class NewsTopFragment extends BaseFragment<NewsListPresenter, NewsListMod
             bannerList.addAll(bannerBeans);
             bannerAdapter.notifyDataSetChanged();
             bannerView.notifyPagerControler();
-//            bannerView.startAutoScroll();
+            bannerView.startAutoScroll();
 
             bannerView.setOnItemClicklistener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -276,5 +276,14 @@ public class NewsTopFragment extends BaseFragment<NewsListPresenter, NewsListMod
 
             }
         };
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        if (bannerView != null) {
+            bannerView.cancelAutoScroll();
+        }
+        super.onDestroyView();
     }
 }
