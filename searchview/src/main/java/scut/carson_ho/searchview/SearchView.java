@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -163,11 +164,15 @@ public class SearchView extends LinearLayout {
                         mCallBack.SearchAciton(et_search.getText().toString());
                     }
 
+                    String key = et_search.getText().toString().trim();
+                    if (TextUtils.isEmpty(key)) {
+                        return false;
+                    }
                     // 2. 点击搜索键后，对该搜索字段在数据库是否存在进行检查（查询）->> 关注1
-                    boolean hasData = hasData(et_search.getText().toString().trim());
+                    boolean hasData = hasData(key);
                     // 3. 若存在，则不保存；若不存在，则将该搜索字段保存（插入）到数据库，并作为历史搜索记录
                     if (!hasData) {
-                        insertData(et_search.getText().toString().trim());
+                        insertData(key);
                         queryData("");
                     }
                 }
@@ -303,7 +308,11 @@ public class SearchView extends LinearLayout {
         System.out.println(cursor.getCount());
         // 当输入框为空 & 数据库中有搜索记录时，显示 "删除搜索记录"按钮
         if (tempName.equals("") && cursor.getCount() != 0) {
-            tv_clear.setVisibility(VISIBLE);
+            if (!adapter.isEmpty()) {
+                tv_clear.setVisibility(VISIBLE);
+            } else {
+                tv_clear.setVisibility(INVISIBLE);
+            }
         } else {
             tv_clear.setVisibility(INVISIBLE);
         }
