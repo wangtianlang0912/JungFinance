@@ -262,6 +262,7 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
                         JSONObject jsonObject = JSON.parseObject(data);
                         if (!jsonObject.containsKey("uri")) {
                             showErrorTip("图片上传失败");
+                            return;
                         }
                         String url = jsonObject.get("uri").toString();
                         wxQrView.setTag(R.id.flag_url, url);
@@ -297,6 +298,7 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
                         JSONObject jsonObject = JSON.parseObject(data);
                         if (!jsonObject.containsKey("uri")) {
                             showErrorTip("头像图片上传失败");
+                            return;
                         }
                         String url = jsonObject.get("uri").toString();
                         logoView.setTag(R.id.flag_url, url);
@@ -311,6 +313,7 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
                                         JSONObject jsonObject = JSON.parseObject(data);
                                         if (!jsonObject.containsKey("uri")) {
                                             showErrorTip("微信图片上传失败");
+                                            return;
                                         }
                                         String url = jsonObject.get("uri").toString();
                                         wxQrView.setTag(R.id.flag_url, url);
