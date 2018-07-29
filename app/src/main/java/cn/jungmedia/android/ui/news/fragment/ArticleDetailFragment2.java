@@ -464,6 +464,9 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                     AppIntent.intentToLogin(getContext());
                     return;
                 }
+                if (focusBtn.getTag(R.id.tag_first) == null) {
+                    return;
+                }
                 boolean hasFav = (boolean) focusBtn.getTag(R.id.tag_first);
                 Object tag2 = focusBtn.getTag();
                 if (tag2 != null) {
@@ -472,6 +475,9 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                 break;
 
             case R.id.blogger_layout:
+                if (focusBtn.getTag(R.id.tag_first) == null) {
+                    return;
+                }
                 boolean hasFav2 = (boolean) focusBtn.getTag(R.id.tag_first);
                 Object bloggerId = bloggerLayout.getTag();
                 if (bloggerId != null) {
