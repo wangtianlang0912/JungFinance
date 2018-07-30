@@ -25,7 +25,7 @@ import cn.jungmedia.android.ui.main.fragment.ActivityInfoFragment;
 import cn.jungmedia.android.ui.main.fragment.ActivitySignupFragment;
 import cn.jungmedia.android.ui.main.fragment.SearchFragment;
 import cn.jungmedia.android.ui.main.fragment.WechatQrPageFragment;
-import cn.jungmedia.android.ui.news.fragment.ArticleDetailFragment2;
+import cn.jungmedia.android.ui.news.fragment.ArticleDetailFragment;
 import cn.jungmedia.android.ui.news.fragment.CommentListFragment;
 import cn.jungmedia.android.ui.score.ui.ScoreListFragment;
 import cn.jungmedia.android.ui.setting.fragment.SettingFragment;
@@ -128,7 +128,7 @@ public class AppIntent {
 
         Bundle bundle = new Bundle();
         bundle.putInt(AppConstant.FLAG_DATA2, objectId);
-        intentToAct(context, context.getString(R.string.article_detail), ArticleDetailFragment2.class, bundle);
+        intentToAct(context, context.getString(R.string.article_detail), ArticleDetailFragment.class, bundle);
     }
 
     /**
