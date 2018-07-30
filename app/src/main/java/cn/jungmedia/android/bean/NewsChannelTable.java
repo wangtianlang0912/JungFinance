@@ -75,4 +75,23 @@ public class NewsChannelTable implements Serializable {
     public void setType(int type) {
         this.type = type;
     }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        NewsChannelTable that = (NewsChannelTable) o;
+
+        if (type != that.type) return false;
+        return newsChannelId.equals(that.newsChannelId);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = newsChannelId.hashCode();
+        result = 31 * result + type;
+        return result;
+    }
 }

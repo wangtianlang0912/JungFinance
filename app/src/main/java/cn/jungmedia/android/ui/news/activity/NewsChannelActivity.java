@@ -21,6 +21,7 @@ import cn.jungmedia.android.ui.news.event.ChannelItemMoveEvent;
 import cn.jungmedia.android.ui.news.model.NewsChannelModel;
 import cn.jungmedia.android.ui.news.presenter.NewsChanelPresenter;
 import cn.jungmedia.android.widget.ItemDragHelperCallback;
+
 import com.leon.common.base.BaseActivity;
 import com.leon.common.commonwidget.NormalTitleBar;
 
@@ -121,11 +122,17 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
                 NewsChannelTable newsChannel = channelAdapterMine.get(position);
 
                 if (newsChannel.getType() == channelAdapterCollege.getType()) {
-                    channelAdapterCollege.add(newsChannel);
+                    if (!channelAdapterCollege.contains(newsChannel)) {
+                        channelAdapterCollege.add(newsChannel);
+                    }
                 } else if (newsChannel.getType() == channelAdapterNews.getType()) {
-                    channelAdapterNews.add(newsChannel);
+                    if (!channelAdapterNews.contains(newsChannel)) {
+                        channelAdapterNews.add(newsChannel);
+                    }
                 } else if (newsChannel.getType() == channelAdapterMarket.getType()) {
-                    channelAdapterMarket.add(newsChannel);
+                    if (!channelAdapterMarket.contains(newsChannel)) {
+                        channelAdapterMarket.add(newsChannel);
+                    }
                 }
 
 
@@ -154,6 +161,8 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
         // news
         List<NewsChannelTable> newsChannelTables = group.getNews();
         if (newsChannelTables != null && !newsChannelTables.isEmpty()) {
+            filterMineList(newsChannelTables);
+
             channelAdapterNews = new ChannelAdapter(mContext, R.layout.item_news_channel);
             newsChannelNewsRv.setLayoutManager(new GridLayoutManager(this, 4, LinearLayoutManager.VERTICAL, false));
             newsChannelNewsRv.setItemAnimator(new DefaultItemAnimator());
@@ -163,7 +172,9 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
                 @Override
                 public void onItemClick(View view, int position) {
                     NewsChannelTable newsChannel = channelAdapterNews.get(position);
-                    channelAdapterMine.add(newsChannel);
+                    if (!channelAdapterMine.contains(newsChannel)) {
+                        channelAdapterMine.add(newsChannel);
+                    }
                     channelAdapterNews.removeAt(position);
                     mPresenter.onItemAddOrRemove((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(), group);
                 }
@@ -174,6 +185,7 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
         List<NewsChannelTable> collegesChannelTables = group.getColleges();
         if (collegesChannelTables != null && !collegesChannelTables.isEmpty()) {
 
+            filterMineList(collegesChannelTables);
             channelAdapterCollege = new ChannelAdapter(mContext, R.layout.item_news_channel);
             newsChannelCollegeRv.setLayoutManager(new GridLayoutManager(this, 4, LinearLayoutManager.VERTICAL, false));
             newsChannelCollegeRv.setItemAnimator(new DefaultItemAnimator());
@@ -183,7 +195,9 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
                 @Override
                 public void onItemClick(View view, int position) {
                     NewsChannelTable newsChannel = channelAdapterCollege.get(position);
-                    channelAdapterMine.add(newsChannel);
+                    if (!channelAdapterMine.contains(newsChannel)) {
+                        channelAdapterMine.add(newsChannel);
+                    }
                     channelAdapterCollege.removeAt(position);
                     mPresenter.onItemAddOrRemove((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(), group);
                 }
@@ -194,6 +208,7 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
         List<NewsChannelTable> marketChannelTables = group.getMarkets();
         if (marketChannelTables != null && !marketChannelTables.isEmpty()) {
 
+            filterMineList(marketChannelTables);
             channelAdapterMarket = new ChannelAdapter(mContext, R.layout.item_news_channel);
             newsChannelMarketRv.setLayoutManager(new GridLayoutManager(this, 4, LinearLayoutManager.VERTICAL, false));
             newsChannelMarketRv.setItemAnimator(new DefaultItemAnimator());
@@ -203,11 +218,26 @@ public class NewsChannelActivity extends BaseActivity<NewsChanelPresenter, NewsC
                 @Override
                 public void onItemClick(View view, int position) {
                     NewsChannelTable newsChannel = channelAdapterMarket.get(position);
-                    channelAdapterMine.add(newsChannel);
+                    if (!channelAdapterMine.contains(newsChannel)) {
+                        channelAdapterMine.add(newsChannel);
+                    }
                     channelAdapterMarket.removeAt(position);
                     mPresenter.onItemAddOrRemove((ArrayList<NewsChannelTable>) channelAdapterMine.getAll(), group);
                 }
             });
+        }
+    }
+
+    void filterMineList(List<NewsChannelTable> group) {
+
+        if (channelAdapterMine == null) {
+            return;
+        }
+        for (NewsChannelTable table : channelAdapterMine.getAll()) {
+
+            if (group.contains(table)) {
+                group.remove(table);
+            }
         }
     }
 
