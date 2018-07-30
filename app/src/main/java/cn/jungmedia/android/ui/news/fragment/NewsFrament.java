@@ -164,7 +164,9 @@ public class NewsFrament extends BaseFragment<NewsListPresenter, NewsListModel> 
     public void showLoading(String title) {
         if (newListAdapter.getPageBean().isRefresh()) {
             if (newListAdapter.getSize() <= 0) {
-                irc.setRefreshing(true);
+                if (irc != null) {
+                    irc.setRefreshing(true);
+                }
             }
         }
     }

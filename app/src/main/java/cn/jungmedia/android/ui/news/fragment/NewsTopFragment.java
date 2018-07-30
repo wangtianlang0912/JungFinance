@@ -189,7 +189,12 @@ public class NewsTopFragment extends BaseFragment<NewsListPresenter, NewsListMod
 
                     BannerBean bannerBean = (BannerBean) adapterView.getItemAtPosition(i);
                     if (bannerBean != null) {
-                        AppIntent.intentToCommonWeb(getActivity(), R.string.news, bannerBean.getUrl());
+                        BannerModel.Banner banner = (BannerModel.Banner) bannerBean.getObj();
+                        if ("home".equals(banner.getClassify())) {
+                            AppIntent.intentToArticleDetail(getActivity(), banner.getObjectId());
+                        } else {
+                            AppIntent.intentToCommonWeb(getActivity(), R.string.news, bannerBean.getUrl());
+                        }
                     }
                 }
             });
