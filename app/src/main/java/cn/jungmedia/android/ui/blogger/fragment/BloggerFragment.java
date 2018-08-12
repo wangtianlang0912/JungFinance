@@ -18,6 +18,8 @@ import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonutils.ImageLoaderUtils;
 import com.leon.common.commonwidget.LoadingTip;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,6 +38,7 @@ import cn.jungmedia.android.ui.blogger.contract.BloggerContract;
 import cn.jungmedia.android.ui.blogger.model.BloggerModelImp;
 import cn.jungmedia.android.ui.blogger.presenter.BloggerPresenterImp;
 import cn.jungmedia.android.ui.news.adapter.NewListAdapter;
+import cn.jungmedia.android.ui.news.event.BloggerStateEvent;
 import cn.jungmedia.android.utils.MyUtils;
 
 
@@ -196,6 +199,11 @@ public class BloggerFragment extends BaseFragment<BloggerPresenterImp, BloggerMo
                 subscribeBtn.setTag(status ? activityModel.getFavorite().getObjectId() : activityModel.getFavorite().getEntityId());
             }
             mPresenter.getBloggerInfo(mObjectId);
+            EventBus.getDefault().post(new BloggerStateEvent(
+                    activityModel.getFavorite().getEntityId()
+                    , status,
+                    activityModel.getFavorite().getObjectId(),
+                    activityModel.getFavorite().getUid()));
         } else {
             showErrorTip(respose.msg);
         }
