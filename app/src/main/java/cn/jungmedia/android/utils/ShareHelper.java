@@ -46,9 +46,7 @@ public class ShareHelper {
         /*增加自定义按钮的分享面板*/
         mShareAction = new ShareAction(activity).setDisplayList(
 
-                SHARE_MEDIA.SINA,
-                SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE,
-                SHARE_MEDIA.MORE
+                SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE, SHARE_MEDIA.SINA
 //                ,
 //                SHARE_MEDIA.QQ,
 //                SHARE_MEDIA.QZONE
