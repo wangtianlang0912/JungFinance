@@ -302,13 +302,15 @@ public interface ApiService {
 
     @POST("app/me/media/set")
     Observable<BaseRespose<MediaInfoBean>> setMediaInfo(@Query("token") String token, @Query("id") int id, @Query("applicant") String applicant,
+                                                        @Query("alias") String alias,
                                                         @Query("coverImage") String coverImage, @Query("name") String name,
                                                         @Query("qrImage") String qrImage, @Query("role") int role,
                                                         @Query("wechatNo") String wechatNo);
 
     @POST("app/me/media/create")
     Observable<BaseRespose<MediaInfoBean>> createMediaInfo(@Query("token") String token, @Query("applicant") String applicant,
-                                                           @Query("coverImage") String coverImage, @Query("name") String name,
+                                                           @Query("alias") String alias, @Query("coverImage") String coverImage,
+                                                           @Query("name") String name,
                                                            @Query("qrImage") String qrImage, @Query("role") int role,
                                                            @Query("wechatNo") String wechatNo);
 }

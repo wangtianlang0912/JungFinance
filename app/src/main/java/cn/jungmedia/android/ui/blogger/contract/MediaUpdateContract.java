@@ -26,7 +26,7 @@ public class MediaUpdateContract {
 
     public interface Model extends BaseModel {
 
-        Observable<BaseRespose<MediaInfoBean>> submitMediaInfo(String mediaName, String realName, String wxId, String logoUrl, String wxUrl);
+        Observable<BaseRespose<MediaInfoBean>> submitMediaInfo(String mediaName, String alias, String realName, String wxId, String logoUrl, String wxUrl);
 
     }
 
@@ -39,7 +39,7 @@ public class MediaUpdateContract {
 
     public abstract static class Presenter extends BasePresenter<View, Model> {
 
-        public abstract void submitMediaInfo(String mediaName, String realName, String wxId, String logoUrl, String wxUrl);
+        public abstract void submitMediaInfo(String mediaName, String alias, String realName, String wxId, String logoUrl, String wxUrl);
 
     }
 }

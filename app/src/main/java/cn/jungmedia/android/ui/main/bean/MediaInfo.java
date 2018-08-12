@@ -48,6 +48,8 @@ public class MediaInfo implements Serializable {
 
     private String coverImage;
 
+    private String alias;
+
     public void setUid(int uid) {
         this.uid = uid;
     }
@@ -168,4 +170,11 @@ public class MediaInfo implements Serializable {
         return this.coverImage;
     }
 
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
 }

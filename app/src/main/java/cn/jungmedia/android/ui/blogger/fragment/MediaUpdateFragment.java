@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -20,6 +21,7 @@ import com.leon.common.base.BaseFragment;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonutils.ImageLoaderUtils;
 import com.leon.common.commonutils.ToastUitl;
+import com.leon.common.commonwidget.OnNoDoubleClickListener;
 import com.yuyh.library.imgsel.ImageLoader;
 import com.yuyh.library.imgsel.ImgSelActivity;
 import com.yuyh.library.imgsel.ImgSelConfig;
@@ -69,6 +71,8 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
 
     @Bind(R.id.media_name_view)
     EditText mediaNameView;
+    @Bind(R.id.media_alias_view)
+    EditText mediaAliasView;
     @Bind(R.id.real_name_view)
     EditText realNameView;
     @Bind(R.id.wx_editview)
@@ -103,6 +107,7 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
                 return;
             }
             mediaNameView.setText(media.getApplicant());
+            mediaAliasView.setText(media.getAlias());
             realNameView.setText(media.getName());
             wxEditview.setText(media.getWechatNo());
 
@@ -113,8 +118,48 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
 
             ImageLoaderUtils.display(getActivity(), wxQrView, host + media.getQrImage());
             wxQrView.setTag(R.id.flag_url, media.getQrImage());
+
+            // 审核中不可点
+            if (true) {
+                setFieldViewClickable(false);
+                logoView.setOnClickListener(null);
+                wxQrView.setOnClickListener(null);
+                saveBtn.setText("审核中");
+                saveBtn.setBackgroundResource(R.drawable.selector_btn_white);
+                saveBtn.setOnClickListener(new OnNoDoubleClickListener() {
+                    @Override
+                    protected void onNoDoubleClick(View v) {
+                        ToastUitl.show("正在审核中，请耐心等待", Toast.LENGTH_SHORT);
+                    }
+                });
+            } else {
+                setFieldViewClickable(true);
+                saveBtn.setText("保存");
+                saveBtn.setBackgroundResource(R.drawable.selector_btn);
+            }
         }
 
+    }
+
+    private void setFieldViewClickable(boolean clickable) {
+        mediaNameView.setClickable(clickable);
+        mediaNameView.setCursorVisible(clickable);
+        mediaNameView.setFocusable(clickable);
+        mediaNameView.setFocusableInTouchMode(clickable);
+        mediaAliasView.setClickable(clickable);
+        mediaAliasView.setCursorVisible(clickable);
+        mediaAliasView.setFocusable(clickable);
+        mediaAliasView.setFocusableInTouchMode(clickable);
+        realNameView.setClickable(clickable);
+        realNameView.setCursorVisible(clickable);
+        realNameView.setFocusable(clickable);
+        realNameView.setFocusableInTouchMode(clickable);
+        wxEditview.setClickable(clickable);
+        wxEditview.setCursorVisible(clickable);
+        wxEditview.setFocusable(clickable);
+        wxEditview.setFocusableInTouchMode(clickable);
+        logoView.setClickable(clickable);
+        wxQrView.setClickable(clickable);
     }
 
     @Override
@@ -146,6 +191,11 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
                     ToastUitl.showShort("请填写媒体名称");
                     return;
                 }
+                String alias = mediaAliasView.getText().toString();
+                if (TextUtils.isEmpty(alias)) {
+                    ToastUitl.showShort("请填写所属行业");
+                    return;
+                }
                 String realName = realNameView.getText().toString();
                 if (TextUtils.isEmpty(realName)) {
                     ToastUitl.showShort("请填写真实姓名");
@@ -172,18 +222,18 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
                 }
 
                 if (logoImagePath == null && wxQrImagePath == null) {
-                    mPresenter.submitMediaInfo(mediaName, realName, wxId, (String) logoUrl, (String) qrUrl);
+                    mPresenter.submitMediaInfo(mediaName, alias, realName, wxId, (String) logoUrl, (String) qrUrl);
                 } else {
 
                     if (logoImagePath != null && wxQrImagePath != null) {
-                        sumbitInfo(mediaName, realName, wxId, (String) logoImagePath, (String) wxQrImagePath);
+                        sumbitInfo(mediaName, alias, realName, wxId, (String) logoImagePath, (String) wxQrImagePath);
                     } else {
                         if (logoImagePath != null) {
 
-                            submitInfoOnePic(mediaName, realName, wxId, (String) logoImagePath);
+                            submitInfoOnePic(mediaName, alias, realName, wxId, (String) logoImagePath);
 
                         } else if (wxQrImagePath != null) {
-                            submitInfoOnePic(mediaName, realName, wxId, (String) wxQrImagePath);
+                            submitInfoOnePic(mediaName, alias, realName, wxId, (String) wxQrImagePath);
                         }
 
                     }
@@ -245,7 +295,7 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
         }
     }
 
-    private void submitInfoOnePic(final String mediaName, final String realName, final String wxid, String imagePath) {
+    private void submitInfoOnePic(final String mediaName, final String alias, final String realName, final String wxid, String imagePath) {
 
         File file = new File(imagePath);
         if (!file.exists()) {
@@ -262,11 +312,12 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
                         JSONObject jsonObject = JSON.parseObject(data);
                         if (!jsonObject.containsKey("uri")) {
                             showErrorTip("图片上传失败");
+                            return;
                         }
                         String url = jsonObject.get("uri").toString();
                         wxQrView.setTag(R.id.flag_url, url);
 
-                        mPresenter.submitMediaInfo(mediaName, realName, wxid, (String) logoView.getTag(R.id.flag_url), (String) wxQrView.getTag(R.id.flag_url));
+                        mPresenter.submitMediaInfo(mediaName, alias, realName, wxid, (String) logoView.getTag(R.id.flag_url), (String) wxQrView.getTag(R.id.flag_url));
                     }
                 });
             }
@@ -274,7 +325,7 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
 
     }
 
-    private void sumbitInfo(final String mediaName, final String realName, final String wxid, String logoImagePath, String wxImagePath) {
+    private void sumbitInfo(final String mediaName, final String alias, final String realName, final String wxid, String logoImagePath, String wxImagePath) {
 
         File file = new File(logoImagePath);
         if (!file.exists()) {
@@ -297,6 +348,7 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
                         JSONObject jsonObject = JSON.parseObject(data);
                         if (!jsonObject.containsKey("uri")) {
                             showErrorTip("头像图片上传失败");
+                            return;
                         }
                         String url = jsonObject.get("uri").toString();
                         logoView.setTag(R.id.flag_url, url);
@@ -311,11 +363,12 @@ public class MediaUpdateFragment extends BaseFragment<MediaUpdatePresenterImp, M
                                         JSONObject jsonObject = JSON.parseObject(data);
                                         if (!jsonObject.containsKey("uri")) {
                                             showErrorTip("微信图片上传失败");
+                                            return;
                                         }
                                         String url = jsonObject.get("uri").toString();
                                         wxQrView.setTag(R.id.flag_url, url);
 
-                                        mPresenter.submitMediaInfo(mediaName, realName, wxid, (String) logoView.getTag(R.id.flag_url), url);
+                                        mPresenter.submitMediaInfo(mediaName, alias, realName, wxid, (String) logoView.getTag(R.id.flag_url), url);
                                     }
                                 });
                             }
