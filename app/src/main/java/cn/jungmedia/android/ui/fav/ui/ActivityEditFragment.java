@@ -13,6 +13,10 @@ import com.leon.common.base.BaseFragment;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonwidget.LoadingTip;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +30,7 @@ import cn.jungmedia.android.bean.Counter;
 import cn.jungmedia.android.ui.fav.adapter.ActiveEditListAdapter;
 import cn.jungmedia.android.ui.fav.bean.ActiveFavBean;
 import cn.jungmedia.android.ui.fav.contract.ActivityEditContract;
+import cn.jungmedia.android.ui.fav.event.ActivityStateEvent;
 import cn.jungmedia.android.ui.fav.model.ActivityEditModelImp;
 import cn.jungmedia.android.ui.fav.presenter.ActivityEditPresenter;
 import cn.jungmedia.android.utils.MyUtils;
@@ -89,6 +94,10 @@ public class ActivityEditFragment extends BaseFragment<ActivityEditPresenter, Ac
         if (listAdapter.getSize() <= 0) {
             mStartPage = 1;
             mPresenter.loadDataList(mStartPage);
+        }
+
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
         }
     }
 
@@ -158,6 +167,29 @@ public class ActivityEditFragment extends BaseFragment<ActivityEditPresenter, Ac
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onActivityStateEvent(ActivityStateEvent stateEvent) {
+
+        if (listAdapter == null) {
+            return;
+        }
+        if (stateEvent.isFav()) {
+
+            if (!listAdapter.getPageBean().isRefresh()) {
+                onRefresh();
+            }
+        } else {
+            listAdapter.remove(new ActiveFavBean.Favorite(stateEvent.getObjectId()));
+            listAdapter.notifyDataSetChanged();
+            if (listAdapter.getSize() > 0) {
+                irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
+            } else {
+                irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+                emptyLayout.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
     @Override
     public void onBtnClicked(ActiveFavBean.Favorite favorite) {
         mPresenter.unFavAction(favorite.getObjectId());
@@ -206,5 +238,15 @@ public class ActivityEditFragment extends BaseFragment<ActivityEditPresenter, Ac
                 emptyLayout.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+
+        super.onDestroyView();
     }
 }

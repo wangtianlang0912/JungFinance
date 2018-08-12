@@ -41,6 +41,7 @@ import cn.jungmedia.android.bean.CommentCreateModel;
 import cn.jungmedia.android.bean.CommentListModel;
 import cn.jungmedia.android.bean.FavActionModel;
 import cn.jungmedia.android.bean.VoteModel;
+import cn.jungmedia.android.ui.fav.event.NewsStateEvent;
 import cn.jungmedia.android.ui.news.contract.ArticleDetaiContract;
 import cn.jungmedia.android.ui.news.event.BloggerStateEvent;
 import cn.jungmedia.android.ui.news.model.ArticleDetailModel;
@@ -259,13 +260,16 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                     if (toastRefer) {
                         showShortToast("收藏成功");
                     }
+                    EventBus.getDefault().post(new NewsStateEvent(activityModel.getFavorite().getObjectId(), true));
                 } else {
                     favBtn.setImageResource(R.drawable.icon_fav_n);
                     favBtn.setTag(null);
                     if (toastRefer) {
                         showShortToast("取消收藏");
                     }
+                    EventBus.getDefault().post(new NewsStateEvent(activityModel.getFavorite().getObjectId(), false));
                 }
+
             }
         } else {
             showErrorTip(respose.msg);
