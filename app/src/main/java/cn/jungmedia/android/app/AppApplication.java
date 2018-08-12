@@ -3,7 +3,9 @@ package cn.jungmedia.android.app;
 import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
+import android.os.StrictMode;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -56,6 +58,14 @@ public class AppApplication extends BaseApplication {
                 UMENG_PUSH_TOKEN);
         //PushSDK初始化(如使用推送SDK，必须调用此方法)
         initUpush();
+
+        // android 7.0系统解决拍照的问题
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+
+            StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+            StrictMode.setVmPolicy(builder.build());
+            builder.detectFileUriExposure();
+        }
     }
 
     private void initUpush() {
