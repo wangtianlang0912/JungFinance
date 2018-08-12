@@ -23,6 +23,8 @@ import com.leon.common.ui.DuAlertDialog;
 
 import net.nightwhistler.htmlspanner.HtmlSpanner;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.List;
 
 import butterknife.Bind;
@@ -40,6 +42,7 @@ import cn.jungmedia.android.bean.CommentListModel;
 import cn.jungmedia.android.bean.FavActionModel;
 import cn.jungmedia.android.bean.VoteModel;
 import cn.jungmedia.android.ui.news.contract.ArticleDetaiContract;
+import cn.jungmedia.android.ui.news.event.BloggerStateEvent;
 import cn.jungmedia.android.ui.news.model.ArticleDetailModel;
 import cn.jungmedia.android.ui.news.presenter.ArticleDetailPresenter;
 import cn.jungmedia.android.utils.MyUtils;
@@ -283,6 +286,13 @@ public class ArticleDetailFragment2 extends BaseFragment<ArticleDetailPresenter,
                 focusBtn.setTag(R.id.tag_first, status);
                 focusBtn.setTag(status ? activityModel.getFavorite().getObjectId() : activityModel.getFavorite().getEntityId());
             }
+
+            EventBus.getDefault().post(new BloggerStateEvent(
+                    activityModel.getFavorite().getEntityId()
+                    , status,
+                    activityModel.getFavorite().getObjectId(),
+                    activityModel.getFavorite().getUid()));
+
         } else {
             showErrorTip(response.msg);
         }

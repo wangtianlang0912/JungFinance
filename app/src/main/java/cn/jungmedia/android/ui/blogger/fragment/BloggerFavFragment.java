@@ -13,6 +13,10 @@ import com.leon.common.base.BaseFragment;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonwidget.LoadingTip;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,6 +31,7 @@ import cn.jungmedia.android.ui.blogger.bean.BloggerFavBean;
 import cn.jungmedia.android.ui.blogger.contract.BloggerFavContract;
 import cn.jungmedia.android.ui.blogger.model.BloggerFavModelImp;
 import cn.jungmedia.android.ui.blogger.presenter.BloggerFavPresenterImp;
+import cn.jungmedia.android.ui.news.event.BloggerStateEvent;
 
 
 /***
@@ -87,6 +92,29 @@ public class BloggerFavFragment extends BaseFragment<BloggerFavPresenterImp, Blo
         if (listAdapter.getSize() <= 0) {
             mStartPage = 1;
             mPresenter.getMediaFavList(mStartPage);
+        }
+
+        boolean isRegistered = EventBus.getDefault().isRegistered(this);
+        if (!isRegistered) {
+            EventBus.getDefault().register(this);
+        }
+    }
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onBloggerStateEvent(BloggerStateEvent stateEvent) {
+
+        if (listAdapter == null) {
+            return;
+        }
+        if (stateEvent.isSubcribed()) {
+
+            if (!listAdapter.getPageBean().isRefresh()) {
+                onRefresh();
+            }
+        } else {
+            listAdapter.remove(new BloggerFavBean.Favorite(stateEvent.getFavoriteObjId()));
+            listAdapter.notifyDataSetChanged();
         }
     }
 
@@ -192,4 +220,11 @@ public class BloggerFavFragment extends BaseFragment<BloggerFavPresenterImp, Blo
         mPresenter.unFavAction(favorite.getObjectId());
     }
 
+    @Override
+    public void onDestroyView() {
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+        super.onDestroyView();
+    }
 }

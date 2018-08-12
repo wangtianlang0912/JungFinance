@@ -11,6 +11,10 @@ import com.leon.common.base.BaseFragment;
 import com.leon.common.basebean.BaseRespose;
 import com.leon.common.commonwidget.LoadingTip;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +26,7 @@ import cn.jungmedia.android.bean.Counter;
 import cn.jungmedia.android.bean.FavActionModel;
 import cn.jungmedia.android.ui.news.adapter.BloggerListAdapter;
 import cn.jungmedia.android.ui.news.contract.BloggerListContract;
+import cn.jungmedia.android.ui.news.event.BloggerStateEvent;
 import cn.jungmedia.android.ui.news.model.BloggerListModel;
 import cn.jungmedia.android.ui.news.presenter.BloggerListPresenter;
 import cn.jungmedia.android.utils.MyUtils;
@@ -65,6 +70,8 @@ public class BloggerListFragment extends BaseFragment<BloggerListPresenter, Blog
             mStartPage = 1;
             mPresenter.getBloggerListDataRequest(mStartPage);
         }
+
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -173,5 +180,32 @@ public class BloggerListFragment extends BaseFragment<BloggerListPresenter, Blog
         mPresenter.focusAction(blogger.getFavorite() != null ? blogger.getFavorite().getObjectId() : blogger.getObjectId()
                 , blogger.getFavorite() != null);
 
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onBloggerStateEvent(BloggerStateEvent stateEvent) {
+
+        BloggerModel.Media media = new BloggerModel.Media();
+        media.setObjectId(stateEvent.getObjectId());
+        int index = bloggerListAdapter.indexOf(media);
+        if (index >= 0) {
+            if (stateEvent.isSubcribed()) {
+                BloggerModel.Favorite favorite = new BloggerModel.Favorite();
+                favorite.setUid(stateEvent.getFavoriteUid());
+                favorite.setObjectId(stateEvent.getFavoriteObjId());
+                bloggerListAdapter.get(index).setFavorite(favorite);
+            } else {
+                bloggerListAdapter.get(index).setFavorite(null);
+            }
+        }
+        bloggerListAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+        super.onDestroyView();
     }
 }
