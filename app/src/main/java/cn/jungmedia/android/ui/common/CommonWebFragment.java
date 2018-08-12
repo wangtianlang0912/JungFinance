@@ -85,13 +85,15 @@ public class CommonWebFragment extends BaseFragment {
             }
         });
 
+        homeIntent = getActivity().getIntent();
+        final Bundle bundle = homeIntent.getBundleExtra(AppConstant.FLAG_BUNDLE);
+
+        boolean shareEnable = bundle.getBoolean(AppConstant.FLAG_DATA2, true);
+        ((CommonActivity) getActivity()).getNtb().setRightTitleVisibility(shareEnable);
         ((CommonActivity) getActivity()).getNtb().setRightTitle(getString(R.string.share));
-        ((CommonActivity) getActivity()).getNtb().setRightTitleVisibility(true);
         ((CommonActivity) getActivity()).getNtb().setOnRightTextListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                homeIntent = getActivity().getIntent();
-                Bundle bundle = homeIntent.getBundleExtra(AppConstant.FLAG_BUNDLE);
                 String urlAddress = bundle.getString(AppConstant.FLAG_DATA);
                 new ShareHelper().share(getActivity(), "分享自" + MyUtils.getAppName(getActivity()), "", urlAddress);
             }
