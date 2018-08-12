@@ -212,7 +212,9 @@ public class AppIntent {
     public static void intentToCommonWeb(Context context, int resTitle, String url) {
         intentToCommonWeb(context, context.getString(resTitle), url, true);
     }
-
+    public static void intentToCommonWeb(Context context, String title, String url) {
+        intentToCommonWeb(context, title, url, true);
+    }
     public static void intentToCommonWeb(Context context, String title, String url, boolean shareEnable) {
         Bundle bundle = new Bundle();
         bundle.putString(AppConstant.FLAG_DATA, url);
