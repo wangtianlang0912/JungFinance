@@ -12,6 +12,10 @@ import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonwidget.LoadingTip;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +28,7 @@ import cn.jungmedia.android.bean.Counter;
 import cn.jungmedia.android.ui.fav.adapter.NewsEditListAdapter;
 import cn.jungmedia.android.ui.fav.bean.NewsFavBean;
 import cn.jungmedia.android.ui.fav.contract.NewsEditContract;
+import cn.jungmedia.android.ui.fav.event.NewsStateEvent;
 import cn.jungmedia.android.ui.fav.model.NewsEditModelImp;
 import cn.jungmedia.android.ui.fav.presenter.NewsEditPresenter;
 
@@ -85,6 +90,10 @@ public class NewsEditFragment extends BaseFragment<NewsEditPresenter, NewsEditMo
         if (listAdapter.getSize() <= 0) {
             mStartPage = 1;
             mPresenter.loadDataList(mStartPage);
+        }
+
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
         }
     }
 
@@ -191,5 +200,38 @@ public class NewsEditFragment extends BaseFragment<NewsEditPresenter, NewsEditMo
     @Override
     public void onBtnClicked(NewsFavBean.Favorite favorite) {
         mPresenter.unFavAction(favorite.getObjectId());
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNewsStateEvent(NewsStateEvent stateEvent) {
+
+        if (listAdapter == null) {
+            return;
+        }
+        if (stateEvent.isFav()) {
+
+            if (!listAdapter.getPageBean().isRefresh()) {
+                onRefresh();
+            }
+        } else {
+            listAdapter.remove(new NewsFavBean.Favorite(stateEvent.getObjectId()));
+            listAdapter.notifyDataSetChanged();
+            if (listAdapter.getSize() > 0) {
+                irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
+            } else {
+                irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+                emptyLayout.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+
+        super.onDestroyView();
     }
 }

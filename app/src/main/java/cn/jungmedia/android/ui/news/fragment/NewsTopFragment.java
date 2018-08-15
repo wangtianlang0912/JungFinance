@@ -234,6 +234,10 @@ public class NewsTopFragment extends BaseFragment<NewsListPresenter, NewsListMod
         //发起请求
         irc.setRefreshing(true);
         mPresenter.getNewsListDataRequest(mNewsId, mStartPage);
+        if (TextUtils.isEmpty(mNewsId)) {
+            mPresenter.getBannerList();
+            mPresenter.getAdList("article", "top");
+        }
     }
 
     @Override

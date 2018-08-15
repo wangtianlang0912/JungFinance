@@ -18,6 +18,8 @@ import com.leon.common.browser.InjectedChromeClient;
 import com.leon.common.browser.InnerWebViewClient;
 import com.leon.common.browser.ProgressWebView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -28,6 +30,7 @@ import cn.jungmedia.android.bean.ActivityFavModel;
 import cn.jungmedia.android.bean.ActivityModel;
 import cn.jungmedia.android.ui.common.CommonActivity;
 import cn.jungmedia.android.ui.common.CommonWebFragment;
+import cn.jungmedia.android.ui.fav.event.ActivityStateEvent;
 import cn.jungmedia.android.ui.main.contract.ActivityDetailContract;
 import cn.jungmedia.android.ui.main.model.ActivityDetailModelImp;
 import cn.jungmedia.android.ui.main.presenter.ActivityDetailPresenterImp;
@@ -85,13 +88,15 @@ public class ActivityInfoFragment extends BaseFragment<ActivityDetailPresenterIm
     @Override
     public void returnFavActivityState(ActivityFavModel.Favorite result, boolean fav, boolean toastRefer) {
 
-        if (fav && result != null) {
-            favView.setTag(result.getObjectId());
-            favView.setImageResource(R.drawable.icon_fav_s);
-            if (toastRefer) {
-                showShortToast("收藏成功");
+        if (fav) {
+            if (result != null) {
+                favView.setTag(result.getObjectId());
+                favView.setImageResource(R.drawable.icon_fav_s);
+                if (toastRefer) {
+                    showShortToast("收藏成功");
+                }
+                EventBus.getDefault().post(new ActivityStateEvent(result.getObjectId(), true));
             }
-
         } else {
 
             favView.setImageResource(R.drawable.icon_fav_n);
@@ -99,7 +104,12 @@ public class ActivityInfoFragment extends BaseFragment<ActivityDetailPresenterIm
             if (toastRefer) {
                 showShortToast("取消收藏");
             }
+            if (result != null) {
+                EventBus.getDefault().post(new ActivityStateEvent(result.getObjectId(), false));
+            }
         }
+
+
     }
 
     @Override

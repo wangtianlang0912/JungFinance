@@ -31,7 +31,7 @@ import rx.functions.Func1;
 public class MediaUpdateModelImp implements MediaUpdateContract.Model {
 
     @Override
-    public Observable<BaseRespose<MediaInfoBean>> submitMediaInfo(String mediaName, String realName, String wxId, String logoUrl, String wxUrl) {
+    public Observable<BaseRespose<MediaInfoBean>> submitMediaInfo(String mediaName, String alias, String realName, String wxId, String logoUrl, String wxUrl) {
         String token = MyUtils.getToken();
         UserInfo userInfo = MyUtils.getUserInfoFromPreference(AppApplication.getAppContext());
         int mediaId = 0;
@@ -40,9 +40,9 @@ public class MediaUpdateModelImp implements MediaUpdateContract.Model {
         }
         Observable<BaseRespose<MediaInfoBean>> observable;
         if (mediaId == 0) {
-            observable = Api.getDefault(HostType.Jung_FINANCE).createMediaInfo(token, mediaName, logoUrl, realName, wxUrl, 0, wxId);
+            observable = Api.getDefault(HostType.Jung_FINANCE).createMediaInfo(token, mediaName, alias, logoUrl, realName, wxUrl, 0, wxId);
         } else {
-            observable = Api.getDefault(HostType.Jung_FINANCE).setMediaInfo(token, mediaId, mediaName, logoUrl, realName, wxUrl, 0, wxId);
+            observable = Api.getDefault(HostType.Jung_FINANCE).setMediaInfo(token, mediaId, mediaName, alias, logoUrl, realName, wxUrl, 0, wxId);
         }
 
         return observable.map(new Func1<BaseRespose<MediaInfoBean>, BaseRespose<MediaInfoBean>>() {

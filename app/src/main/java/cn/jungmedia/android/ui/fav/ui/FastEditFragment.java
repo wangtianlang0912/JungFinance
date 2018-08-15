@@ -12,6 +12,10 @@ import com.aspsine.irecyclerview.widget.LoadMoreFooterView;
 import com.leon.common.base.BaseFragment;
 import com.leon.common.commonwidget.LoadingTip;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -24,6 +28,7 @@ import cn.jungmedia.android.bean.Counter;
 import cn.jungmedia.android.ui.fav.adapter.FastEditListAdapter;
 import cn.jungmedia.android.ui.fav.bean.NewsFavBean;
 import cn.jungmedia.android.ui.fav.contract.FastEditContract;
+import cn.jungmedia.android.ui.fav.event.NewsStateEvent;
 import cn.jungmedia.android.ui.fav.model.FastEditModelImp;
 import cn.jungmedia.android.ui.fav.presenter.FastEditPresenter;
 
@@ -85,6 +90,10 @@ public class FastEditFragment extends BaseFragment<FastEditPresenter, FastEditMo
         if (listAdapter.getSize() <= 0) {
             mStartPage = 1;
             mPresenter.loadDataList(mStartPage);
+        }
+
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
         }
     }
 
@@ -155,9 +164,9 @@ public class FastEditFragment extends BaseFragment<FastEditPresenter, FastEditMo
                 irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                 mStartPage++;
             } else {
-                if(listAdapter.getSize()>0) {
+                if (listAdapter.getSize() > 0) {
                     irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
-                }else {
+                } else {
                     irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
                     emptyLayout.setVisibility(View.VISIBLE);
                 }
@@ -181,8 +190,41 @@ public class FastEditFragment extends BaseFragment<FastEditPresenter, FastEditMo
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onNewsStateEvent(NewsStateEvent stateEvent) {
+
+        if (listAdapter == null) {
+            return;
+        }
+        if (stateEvent.isFav()) {
+
+            if (!listAdapter.getPageBean().isRefresh()) {
+                onRefresh();
+            }
+        } else {
+            listAdapter.remove(new NewsFavBean.Favorite(stateEvent.getObjectId()));
+            listAdapter.notifyDataSetChanged();
+            if (listAdapter.getSize() > 0) {
+                irc.setLoadMoreStatus(LoadMoreFooterView.Status.THE_END);
+            } else {
+                irc.setLoadMoreStatus(LoadMoreFooterView.Status.GONE);
+                emptyLayout.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+
     @Override
     public void onBtnClicked(NewsFavBean.Favorite favorite) {
         mPresenter.unFavAction(favorite.getObjectId());
+    }
+
+    @Override
+    public void onDestroyView() {
+
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+
+        super.onDestroyView();
     }
 }

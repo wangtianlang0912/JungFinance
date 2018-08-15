@@ -124,7 +124,7 @@
                         android:id="@+id/time_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="10dp"
                         android:textColor="@color/_bbbbbb"
                         android:textSize="13sp" />
 
@@ -140,7 +140,7 @@
                         android:id="@+id/source_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="10dp"
                         android:textColor="@color/_bbbbbb"
                         android:textSize="13sp" />
 
@@ -156,7 +156,7 @@
                         android:id="@+id/scan_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="20dp"
+                        android:layout_marginRight="10dp"
                         android:textColor="@color/_bbbbbb"
                         android:textSize="13sp" />
 

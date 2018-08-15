@@ -25,8 +25,8 @@ import cn.jungmedia.android.utils.MyUtils;
  */
 public class MediaUpdatePresenterImp extends MediaUpdateContract.Presenter {
     @Override
-    public void submitMediaInfo(String mediaName, String realName, String wxId, String logoUrl, String wxUrl) {
-        mRxManage.add(mModel.submitMediaInfo(mediaName, realName, wxId, logoUrl, wxUrl).subscribe(new RxSubscriber<BaseRespose<MediaInfoBean>>(mContext, false) {
+    public void submitMediaInfo(String mediaName, String alias, String realName, String wxId, String logoUrl, String wxUrl) {
+        mRxManage.add(mModel.submitMediaInfo(mediaName, alias, realName, wxId, logoUrl, wxUrl).subscribe(new RxSubscriber<BaseRespose<MediaInfoBean>>(mContext, false) {
             @Override
             protected void _onNext(BaseRespose<MediaInfoBean> data) {
                 if (!MyUtils.verifyToken(data)) {

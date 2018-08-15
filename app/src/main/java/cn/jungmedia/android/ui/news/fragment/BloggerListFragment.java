@@ -71,7 +71,9 @@ public class BloggerListFragment extends BaseFragment<BloggerListPresenter, Blog
             mPresenter.getBloggerListDataRequest(mStartPage);
         }
 
-        EventBus.getDefault().register(this);
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
     }
 
     @Override
